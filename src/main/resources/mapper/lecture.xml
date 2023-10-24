@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.LectureRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_lecture(category_id,user_id, title,content, address, address_detail, latitude, longitude, maximum, price, phone_number, state, created_at)
+		values(#{categoryId},#{userId},#{title},#{content},#{address},#{addressDetail},#{latitude},#{longitude},#{maximum},#{price},#{phoneNumber},#{state},now());
+	</insert>
+	
+	<update id="updateByLectureId">
+		UPDATE tb_lecture SET title = #{title}, content = #{content},
+		address = #{address}, address_detail = #{addressDetail},
+		latitude = #{latitude}, longitude = #{longitude},
+		maximum = #{maximum},price = #{price}
+		phone_number = #{phoneNumber},state = #{state}
+		WHERE lecture_id = #{lectureId};
+	</update>
+	
+	<delete id="deleteByLectureId">
+		DELETE FROM tb_lecture WHERE lecture_id = #{lectureId};
+	</delete>
+	
+	<select id="findByLectureId" resultType = "com.tencoding.ADayOfLearning.repository.model.Lecture">
+		SELECT * FROM tb_lecture WHERE lecture_id = #{lectureId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Lecture">
+		SELECT * FROM tb_lecture;
+	</select>
+	
+</mapper>

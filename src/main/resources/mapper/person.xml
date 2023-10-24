@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.PersonRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_person(user_id, name, address, address_detail, email, phone_number, birthday, created_at)
+		values(#{userId},#{name},#{address},#{addressDetail},#{email},#{phoneNumber},#{birthday},now());
+	</insert>
+	
+	<update id="updateByPersonId">
+		UPDATE tb_person SET name = #{name},address = #{address},
+		address_detail = #{addressDetail},email = #{email},
+		phone_number = #{phoneNumber},birthday = #{birthday}
+		WHERE person_id = #{personId};
+	</update>
+	
+	<delete id="deleteByPersonId">
+		DELETE FROM tb_person WHERE person_id = #{personId};
+	</delete>
+	
+	<select id="findByPersonId" resultType = "com.tencoding.ADayOfLearning.repository.model.Person">
+		SELECT * FROM tb_person WHERE person_id = #{personId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Person">
+		SELECT * FROM tb_person;
+	</select>
+	
+</mapper>

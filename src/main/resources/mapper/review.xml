@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.ReviewRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_review(lecture_id, user_id, score, content,created_at)
+		values(#{lectureId},#{userId},#{score},#{content},now());
+	</insert>
+	
+	<update id="updateByReviewId">
+		UPDATE tb_review SET score = #{score},content = #{content},
+		WHERE review_id = #{reviewId};
+	</update>
+	
+	<delete id="deleteByReviewId">
+		DELETE FROM tb_review WHERE review_id = #{reviewId};
+	</delete>
+	
+	<select id="findByReviewId" resultType = "com.tencoding.ADayOfLearning.repository.model.Review">
+		SELECT * FROM tb_review WHERE review_id = #{reviewId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Review">
+		SELECT * FROM tb_review;
+	</select>
+	
+</mapper>

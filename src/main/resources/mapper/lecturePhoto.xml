@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.LecturePhotoRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_lecture_photo(lecture_id,is_thumbnail,img,created_at)
+		values(#{lectureId},#{isThumbnail},#{img},now());
+	</insert>
+	
+	<update id="updateByLecturePhotoId">
+		UPDATE tb_lecture_photo SET is_thumbnail = #{isThumbnail}, img = #{img}
+		WHERE lecture_photo_id = #{lecturePhotoId};
+	</update>
+	
+	<delete id="deleteByLecturePhotoId">
+		DELETE FROM tb_lecture_photo WHERE lecture_photo_id = #{lecturePhotoId};
+	</delete>
+	
+	<select id="findByLecturePhotoId" resultType = "com.tencoding.ADayOfLearning.repository.model.LecturePhoto">
+		SELECT * FROM tb_lecture_photo WHERE lecture_photo_id = #{lecturePhotoId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.LecturePhoto">
+		SELECT * FROM tb_lecture_photo;
+	</select>
+	
+</mapper>

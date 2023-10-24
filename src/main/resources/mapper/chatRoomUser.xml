@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomUserRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_chat_room_user(chat_room_id, user_id, start_at,created_at)
+		values(#{chatRoomId},#{userId},#{startAt},now());
+	</insert>
+	
+	<update id="updateByChatRoomUserId">
+		UPDATE tb_chat_room_user SET start_at = #{startAt}
+		WHERE chat_room_user_id = #{chatRoomUserId};
+	</update>
+	
+	<delete id="deleteByChatRoomUserId">
+		DELETE FROM tb_chat_room_user WHERE chat_room_user_id = #{chatRoomUserId};
+	</delete>
+	
+	<select id="findByChatRoomUserId" resultType = "com.tencoding.ADayOfLearning.repository.model.ChatRoomUser">
+		SELECT * FROM tb_chat_room_user WHERE chat_room_user_id = #{chatRoomUserId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.ChatRoomUser">
+		SELECT * FROM tb_chat_room_user;
+	</select>
+	
+</mapper>

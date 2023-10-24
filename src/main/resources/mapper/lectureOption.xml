@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.LectureOptionRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_lecture_option(lecture_id,option_id,created_at)
+		values(#{lectureId},#{optionId},now());
+	</insert>
+	
+	<update id="updateByLectureOptionId">
+		UPDATE tb_lecture_option SET lecture_id = #{lectureId}, option_id = #{optionId}
+		WHERE lecture_option_id = #{lectureOptionId};
+	</update>
+	
+	<delete id="deleteByLectureOptionId">
+		DELETE FROM tb_lecture_option WHERE lecture_option_id = #{lectureOptionId};
+	</delete>
+	
+	<select id="findByLectureOptionId" resultType = "com.tencoding.ADayOfLearning.repository.model.LectureOption">
+		SELECT * FROM tb_lecture_option WHERE lecture_option_id = #{lectureOptionId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.LectureOption">
+		SELECT * FROM tb_lecture_option;
+	</select>
+	
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.LectureSessionRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_lecture_session(lecture_id,session_date,created_at)
+		values(#{lectureId},#{sessionDate},now());
+	</insert>
+	
+	<update id="updateByLectureSessionId">
+		UPDATE tb_lecture_session SET session_date = #{sessionDate}
+		WHERE lecture_session_id = #{lectureSessionId};
+	</update>
+	
+	<delete id="deleteByLectureSessionId">
+		DELETE FROM tb_lecture_session WHERE lecture_session_id = #{lectureSessionId};
+	</delete>
+	
+	<select id="findByLectureSessionId" resultType = "com.tencoding.ADayOfLearning.repository.model.LectureSession">
+		SELECT * FROM tb_lecture_session WHERE lecture_session_id = #{lectureSessionId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.LectureSession">
+		SELECT * FROM tb_lecture_session;
+	</select>
+	
+</mapper>

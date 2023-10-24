@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.ReserveRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_reserve(lecture_session_id,user_id,created_at)
+		values(#{lectureSessionId},#{userId},now());
+	</insert>
+	
+	<update id="updateByReserveId">
+		UPDATE tb_reserve SET reserve_id = #{reserveId}
+		WHERE reserve_id = #{reserveId};
+	</update>
+	
+	<delete id="deleteByReserveId">
+		DELETE FROM tb_reserve WHERE reserve_id = #{reserveId};
+	</delete>
+	
+	<select id="findByReserveId" resultType = "com.tencoding.ADayOfLearning.repository.model.Reserve">
+		SELECT * FROM tb_reserve WHERE reserve_id = #{reserveId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Reserve">
+		SELECT * FROM tb_reserve;
+	</select>
+	
+</mapper>

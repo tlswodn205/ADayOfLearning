@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.PaymentRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_payment(reserve_id, amount, payment_kind, tid, payment_date, state, created_at)
+		values(#{reserveId},#{amount},#{paymentKind},#{tid},#{paymentDate},#{state},now());
+	</insert>
+	
+	<update id="updateByPaymentId">
+		UPDATE tb_payment SET amount = #{amount},payment_kind = #{paymentKind},
+		tid = #{tid},payment_date = #{paymentDate},
+		state = #{state},refund_date = #{refundDate},refund_info = #{refund_info}
+		WHERE payment_id = #{paymentId};
+	</update>
+	
+	<delete id="deleteByPaymentId">
+		DELETE FROM tb_payment WHERE payment_id = #{paymentId};
+	</delete>
+	
+	<select id="findByPaymentId" resultType = "com.tencoding.ADayOfLearning.repository.model.Payment">
+		SELECT * FROM tb_payment WHERE payment_id = #{paymentId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Payment">
+		SELECT * FROM tb_payment;
+	</select>
+	
+</mapper>
