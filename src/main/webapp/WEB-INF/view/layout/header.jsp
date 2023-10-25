@@ -11,4 +11,6 @@
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/e8f010a863.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+<body>

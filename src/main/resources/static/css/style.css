@@ -1,0 +1,63 @@
+
+html, body{
+	margin:0;
+	padding:0;
+}
+
+a {
+    font-weight: bold;
+    font-size: 2rem;
+    display: block;
+    margin: 20px;
+}
+ul,ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+a {
+  all: unset;
+}
+
+a:link {
+  text-decoration: none;
+  color: #3f464d;
+}
+  
+a:visited {
+  text-decoration: none;
+  color: #3f464d;
+}
+
+a:active {
+    text-decoration: none;
+    color: #3f464d;
+}
+
+a:hover {
+  text-decoration: none;
+  color: tomato;
+  cursor: pointer;
+}
+
+button {
+
+  background: inherit ;
+  border:none; 
+  box-shadow:none; 
+  border-radius:0; 
+  padding:0; 
+  overflow:visible; 
+  cursor:pointer
+
+}
+
+main {
+	width:1200px;
+	flex-direction: column;
+	align-items: center;
+	padding: 0;
+	height: 100%;
+}
