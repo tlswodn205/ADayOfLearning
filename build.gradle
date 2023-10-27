@@ -34,6 +34,8 @@ dependencies {
 		
 	//커넥트 j
 	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	
 }
 
 
