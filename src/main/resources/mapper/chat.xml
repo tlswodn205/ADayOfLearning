@@ -5,24 +5,35 @@
 
 	<insert id= "insert">
 		INSERT INTO tb_chat(chat_room_id, user_id, context, view_at,created_at)
-		values(#{chatRoomId},#{userId},#{context},#{viewAt},now());
+		values (#{chatRoomId},#{userId},#{context},#{viewAt},now());
 	</insert>
 	
 	<update id="updateByChatId">
 		UPDATE tb_chat SET context = #{context}, view_at = #{viewAt}
-		WHERE chat_id = #{chatId};
+		 WHERE chat_id = #{chatId};
 	</update>
 	
 	<delete id="deleteByChatId">
-		DELETE FROM tb_chat WHERE chat_id = #{chatId};
+		DELETE
+		  FROM tb_chat
+		 WHERE chat_id = #{chatId};
 	</delete>
 	
 	<select id="findByChatId" resultType = "com.tencoding.ADayOfLearning.repository.model.Chat">
-		SELECT * FROM tb_chat WHERE chat_id = #{chatId};
+		SELECT *
+		  FROM tb_chat
+		 WHERE chat_id = #{chatId};
 	</select>
 	
 	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Chat">
-		SELECT * FROM tb_chat;
+		SELECT *
+		  FROM tb_chat;
+	</select>
+	
+	<select id="findByChatRoomId" resultType = "com.tencoding.ADayOfLearning.repository.model.Chat">
+		SELECT *
+		  FROM tb_chat
+		 WHERE chat_room_id = #{chatRoomId};
 	</select>
 	
 </mapper>

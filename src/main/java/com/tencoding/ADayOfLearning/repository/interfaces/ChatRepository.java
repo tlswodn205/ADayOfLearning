@@ -13,4 +13,6 @@ public interface ChatRepository {
 	public int deleteByChatId(int chatId);
 	public Chat findByChatId(int chatId);
 	public List<Chat> findByAll();
+	
+	public List<Chat> findByChatRoomId(int chatRoomId);
 }

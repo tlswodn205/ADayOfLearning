@@ -4,8 +4,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tencoding.ADayOfLearning.dto.request.PaymentRequestDto;
 import com.tencoding.ADayOfLearning.service.PaymentService;
 
 @Controller
@@ -17,4 +21,18 @@ public class PaymentController {
 	
 	@Autowired
 	HttpSession session;
+	
+	
+	@GetMapping("/payRequest")
+	public String paymentRequest(Model model) {
+		PaymentRequestDto paymentRequestDto = new PaymentRequestDto();
+		model.addAttribute("payRequest", paymentRequestDto);
+		
+		return "payment/payRequest";
+	}
+	
+	@PostMapping("/payResult")
+	public String paymentResult() {
+		return "payment/payResult";
+	}
 }
