@@ -19,3 +19,27 @@
         
 </head>
 <body>
+	<header>
+		<div class="headerWrap">
+			<img src="/images/logo/logo.png" class="logo">
+			<ul class='topMenuRight'>
+				<li>
+					<a>수업보기</a>
+				</li>
+				<li>
+					<a>새소식</a>
+				</li>
+				<li>
+					<a>서비스소개</a>
+				</li>
+			</ul>			
+			<ul class='topMenuLeft'>
+				<li>
+					<a class="fa-solid fa-comments"></a>
+				</li>
+				<li>
+					<a class="fa-solid fa-user"></a>
+				</li>
+			</ul>
+		</div>
+	</header>

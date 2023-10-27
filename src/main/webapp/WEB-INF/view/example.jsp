@@ -2,8 +2,8 @@
 
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
 <main>
-<div id="example">
-hello
-</div>
+	<div id="example" class="mainColumn">
+	hello
+	</div>
 </main>
 <%@ include file="/WEB-INF/view/layout/footer.jsp" %>

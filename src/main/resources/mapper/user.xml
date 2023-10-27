@@ -6,6 +6,9 @@
 	<insert id= "insert">
 		INSERT INTO tb_user(username, password, identity, created_at)
 		values(#{username},#{password},#{identity},now());
+		<selectKey resultType="int" keyProperty="userId" order="AFTER"> <!-- 입력후 co_no를 리턴함 -->
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
 	<update id="updateByUserId">
@@ -24,6 +27,10 @@
 	
 	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.User">
 		SELECT * FROM tb_user;
+	</select>
+	
+	<select id="findByUsername" resultType = "com.tencoding.ADayOfLearning.repository.model.User">
+		SELECT * FROM tb_user WHERE username = #{username};
 	</select>
 	
 </mapper>
