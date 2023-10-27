@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Reserve;
 
 
@@ -14,4 +15,5 @@ public interface ReserveRepository {
 	public int deleteByReserveId(int reserveId);
 	public Reserve findByReserveId(int reserveId);
 	public List<Reserve> findByAll();
+	public List<ReserveListResponseDto> findByUserId(int userId);
 }
