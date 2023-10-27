@@ -25,4 +25,19 @@
 		SELECT * FROM tb_chat_room;
 	</select>
 	
+	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto">
+		SELECT a.chat_room_id, b.user_id, c.name
+		  FROM ( SELECT a.chat_room_id, b.user_id, a.created_at
+				   FROM tb_chat_room a
+				   JOIN tb_chat_room_user b
+					 ON a.chat_room_id = b.chat_room_id 
+					AND b.user_id = 1) a
+		  JOIN tb_chat_room_user b
+		    ON a.chat_room_id = b.chat_room_id
+		   AND a.user_id != b.user_id
+		  LEFT JOIN tb_person c
+			ON b.user_id = c.person_id
+		 ORDER BY a.created_at asc
+	</select>
+	
 </mapper>
