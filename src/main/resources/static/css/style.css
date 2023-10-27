@@ -54,10 +54,60 @@ button {
 
 }
 
+header{
+ 	background-color: #88888840;
+}
+
+header .headerWrap{
+	display: flex;
+	height:60px;
+    margin-left: 15%;
+    margin-right: 15%;
+ 	align-items:center;
+}
+
+header .logo{
+	height:45px;
+	margin-right: 20px;
+}
+
+header .topMenuRight{
+	display: flex;
+}
+
+
+header .topMenuRight li {
+    border-right: 1px solid #000; /* 모든 <li> 요소 사이에 선 그리기 */
+    padding: 0px 20px; /* 내용과 선 사이의 간격 조절 (선택 사항) */
+}
+
+header .topMenuRight li:last-child {
+    border-right: none; /* 마지막 <li> 요소의 border-bottom 제거 */
+}
+
+header .topMenuLeft{
+	display: flex;
+	margin-left: auto;
+}
+
+header .topMenuLeft li {
+    margin: 0px 10px; /* 내용과 선 사이의 간격 조절 (선택 사항) */
+}
+
 main {
+	flex: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+main .mainColumn{
 	width:1200px;
 	flex-direction: column;
-	align-items: center;
 	padding: 0;
-	height: 100%;
+	height: 100%;       
+	display: flex; 
+	align-items: center;
+	justify-content: center;
 }
+
