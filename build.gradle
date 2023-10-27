@@ -32,9 +32,12 @@ dependencies {
 	implementation 'javax.servlet:jstl'
 	implementation 'org.springframework.security:spring-security-crypto'
 		
-	//커넥트 j
+	// 커넥트 j
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	
+	// 웹 소켓
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
 	// commons-codec
 	// https://mvnrepository.com/artifact/commons-codec/commons-codec
 	implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
