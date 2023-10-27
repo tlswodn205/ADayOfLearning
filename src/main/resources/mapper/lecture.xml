@@ -29,4 +29,64 @@
 		SELECT * FROM tb_lecture;
 	</select>
 	
+	<select id="findByStateAll" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
+		SELECT l.title, c.category_name, l.price, l.address, u.username, p.img
+		FROM tb_lecture l 
+		JOIN tb_category c ON l.category_id = c.category_id
+		JOIN tb_user u ON l.user_id = u.user_id
+        JOIN tb_lecture_photo p ON p.lecture_id = l.lecture_id
+		WHERE l.state = 1 AND p.is_thumbnail = 1;
+	</select>
+
+<!-- 날짜가 포함안됨	 -->
+<!-- 	<select id="findBySearch" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto"> -->
+<!-- 		SELECT l.title, c.category_name, l.price, l.address, u.username, p.img -->
+<!-- 		FROM tb_lecture l  -->
+<!-- 		JOIN tb_category c ON l.category_id = c.category_id -->
+<!-- 		JOIN tb_user u ON l.user_id = u.user_id -->
+<!--         JOIN tb_lecture_photo p ON p.lecture_id = l.lecture_id -->
+<!--         WHERE l.state = 1 AND p.is_thumbnail = 1 -->
+<!--         <if test="title != null"> -->
+<!-- 			AND REPLACE(l.title, ' ', '') LIKE '%${title}%' -->
+<!-- 		</if> -->
+<!-- 		 <if test="categoryName != null"> -->
+<!-- 			AND c.category_name = #{categoryName} -->
+<!-- 		</if>	 -->
+<!--          <if test="minPrice != null"> -->
+<!-- 			AND l.price >= #{minPrice} -->
+<!-- 		</if>	 -->
+<!--          <if test="maxPrice != null"> -->
+<!-- 			AND #{maxPrice} >= l.price -->
+<!-- 		</if>	 -->
+<!--          <if test="location != null"> -->
+<!-- 			AND address LIKE '${location}%' -->
+<!-- 		</if>	 -->
+<!-- 	</select> -->
+	
+<!-- !!!날짜와 이미지가 안뿌려지는 테스트용!!! -->
+	<select id="findBySearch" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
+		SELECT l.title, c.category_name, l.price, l.address, u.username
+		FROM tb_lecture l 
+		JOIN tb_category c ON l.category_id = c.category_id
+		JOIN tb_user u ON l.user_id = u.user_id
+        WHERE l.state = 1
+        <if test="title != null">
+			AND REPLACE(l.title, ' ', '') LIKE '%${title}%'
+		</if>
+		 <if test="categoryName != null">
+			AND c.category_name = #{categoryName}
+		</if>	
+         <if test="minPrice != null">
+			AND l.price >= #{minPrice}
+		</if>	
+         <if test="maxPrice != null">
+			AND #{maxPrice} >= l.price
+		</if>	
+         <if test="location != null">
+			AND address LIKE '${location}%'
+		</if>	
+	</select>
+
+
+
 </mapper>

@@ -24,5 +24,7 @@
 	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.LecturePhoto">
 		SELECT * FROM tb_lecture_photo;
 	</select>
+
+	
 	
 </mapper>
