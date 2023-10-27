@@ -28,9 +28,11 @@ public class LectureController {
 	HttpSession session;
 
 	@GetMapping("/list")
-	public String list(Model model, @RequestParam(defaultValue = "1") Integer page, @RequestParam(required = false) Integer min_price,
-			@RequestParam(required = false) Integer max_price, @RequestParam(required = false) String category,
-			@RequestParam(required = false) String title, @RequestParam(required = false) String location,
+	public String list(Model model, @RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(required = false) Integer min_price, @RequestParam(required = false) Integer max_price,
+			@RequestParam(required = false, defaultValue = "전체") String category,
+			@RequestParam(required = false) String title,
+			@RequestParam(required = false, defaultValue = "전체") String location,
 			@RequestParam(required = false) String date) throws JsonProcessingException {
 
 		if (location.equals("전체")) {
@@ -52,6 +54,12 @@ public class LectureController {
 		model.addAttribute("page", page);
 
 		return "lecture/list";
+	}
+	
+	@GetMapping("/detail")
+	public String detail(@RequestParam Integer id) {
+		
+		return "lecture/detail";
 	}
 
 }

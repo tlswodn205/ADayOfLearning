@@ -29,11 +29,11 @@ file="/WEB-INF/view/layout/header.jsp"%>
             </div>
             <div class="lecturelist-row">
                 <input class="selected-date" type="hidden" name="date" />
-                <table class="Calendar">
+                <table class="Calendar-list">
                     <thead>
                         <tr>
                             <td onClick="prevCalendar();" style="cursor: pointer">&#60;</td>
-                            <td colspan="5"><span id="calYear"></span>년 <span id="calMonth"></span>월</td>
+                            <td colspan="5"><span class="calYear-list"></span>년 <span class="calMonth-list"></span>월</td>
                             <td onClick="nextCalendar();" style="cursor: pointer">&#62;</td>
                         </tr>
                         <tr>
@@ -52,7 +52,7 @@ file="/WEB-INF/view/layout/header.jsp"%>
             </div>
         </div>
         <div class="search_form_submit_area">
-            <button type="button">초기화</button>
+            <button type="button" id="search-form-reset">초기화</button>
             <button type="button" id="search-form-submit">검색하기</button>
         </div>
     </form>
