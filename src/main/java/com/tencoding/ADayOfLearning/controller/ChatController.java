@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tencoding.ADayOfLearning.repository.model.Chat;
+import com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto;
 import com.tencoding.ADayOfLearning.service.ChatService;
 
 @Controller
@@ -24,14 +24,14 @@ public class ChatController{
 	HttpSession session;
 	
 	/**
-	 * 기존의 채팅 내용 가져오기 (채팅 방 입장)
+	 * 기존의 채팅 내용 리스트 조회
 	 * @param chatRoomId
 	 * @return
 	 */
 	@GetMapping("/roomId")
-	public @ResponseBody List<Chat> chatRoom(int chatRoomId){
+	public @ResponseBody List<ChatMessageRequestDto> chatRoom(int chatRoomId){
 		
-		List<Chat> chat = chatService.findByChatRoomId(chatRoomId);
+		List<ChatMessageRequestDto> chat = chatService.findByChatRoomId(chatRoomId);
 		return chat;
 	}
 	

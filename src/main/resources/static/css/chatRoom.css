@@ -1,0 +1,51 @@
+#chat {
+	display: flex;
+	width: 1200px;
+	padding: 30px;
+	align-items: flex-start;
+}
+
+#chat .chatRoomList {
+	width: 40%;
+	height: 100%;
+	border: 1px solid;
+}
+#chat .chatRoom {
+	margin: 5px;
+	cursor: pointer;
+}
+
+#chat .chatView {
+	width: 59%;
+	height: 100%;
+	border: 1px solid;
+}
+
+#chat .chatView .chatContent .chatEnter{
+	width: 100%;
+	padding: 5px;
+	margin: 10px;
+	text-align: center;
+	font-size: 20px;
+}
+
+#chat .chatView .chatContent .chatMy{
+	width: 100%;
+	margin: 10px;
+	padding: 5px;
+	border-radius: 8px;
+	background-color: rgb(255, 255, 170);
+	text-align: right;
+	font-size: 16px;
+}
+
+#chat .chatView .chatContent .chatOther{
+	width: 100%;
+	margin: 10px;
+	padding: 5px;
+	border-radius: 8px;
+	background-color: rgb(220, 220, 220);
+	text-align: left;
+	font-size: 16px;
+}
+

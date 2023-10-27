@@ -35,4 +35,10 @@ public class ChatRoomController {
 		model.addAttribute("chatRoomList", chatRoomList);
 		return "chat/chatRoom";
 	}
+	
+	@GetMapping("/insert")
+	public String chatInsert() {
+		chatRoomService.insert();
+		return "chat/chatRoom";
+	}
 }

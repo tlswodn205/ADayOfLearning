@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomRepository"> 
 
-	<insert id= "insert">
+	<insert id= "insert" useGeneratedKeys="true" keyProperty="chatRoomId">
 		INSERT INTO tb_chat_room(created_at)
 		values(now());
 	</insert>
@@ -26,7 +26,7 @@
 	</select>
 	
 	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto">
-		SELECT a.chat_room_id, b.user_id, c.name
+		SELECT a.chat_room_id, b.user_id, c.username, d.name
 		  FROM ( SELECT a.chat_room_id, b.user_id, a.created_at
 				   FROM tb_chat_room a
 				   JOIN tb_chat_room_user b
@@ -35,8 +35,10 @@
 		  JOIN tb_chat_room_user b
 		    ON a.chat_room_id = b.chat_room_id
 		   AND a.user_id != b.user_id
-		  LEFT JOIN tb_person c
-			ON b.user_id = c.person_id
+		  LEFT JOIN tb_user c
+			ON b.user_id = c.user_id
+		  LEFT JOIN tb_person d
+			ON b.user_id = d.person_id
 		 ORDER BY a.created_at asc
 	</select>
 	

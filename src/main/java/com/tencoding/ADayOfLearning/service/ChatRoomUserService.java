@@ -10,4 +10,10 @@ public class ChatRoomUserService {
 
 	@Autowired
 	ChatRoomUserRepository chatRoomUserRepository;
+
+	public void chatRoomEnter(String username, String chatUsername) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
