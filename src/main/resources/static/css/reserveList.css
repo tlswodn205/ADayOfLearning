@@ -1,0 +1,37 @@
+html, body {
+	height: 100%;
+	width: 1200px;
+	margin: 0 auto;
+}
+#reserveList .content {
+	/* display: flex; */
+	/* justify-content: space-between; */
+	margin-top: 50px;
+}
+#reserveList .listBox {
+	border: 1px solid #d3d3d3;
+	border-radius: 12px;
+	padding: 24px;
+	margin-bottom: 20px;
+}
+#reserveList .listBox h3 {
+	margin-top: 0;
+}
+#reserveList .listItem {
+	display: flex;
+}
+.listItem img {
+	margin-right: 30px;
+	border-radius: 7px;
+}
+.listContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.listContent h4 {
+	margin: 0;
+}
+.listContent p {
+	margin: 0;
+}

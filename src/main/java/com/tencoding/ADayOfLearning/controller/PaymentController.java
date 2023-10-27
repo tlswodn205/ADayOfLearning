@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tencoding.ADayOfLearning.dto.request.PaymentRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.ReserveRequestDto;
 import com.tencoding.ADayOfLearning.service.PaymentService;
+import com.tencoding.ADayOfLearning.service.ReserveService;
 
 @Controller
 @RequestMapping("/payment")
@@ -18,6 +20,9 @@ public class PaymentController {
 
 	@Autowired
 	PaymentService paymentService;
+	
+	@Autowired
+	ReserveService reserveService;
 	
 	@Autowired
 	HttpSession session;
@@ -32,7 +37,9 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/payResult")
-	public String paymentResult() {
+	public String paymentResult(ReserveRequestDto reserveRequestDto) {
+		reserveService.insertReserve(reserveRequestDto);
+		
 		return "payment/payResult";
 	}
 }
