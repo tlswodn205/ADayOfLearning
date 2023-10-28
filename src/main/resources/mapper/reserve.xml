@@ -28,15 +28,16 @@
 	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto">
 		SELECT r.reserve_id, p.state, p.payment_date, p.amount, lp.img, l.title, ls.session_date
 		  FROM tb_reserve r
-		 INNER JOIN tb_payment p
+		  JOIN tb_payment p
 		    ON r.reserve_id = p.reserve_id
-		 INNER JOIN tb_lecture_session ls
+		  JOIN tb_lecture_session ls
 		    ON r.lecture_session_id = ls.lecture_session_id
-		 INNER JOIN tb_lecture l
+		  JOIN tb_lecture l
 		    ON ls.lecture_id = l.lecture_id
-		 INNER JOIN tb_lecture_photo lp
+		  LEFT JOIN tb_lecture_photo lp
 		    ON ls.lecture_id = lp.lecture_id
 		 WHERE r.user_id = #{userId}
+		 ORDER BY reserve_id DESC
 	</select>
 	
 </mapper>
