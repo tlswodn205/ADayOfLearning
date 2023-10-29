@@ -36,9 +36,4 @@ public class ChatRoomController {
 		return "chat/chatRoom";
 	}
 	
-	@GetMapping("/insert")
-	public String chatInsert() {
-		chatRoomService.insert();
-		return "chat/chatRoom";
-	}
 }

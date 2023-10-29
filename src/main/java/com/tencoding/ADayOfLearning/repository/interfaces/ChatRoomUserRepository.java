@@ -14,4 +14,5 @@ public interface ChatRoomUserRepository {
 	public int deleteByChatRoomUserId(int chatRoomUserId);
 	public ChatRoomUser findByChatRoomUserId(int chatRoomUserId);
 	public List<ChatRoomUser> findByAll();
+	public int findByChatRoomIdAndUserId(Integer chatRoomId, int userId);
 }

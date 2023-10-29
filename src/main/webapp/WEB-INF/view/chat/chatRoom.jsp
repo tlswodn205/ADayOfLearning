@@ -11,16 +11,19 @@
 			${principal.username}
 		</div>
 		<input type="hidden" id="username" value="${principal.username}">
+		<input type="hidden" id="userId" value="${principal.userId}">
 		<c:forEach var="chatRoom" items="${chatRoomList}">
 			<div class="chatRoom" onclick="chatRoom(this)">
 				<input type="hidden" id="chatRoomId" value="${chatRoom.chatRoomId}">
+				<input type="hidden" id="chatUserId" value="${chatRoom.userId}">
 				<span id="chatUsername">${chatRoom.username}</span>
 			</div>
 		</c:forEach>
 	</div>
 	<div class="chatView">
-		<input type="hidden" id="nowChatRoomId" value="1">
-		<input type="hidden" id="nowUsername" value="1">
+		<input type="hidden" id="nowChatRoomId">
+		<input type="hidden" id="nowUserId">
+		<input type="hidden" id="nowUsername">
 		<div id="chatPerson"></div>
 		<hr>
 		<div class="chatContent" id="chatContent"></div>

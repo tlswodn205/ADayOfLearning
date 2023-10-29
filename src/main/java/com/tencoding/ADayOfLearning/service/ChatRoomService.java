@@ -8,11 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomRepository;
-import com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomUserRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
 import com.tencoding.ADayOfLearning.repository.model.ChatRoom;
-import com.tencoding.ADayOfLearning.repository.model.ChatRoomUser;
-import com.tencoding.ADayOfLearning.repository.model.User;
 
 @Service
 public class ChatRoomService {
@@ -21,7 +18,7 @@ public class ChatRoomService {
 	ChatRoomRepository chatRoomRepository;
 
 	@Autowired
-	ChatRoomUserRepository chatRoomUserRepository;
+	ChatRoomUserService chatRoomUserService;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -31,22 +28,16 @@ public class ChatRoomService {
 	}
 
 	@Transactional
-	public int insert(String user1, String user2) {
+	public int insert(int sendUserId, int receiveUserId) {
 		// chat_room insert
-		
 		ChatRoom chatRoom = new ChatRoom();
 		chatRoomRepository.insert(chatRoom);
-		// chat_room_user insert
-		User userEntity = userRepository.findByUsername(user1);
-		ChatRoomUser chatRoomUser = ChatRoomUser.builder()
-												.chatRoomId(chatRoom.getChatRoomId())
-												.UserId(userEntity.getUserId())
-												.build();
-		chatRoomUserRepository.insert(chatRoomUser);
 		
-		userEntity = userRepository.findByUsername(user2);
-		chatRoomUser.setUserId(userEntity.getUserId());
-		chatRoomUserRepository.insert(chatRoomUser);
+		// chat_room_user insert
+		chatRoomUserService.insert(chatRoom.getChatRoomId(), sendUserId);
+		chatRoomUserService.insert(chatRoom.getChatRoomId(), receiveUserId);
+		
 		return chatRoom.getChatRoomId();
 	}
+	
 }

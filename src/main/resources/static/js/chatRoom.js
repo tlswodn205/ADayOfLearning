@@ -20,6 +20,8 @@ nowChatMessage
 chatroom
 
 나 자신
+userId
+userName
 
 채팅 상대
 */
@@ -31,6 +33,7 @@ $(document).ready(function () {
 		}
 	})
 	
+	// 대화 전송
 	$("#chatInput").click(() => {
 		if(stomp == null) {
 			return;
@@ -43,7 +46,10 @@ $(document).ready(function () {
 		
 		let sendData = {
 			chatRoomId: $("#nowChatRoomId").val(),
-			username: $("#username").val(),
+			sendUserId: $("#username").val(),
+			sendUsername: $("#userId").val(),
+			receiveUserId: $("#nowUserId").val(),
+			receiveUsername: $("#nowUsername").val(),
 			message: chatMessage.val()
 		};
 		stomp.send('/pub/chat/message', {}, JSON.stringify(sendData))
@@ -52,11 +58,11 @@ $(document).ready(function () {
 }) // end of document ready
 
 let stomp = null;
-// 채팅 리스트 중 하나 클릭
+// 이미 존재하는 채팅방 입장
 function chatRoom(event) {
 	let chatRoomId = $(event).find("#chatRoomId");
+	let chatUserId = $(event).find("#chatUserId");
 	let chatUsername = $(event).find("#chatUsername");
-	$("#chatMessage").val('');
 	$.ajax({
 		url: '/chat/roomId',
 		method: 'get',
@@ -65,6 +71,7 @@ function chatRoom(event) {
 		success: function(response) {
 			// 채팅창 초기화 표시
 			console.log('성공: ', response);
+			$("#chatMessage").val('');
 			$("#chatPerson").text(chatUsername.text() + "와의 대화 내용");
 			$("#chatContent").empty();
 			// 채팅 히스토리 출력
@@ -104,7 +111,7 @@ function chatRoom(event) {
 		stomp.subscribe("/sub/chat/room/" + chatRoomId.val(), function (chat) {
 			console.log('subscribe');
 			let content = JSON.parse(chat.body);
-			let stompUsername = content.username;
+			let stompUsername = content.sendUsername;
 			let stompMessage = content.message;
 
 	        if(stompMessage == null) {
@@ -123,11 +130,9 @@ function chatRoom(event) {
 
 		//3. send(path, header, message)로 메세지를 보낼 수 있음
 		let sendData = {
-			chatRoomId: chatRoomId.val(),
-			username: $("#username").val(),
-			chatUsername: chatUsername.text()
+			chatRoomId: chatRoomId.val()
 		};
-		stomp.send('/pub/chat/enter', {}, JSON.stringify(sendData))
+		stomp.send('/pub/chat/enter', {}, JSON.stringify(sendData));
     });
 }
 

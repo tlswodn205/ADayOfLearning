@@ -30,8 +30,9 @@
 		  FROM tb_chat;
 	</select>
 	
+	<!-- 채팅방의 id로 대화내용 가져오기 -->
 	<select id="findByChatRoomId" resultType = "com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto">
-		SELECT a.chat_room_id, a.user_id, b.username, a.context as message
+		SELECT a.chat_room_id, a.user_id, b.username, a.context as message, 
 		  FROM tb_chat a
 		  LEFT JOIN tb_user b
 		    ON a.user_id = b.user_id

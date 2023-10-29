@@ -26,7 +26,7 @@ public class ChatService {
 	}
 
 	public int insertChat(ChatMessageRequestDto chatMessageRequestDto) {
-		User userEntity = userRepository.findByUsername(chatMessageRequestDto.getUsername());
+		User userEntity = userRepository.findByUsername(chatMessageRequestDto.getSendUsername());
 		Chat chatEntity = Chat.builder()
 				.chatRoomId(chatMessageRequestDto.getChatRoomId())
 				.UserId(userEntity.getUserId())
