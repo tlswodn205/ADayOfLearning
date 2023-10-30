@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.User;
 
 
@@ -15,4 +16,5 @@ public interface UserRepository {
 	public User findByUserId(int id);
 	public List<User> findByAll();
 	public User findByUsername(String username);
+	public BusinessMainUserDataResponseDto findUserDataByUserId(int userId);
 }
