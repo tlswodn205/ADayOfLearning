@@ -2,8 +2,43 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-
-<link rel="stylesheet" href="/css/reserveList.css">
+<style>
+html, body {
+	height: 100%;
+	width: 1200px;
+	margin: 0 auto;
+}
+form {
+	overflow: hidden;
+}
+#reserveList .content {
+	/* display: flex; */
+	/* justify-content: space-between; */
+	margin-top: 50px;
+}
+#reserveList .listBox {
+	border: 1px solid #d3d3d3;
+	padding: 20px;
+}
+#reserveList .listItem {
+	display: flex;
+}
+.listItem img {
+	margin-right: 30px;
+	border-radius: 7px;
+}
+.listContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.listContent h4 {
+	margin: 0;
+}
+.listContent p {
+	margin: 0;
+}
+</style>
 
 <main>
 	<div id="reserveList">
@@ -11,26 +46,26 @@
 			<h1>예약 내역</h1>
 		</div>
 		<div class="content">
+			<div class="listBox">
+				<div>
+					<h3>결제 완료</h3>
+				</div>
+				<div class="listItem">
+					<img alt="" src="https://picsum.photos/120/120">
+					<div class="listContent">
+						<span>2023.11.02 결제</span>
+						<h4>클래스명</h4>
+						<p>11월 7일 (화요일) 11시 00분</p>
+						<strong>40,000원</strong>
+					</div>
+				</div>
+			</div>
+			
 
 			<c:choose>
 				<c:when test="${reserveList != null}">
-					<c:forEach var="list" items="${reserveList}">
-						<div class="listBox">
-							<a href="/reserve/detail/${list.reserveId}">
-								<div>
-									<h3>${list.state}</h3>
-								</div>
-								<div class="listItem">
-									<img alt="" src="https://picsum.photos/120/120">
-									<div class="listContent">
-										<span>${list.paymentDate}</span>
-										<h4>${list.title}</h4>
-										<p>${list.sessionDate}</p>
-										<strong>${list.amount}</strong>
-									</div>
-								</div>
-							</a>
-						</div>
+					<c:forEach var="list" items="reserveList">
+
 					</c:forEach>
 				</c:when>
 				<c:otherwise>

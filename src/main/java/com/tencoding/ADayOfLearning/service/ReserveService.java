@@ -18,8 +18,6 @@ public class ReserveService {
 	
 	public int insertReserve(ReserveRequestDto reserveRequestDto) {
 		Reserve reserve = new Reserve();
-		reserve.setUserId(1);
-		reserve.setLectureSessionId(1);
 		int result = reserveRepository.insert(reserve);
 		
 		return result;
@@ -28,10 +26,5 @@ public class ReserveService {
 	public List<ReserveListResponseDto> findReserveByUserId(int userId) { 
 		List<ReserveListResponseDto> reserveList = reserveRepository.findByUserId(userId);
 		return reserveList;
-	}
-	
-	public Reserve findReserveByReserveId(int id) {
-		Reserve reserve = reserveRepository.findByReserveId(id);
-		return reserve;
 	}
 }
