@@ -40,6 +40,12 @@ $(document).ready(function () {
 			}
 		});
 	});
+	
+	if($("#nowChatRoomId").val() !== '') {
+		console.log("새로운 채팅");
+		stompConnect($("#chatRoomId").val());
+	}
+	
 }) // end of document ready
 
 let stomp = null;
@@ -57,7 +63,7 @@ function chatRoom(event) {
 			// 채팅창 초기화 표시
 			console.log('성공: ', response);
 			$("#chatMessage").val('');
-			$("#chatPerson").text(chatUsername.text() + "와의 대화 내용");
+			$("#chatPerson").text(chatUsername.text());
 			$("#chatContent").empty();
 			$("#nowChatRoomId").val(chatRoomId.val());
 			$("#nowUserId").val(chatUserId.val());
@@ -85,6 +91,11 @@ function chatRoom(event) {
 		}
 	});
 	
+	stompConnect(chatRoomId.val());
+}
+
+function stompConnect(chatRoomId, newChatMessage) {
+	console.log('newChatMessage : ' + newChatMessage);
 	// 실시간 채팅을 위한 통신
 	let sockJS = new SockJS("/stomp/chat");
 	if(stomp != null && stomp.connected) {
@@ -94,16 +105,19 @@ function chatRoom(event) {
 	stomp.debug = null;
     //2. connection이 맺어지면 실행
     stomp.connect({}, function (){
-		console.log("STOMP Connection");
+		console.log("STOMP Connection " + chatRoomId);
 
 		//4. subscribe(path, callback)으로 메세지를 받을 수 있음
-		stomp.subscribe("/sub/chat/room/" + chatRoomId.val(), function (chat) {
+		stomp.subscribe("/sub/chat/room/" + chatRoomId, function (chat) {
 			console.log('subscribe');
 			let content = JSON.parse(chat.body);
+			if(chatRoomId === 0) {
+				// 새로운 채팅일 경우 nowChatRoomId 갱신, 재연결, 재전송 필요!!!
+			}
 			let stompUsername = content.sendUsername;
 			let stompMessage = content.message;
 
-	        if(stompMessage == null) {
+	        if(stompMessage === null) {
 				return;
 			}
 	        // 내가 한 대화
@@ -119,7 +133,7 @@ function chatRoom(event) {
 
 		//3. send(path, header, message)로 메세지를 보낼 수 있음
 		let sendData = {
-			chatRoomId: chatRoomId.val()
+			chatRoomId: chatRoomId
 		};
 		stomp.send('/pub/chat/enter', {}, JSON.stringify(sendData));
     });
