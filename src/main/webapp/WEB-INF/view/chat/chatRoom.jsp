@@ -3,24 +3,30 @@
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="/js/chat.js"></script>
-<link rel="stylesheet" href="/css/chat.css">
+<script src="/js/chatRoom.js"></script>
+<link rel="stylesheet" href="/css/chatRoom.css">
 <div id="chat">
 	<div class="chatRoomList">
-		<input type="text" id="userId" placeholder="userId">
+		<div style="font-weight: bold; padding: 5px; border: 1px solid;">
+			${principal.username}
+		</div>
+		<input type="hidden" id="username" value="${principal.username}">
+		<input type="hidden" id="userId" value="${principal.userId}">
 		<c:forEach var="chatRoom" items="${chatRoomList}">
 			<div class="chatRoom" onclick="chatRoom(this)">
 				<input type="hidden" id="chatRoomId" value="${chatRoom.chatRoomId}">
-				<span id="name">${chatRoom.name}</span>
+				<input type="hidden" id="chatUserId" value="${chatRoom.userId}">
+				<span id="chatUsername">${chatRoom.username}</span>
 			</div>
 		</c:forEach>
 	</div>
 	<div class="chatView">
-		<input type="hidden" id="nowChatRoomId" value="1">
-		<input type="hidden" id="nowName" value="1">
+		<input type="hidden" id="nowChatRoomId">
+		<input type="hidden" id="nowUserId">
+		<input type="hidden" id="nowUsername">
 		<div id="chatPerson"></div>
 		<hr>
-		<div id="chatContent"></div>
+		<div class="chatContent" id="chatContent"></div>
 		<input type="text" id="chatMessage">
 		<button type="button" id="chatInput">전송</button>
 	</div>

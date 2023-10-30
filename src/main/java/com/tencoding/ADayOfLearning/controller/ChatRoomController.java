@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
+import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.ChatRoomService;
+import com.tencoding.ADayOfLearning.util.Define;
 
 @Controller
 @RequestMapping("/chatRoom")
@@ -30,9 +32,13 @@ public class ChatRoomController {
 	 */
 	@GetMapping("/test")
 	public String chatTest(Model model) {
-		int userId = 1;
-		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(userId);
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		if(principal == null) {
+			return "redirect:/user/signIn";
+		}
+		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(principal.getUserId());
 		model.addAttribute("chatRoomList", chatRoomList);
 		return "chat/chatRoom";
 	}
+	
 }

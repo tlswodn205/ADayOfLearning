@@ -5,7 +5,7 @@
 
 	<insert id= "insert">
 		INSERT INTO tb_chat_room_user(chat_room_id, user_id, start_at,created_at)
-		values(#{chatRoomId},#{userId},#{startAt},now());
+		values(#{chatRoomId},#{userId},1,now());
 	</insert>
 	
 	<update id="updateByChatRoomUserId">
@@ -23,6 +23,13 @@
 	
 	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.ChatRoomUser">
 		SELECT * FROM tb_chat_room_user;
+	</select>
+	
+	<select id="findByChatRoomIdAndUserId" resultType = "int">
+		SELECT 1
+		  FROM tb_chat_room_user
+		 WHERE chat_room_id = #{chatRoomId}
+		   AND user_id = #{userId};
 	</select>
 	
 </mapper>

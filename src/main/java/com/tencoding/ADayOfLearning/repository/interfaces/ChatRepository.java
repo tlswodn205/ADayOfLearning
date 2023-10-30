@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto;
 import com.tencoding.ADayOfLearning.repository.model.Chat;
 
 @Mapper
@@ -14,5 +15,5 @@ public interface ChatRepository {
 	public Chat findByChatId(int chatId);
 	public List<Chat> findByAll();
 	
-	public List<Chat> findByChatRoomId(int chatRoomId);
+	public List<ChatMessageRequestDto> findByChatRoomId(int chatRoomId);
 }

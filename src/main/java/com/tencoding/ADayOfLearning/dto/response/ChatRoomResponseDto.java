@@ -6,5 +6,6 @@ import lombok.Data;
 public class ChatRoomResponseDto {
 	private int chatRoomId;
 	private int userId;
+	private String username;
 	private String name;
 }
