@@ -39,4 +39,13 @@
 		 WHERE a.chat_room_id = #{chatRoomId};
 	</select>
 	
+	<!-- 채팅방 입장 여부 확인 -->
+	<select id="findByChatRoomIdAndUserId" resultType = "com.tencoding.ADayOfLearning.repository.model.Chat">
+		SELECT chat_room_id, user_id, context
+		  FROM tb_chat
+		 WHERE chat_room_id = #{chatRoomId}
+		   AND user_id = #{userId}
+		   AND context is null;
+	</select>
+
 </mapper>

@@ -21,10 +21,12 @@
 		</c:forEach>
 	</div>
 	<div class="chatView">
-		<input type="hidden" id="nowChatRoomId">
-		<input type="hidden" id="nowUserId">
-		<input type="hidden" id="nowUsername">
-		<div id="chatPerson"></div>
+		
+		<input type="hidden" id="nowChatRoomId" value="${chatEnter.chatRoomId}">
+		<input type="hidden" id="nowUserId" value="${chatEnter.userId}">
+		<input type="hidden" id="nowUsername" value="${chatEnter.username}">
+		
+		<div id="chatPerson">${chatEnter.username}</div>
 		<hr>
 		<div class="chatContent" id="chatContent"></div>
 		<input type="text" id="chatMessage">
