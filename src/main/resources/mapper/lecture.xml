@@ -22,7 +22,7 @@
 	</delete>
 	
 	<select id="findByLectureId" resultType = "com.tencoding.ADayOfLearning.repository.model.Lecture">
-		SELECT * FROM tb_lecture WHERE lecture_id = #{lectureId};
+		SELECT * FROM tb_lecture WHERE lecture_id = #{id}
 	</select>
 	
 	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Lecture">

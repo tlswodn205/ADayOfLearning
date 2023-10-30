@@ -130,13 +130,13 @@ let date = $('.selected-date');
 function choiceDate(newDIV) {
     $('.choiceDay').removeClass('choiceDay'); // 기존에 선택한 날짜가 있으면 해당 날짜의 "choiceDay" class 제거
     $(newDIV).addClass('choiceDay'); // 선택된 날짜에 "choiceDay" class 추가
-    let selYear = $('#calYear').text();
-    let selMonth = $('#calMonth').text();
+    let selYear = $('.calYear-list').text();
+    let selMonth = $('.calMonth-list').text();
     let setDate = $('.futureDay.choiceDay').text();
 
     //selected-date 인풋에 값 집어넣기 성공함
-    $('.selected-date').val(`${selYear}-${selMonth}-${setDate}`);
-    console.log($('.selected-date').val());
+    date.val(`${selYear}-${selMonth}-${setDate}`);
+    console.log(date.val());
 }
 
 // 이전달 버튼 클릭
@@ -221,8 +221,6 @@ $('#search-form-reset').on('click', function () {
 
 let lecturelistList = $('.lecturelist-list');
 
-
-
 // ============== 페이징 ==============
 let pagenationArea = $('.lecturelist-pagenation');
 
@@ -249,7 +247,9 @@ function pagenation(page, list) {
 
     for (let i = startLecture; i <= lastLecture; i++) {
         if (list[i] != null) {
-            let lectureItemA = $('<a>').addClass('lecture-item-a').attr('href', 'detail?id=' + list[i].lectureId);
+            let lectureItemA = $('<a>')
+                .addClass('lecture-item-a')
+                .attr('href', 'detail?id=' + list[i].lectureId);
             let lectureItem = $('<div>').addClass('lecture-item');
             let pictureDiv = $('<div>').addClass('lecture-item-picture-area');
             let pictureImg = $('<img>').addClass('lecture-item-picture').attr('src', list[i].img);

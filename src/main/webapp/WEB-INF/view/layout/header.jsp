@@ -24,7 +24,7 @@
 			<img src="/images/logo/logo.png" class="logo">
 			<ul class='topMenuRight'>
 				<li>
-					<a>수업보기</a>
+					<a href="/lecture/list">수업보기</a>
 				</li>
 				<li>
 					<a>새소식</a>

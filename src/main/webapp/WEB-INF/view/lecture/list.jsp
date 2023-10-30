@@ -33,7 +33,9 @@ file="/WEB-INF/view/layout/header.jsp"%>
                     <thead>
                         <tr>
                             <td onClick="prevCalendar();" style="cursor: pointer">&#60;</td>
-                            <td colspan="5"><span class="calYear-list"></span>년 <span class="calMonth-list"></span>월</td>
+                            <td colspan="5">
+                                <span class="calYear-list"></span>년 <span class="calMonth-list"></span>월
+                            </td>
                             <td onClick="nextCalendar();" style="cursor: pointer">&#62;</td>
                         </tr>
                         <tr>
