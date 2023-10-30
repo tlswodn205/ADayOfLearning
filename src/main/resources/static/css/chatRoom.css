@@ -19,18 +19,18 @@
 	width: 59%;
 	height: 100%;
 	border: 1px solid;
+	padding: 10px;
 }
 
-#chat .chatView .chatContent .chatEnter{
-	width: 100%;
+#chat .chatView .chatContent{
+	width: 95%;
+	max-height: 600px;
 	padding: 5px;
-	margin: 10px;
-	text-align: center;
-	font-size: 20px;
+	overflow-y: auto;
 }
 
 #chat .chatView .chatContent .chatMy{
-	width: 100%;
+	width: 95%;
 	margin: 10px;
 	padding: 5px;
 	border-radius: 8px;
@@ -40,7 +40,7 @@
 }
 
 #chat .chatView .chatContent .chatOther{
-	width: 100%;
+	width: 95%;
 	margin: 10px;
 	padding: 5px;
 	border-radius: 8px;

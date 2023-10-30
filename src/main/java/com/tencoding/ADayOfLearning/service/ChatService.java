@@ -11,6 +11,9 @@ import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
 import com.tencoding.ADayOfLearning.repository.model.Chat;
 import com.tencoding.ADayOfLearning.repository.model.User;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ChatService {
 
@@ -25,15 +28,22 @@ public class ChatService {
 		return chatRepository.findByChatRoomId(chatRoomId);
 	}
 
-	public int insertChat(ChatMessageRequestDto chatMessageRequestDto) {
+	// 채팅 전송 및 저장
+	public void insertChat(ChatMessageRequestDto chatMessageRequestDto) {
+		log.info("insertChat");
+		log.info("{}", chatMessageRequestDto);
 		User userEntity = userRepository.findByUsername(chatMessageRequestDto.getSendUsername());
+		log.info("{}", userEntity);
 		Chat chatEntity = Chat.builder()
 				.chatRoomId(chatMessageRequestDto.getChatRoomId())
 				.UserId(userEntity.getUserId())
 				.context(chatMessageRequestDto.getMessage())
 				.viewAt(true)
 				.build();
-		return chatRepository.insert(chatEntity);
+		log.info("{}", chatEntity);
+		
+		int result = chatRepository.insert(chatEntity);
+		log.info("insertChat result : {}", result);
 	}
 
 }

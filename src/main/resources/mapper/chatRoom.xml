@@ -31,7 +31,7 @@
 				   FROM tb_chat_room a
 				   JOIN tb_chat_room_user b
 					 ON a.chat_room_id = b.chat_room_id 
-					AND b.user_id = 1) a
+					AND b.user_id = #{userId}) a
 		  JOIN tb_chat_room_user b
 		    ON a.chat_room_id = b.chat_room_id
 		   AND a.user_id != b.user_id

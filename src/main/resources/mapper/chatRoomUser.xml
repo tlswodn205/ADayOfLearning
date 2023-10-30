@@ -29,7 +29,7 @@
 		SELECT 1
 		  FROM tb_chat_room_user
 		 WHERE chat_room_id = #{chatRoomId}
-		   AND chat_user_id = #{userId};
+		   AND user_id = #{userId};
 	</select>
 	
 </mapper>

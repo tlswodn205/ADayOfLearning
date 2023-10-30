@@ -1,31 +1,3 @@
-/*
-principal - user1
-user1이 user2에 대화 시작 
-
-체팅룸id 생성 (3).
-chat_room_user에 user1, user2 인서트
-
-
-체팅 리스트
-chatRoomId
-chatRoomUsername
-
-채팅 내용
-nowChatUsername
-nowChatUserId
-nowChatMessage
-
-대화 입력
-
-chatroom
-
-나 자신
-userId
-userName
-
-채팅 상대
-*/
-
 $(document).ready(function () {
 	$("#chatMessage").keypress((key) => {
 		if(key.keyCode == 13) {
@@ -46,14 +18,27 @@ $(document).ready(function () {
 		
 		let sendData = {
 			chatRoomId: $("#nowChatRoomId").val(),
-			sendUserId: $("#username").val(),
-			sendUsername: $("#userId").val(),
+			sendUserId: $("#userId").val(),
+			sendUsername: $("#username").val(),
 			receiveUserId: $("#nowUserId").val(),
 			receiveUsername: $("#nowUsername").val(),
 			message: chatMessage.val()
 		};
-		stomp.send('/pub/chat/message', {}, JSON.stringify(sendData))
-        chatMessage.val('');
+		
+		$.ajax({
+			url: '/chat/insert',
+			method: 'post',
+			contentType: 'application/json',
+			data: JSON.stringify(sendData),
+			success: function(response) {
+				console.log('성공: ', response);
+				stomp.send('/pub/chat/message', {}, JSON.stringify(sendData))
+		        chatMessage.val('');
+			},
+			error: function(error) {
+				console.log('실패: ', error);
+			}
+		});
 	});
 }) // end of document ready
 
@@ -74,9 +59,12 @@ function chatRoom(event) {
 			$("#chatMessage").val('');
 			$("#chatPerson").text(chatUsername.text() + "와의 대화 내용");
 			$("#chatContent").empty();
+			$("#nowChatRoomId").val(chatRoomId.val());
+			$("#nowUserId").val(chatUserId.val());
+			$("#nowUsername").val(chatUsername.text());
 			// 채팅 히스토리 출력
 			response.forEach(function (chat, index) {
-				username = chat.username;
+				username = chat.sendUsername;
 				message = chat.message;
 		        if(message == null) {
 					return;
@@ -90,6 +78,7 @@ function chatRoom(event) {
 					messageOtherSend(username, message);
 		        }
 			});
+			$("#chatContent").scrollTop($("#chatContent")[0].scrollHeight);
 		},
 		error: function(error) {
 			console.log('실패: ', error);
@@ -125,7 +114,7 @@ function chatRoom(event) {
 			else {
 				messageOtherSend(stompUsername, stompMessage);
 	        }
-
+			$("#chatContent").scrollTop($("#chatContent")[0].scrollHeight);
 		});
 
 		//3. send(path, header, message)로 메세지를 보낼 수 있음
