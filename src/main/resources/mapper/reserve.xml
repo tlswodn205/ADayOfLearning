@@ -6,6 +6,9 @@
 	<insert id= "insert">
 		INSERT INTO tb_reserve(lecture_session_id,user_id,created_at)
 		values(#{lectureSessionId},#{userId},now());
+		<selectKey resultType="int" keyProperty="reserveId" order="AFTER"> <!-- 입력후 co_no를 리턴함 -->
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
 	<update id="updateByReserveId">
@@ -28,15 +31,35 @@
 	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto">
 		SELECT r.reserve_id, p.state, p.payment_date, p.amount, lp.img, l.title, ls.session_date
 		  FROM tb_reserve r
-		 INNER JOIN tb_payment p
+		  LEFT JOIN tb_payment p
 		    ON r.reserve_id = p.reserve_id
-		 INNER JOIN tb_lecture_session ls
+		  LEFT JOIN tb_lecture_session ls
 		    ON r.lecture_session_id = ls.lecture_session_id
-		 INNER JOIN tb_lecture l
+		  LEFT JOIN tb_lecture l
 		    ON ls.lecture_id = l.lecture_id
-		 INNER JOIN tb_lecture_photo lp
+		  LEFT JOIN tb_lecture_photo lp
 		    ON ls.lecture_id = lp.lecture_id
 		 WHERE r.user_id = #{userId}
+		 ORDER BY reserve_id DESC
 	</select>
+	
+	<select id="findAllByReserveId" resultType = "com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto">
+		SELECT l.lecture_id, l.title, l.phone_number, l.address, l.address_detail, p.name
+			 , ls.lecture_session_id, ls.session_date, r.reserve_id, r.created_at, pa.state
+		     , pa.amount, lp.img, pa.payment_kind
+		  FROM tb_reserve r
+		  LEFT JOIN tb_lecture_session ls
+		    ON r.lecture_session_id = ls.lecture_session_id
+		  LEFT JOIN tb_lecture l
+		    ON ls.lecture_id = l.lecture_id 
+		  LEFT JOIN tb_lecture_photo lp
+		    ON l.lecture_id = lp.lecture_photo_id
+		  LEFT JOIN tb_person p
+		    ON l.user_id = p.user_id
+		  LEFT JOIN tb_payment pa
+		    ON r.reserve_id = pa.reserve_id
+		 WHERE r.reserve_id = #{reserveId}
+	</select>
+	
 	
 </mapper>

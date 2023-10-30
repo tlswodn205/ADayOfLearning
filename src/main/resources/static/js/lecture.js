@@ -66,6 +66,7 @@ $('.location-element').click(function () {
 
 // 마우스 커서를 포인터로 변경
 $('.location-element').css('cursor', 'pointer');
+
 // ======================== 드롭다운 ===============================
 
 // ============================ 달력 ===============================
@@ -84,9 +85,9 @@ function buildCalendar() {
     let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1); // 이번달 1일
     let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0); // 이번달 마지막날
 
-    let $tbodyCalendar = $('.Calendar-list > tbody');
-    $('.calYear-list').text(nowMonth.getFullYear()); // 연도 숫자 갱신
-    $('.calMonth-list').text(leftPad(nowMonth.getMonth() + 1)); // 월 숫자 갱신
+    let $tbodyCalendar = $('.Calendar > tbody');
+    $('#calYear').text(nowMonth.getFullYear()); // 연도 숫자 갱신
+    $('#calMonth').text(leftPad(nowMonth.getMonth() + 1)); // 월 숫자 갱신
 
     $tbodyCalendar.empty(); // 이전 결과 초기화
 
@@ -130,13 +131,13 @@ let date = $('.selected-date');
 function choiceDate(newDIV) {
     $('.choiceDay').removeClass('choiceDay'); // 기존에 선택한 날짜가 있으면 해당 날짜의 "choiceDay" class 제거
     $(newDIV).addClass('choiceDay'); // 선택된 날짜에 "choiceDay" class 추가
-    let selYear = $('.calYear-list').text();
-    let selMonth = $('.calMonth-list').text();
+    let selYear = $('#calYear').text();
+    let selMonth = $('#calMonth').text();
     let setDate = $('.futureDay.choiceDay').text();
 
     //selected-date 인풋에 값 집어넣기 성공함
-    date.val(`${selYear}-${selMonth}-${setDate}`);
-    console.log(date.val());
+    $('.selected-date').val(`${selYear}-${selMonth}-${setDate}`);
+    console.log($('.selected-date').val());
 }
 
 // 이전달 버튼 클릭
@@ -166,7 +167,36 @@ $('.futureDay, .today').click(function () {
 
 // ============================ 달력 ===============================
 
-// ====================== 검색 버튼 ========================
+//$(document).ready(function() {
+//	$('#list-search-form').on('submit', function(event) {
+//		event.preventDefault(); // 폼 제출 기본 동작을 막음
+//		var form = $(this);
+//
+//		form.find('.form_category, .form_location').each(function() {
+//			var input = $(this);
+//			var paramValue = input.val().trim();
+//
+//			if (paramValue === '전체') {
+//				input.val(''); // '전체'를 공백으로 변경
+//			}
+//		});
+//
+//		// URL에서 공백인 쿼리 매개변수 제거
+//		var url = new URL(form.attr('action'));
+//		url.searchParams.forEach(function(value, paramName) {
+//			if (value.trim() === '') {
+//				url.searchParams.delete(paramName);
+//			}
+//		});
+//
+//		// 수정된 URL을 폼의 action 속성에 설정
+//		form.attr('action', url.toString());
+//
+//		// 폼을 수동으로 제출
+//		form.unbind('submit').submit();
+//	});
+//});
+
 $('#search-form-submit').on('click', function () {
     let url = 'list?page=1';
     console.log(1);
@@ -205,21 +235,44 @@ $('#search-form-submit').on('click', function () {
         url += '&date=';
         url += $('.selected-date').val();
     }
+    console.log(url);
     window.location.href = url;
+    //$("#list-search-form").attr("action", url).submit();
 });
-// ====================== 검색 버튼 ========================
 
-// ====================== 초기화 버튼 ========================
-$('#search-form-reset').on('click', function () {
-    let url = 'list?page=1&location=전체&category=전체';
-    window.location.href = url;
-});
-// ====================== 초기화 버튼 ========================
 // ======================================= 검색창 =======================================
 
 // ============================ 강의 리스트 ===============================
 
 let lecturelistList = $('.lecturelist-list');
+
+// ============== 리스트 출력 ==============
+function showList(list) {
+    for (let i = 1; i <= 5; i++) {
+        console.log(i);
+    }
+
+    list.forEach(function (data) {
+        let lectureItemA = $('<a>').addClass('lecture-item-a').attr('href', '#');
+        let lectureItem = $('<div>').addClass('lecture-item');
+
+        let pictureDiv = $('<div>').addClass('lecture-item-picture-area');
+        let pictureImg = $('<img>').addClass('lecture-item-picture').attr('src', data.img);
+        let addressDiv = $('<div>').addClass('lecture-item-address').text(data.address);
+        let categoryDiv = $('<div>').addClass('lecture-item-category').text(data.categoryName);
+        let providerDiv = $('<div>').addClass('lecture-item-provider').text(data.username);
+        let titleDiv = $('<div>').addClass('lecture-item-title').text(data.title);
+        let priceDiv = $('<div>')
+            .addClass('lecture-item-price')
+            .text(data.price.toLocaleString('ko-KR') + '원');
+
+        pictureDiv.append(pictureImg, addressDiv);
+        lectureItem.append(pictureDiv, categoryDiv, providerDiv, titleDiv, priceDiv);
+
+        lectureItemA.append(lectureItem);
+        lecturelistList.append(lectureItemA);
+    });
+}
 
 // ============== 페이징 ==============
 let pagenationArea = $('.lecturelist-pagenation');
@@ -247,9 +300,7 @@ function pagenation(page, list) {
 
     for (let i = startLecture; i <= lastLecture; i++) {
         if (list[i] != null) {
-            let lectureItemA = $('<a>')
-                .addClass('lecture-item-a')
-                .attr('href', 'detail?id=' + list[i].lectureId);
+            let lectureItemA = $('<a>').addClass('lecture-item-a').attr('href', '#');
             let lectureItem = $('<div>').addClass('lecture-item');
             let pictureDiv = $('<div>').addClass('lecture-item-picture-area');
             let pictureImg = $('<img>').addClass('lecture-item-picture').attr('src', list[i].img);

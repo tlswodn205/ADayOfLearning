@@ -4,8 +4,8 @@
 <mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomUserRepository"> 
 
 	<insert id= "insert">
-		INSERT INTO tb_chat_room_user(chat_room_id, user_id, created_at)
-		values(#{chatRoomId},#{userId},now());
+		INSERT INTO tb_chat_room_user(chat_room_id, user_id, start_at,created_at)
+		values(#{chatRoomId},#{userId},#{startAt},now());
 	</insert>
 	
 	<update id="updateByChatRoomUserId">

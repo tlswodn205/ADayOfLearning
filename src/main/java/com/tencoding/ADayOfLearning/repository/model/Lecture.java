@@ -12,7 +12,7 @@ public class Lecture {
 	private String title;
 	private String content;
 	private String address;
-	private String addressDetail;
+	private String addresDetail;
 	private double latitude;
 	private double longitude;
 	private int maximum;

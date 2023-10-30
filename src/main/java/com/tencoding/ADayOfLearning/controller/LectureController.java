@@ -15,14 +15,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tencoding.ADayOfLearning.dto.request.ListSearchRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
-import com.tencoding.ADayOfLearning.repository.model.Lecture;
-import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
-import com.tencoding.ADayOfLearning.service.LecturePhotoService;
 import com.tencoding.ADayOfLearning.service.LectureService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/lecture")
 public class LectureController {
@@ -31,20 +25,12 @@ public class LectureController {
 	LectureService lectureService;
 
 	@Autowired
-	LecturePhotoService lecturePhotoService;
-
-	@Autowired
 	HttpSession session;
 
-	@Autowired
-	ObjectMapper objectMapper;
-	
 	@GetMapping("/list")
-	public String list(Model model, @RequestParam(defaultValue = "1") Integer page,
-			@RequestParam(required = false) Integer min_price, @RequestParam(required = false) Integer max_price,
-			@RequestParam(required = false, defaultValue = "전체") String category,
-			@RequestParam(required = false) String title,
-			@RequestParam(required = false, defaultValue = "전체") String location,
+	public String list(Model model, @RequestParam(defaultValue = "1") Integer page, @RequestParam(required = false) Integer min_price,
+			@RequestParam(required = false) Integer max_price, @RequestParam(required = false) String category,
+			@RequestParam(required = false) String title, @RequestParam(required = false) String location,
 			@RequestParam(required = false) String date) throws JsonProcessingException {
 
 		if (location.equals("전체")) {
@@ -60,21 +46,12 @@ public class LectureController {
 
 		List<LectureListItemResponseDto> list = lectureService.getLectureListBySearch(listSearchRequestDto);
 
+		ObjectMapper objectMapper = new ObjectMapper();
+
 		model.addAttribute("lectures", objectMapper.writeValueAsString(list));
 		model.addAttribute("page", page);
 
 		return "lecture/list";
-	}
-
-	@GetMapping("/detail")
-	public String detail(Model model, @RequestParam Integer id) throws JsonProcessingException {
-		Lecture lecture = lectureService.getLectureById(id);
-		List<LecturePhoto> lecturePhotos = lecturePhotoService.getLecturePhotosById(id);
-
-		model.addAttribute("lecture", objectMapper.writeValueAsString(lecture));
-		model.addAttribute("lecturePhotos", objectMapper.writeValueAsString(lecturePhotos));
-		
-		return "lecture/detail";
 	}
 
 }

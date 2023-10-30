@@ -60,10 +60,7 @@ public class UserService {
 		return 0;
 	}
 	
-	public User findByUserId(int userId) {
-		User userEntity = userRepository.findByUserId(userId);
-		return userEntity;
-	}
+	
 	
 	
 

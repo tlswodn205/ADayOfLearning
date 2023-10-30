@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class LectureListItemResponseDto {
-	private Integer lectureId;
 	private String title;
 	private String categoryName;
 	private Integer price;

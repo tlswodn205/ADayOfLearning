@@ -10,8 +10,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 @Component // IoC 대상 - 2개 이상의 빈을 등록해야 할 때 사용 
 public class WebMvcConfig implements WebMvcConfigurer {
 	
@@ -35,9 +33,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		return new BCryptPasswordEncoder();
 	}
 	
-	@Bean 
-	public ObjectMapper objectMapper() {
-		return new ObjectMapper();
-	}
 	
 }

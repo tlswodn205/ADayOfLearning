@@ -1,0 +1,68 @@
+#reserveDetail {
+	width: 1200px;
+}
+
+#reserveDetail h2 {
+	margin-top: 0;
+}
+
+#reserveDetail .content {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 50px;
+}
+
+#reserveDetail .contentLeft {
+	width: 58%;
+}
+
+#reserveDetail .contentRight {
+	width: 35%;
+}
+
+#reserveDetail .sectionBox {
+	border-bottom: 1px solid #d3d3d3;
+	padding: 24px 0;
+}
+
+#reserveDetail .sectionBox-area {
+	display: flex;
+}
+
+#reserveDetail .sectionBox-area img {
+	margin-right: 30px;
+	border-radius: 7px;
+}
+
+#reserveDetail .row {
+	display: flex;
+}
+
+#reserveDetail .row p:first-of-type {
+	width: 130px;
+}
+
+#reserveDetail .payInfo {
+	padding: 24px;
+	border: 1px solid #d3d3d3;
+	border-radius: 12px;
+}
+
+#reserveDetail .payItem {
+	display: flex;
+	justify-content: space-between;
+}
+
+#reserveDetail .sum {
+	border-top: 1px solid #d3d3d3;
+}
+
+#reserveDetail .btn {
+	margin: 21px 0;
+}
+
+#reserveDetail .requestBtn {
+	background-color: rgb(254, 214, 214);
+	padding: 10px;
+	border-radius: 7px;
+}

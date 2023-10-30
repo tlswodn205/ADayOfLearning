@@ -1,0 +1,42 @@
+#reserveList {
+	width: 1200px;
+}
+#reserveList .content {
+	/* display: flex; */
+	/* justify-content: space-between; */
+	margin-top: 50px;
+}
+#reserveList .listBox {
+	border: 1px solid #d3d3d3;
+	border-radius: 12px;
+	padding: 24px;
+	margin-bottom: 20px;
+}
+#reserveList .listBox h3 {
+	margin-top: 0;
+}
+#reserveList .listItem {
+	display: flex;
+}
+#reserveList .listItem img {
+	margin-right: 30px;
+	border-radius: 7px;
+}
+#reserveList .listContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+#reserveList .listContent h4 {
+	margin: 0;
+}
+#reserveList .listContent p {
+	margin: 0;
+}
+#reserveList .listBtn {
+	width: 30%;
+	border: 1px solid #d3d3d3;
+	border-radius: 7px;
+	padding: 7px 0;
+	margin-top: 10px;
+}

@@ -21,10 +21,6 @@
 		SELECT * FROM tb_lecture_photo WHERE lecture_photo_id = #{lecturePhotoId};
 	</select>
 	
-	<select id="findByLectureId" resultType = "com.tencoding.ADayOfLearning.repository.model.LecturePhoto">
-		SELECT * FROM tb_lecture_photo WHERE lecture_id = #{id}
-	</select>
-	
 	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.LecturePhoto">
 		SELECT * FROM tb_lecture_photo;
 	</select>

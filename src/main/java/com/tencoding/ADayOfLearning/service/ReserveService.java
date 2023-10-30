@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tencoding.ADayOfLearning.dto.request.ReserveRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.ReserveRepository;
 import com.tencoding.ADayOfLearning.repository.model.Reserve;
 
@@ -18,6 +19,8 @@ public class ReserveService {
 	
 	public int insertReserve(ReserveRequestDto reserveRequestDto) {
 		Reserve reserve = new Reserve();
+		reserve.setUserId(1);
+		reserve.setLectureSessionId(1);
 		int result = reserveRepository.insert(reserve);
 		
 		return result;
@@ -27,4 +30,10 @@ public class ReserveService {
 		List<ReserveListResponseDto> reserveList = reserveRepository.findByUserId(userId);
 		return reserveList;
 	}
+	
+	public ReserveResponseDto findReserveByReserveId(int reserveId) {
+		ReserveResponseDto reserve = reserveRepository.findAllByReserveId(reserveId);
+		return reserve;
+	}
+	
 }

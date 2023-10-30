@@ -3,7 +3,6 @@ package com.tencoding.ADayOfLearning.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.CategoryRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.ChatRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomRepository;
@@ -63,8 +62,4 @@ public class BusinessService {
 
 	@Autowired
 	UserRepository userRepository;
-
-	public BusinessMainUserDataResponseDto findUserData(int userId) {
-		return userRepository.findUserDataByUserId(userId);
-	}
 }

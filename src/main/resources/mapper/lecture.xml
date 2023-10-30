@@ -22,7 +22,7 @@
 	</delete>
 	
 	<select id="findByLectureId" resultType = "com.tencoding.ADayOfLearning.repository.model.Lecture">
-		SELECT * FROM tb_lecture WHERE lecture_id = #{id}
+		SELECT * FROM tb_lecture WHERE lecture_id = #{lectureId};
 	</select>
 	
 	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Lecture">
@@ -40,7 +40,7 @@
 
 <!-- 날짜가 포함안됨	 -->
 <!-- 	<select id="findBySearch" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto"> -->
-<!-- 		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username, p.img -->
+<!-- 		SELECT l.title, c.category_name, l.price, l.address, u.username, p.img -->
 <!-- 		FROM tb_lecture l  -->
 <!-- 		JOIN tb_category c ON l.category_id = c.category_id -->
 <!-- 		JOIN tb_user u ON l.user_id = u.user_id -->
@@ -65,7 +65,7 @@
 	
 <!-- !!!날짜와 이미지가 안뿌려지는 테스트용!!! -->
 	<select id="findBySearch" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username
+		SELECT l.title, c.category_name, l.price, l.address, u.username
 		FROM tb_lecture l 
 		JOIN tb_category c ON l.category_id = c.category_id
 		JOIN tb_user u ON l.user_id = u.user_id

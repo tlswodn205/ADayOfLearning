@@ -31,14 +31,6 @@
 	
 	<select id="findByUsername" resultType = "com.tencoding.ADayOfLearning.repository.model.User">
 		SELECT * FROM tb_user WHERE username = #{username};
-	</select>	
-	
-	<select id="findUserDataByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto">
-		SELECT u.username, p.email, p.phone_number, b.business_registration_number 
-		FROM tb_user u 
-		LEFT JOIN tb_person p ON u.user_id = p.user_id 
-		LEFT JOIN tb_business b ON u.user_id = p.user_id 
-		WHERE u.user_id = #{userId};
 	</select>
 	
 </mapper>

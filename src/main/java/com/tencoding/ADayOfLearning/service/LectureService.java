@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.tencoding.ADayOfLearning.dto.request.ListSearchRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.LectureRepository;
-import com.tencoding.ADayOfLearning.repository.model.Lecture;
 
 @Service
 public class LectureService {
@@ -22,9 +21,5 @@ public class LectureService {
 	
 	public List<LectureListItemResponseDto> getLectureListBySearch(ListSearchRequestDto dto) {
 		return lectureRepository.findBySearch(dto);
-	}
-	
-	public Lecture getLectureById(Integer id) {
-		return lectureRepository.findByLectureId(id);
 	}
 }
