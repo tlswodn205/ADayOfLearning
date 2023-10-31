@@ -27,4 +27,8 @@
 		SELECT * FROM tb_person;
 	</select>
 	
+	<select id="findByEmail" resultType = "com.tencoding.ADayOfLearning.repository.model.Person">
+		SELECT * FROM tb_person WHERE email = #{email};
+	</select>
+	
 </mapper>

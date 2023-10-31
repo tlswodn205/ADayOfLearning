@@ -1,5 +1,10 @@
 package com.tencoding.ADayOfLearning.service;
 
+import java.util.Random;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +16,7 @@ import com.tencoding.ADayOfLearning.handler.exception.CustomRestfulException;
 import com.tencoding.ADayOfLearning.repository.interfaces.PersonRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
 import com.tencoding.ADayOfLearning.repository.model.User;
+import com.tencoding.ADayOfLearning.util.Mail;
 
 @Service
 public class UserService {
@@ -23,6 +29,9 @@ public class UserService {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Resource(name="mail")
+	private Mail mail;
 
 	public User signIn(SignInRequestDto signInRequestDto) {
 		User userEntity = userRepository.findByUsername(signInRequestDto.getUsername());
@@ -64,8 +73,9 @@ public class UserService {
 		User userEntity = userRepository.findByUserId(userId);
 		return userEntity;
 	}
-	
-	
 
-	
+	public User findUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
 }
