@@ -1,7 +1,5 @@
-html, body {
-	height: 100%;
+#reserveList {
 	width: 1200px;
-	margin: 0 auto;
 }
 #reserveList .content {
 	/* display: flex; */
@@ -20,18 +18,25 @@ html, body {
 #reserveList .listItem {
 	display: flex;
 }
-.listItem img {
+#reserveList .listItem img {
 	margin-right: 30px;
 	border-radius: 7px;
 }
-.listContent {
+#reserveList .listContent {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 }
-.listContent h4 {
+#reserveList .listContent h4 {
 	margin: 0;
 }
-.listContent p {
+#reserveList .listContent p {
 	margin: 0;
+}
+#reserveList .listBtn {
+	width: 30%;
+	border: 1px solid #d3d3d3;
+	border-radius: 7px;
+	padding: 7px 0;
+	margin-top: 10px;
 }

@@ -84,7 +84,7 @@
 							<h2>예약 정보</h2>
 							<div class="sectionBox-area">
 								<img alt="" src="https://picsum.photos/120/120">
-								<div class="classItem">
+								<div class="reserveItem">
 									<!-- 상점 아이디 -->
 									<input type="hidden" name="MID" value="${payRequest.merchantID}">
 									<!-- 결제 상품명 -->
@@ -98,20 +98,20 @@
 							<h2>신청자 정보</h2>
 							<div class="sectionBox-area">
 								<div>
-									<div class="loginInfo">
+									<div class="row">
 										<!-- 구매자명 -->
 										<p>예약자</p>
 										<p>김그린</p>
 										<input type="text" name="BuyerName"
 											value="${payRequest.buyerName}">
 									</div>
-									<div class="loginInfo">
+									<div class="row">
 										<!-- 구매자 연락처 -->
 										<p>연락처</p>
 										<p>010-1234-1234</p>
 										<input type="text" name="BuyerTel" value="${payRequest.buyerTel}">
 									</div>
-									<div class="loginInfo">
+									<div class="row">
 										<!-- 구매자 이메일 -->
 										<p>이메일</p>
 										<p>aaa@naver.com</p>
@@ -178,7 +178,7 @@
 									value="${payRequest.hashString}" />
 								<!-- 해쉬값 -->
 
-								<a href="#" class="btn_blue" onClick="nicepayStart();">요 청</a>
+								<a href="#" class="btn_blue requestBtn" onClick="nicepayStart();">요 청</a>
 							</div>
 						</div>
 					</div>
