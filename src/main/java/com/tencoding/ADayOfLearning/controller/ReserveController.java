@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tencoding.ADayOfLearning.dto.request.ReserveRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Reserve;
 import com.tencoding.ADayOfLearning.service.ReserveService;
 
@@ -39,7 +40,7 @@ public class ReserveController {
 	
 	@GetMapping("/detail/{id}")
 	public String reserveDetail(Model model, @PathVariable Integer id) {
-		Reserve reserve = reserveService.findReserveByReserveId(id);
+		ReserveResponseDto reserve = reserveService.findReserveByReserveId(id);
 		model.addAttribute("reserve", reserve);
 		return "reserve/reserveDetail";
 	}
