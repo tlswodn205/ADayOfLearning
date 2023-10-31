@@ -204,10 +204,20 @@ public class UserController {
 		certificationNumber = "emailCheck_"+certificationNumber; 
 		String emailStore = (String)session.getAttribute(certificationNumber);
 		
-		if(emailStore.equals(email) ) {
+		if(emailStore == null) {
+			return 0;
+		}
+		
+		if(!emailStore.equals(email)) {
 			throw new CustomRestfulException("이메일이 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
 		}
 		
 		return 1;
+	}
+	
+	@GetMapping("/findUsername")
+	@ResponseBody
+	public String findUsername()  {
+		return "user/findUsername";
 	}
 }

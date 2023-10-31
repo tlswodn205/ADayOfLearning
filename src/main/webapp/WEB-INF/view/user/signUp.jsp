@@ -128,7 +128,9 @@ $(document).on("click", "#usernameDuplicationCheck",async function(){
 	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 	  });
 
-   	if(response){
+	  let jsonData = await response.json();
+
+   	if(jsonData){
    		usernameCheck = 1;
    		alert("사용가능한 아이디 입니다");
    	}else{
@@ -157,11 +159,15 @@ $(document).on("click", "#emailCheck",async function(){
 	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 	  });
 
-   	if(response){
+	  let jsonData = await response.json();
+
+   	if(jsonData){
    		alert("인증번호를 이메일로 전송했습니다.");
 	  	$('#resendNumber').attr("type", "button");
 	  	$('#certificationNumber').attr("type", "text");
 	  	$('#certificationNumberCheck').attr("type", "button");
+	  	emailCheck = 1;
+	  	emailStore = email;
    		
    	}else{
    		alert("사용중인 이메일 입니다");
@@ -188,7 +194,9 @@ $(document).on("click", "#resendNumber",async function(){
 	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 	  });
 
-   	if(response){
+	  let jsonData = await response.json();
+	  
+   	if(jsonData){
    		alert("인증번호를 이메일로 전송했습니다.");
    	}
    	
@@ -198,7 +206,7 @@ $(document).on("click", "#resendNumber",async function(){
 $(document).on("click", "#certificationNumberCheck",async function(){
 	let email = $('#email').val();
 	let certificationNumber = $('#certificationNumber').val();
-	let URL = "/user/emailCheck?email="+email+"&certificationNumber="+ certificationNumber;
+	let URL = "/user/certificationNumber?email="+email+"&certificationNumber="+ certificationNumber;
 	if(certificationNumber.length == 0){
 		alert("인증번호를 입력해주세요");
 		return false;
@@ -214,14 +222,18 @@ $(document).on("click", "#certificationNumberCheck",async function(){
 	    credentials: "same-origin", // include, *same-origin, omit
 	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 	  });
+	
+	  let jsonData = await response.json();
 
-   	if(response){
+   	if(jsonData){
    		alert("인증번호가 일치합니다.");
 	  	$('#resendNumber').attr("type", "hidden");
 	  	$('#certificationNumber').attr("type", "hidden");
 	  	$('#certificationNumberCheck').attr("type", "hidden");
+		let email = $('#email').attr("readonly", true);
    	}else{
-		$("#resendNumber").attr("disabled", false);
+   		alert("인증번호가 일치하지 않습니다.");
+		$("#certificationNumber").attr("disabled", false);
 	}
 });
 
@@ -270,7 +282,7 @@ $(document).on("click", "#signUpBtn", function(){
 		return false;
 	}
 	
-	if(!email){
+	if(!emailCheck){
 		alert("이메일 인증을 해주세요.");
 		return false;
 	}
