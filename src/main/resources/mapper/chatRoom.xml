@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomRepository"> 
 
-	<insert id= "insert">
+	<insert id= "insert" useGeneratedKeys="true" keyProperty="chatRoomId">
 		INSERT INTO tb_chat_room(created_at)
 		values(now());
 	</insert>
@@ -25,19 +25,37 @@
 		SELECT * FROM tb_chat_room;
 	</select>
 	
+	<!-- 입장 되어 있는 채팅방 목록 조회 -->
 	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto">
-		SELECT a.chat_room_id, b.user_id, c.name
+		SELECT a.chat_room_id, b.user_id, a.created_at, d.username
 		  FROM ( SELECT a.chat_room_id, b.user_id, a.created_at
-				   FROM tb_chat_room a
-				   JOIN tb_chat_room_user b
-					 ON a.chat_room_id = b.chat_room_id 
-					AND b.user_id = 1) a
-		  JOIN tb_chat_room_user b
-		    ON a.chat_room_id = b.chat_room_id
-		   AND a.user_id != b.user_id
-		  LEFT JOIN tb_person c
-			ON b.user_id = c.person_id
-		 ORDER BY a.created_at asc
+					FROM tb_chat_room a
+					JOIN tb_chat_room_user b
+					  ON a.chat_room_id = b.chat_room_id 
+					 AND b.user_id = #{userId}) AS a
+		  JOIN tb_chat_room_user AS b
+			ON a.chat_room_id = b.chat_room_id
+		   AND b.user_id != a.user_id
+		  JOIN tb_chat AS c
+		    ON a.chat_room_id = c.chat_room_id
+		   AND a.user_id = c.user_id
+		   AND c.context is null
+		  JOIN tb_user AS d
+		    ON b.user_id = d.user_id
+		 ORDER BY a.created_at desc;
+	</select>
+	
+	<!-- 해당 채팅방에 입장 되어 있는지 조회 -->
+	<select id="findCheckChatRoomByUserId" resultType = "int">
+		SELECT CASE WHEN a.chat_room_id IS NOT NULL THEN a.chat_room_id ELSE 0 END AS chat_room_id
+		  FROM ( SELECT a.chat_room_id, count(a.chat_room_id) as count
+				   FROM tb_chat_room as a
+				   LEFT JOIN tb_chat_room_user as b
+					 ON a.chat_room_id = b.chat_room_id
+				  WHERE b.user_id IN (#{userId1}, #{userId2})
+				  GROUP BY a.chat_room_id) as a
+		 RIGHT JOIN ( SELECT '' ) AS b
+			ON a.count = 2;
 	</select>
 	
 </mapper>

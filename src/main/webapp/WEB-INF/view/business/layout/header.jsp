@@ -11,35 +11,21 @@
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/e8f010a863.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/lecture.css" type="text/css" />
+  <link rel="stylesheet" href="/css/business/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
         
 </head>
 <body>
-	<header>
-		<div class="headerWrap">
+<div id= "businessPage">
+	<sideBar>
+		<div class="sideBar">
 			<img src="/images/logo/logo.png" class="logo">
-			<ul class='topMenuRight'>
+			<ul>
 				<li>
-					<a href="/lecture/list">수업보기</a>
-				</li>
-				<li>
-					<a>새소식</a>
-				</li>
-				<li>
-					<a>서비스소개</a>
-				</li>
-			</ul>			
-			<ul class='topMenuLeft'>
-				<li>
-					<a class="fa-solid fa-comments"></a>
-				</li>
-				<li>
-					<a class="fa-solid fa-user"></a>
+					<a><i class="fa-solid fa-user"></i>내 정보보기</a>
 				</li>
 			</ul>
 		</div>
-	</header>
+	</sideBar>

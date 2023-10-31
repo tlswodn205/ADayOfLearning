@@ -29,6 +29,10 @@
 										<strong>${list.amount}</strong>
 									</div>
 								</div>
+								<div>
+									<button type="button" class="listBtn" id="reviewBtn">후기 작성하기</button>
+									<button type="button" class="listBtn" id="chatBtn">문의하기</button>
+								</div>
 							</a>
 						</div>
 					</c:forEach>
