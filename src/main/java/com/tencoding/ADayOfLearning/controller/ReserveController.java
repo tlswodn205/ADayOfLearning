@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tencoding.ADayOfLearning.dto.ReserveListPageResponseDto;
 import com.tencoding.ADayOfLearning.dto.request.ReserveRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
@@ -31,8 +33,8 @@ public class ReserveController {
 	HttpSession session;
 	
 	@GetMapping("/list")
-	public String reserveList(Model model) {
-		List<ReserveListResponseDto> reserveList = reserveService.findReserveByUserId(1);
+	public String reserveList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page,@RequestParam(required = false) String status, Model model) {
+		ReserveListPageResponseDto<ReserveListResponseDto> reserveList = reserveService.findReserveByUserId(type, keyword, page, status, 1);
 		model.addAttribute("reserveList", reserveList);
 		
 		return "reserve/reserveList";

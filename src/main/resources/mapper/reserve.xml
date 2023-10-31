@@ -40,7 +40,44 @@
 		  LEFT JOIN tb_lecture_photo lp
 		    ON ls.lecture_id = lp.lecture_id
 		 WHERE r.user_id = #{userId}
+				<if test="type == 'title' and keyword != null">
+					and l.title like CONCAT('%',#{keyword},'%')
+				</if>
+				<if test="status != null and keyword != null">
+			 		and qt.state like CONCAT('%',#{status},'%')
+				</if>
 		 ORDER BY reserve_id DESC
+		LIMIT #{startNum}, 10;
+	</select>
+	
+		
+	<select  id="findPaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				FROM tb_reserve r
+				LEFT JOIN tb_lecture_session ls
+				ON r.lecture_session_id = ls.lecture_session_id
+				LEFT JOIN tb_lecture l
+				ON ls.lecture_id = l.lecture_id
+		 		WHERE r.user_id = #{userId}
+				<if test="type == 'title' and keyword != null">
+					and l.title like CONCAT('%',#{keyword},'%')
+				</if>
+				<if test="status != null and keyword != null">
+			 		and qt.state like CONCAT('%',#{status},'%')
+				</if>
+			) ost;
 	</select>
 	
 	<select id="findAllByReserveId" resultType = "com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto">
