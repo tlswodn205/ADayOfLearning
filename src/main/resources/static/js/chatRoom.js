@@ -42,8 +42,8 @@ $(document).ready(function () {
 	});
 	
 	if($("#nowChatRoomId").val() !== '') {
-		console.log("새로운 채팅");
-		stompConnect($("#chatRoomId").val());
+		console.log("새로운 채팅 - ");
+		stompConnect($("#nowChatRoomId").val());
 	}
 	
 }) // end of document ready
@@ -51,9 +51,9 @@ $(document).ready(function () {
 let stomp = null;
 // 이미 존재하는 채팅방 입장
 function chatRoom(event) {
-	let chatRoomId = $(event).find("#chatRoomId");
-	let chatUserId = $(event).find("#chatUserId");
-	let chatUsername = $(event).find("#chatUsername");
+	let chatRoomId = $(event).parent().find("#chatRoomId");
+	let chatUserId = $(event).parent().find("#chatUserId");
+	let chatUsername = $(event).parent().find("#chatUsername");
 	$.ajax({
 		url: '/chat/roomId',
 		method: 'get',
@@ -94,8 +94,7 @@ function chatRoom(event) {
 	stompConnect(chatRoomId.val());
 }
 
-function stompConnect(chatRoomId, newChatMessage) {
-	console.log('newChatMessage : ' + newChatMessage);
+function stompConnect(chatRoomId) {
 	// 실시간 채팅을 위한 통신
 	let sockJS = new SockJS("/stomp/chat");
 	if(stomp != null && stomp.connected) {
@@ -139,6 +138,33 @@ function stompConnect(chatRoomId, newChatMessage) {
     });
 }
 
+async function chatLeave(event) {
+	// 다시 물어보는 작업 필요
+	let chatRoomId = $(event).parent().find("#chatRoomId");
+	
+	let response = await fetch('/chat/leave',{
+		method: 'put',
+		body: JSON.stringify({
+			chatRoomId : chatRoomId.val()
+		}),
+		headers: {
+			"Content-Type":"application/json; charset=utf-8"
+		}
+	});
+	
+	if(response.status == 200) {
+		console.log('leave 성공');
+		let nowChatRoomId = $("#nowChatRoomId");
+		if(chatRoomId.val() === nowChatRoomId.val()) {
+			stomp.disconnect();
+			nowChatEmpty();
+		}
+		$(event).parent().remove();
+	} else {
+		console.log('leave 실패');
+	}
+}
+
 function messageMySend(username, message) {
 	let str = '<div class="chatMy">';
 	str += '<div class="chatUsername">';
@@ -160,4 +186,12 @@ function messageOtherSend(username, message) {
 	str += '</div>';
 	str += '</div>';
 	$("#chatContent").append(str);
+}
+
+function nowChatEmpty() {
+	$("#nowChatRoomId").val('');
+	$("#nowUserId").val('');
+	$("#nowUsername").val('');
+	$("#chatPerson").text('');
+	$("#chatContent").text('');
 }

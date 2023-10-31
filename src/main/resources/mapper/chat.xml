@@ -30,22 +30,19 @@
 		  FROM tb_chat;
 	</select>
 	
-	<!-- 채팅방의 id로 대화내용 가져오기 -->
-	<select id="findByChatRoomId" resultType = "com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto">
-		SELECT a.chat_room_id, a.user_id as send_user_id, b.username as send_username, a.context as message
+	<!-- 채팅방의 대화내용 조회 -->
+	<select id="findByChatRoomIdAndUserId" resultType = "com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto">
+		SELECT a.chat_room_id, a.user_id as sendUserId, c.username as sendUsername, a.context as message
 		  FROM tb_chat a
-		  LEFT JOIN tb_user b
-		    ON a.user_id = b.user_id
-		 WHERE a.chat_room_id = #{chatRoomId};
+		  LEFT JOIN ( SELECT start_at
+						 FROM tb_chat_room_user
+						WHERE chat_room_id = ${chatRoomId}
+		                  AND user_id = ${userId}) as b
+			ON a.created_at >= b.start_at
+		  LEFT JOIN tb_user c
+		    ON a.user_id = c.user_id
+		 WHERE a.chat_room_id = ${chatRoomId}
+		   AND a.created_at >= b.start_at
 	</select>
 	
-	<!-- 채팅방 입장 여부 확인 -->
-	<select id="findByChatRoomIdAndUserId" resultType = "com.tencoding.ADayOfLearning.repository.model.Chat">
-		SELECT chat_room_id, user_id, context
-		  FROM tb_chat
-		 WHERE chat_room_id = #{chatRoomId}
-		   AND user_id = #{userId}
-		   AND context is null;
-	</select>
-
 </mapper>

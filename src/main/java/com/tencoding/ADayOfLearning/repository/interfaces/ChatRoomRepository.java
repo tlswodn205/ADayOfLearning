@@ -28,7 +28,7 @@ public interface ChatRoomRepository {
 	 * 있으면 chatRoomId 값, 없으면 0
 	 * @param userId1
 	 * @param userId2
-	 * @return int 
+	 * @return int
 	 */
 	public int findCheckChatRoomByUserId(@Param(value = "userId1") int userId1,@Param(value = "userId2") int userId2);
 }

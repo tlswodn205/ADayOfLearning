@@ -17,17 +17,10 @@ public interface ChatRepository {
 	public List<Chat> findByAll();
 	
 	/**
-	 * 채팅 대화 내역 조회
-	 * @param chatRoomId
-	 * @return List<ChatMessageRequestDto>
-	 */
-	public List<ChatMessageRequestDto> findByChatRoomId(int chatRoomId);
-	
-	/**
-	 * 채팅방 입장 여부 확인 (context : null)
+	 * 채팅 대화 목록
 	 * @param chatRoomId
 	 * @param userId
-	 * @return Chat
+	 * @return List<ChatMessageRequestDto>
 	 */
-	public Chat findByChatRoomIdAndUserId(@Param(value = "chatRoomId") int chatRoomId, @Param(value = "userId") int userId);
+	public List<ChatMessageRequestDto> findByChatRoomIdAndUserId(@Param(value = "chatRoomId") int chatRoomId, @Param(value = "userId") int userId);
 }
