@@ -14,4 +14,5 @@ public class ChatRoomEnterRequestDto {
 	private int chatRoomId;
 	private int userId; // 채팅상대 userId
 	private String username; // 채팅상대 username
+	private String startAt;
 }

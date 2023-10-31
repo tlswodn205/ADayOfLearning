@@ -4,13 +4,14 @@
 <mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomUserRepository"> 
 
 	<insert id= "insert">
-		INSERT INTO tb_chat_room_user(chat_room_id, user_id, created_at)
-		values(#{chatRoomId},#{userId},now());
+		INSERT INTO tb_chat_room_user(chat_room_id, user_id, start_at)
+		values(#{chatRoomId},#{userId},#{startAt});
 	</insert>
 	
 	<update id="updateByChatRoomUserId">
-		UPDATE tb_chat_room_user SET start_at = #{startAt}
-		WHERE chat_room_user_id = #{chatRoomUserId};
+		UPDATE tb_chat_room_user
+		   SET start_at = #{startAt}
+		 WHERE chat_room_user_id = #{chatRoomUserId};
 	</update>
 	
 	<delete id="deleteByChatRoomUserId">
@@ -24,5 +25,35 @@
 	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.ChatRoomUser">
 		SELECT * FROM tb_chat_room_user;
 	</select>
+	
+	<!-- 채팅방 최초 입장 -->
+	<insert id= "insertEnter">
+		INSERT INTO tb_chat_room_user(chat_room_id, user_id, start_at)
+		 VALUE (#{chatRoomId},#{userId},${startAt});
+	</insert>
+	
+	<!-- 채팅 입장 상태 확인 -->
+	<select id="findByChatRoomIdAndUserId" resultType = "com.tencoding.ADayOfLearning.repository.model.ChatRoomUser">
+		SELECT * 
+		  FROM tb_chat_room_user
+		 WHERE chat_room_id = #{chatRoomId}
+		   AND user_id = #{userId};
+	</select>
+	
+	<!-- 채팅방 재 입장 -->
+	<update id="updateStartAtByChatRoomUser">
+		UPDATE tb_chat_room_user
+		   SET start_at = now()
+		 WHERE chat_room_id = #{chatRoomId}
+		   AND user_id = #{userId};
+	</update>
+	
+	<!-- 채팅방 나가기 -->
+	<update id="deleteStartAtByChatRoomIdAndUserId">
+		UPDATE tb_chat_room_user
+		   SET start_at = null
+		 WHERE chat_room_id = #{chatRoomId}
+		   AND user_id = #{userId};
+	</update>
 	
 </mapper>

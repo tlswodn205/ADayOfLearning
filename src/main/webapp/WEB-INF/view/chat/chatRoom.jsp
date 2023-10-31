@@ -13,15 +13,15 @@
 		<input type="hidden" id="username" value="${principal.username}">
 		<input type="hidden" id="userId" value="${principal.userId}">
 		<c:forEach var="chatRoom" items="${chatRoomList}">
-			<div class="chatRoom" onclick="chatRoom(this)">
+			<div class="chatRoom">
 				<input type="hidden" id="chatRoomId" value="${chatRoom.chatRoomId}">
 				<input type="hidden" id="chatUserId" value="${chatRoom.userId}">
-				<span id="chatUsername">${chatRoom.username}</span>
+				<a class="chatUsername" id="chatUsername" onclick="chatRoom(this)">${chatRoom.username}</a>
+				<a class="chatDelete" id="chatLeave" onclick="chatLeave(this)">나가기</a>
 			</div>
 		</c:forEach>
 	</div>
 	<div class="chatView">
-		
 		<input type="hidden" id="nowChatRoomId" value="${chatEnter.chatRoomId}">
 		<input type="hidden" id="nowUserId" value="${chatEnter.userId}">
 		<input type="hidden" id="nowUsername" value="${chatEnter.username}">

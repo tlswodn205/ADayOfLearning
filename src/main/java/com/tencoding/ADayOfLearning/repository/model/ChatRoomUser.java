@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ChatRoomUser {
 	private int chatRoomUserId;
 	private int chatRoomId;
-	private int UserId;
-	private int startAt;
+	private int userId;
+	private Timestamp startAt;
 	private Timestamp createdAt;
 }

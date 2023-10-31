@@ -74,7 +74,7 @@ file="/WEB-INF/view/layout/header.jsp"%>
                     </div>
                     <div class="detail-price">35,000원</div>
                     <div class="payment-button-set">
-                        <button>문의하기</button>
+                        <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">문의하기</button>
                         <button class="enroll">클래스 신청</button>
                     </div>
                 </div>

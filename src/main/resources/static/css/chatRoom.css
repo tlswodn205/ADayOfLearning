@@ -12,9 +12,26 @@
 }
 #chat .chatRoom {
 	margin: 5px;
+	display: flex;
+}
+#chat .chatRoom .chatUsername{
+	margin: 5px;
+	width: 100%;
+	cursor: pointer;
+}
+#chat .chatRoom .chatDelete{
+	margin: 5px;
+	width: 60px;
+	text-align: center;
+	border: 1px solid;
 	cursor: pointer;
 }
 
+#chat .chatPerson {
+	width: 95%;
+	height: 30px;
+	vertical-align: middle;
+}
 #chat .chatView {
 	width: 59%;
 	height: 100%;

@@ -1,6 +1,7 @@
 package com.tencoding.ADayOfLearning.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,56 +56,68 @@ public class ChatController{
 		if(principal == null) {
 			return "redirect:/user/signIn";
 		}
-		log.info("/chat/room dto - {}", chatRoomEnterRequestDto);
+		log.info("/room - {}", chatRoomEnterRequestDto);
 		if(chatRoomEnterRequestDto.getUserId() > 0) {
-			
+			// 새로운 채팅방 생성
+			// chatRoom, chatRoomUser 데이터 생성
 			int chatRoomId = chatRoomService.insert(principal.getUserId(), chatRoomEnterRequestDto.getUserId());
-			log.info("chatRoomId - {}", chatRoomId);
-			chatService.insertEnter(chatRoomId, principal.getUserId());
-			log.info("chat에 content null인 데이터 (입장여부) 확인");
-			// dto 조절 필요
-			chatRoomEnterRequestDto.setChatRoomId(chatRoomId);
-			User chatUser = userService.findByUserId(chatRoomEnterRequestDto.getUserId());
+			log.info("/room chatRoomId - {}", chatRoomId);
 			
+			// 해당 유저의 name 가져와 model에 담기
+			User chatUser = userService.findByUserId(chatRoomEnterRequestDto.getUserId());
 			chatRoomEnterRequestDto = ChatRoomEnterRequestDto.builder()
-														.chatRoomId(chatRoomId)
-														.userId(chatRoomEnterRequestDto.getUserId())
-														.username(chatUser.getUsername())
-														.build();
+															.chatRoomId(chatRoomId)
+															.userId(chatRoomEnterRequestDto.getUserId())
+															.username(chatUser.getUsername())
+															.build();
 			model.addAttribute("chatEnter" ,chatRoomEnterRequestDto);
 		}
 		
 		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(principal.getUserId());
-		log.info("chatRoomList : {}", chatRoomList);
 		model.addAttribute("chatRoomList", chatRoomList);
 		return "chat/chatRoom";
 	}
 	
 	/**
-	 * 기존의 채팅 내용 리스트 조회
+	 * 채팅 내용 히스토리 리스트 조회
 	 * @param chatRoomId
 	 * @return List<ChatMessageRequestDto>
 	 */
 	@GetMapping("/roomId")
 	public @ResponseBody List<ChatMessageRequestDto> chatList(int chatRoomId){
-		
-		List<ChatMessageRequestDto> chat = chatService.findByChatRoomId(chatRoomId);
+		log.info("/roomId - {}", chatRoomId);
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		List<ChatMessageRequestDto> chat = chatService.findByChatRoomId(chatRoomId, principal.getUserId());
 		return chat;
 	}
 	
 	/**
 	 * 채팅 전송할 내용 저장
 	 * @param chatMessageRequestDto
-	 * @return 
+	 * @return ResponseEntity
 	 */
 	@PostMapping("/insert")
 	public @ResponseBody ResponseEntity<?> insert(@RequestBody ChatMessageRequestDto chatMessageRequestDto) {
-    	log.info("/insert");
-    	log.info("{}",chatMessageRequestDto);
+    	log.info("/insert - {}", chatMessageRequestDto);
     	
     	// user1, user2가 chatroomuser에 있는지 확인 후 insert
     	chatService.insertChat(chatMessageRequestDto);
     	return ResponseEntity.ok().build();
+	}
+	
+	/**
+	 * 채팅방 나가기
+	 * @param chatLeaveRequestDto
+	 * @return ResponseEntity
+	 */
+	@PutMapping("/leave")
+	public @ResponseBody ResponseEntity<?> leave(@RequestBody Map<String, Integer> chatRoomId) {
+		log.info("/leave - {}", chatRoomId);
+		
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		chatRoomUserService.delete(chatRoomId.get("chatRoomId"), principal.getUserId());
+		
+		return ResponseEntity.ok().build();
 	}
 	
 }
