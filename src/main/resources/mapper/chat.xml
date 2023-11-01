@@ -31,18 +31,25 @@
 	</select>
 	
 	<!-- 채팅방의 대화내용 조회 -->
-	<select id="findByChatRoomIdAndUserId" resultType = "com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto">
-		SELECT a.chat_room_id, a.user_id as sendUserId, c.username as sendUsername, a.context as message
+	<select id="findByChatRoomIdAndUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.ChatMessageResponsoDto">
+		SELECT a.chat_room_id
+			 , a.user_id
+		     , a.context as message
+		     , b.username
+		     , a.created_at
 		  FROM tb_chat a
-		  LEFT JOIN ( SELECT start_at
-						 FROM tb_chat_room_user
-						WHERE chat_room_id = ${chatRoomId}
-		                  AND user_id = ${userId}) as b
-			ON a.created_at >= b.start_at
-		  LEFT JOIN tb_user c
-		    ON a.user_id = c.user_id
-		 WHERE a.chat_room_id = ${chatRoomId}
-		   AND a.created_at >= b.start_at
+		  JOIN tb_user b
+		    ON a.user_id = b.user_id
+		 WHERE a.chat_room_id = #{chatRoomId}
+		   AND a.created_at &gt;= #{startAt}
 	</select>
 	
+	<!-- 확인한 대화 view_at 0으로 업데이트 -->
+	<update id="updateViewAt">
+		UPDATE tb_chat
+		   SET view_at = 0
+		 WHERE chat_room_id = #{chatRoomId}
+		   AND user_id != #{userId}
+		   AND created_at >= #{startAt};
+	</update>
 </mapper>

@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.tencoding.ADayOfLearning.dto.request.ChatRoomEnterRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.repository.model.ChatRoomUser;
 
 
@@ -20,7 +20,7 @@ public interface ChatRoomUserRepository {
 	 * 채팅방 최초 입장 - ChatRoomUser 데이터 추가
 	 * @param ChatRoomEnterRequestDto
 	 */
-	public int insertEnter(ChatRoomEnterRequestDto ChatRoomEnterRequestDto);
+	public int insertEnter(NewChatRequestDto ChatRoomEnterRequestDto);
 	/**
 	 *  채팅방 입장 상태 확인 (start_at)
 	 * @param chatRoomId

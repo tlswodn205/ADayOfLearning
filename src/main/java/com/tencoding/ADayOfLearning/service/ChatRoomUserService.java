@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tencoding.ADayOfLearning.dto.request.ChatRoomEnterRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomUserRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
 import com.tencoding.ADayOfLearning.repository.model.ChatRoomUser;
@@ -29,7 +29,7 @@ public class ChatRoomUserService {
 	 */
 	@Transactional
 	public void insertEnter(int chatRoomId, int userId, String startAt) {
-		ChatRoomEnterRequestDto chatRoomUser = ChatRoomEnterRequestDto.builder()
+		NewChatRequestDto chatRoomUser = NewChatRequestDto.builder()
 												.chatRoomId(chatRoomId)
 												.userId(userId)
 												.startAt(startAt)
