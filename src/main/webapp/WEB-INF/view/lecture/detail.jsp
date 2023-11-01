@@ -72,9 +72,9 @@ file="/WEB-INF/view/layout/header.jsp"%>
                             <div class="reserveSession"></div>
                         </div>
                     </div>
-                    <div class="detailPrice">35,000원</div>
-                    <div class="paymentButtonSet">
-                        <button>문의하기</button>
+                    <div class="detail-price">35,000원</div>
+                    <div class="payment-button-set">
+                        <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">문의하기</button>
                         <button class="enroll">클래스 신청</button>
                     </div>
                 </div>

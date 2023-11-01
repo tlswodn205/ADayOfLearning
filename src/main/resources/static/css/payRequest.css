@@ -24,7 +24,7 @@ form {
 
 #payRequest .sectionBox {
 	border-bottom: 1px solid #d3d3d3;
-	padding: 20px 0;
+	padding: 24px 0;
 }
 
 #payRequest .sectionBox-area {
@@ -36,11 +36,11 @@ form {
 	border-radius: 7px;
 }
 
-#payRequest .loginInfo {
+#payRequest .row {
 	display: flex;
 }
 
-#payRequest .loginInfo p:first-of-type {
+#payRequest .row p:first-of-type {
 	margin-right: 30px;
 }
 
@@ -74,3 +74,12 @@ form {
 	margin-top: 0;
 }
 
+#payRequest .btn {
+	margin: 21px 0;
+}
+
+#payRequest .requestBtn {
+	background-color: rgb(254, 214, 214);
+	padding: 10px;
+	border-radius: 7px;
+}

@@ -30,22 +30,26 @@
 		  FROM tb_chat;
 	</select>
 	
-	<!-- 채팅방의 id로 대화내용 가져오기 -->
-	<select id="findByChatRoomId" resultType = "com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto">
-		SELECT a.chat_room_id, a.user_id as send_user_id, b.username as send_username, a.context as message
+	<!-- 채팅방의 대화내용 조회 -->
+	<select id="findByChatRoomIdAndUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.ChatMessageResponsoDto">
+		SELECT a.chat_room_id
+			 , a.user_id
+		     , a.context as message
+		     , b.username
+		     , a.created_at
 		  FROM tb_chat a
-		  LEFT JOIN tb_user b
+		  JOIN tb_user b
 		    ON a.user_id = b.user_id
-		 WHERE a.chat_room_id = #{chatRoomId};
+		 WHERE a.chat_room_id = #{chatRoomId}
+		   AND a.created_at &gt;= #{startAt}
 	</select>
 	
-	<!-- 채팅방 입장 여부 확인 -->
-	<select id="findByChatRoomIdAndUserId" resultType = "com.tencoding.ADayOfLearning.repository.model.Chat">
-		SELECT chat_room_id, user_id, context
-		  FROM tb_chat
+	<!-- 확인한 대화 view_at 0으로 업데이트 -->
+	<update id="updateViewAt">
+		UPDATE tb_chat
+		   SET view_at = 0
 		 WHERE chat_room_id = #{chatRoomId}
-		   AND user_id = #{userId}
-		   AND context is null;
-	</select>
-
+		   AND user_id != #{userId}
+		   AND created_at >= #{startAt};
+	</update>
 </mapper>

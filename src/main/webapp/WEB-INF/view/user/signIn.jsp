@@ -11,6 +11,14 @@
 			<input type="button" id="signInBtn" value="로그인">
 		</form>
 	</div>
+	<div>
+		<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=ccdeb94ef92aa4067769d9ed3712c815&redirect_uri=http://localhost:8080/user/kakao/callback">
+		<img src="/images/kakaoButton/kakao_login_large_wide.png" width="400px" alt=""></a>
+	</div>
+	
+		<a href="/user/signUp">회원가입</a>
+		<a href="/user/signUp">아이디 찾기</a>
+		<a href="/user/signUp">비밀번호 찾기</a>
 </main>
 
 <script>

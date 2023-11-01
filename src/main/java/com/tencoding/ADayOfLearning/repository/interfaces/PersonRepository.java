@@ -14,4 +14,5 @@ public interface PersonRepository {
 	public int deleteByPersonId(int personId);
 	public Person findByPersonId(int personId);
 	public List<Person> findByAll();
+	public Person findByEmail(String email);
 }

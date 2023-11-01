@@ -9,4 +9,5 @@ public class ChatRoomResponseDto {
 	private int userId;
 	private String username;
 	private String name;
+	private int viewCount;
 }

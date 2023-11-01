@@ -16,5 +16,6 @@ public interface UserRepository {
 	public User findByUserId(int id);
 	public List<User> findByAll();
 	public User findByUsername(String username);
+	public User findByEmail(String email);
 	public BusinessMainUserDataResponseDto findUserDataByUserId(int userId);
 }

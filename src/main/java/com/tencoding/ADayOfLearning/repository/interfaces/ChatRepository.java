@@ -3,10 +3,10 @@ package com.tencoding.ADayOfLearning.repository.interfaces;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
-import com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.ChatMessageResponsoDto;
 import com.tencoding.ADayOfLearning.repository.model.Chat;
+import com.tencoding.ADayOfLearning.repository.model.ChatRoomUser;
 
 @Mapper
 public interface ChatRepository {
@@ -17,17 +17,12 @@ public interface ChatRepository {
 	public List<Chat> findByAll();
 	
 	/**
-	 * 채팅 대화 내역 조회
-	 * @param chatRoomId
-	 * @return List<ChatMessageRequestDto>
-	 */
-	public List<ChatMessageRequestDto> findByChatRoomId(int chatRoomId);
-	
-	/**
-	 * 채팅방 입장 여부 확인 (context : null)
+	 * 채팅 대화 목록
 	 * @param chatRoomId
 	 * @param userId
-	 * @return Chat
+	 * @return List<ChatMessageResponsoDto>
 	 */
-	public Chat findByChatRoomIdAndUserId(@Param(value = "chatRoomId") int chatRoomId, @Param(value = "userId") int userId);
+	public List<ChatMessageResponsoDto> findByChatRoomIdAndUserId(ChatRoomUser chatRoomUser);
+	
+	public void updateViewAt(ChatRoomUser chatRoomUser);
 }

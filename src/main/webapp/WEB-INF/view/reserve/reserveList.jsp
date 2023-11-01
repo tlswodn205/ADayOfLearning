@@ -14,7 +14,7 @@
 
 			<c:choose>
 				<c:when test="${reserveList != null}">
-					<c:forEach var="list" items="${reserveList}">
+					<c:forEach var="list" items="${reserveList.list}">
 						<div class="listBox">
 							<a href="/reserve/detail/${list.reserveId}">
 								<div>
@@ -29,9 +29,39 @@
 										<strong>${list.amount}</strong>
 									</div>
 								</div>
+								<div>
+									<button type="button" class="listBtn" id="reviewBtn">후기 작성하기</button>
+									<button type="button" class="listBtn" id="chatBtn">문의하기</button>
+								</div>
 							</a>
 						</div>
 					</c:forEach>
+					<div class="d-flex justify-content-center">
+						<ul class="pagination">
+							<c:if test="${!reserveList.first}">
+								<li class='page-item'>
+									<a class="page-link" href="?page=${reserveList.currentPage-1}${empty reserveList.keyword ? "": "&keyword="+= reserveList.keyword}${empty reserveList.type ? "": "&type="+= reserveList.type}${empty reserveList.status ? "": "&status="+= reserveList.status}">Prev</a>
+								</li>
+							</c:if> 
+
+							<c:forEach var ="num" begin = "${reserveList.startPageNum}" end="${reserveList.lastPageNum}">
+									<c:choose>
+										<c:when test="${num==reserveList.currentPage}">
+											<li class='page-item'><label>${num}</label></li>
+										</c:when>
+										<c:otherwise>	
+											<li class='page-item'><a class='page-link' href="?page=${num}${empty reserveList.keyword ? "": "&keyword="+= reserveList.keyword}${empty reserveList.type ? "": "&type="+= reserveList.type}${empty reserveList.status ? "": "&status="+= reserveList.status}">${num}</a></li>
+										</c:otherwise> 
+									</c:choose>
+							</c:forEach>
+							<c:if test="${!reserveList.last}">	
+								<li class='page-item'>
+									<a class="page-link" href="?page=${reserveList.currentPage+1}${empty reserveList.keyword ? "": "&keyword="+= reserveList.keyword}${empty reserveList.type ? "": "&type="+= reserveList.type}${empty reserveList.status ? "": "&status="+= reserveList.status}">Next</a>
+						
+								</li>
+							</c:if>
+						</ul>
+					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="col">

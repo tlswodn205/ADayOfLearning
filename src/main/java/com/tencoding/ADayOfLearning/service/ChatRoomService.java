@@ -42,20 +42,21 @@ public class ChatRoomService {
 	 */
 	@Transactional
 	public int insert(int sendUserId, int receiveUserId) {
-		log.info("chatInsert");
-		log.info("userId : {} - {}", sendUserId, receiveUserId);
 		int chatRoomId = chatRoomRepository.findCheckChatRoomByUserId(sendUserId, receiveUserId);
 		// chat_room insert
 		if(chatRoomId == 0) {
-			log.info("chatRoom 생성");
 			// 채팅룸 생성
 			ChatRoom chatRoom = new ChatRoom();
 			chatRoomRepository.insert(chatRoom);
 			chatRoomId = chatRoom.getChatRoomId();
 			
 			// chat_room_user 생성
-			chatRoomUserService.insert(chatRoomId, sendUserId);
-			chatRoomUserService.insert(chatRoomId, receiveUserId);
+			chatRoomUserService.insertEnter(chatRoomId, sendUserId, "now()");
+			chatRoomUserService.insertEnter(chatRoomId, receiveUserId, "null");
+			log.info("chatRoom 생성");
+		} else {
+			// start_at이 null이면 update
+			chatRoomUserService.updateStartAt(chatRoomId, sendUserId);
 		}
 		
 		log.info("최종 chatRoomId : {}", chatRoomId);

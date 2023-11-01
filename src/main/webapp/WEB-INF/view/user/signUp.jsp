@@ -4,17 +4,31 @@
 <main>
 	<div id="signUp" class="mainColumn">
 		<form action="/user/signUp" method="post" id="signUpForm">
-			<input type="text" id="username" name="username" placeholder="아이디">
-			<input type="button" id="usernameDuplicationCheck" value="회원 중복 확인">
-			<br>
-			<input type="password" id="password" name="password" placeholder="비밀번호">
-			<br>
-			<input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인">
-			<br>
+			<c:choose>
+				<c:when test="${signInRequestDto==null}">
+					<input type="text" id="username" name="username" placeholder="아이디">
+					<input type="button" id="usernameDuplicationCheck" value="회원 중복 확인">
+					<br>
+					<input type="password" id="password" name="password" placeholder="비밀번호">
+					<br>
+					<input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인">
+					<br>
+				</c:when>
+				
+				<c:otherwise>
+					<input type="hidden" id="username" name="username" placeholder="아이디" value="${signInRequestDto.username}">
+					<input type="hidden" id="password" name="password" placeholder="비밀번호" value="${signInRequestDto.password}">
+					<input type="hidden" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인" value="${signInRequestDto.password}">
+				</c:otherwise>
+			</c:choose>
 			<input type="text" id="name" name="name" placeholder="이름">
 			<br>
 			<input type="text" id="email" name="email" placeholder="이메일">
 			<input type="button" id="emailCheck" value="이메일 확인">
+			<input type="hidden" id="resendNumber" value="인증번호 재전송">
+			<input type="hidden" id="certificationNumber" placeholder="인증번호">
+			<input type="hidden" id="certificationNumberCheck" value="인증번호 확인">
+
 			<br>
 			<input type="text" id="address" name="address" placeholder="주소" readonly>
 			<input type="button" id="openZipSearch" value="주소 확인">
@@ -75,21 +89,23 @@
 						권리에 대한 더 많은 정보를 원하시면, privacy@ADayOfLearning.com으로 연락 주시기 바랍니다.</li>
 			</details>
       <br>
-	<div id="example3" class="g-recaptcha" data-sitekey="6LdlBDMoAAAAAJ5e259lVDfM02OcrCd5TftL9awD"data-callback="verifyCallback"></div>
-      <input type="button" value="Submit" onclick="grecaptchaCheck()" >
 			<input type="button" id="signUpBtn" value="회원가입">
 		</form>
 	</div>
 </main>
-             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-let usernameCheck = 0;
+let usernameCheck = 1;
 let emailCheck = 0;
+let emailStore = "";
 
 $(document).ready(function(){
 	$('#birthday').val();
 });
+	
+$('#usernameDuplicationCheck').on('ready', function(){
+	usernameCheck=0;
+})
 
 $(document).on("change", "#username", function(){
 	usernameCheck = 0;
@@ -112,13 +128,116 @@ $(document).on("click", "#usernameDuplicationCheck",async function(){
 	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 	  });
 
-   	if(response){
+	  let jsonData = await response.json();
+
+   	if(jsonData){
    		usernameCheck = 1;
    		alert("사용가능한 아이디 입니다");
    	}else{
    		alert("사용중인 아이디 입니다");
    	}
 });
+
+
+$(document).on("click", "#emailCheck",async function(){
+	let email = $('#email').val();
+	let URL = "/user/emailCheck?email="+email;
+	emailStore = $('#email').val();
+	if(email.length == 0){
+		alert("이메일을 입력해주세요");
+		return false;
+	}
+	
+	
+	$("#emailCheck").attr("disabled", true);
+	
+	let response = await fetch(URL, {
+	    method: "get", // *GET, POST, PUT, DELETE 등
+	    mode: "cors", // no-cors, *cors, same-origin
+	    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+	    credentials: "same-origin", // include, *same-origin, omit
+	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+	  });
+
+	  let jsonData = await response.json();
+
+   	if(jsonData){
+   		alert("인증번호를 이메일로 전송했습니다.");
+	  	$('#resendNumber').attr("type", "button");
+	  	$('#certificationNumber').attr("type", "text");
+	  	$('#certificationNumberCheck').attr("type", "button");
+	  	emailCheck = 1;
+	  	emailStore = email;
+   		
+   	}else{
+   		alert("사용중인 이메일 입니다");
+   	}
+});
+
+$(document).on("click", "#resendNumber",async function(){
+	let email = $('#email').val();
+	let URL = "/user/emailCheck?email="+email;
+	emailStore = $('#email').val();
+	if(email.length == 0){
+		alert("이메일을 입력해주세요");
+		return false;
+	}
+	
+	
+	$("#resendNumber").attr("disabled", true);
+	
+	let response = await fetch(URL, {
+	    method: "get", // *GET, POST, PUT, DELETE 등
+	    mode: "cors", // no-cors, *cors, same-origin
+	    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+	    credentials: "same-origin", // include, *same-origin, omit
+	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+	  });
+
+	  let jsonData = await response.json();
+	  
+   	if(jsonData){
+   		alert("인증번호를 이메일로 전송했습니다.");
+   	}
+   	
+	$("#resendNumber").attr("disabled", false);
+});
+
+$(document).on("click", "#certificationNumberCheck",async function(){
+	let email = $('#email').val();
+	let certificationNumber = $('#certificationNumber').val();
+	let URL = "/user/certificationNumber?email="+email+"&certificationNumber="+ certificationNumber;
+	if(certificationNumber.length == 0){
+		alert("인증번호를 입력해주세요");
+		return false;
+	}
+	
+	
+	$("#certificationNumber").attr("disabled", true);
+	
+	let response = await fetch(URL, {
+	    method: "get", // *GET, POST, PUT, DELETE 등
+	    mode: "cors", // no-cors, *cors, same-origin
+	    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+	    credentials: "same-origin", // include, *same-origin, omit
+	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+	  });
+	
+	  let jsonData = await response.json();
+
+   	if(jsonData){
+   		alert("인증번호가 일치합니다.");
+	  	$('#resendNumber').attr("type", "hidden");
+	  	$('#certificationNumber').attr("type", "hidden");
+	  	$('#certificationNumberCheck').attr("type", "hidden");
+		let email = $('#email').attr("readonly", true);
+   	}else{
+   		alert("인증번호가 일치하지 않습니다.");
+		$("#certificationNumber").attr("disabled", false);
+	}
+});
+
+
 
 
 $(document).on("click", "#signUpBtn", function(){
@@ -163,7 +282,7 @@ $(document).on("click", "#signUpBtn", function(){
 		return false;
 	}
 	
-	if(!email){
+	if(!emailCheck){
 		alert("이메일 인증을 해주세요.");
 		return false;
 	}
@@ -207,33 +326,6 @@ $(document).on("click", "#openZipSearch", function() {
 	}).open();
 })
 
-
-
-
-      let widgetId1;
-      
-
-      
-      
-      async function grecaptchaCheck(){
-    	let data = $("#ex3")[0];
-    	let URL = "http://www.google.com/recaptcha/api/siteverify?secret=6LdlBDMoAAAAAP7BHcrmNBMclxHp2y-1_KBAczAB&response="+widgetId1;
-        var form_data = new FormData();
-    	let response = await fetch(URL, {
-    	    method: "get", // *GET, POST, PUT, DELETE 등
-    	    mode: "no-cors", // no-cors, *cors, same-origin
-    	    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    	    credentials: "same-origin", // include, *same-origin, omit
-    	    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    	  });
-    	
-    	console.log(response);
-      };
-      
-      var verifyCallback = function(response) {
-          alert(response);
-          widgetId1= response;
-        };
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp" %>

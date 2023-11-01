@@ -4,13 +4,24 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
+import com.tencoding.ADayOfLearning.dto.request.KakaoProfile;
+import com.tencoding.ADayOfLearning.dto.request.OAuthToken;
 import com.tencoding.ADayOfLearning.dto.request.SignInRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.SignUpRequestDto;
 import com.tencoding.ADayOfLearning.handler.exception.CustomRestfulException;
@@ -121,4 +132,92 @@ public class UserController {
 		return result;
 	}
 	
+
+	@GetMapping("/kakao/callback")
+	public String kakaoCallback(@RequestParam String code, Model model) {
+		System.out.println("메서드 동작");
+		
+		RestTemplate rt = new RestTemplate();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("grant_type", "authorization_code");
+		params.add("client_id", "ccdeb94ef92aa4067769d9ed3712c815");
+		params.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
+		params.add("code", code);
+		
+		HttpEntity<MultiValueMap<String, String>> reqMes = 
+				new HttpEntity<>(params, headers);
+		
+		ResponseEntity<OAuthToken> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST, reqMes, OAuthToken.class);
+		System.out.println("액세스 토큰 확인" + response.getBody().toString());
+		
+		RestTemplate ret2 = new RestTemplate();
+		
+		HttpHeaders headers2 = new HttpHeaders();
+		headers2.add("Authorization", "Bearer " + response.getBody().getAccessToken());
+		headers2.add("Content-type", "Content-type: application/x-www-form-urlencoded;charset=utf-8");
+		HttpEntity<MultiValueMap<String, String>> kakaoInfo = new HttpEntity<>(headers2);
+		
+		ResponseEntity<KakaoProfile> response2 = ret2.exchange
+				("https://kapi.kakao.com/v2/user/me", HttpMethod.POST, kakaoInfo, KakaoProfile.class);
+		System.out.println("------------------------------------------------");
+		System.out.println(response2.getBody().getKakaoAccount().getEmail());
+		
+		System.out.println("-------카카오 서버에 정보 받기 완료-------");
+		
+		KakaoProfile kakaoProfile = response2.getBody();
+		
+		SignInRequestDto signInRequestDto = SignInRequestDto
+				.builder()
+				.username(kakaoProfile.getKakaoAccount().getEmail()+"_"+kakaoProfile.getId()+"_kakao")
+				.password("tencoKey")
+				.build();
+
+		User oldUser = userService.findUsername(signInRequestDto.getUsername());
+		if (oldUser == null) {
+			model.addAttribute("signInRequestDto", signInRequestDto);
+			return "/user/signUp";
+		}
+		oldUser.setPassword(null);
+		session.setAttribute(Define.PRINCIPAL, oldUser);
+		
+		//session.setAttribute(Define.PRINCIPAL, oldUser);
+		return "redirect:/";
+		
+	}
+	
+	@GetMapping("/emailCheck")
+	@ResponseBody
+	public int emailCheck(@RequestParam String email) {
+		String emailCheck = personService.emailDuplicationCheck(email);
+		session.setAttribute(emailCheck, email);
+		session.setMaxInactiveInterval(180);
+		return 1;
+	}
+	
+	@GetMapping("/certificationNumber")
+	@ResponseBody
+	public int certificationNumber(@RequestParam String email,@RequestParam String certificationNumber)  {
+		certificationNumber = "emailCheck_"+certificationNumber; 
+		String emailStore = (String)session.getAttribute(certificationNumber);
+		
+		if(emailStore == null) {
+			return 0;
+		}
+		
+		if(!emailStore.equals(email)) {
+			throw new CustomRestfulException("이메일이 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
+		}
+		
+		return 1;
+	}
+	
+	@GetMapping("/findUsername")
+	@ResponseBody
+	public String findUsername()  {
+		return "user/findUsername";
+	}
 }

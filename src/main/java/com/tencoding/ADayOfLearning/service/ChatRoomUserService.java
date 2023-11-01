@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomUserRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
 import com.tencoding.ADayOfLearning.repository.model.ChatRoomUser;
@@ -21,20 +22,47 @@ public class ChatRoomUserService {
 	UserRepository userRepository;
 	
 	/**
-	 * chatUserRoom 추가
+	 * 채팅방 생성 후 chatRoomUser 추가
+	 * @param chatRoomId
+	 * @param userId
+	 * @param timestamp 
+	 */
+	@Transactional
+	public void insertEnter(int chatRoomId, int userId, String startAt) {
+		NewChatRequestDto chatRoomUser = NewChatRequestDto.builder()
+												.chatRoomId(chatRoomId)
+												.userId(userId)
+												.startAt(startAt)
+												.build();
+		log.info("chatRoomUser : {}", chatRoomUser);
+		chatRoomUserRepository.insertEnter(chatRoomUser);
+	}
+
+	/**
+	 * 재입장 확인 - chatRoomUser start_at 확인
+	 * @param chatRoomId
+	 * @param userId
+	 */
+	public void updateStartAt(int chatRoomId, int userId) {
+		ChatRoomUser chatRoomUser = chatRoomUserRepository.findByChatRoomIdAndUserId(chatRoomId, userId);
+		log.info("{}", chatRoomUser);
+		if(chatRoomUser.getStartAt() == null) {
+			chatRoomUserRepository.updateStartAtByChatRoomUser(chatRoomUser);
+		}
+	}
+	
+	/**
+	 * 채팅방 나가기
 	 * @param chatRoomId
 	 * @param userId
 	 */
 	@Transactional
-	public void insert(int chatRoomId, int userId) {
+	public void delete(int chatRoomId, int userId) {
 		ChatRoomUser chatRoomUser = ChatRoomUser.builder()
 												.chatRoomId(chatRoomId)
-												.UserId(userId)
+												.userId(userId)
 												.build();
-		
-		log.info("chatRoomUser : {}", chatRoomUser);
-		chatRoomUserRepository.insert(chatRoomUser);
+		chatRoomUserRepository.deleteStartAtByChatRoomIdAndUserId(chatRoomUser);
 	}
-
 
 }

@@ -16,6 +16,19 @@ spring:
     username: root
     password: asd1234
     
+  mail:
+    host: smtp.gmail.com # 1
+    port: 587 # 2
+    username: tlswodn205 # 3
+    password: rfsh vyif tiuh zkqj
+    properties:
+      mail:
+        smtp:
+          auth: true # 5
+          timeout: 5000 # 6
+          starttls:
+            enable: true # 7
+    
 mybatis:
   mapper-locations:
   - classpath:mapper/**.xml
@@ -27,7 +40,7 @@ mybatis:
 tenco:
   key: 85135F3C6BFE9DF1735F8806F045AE73CECE7219F7840D8E7E9297A7F846B48A
 
-#logging:
-#  level:
-#    '[org.mybatis]': DEBUG
+logging:
+  level:
+    '[org.mybatis]': DEBUG
     

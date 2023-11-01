@@ -5,16 +5,46 @@
 	align-items: flex-start;
 }
 
-#chat .chatRoomList {
+#chat .chatRoomRoot {
 	width: 40%;
 	height: 100%;
 	border: 1px solid;
 }
 #chat .chatRoom {
 	margin: 5px;
+	display: flex;
+	align-items: center;
+}
+#chat .chatRoom .chatUsername{
+	font-size: 22px;
+	margin: 5px;
+	width: 100%;
+	cursor: pointer;
+}
+#chat .chatRoom .newMessage{
+	font-size: 14px;
+	text-align: center;
+	color: blue;
+	margin: 10px;
+	width: 20px;
+	cursor: pointer;
+}
+#chat .chatRoom .chatDelete{
+	font-size: 14px;
+	color: red;
+	margin: 5px;
+	padding: 4px;
+	min-width: 50px;
+	text-align: center;
+	border: 1px solid;
 	cursor: pointer;
 }
 
+#chat .chatPerson {
+	width: 95%;
+	height: 30px;
+	vertical-align: middle;
+}
 #chat .chatView {
 	width: 59%;
 	height: 100%;
