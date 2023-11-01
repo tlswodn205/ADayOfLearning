@@ -1,40 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ include
 file="/WEB-INF/view/layout/header.jsp"%>
 
-<div id="lecture-list">
-    <form action="list" method="get" id="list-search-form">
+<div id="lectureList">
+    <form action="list" method="get" id="listSearchForm">
         <input type="hidden" name="page" value="1" />
-        <div class="lecturelist-search-area">
-            <div class="lecturelist-row">
+        <div class="lectureListSearchArea">
+            <div class="lectureListRow">
                 <div>
                     <div>
-                        <input type="text" name="title" class="form_title" placeholder="제목으로 검색" />
+                        <input type="text" name="title" class="formTitle" placeholder="제목으로 검색" />
                     </div>
                     <label>지역</label>
-                    <input type="text" class="form_location" name="location" readonly="readonly" value="전체" />
-                    <button class="dropbtn" type="button">↓</button>
-                    <div class="dropdown-content">
+                    <input type="text" class="formLocation" name="location" readonly="readonly" value="전체" />
+                    <button class="dropBtn" type="button">↓</button>
+                    <div class="dropdownContent">
                         <div class="column m1"></div>
                         <div class="column m2"></div>
                     </div>
                 </div>
                 <div>
-                    <label>카테고리</label
-                    ><select name="category" class="form_category"></select>
+                    <label>카테고리</label>
+                    <select name="category" class="formCategory"></select>
                 </div>
                 <div>
-                    가격 <input type="text" name="min_price" class="form_min_price" /> ~
-                    <input type="text" name="max_price" class="form_max_price" />
+                    가격 <input type="text" name="minPrice" class="formMinPrice" /> ~
+                    <input type="text" name="maxPrice" class="formMaxPrice" />
                 </div>
             </div>
-            <div class="lecturelist-row">
-                <input class="selected-date" type="hidden" name="date" />
-                <table class="Calendar-list">
+            <div class="lectureListRow">
+                <input class="selectedDate" type="hidden" name="date" />
+                <table class="calendarList">
                     <thead>
                         <tr>
                             <td onClick="prevCalendar();" style="cursor: pointer">&#60;</td>
                             <td colspan="5">
-                                <span class="calYear-list"></span>년 <span class="calMonth-list"></span>월
+                                <span class="calYearList"></span>년 <span class="calMonthList"></span>월
                             </td>
                             <td onClick="nextCalendar();" style="cursor: pointer">&#62;</td>
                         </tr>
@@ -48,27 +48,27 @@ file="/WEB-INF/view/layout/header.jsp"%>
                             <td>토</td>
                         </tr>
                     </thead>
-
                     <tbody></tbody>
                 </table>
             </div>
         </div>
-        <div class="search_form_submit_area">
-            <button type="button" id="search-form-reset">초기화</button>
-            <button type="button" id="search-form-submit">검색하기</button>
+        <div class="searchFormSubmitArea">
+            <button type="button" id="searchFormReset">초기화</button>
+            <button type="button" id="searchFormSubmit">검색하기</button>
         </div>
     </form>
 
-    <hr class="divider-x" />
+    <hr class="dividerX" />
 
-    <div class="lecturelist-list"></div>
-    <div class="lecturelist-pagenation-area">
-        <div class="lecturelist-pagenation"></div>
+    <div class="lectureListList"></div>
+    <div class="lectureListPaginationArea">
+        <div class="lectureListPagination"></div>
     </div>
 </div>
+
 <script src="/js/lecture.js"></script>
 <script type="text/javascript">
-    pagenation(${page},${lectures});
+    pagination(${page}, ${lectures});
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

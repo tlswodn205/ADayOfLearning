@@ -27,7 +27,7 @@ mybatis:
 tenco:
   key: 85135F3C6BFE9DF1735F8806F045AE73CECE7219F7840D8E7E9297A7F846B48A
 
-logging:
-  level:
-    '[org.mybatis]': DEBUG
+#logging:
+#  level:
+#    '[org.mybatis]': DEBUG
     
