@@ -11,6 +11,13 @@
 			<h1>예약 내역</h1>
 		</div>
 		<div class="content">
+			<div class="search">
+				<select id="type" class="searchSelect" aria-label="Default select example">
+					<option ${reserveList.type == 'title' ? 'selected':''}	value="title">클래스명</option>
+					<option ${reserveList.type == 'content' ? 'selected':''} value="content">판매자명</option>
+				</select>
+				<input id="keyword" value="${reserveList.keyword}" type="text" placeholder="검색">
+			</div>
 
 			<c:choose>
 				<c:when test="${reserveList != null}">
@@ -29,11 +36,11 @@
 										<strong>${list.amount}</strong>
 									</div>
 								</div>
-								<div>
-									<button type="button" class="listBtn" id="reviewBtn">후기 작성하기</button>
-									<button type="button" class="listBtn" id="chatBtn">문의하기</button>
-								</div>
 							</a>
+							<div class="listBtnBox">
+								<button type="button" class="listBtn" id="reviewBtn">후기 작성하기</button>
+								<button type="button" class="listBtn" id="chatBtn">문의하기</button>
+							</div>
 						</div>
 					</c:forEach>
 					<div class="d-flex justify-content-center">
@@ -54,10 +61,10 @@
 										</c:otherwise> 
 									</c:choose>
 							</c:forEach>
+							
 							<c:if test="${!reserveList.last}">	
 								<li class='page-item'>
 									<a class="page-link" href="?page=${reserveList.currentPage+1}${empty reserveList.keyword ? "": "&keyword="+= reserveList.keyword}${empty reserveList.type ? "": "&type="+= reserveList.type}${empty reserveList.status ? "": "&status="+= reserveList.status}">Next</a>
-						
 								</li>
 							</c:if>
 						</ul>

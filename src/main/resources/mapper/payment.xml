@@ -5,13 +5,13 @@
 
 	<insert id= "insert">
 		INSERT INTO tb_payment(reserve_id, amount, payment_kind, tid, payment_date, state, created_at)
-		values(#{reserveId},#{amount},#{paymentKind},#{tid},#{paymentDate},#{state},now());
+		values(#{reserveId},#{amount},#{paymentKind},#{tid},now(),#{state},now());
 	</insert>
 	
 	<update id="updateByPaymentId">
 		UPDATE tb_payment SET amount = #{amount},payment_kind = #{paymentKind},
 		tid = #{tid},payment_date = #{paymentDate},
-		state = #{state},refund_date = #{refundDate},refund_info = #{refund_info}
+		state = #{state},refund_date = #{refundDate},refund_info = #{refundInfo}
 		WHERE payment_id = #{paymentId};
 	</update>
 	
@@ -27,4 +27,27 @@
 		SELECT * FROM tb_payment;
 	</select>
 	
+	<select id="findAllByPaymentId" resultType = "com.tencoding.ADayOfLearning.dto.response.PaymentResponseDto">
+		SELECT p.payment_id, p.amount, p.tid, p.created_at, p.state, r.reserve_id, ls.session_date
+			 , l.title, lp.img, ps.name
+		  FROM tb_payment p
+		  JOIN tb_reserve r
+		    ON p.reserve_id = r.reserve_id
+		  JOIN tb_lecture_session ls
+		    ON r.lecture_session_id = ls.lecture_session_id
+		  JOIN tb_lecture l
+		    ON ls.lecture_id = l.lecture_id
+		  LEFT JOIN tb_lecture_photo lp
+		    ON l.lecture_id = lp.lecture_id
+		  JOIN tb_person ps
+		    ON l.user_id = ps.user_id
+		 WHERE p.payment_id = #{paymentId}
+	</select>
+	
+	<update id="update">
+		UPDATE tb_payment SET state = #{state}
+			 , refund_date = now()
+			 , refund_info = #{refundInfo}
+		 WHERE payment_id = #{paymentId};
+	</update>
 </mapper>

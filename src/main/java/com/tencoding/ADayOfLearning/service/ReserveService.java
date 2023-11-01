@@ -23,9 +23,9 @@ public class ReserveService {
 		Reserve reserve = new Reserve();
 		reserve.setUserId(1);
 		reserve.setLectureSessionId(1);
-		int result = reserveRepository.insert(reserve);
+		reserveRepository.insert(reserve);
 		
-		return result;
+		return reserve.getReserveId();
 	}
 	
 	public ReserveListPageResponseDto<ReserveListResponseDto> findReserveByUserId(String type, String keyword,Integer page, String status, int userId) { 
