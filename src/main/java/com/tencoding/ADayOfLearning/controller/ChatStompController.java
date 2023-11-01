@@ -6,7 +6,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto;
-import com.tencoding.ADayOfLearning.dto.request.ChatRoomEnterRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 
 @Controller
 public class ChatStompController {
@@ -19,7 +19,7 @@ public class ChatStompController {
     //stompConfig에서 설정한 applicationDestinationPrefixes와 @MessageMapping 경로가 병합됨
     //"/pub/chat/enter"
     @MessageMapping(value = "/chat/enter")
-    public void enter(ChatRoomEnterRequestDto message){
+    public void enter(NewChatRequestDto message){
     	System.out.println("/chat/enter");
     	System.out.println(message);
     }
@@ -29,7 +29,8 @@ public class ChatStompController {
     	System.out.println("/chat/message");
     	System.out.println(message);
     	// 첫 대화의 경우 새로운 chatRoom 생성
-    	template.convertAndSend("/sub/chat/room/" + message.getChatRoomId(), message);
+    	template.convertAndSend("/sub/chat/user/" + message.getReceiveUserId(), message);
+    	template.convertAndSend("/sub/chat/room/" + message.getChatRoomId(), message);    	
     }
-
+    
 }

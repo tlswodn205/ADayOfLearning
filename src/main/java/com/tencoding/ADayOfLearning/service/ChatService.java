@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.ChatMessageResponsoDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.ChatRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.ChatRoomUserRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
 import com.tencoding.ADayOfLearning.repository.model.Chat;
+import com.tencoding.ADayOfLearning.repository.model.ChatRoomUser;
 import com.tencoding.ADayOfLearning.repository.model.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,10 +35,18 @@ public class ChatService {
 	 * 채팅 대화 내용 리스트 조회
 	 * @param chatRoomId
 	 * @param userId
-	 * @return List<ChatMessageRequestDto>
+	 * @return List<ChatMessageResponsoDto>
 	 */
-	public List<ChatMessageRequestDto> findByChatRoomId(int chatRoomId, int userId) {
-		return chatRepository.findByChatRoomIdAndUserId(chatRoomId, userId);
+	public List<ChatMessageResponsoDto> chatRoomEnter(int chatRoomId, int userId) {
+		// 히스토리 조회
+		ChatRoomUser chatRoomUser = chatRoomUserRepository.findByChatRoomIdAndUserId(chatRoomId, userId);
+		
+		List<ChatMessageResponsoDto> chatList = chatRepository.findByChatRoomIdAndUserId(chatRoomUser);
+		// view_at 0으로 update
+		if(chatList != null) {
+			chatRepository.updateViewAt(chatRoomUser);
+		}
+		return chatList;
 	}
 
 	/**
