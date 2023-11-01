@@ -1,10 +1,7 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>NICEPAY PAY REQUEST(UTF-8)</title>
-<meta charset="utf-8">
 <link rel="stylesheet" href="/css/payRequest.css">
 
 <!-- 아래 js는 PC 결제창 전용 js입니다.(모바일 결제창 사용시 필요 없음) -->
@@ -70,8 +67,7 @@
 		return userPlatform;
 	}
 </script>
-</head>
-<body>
+<main>
 	<div id="payRequest">
 		<div class="title">
 			<h1>예약 요청 및 결제</h1>
@@ -121,7 +117,7 @@
 							</div>
 						</div>
 
-						<div class="sectionBox">
+						<!-- <div class="sectionBox">
 							<h2>결제 수단</h2>
 							<div class="sectionBox-area">
 								<div>
@@ -135,13 +131,13 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 					</div>
 					<div class="contentRight">
 						<div class="payInfo">
 							<h2>결제 정보</h2>
-							<div class="amount">
+							<div class="amount classAmount">
 								<p>클래스 금액</p>
 								<p>40,000원</p>
 								<!-- 결제금액 -->
@@ -178,7 +174,7 @@
 									value="${payRequest.hashString}" />
 								<!-- 해쉬값 -->
 
-								<a href="#" class="btn_blue requestBtn" onClick="nicepayStart();">요 청</a>
+								<a href="#" class="btn_blue requestBtn" onClick="nicepayStart();">요청</a>
 							</div>
 						</div>
 					</div>
@@ -187,5 +183,6 @@
 			</form>
 		</div>
 	</div>
-</body>
-</html>
+</main>
+
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>

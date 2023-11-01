@@ -41,6 +41,10 @@
 							<p>${reserve.sessionDate}</p>
 						</div>
 					</div>
+					<div class="listBtnBox">
+						<button type="button" class="listBtn" id="reviewBtn">후기 작성하기</button>
+						<button type="button" class="listBtn" id="chatBtn">문의하기</button>
+					</div>
 				</div>
 
 				<div class="sectionBox">
@@ -56,7 +60,7 @@
 								<p>${reserve.createdAt}</p>
 							</div>
 							<div class="row">
-								<p>예약처리상태</p>
+								<p>처리상태</p>
 								<p>${reserve.state}</p>
 							</div>
 						</div>
@@ -73,15 +77,13 @@
 					</div>
 					<div class="payItem">
 						<p>클래스 금액</p>
-						<p>40,000원</p>
+						<p>${reserve.amount} 원</p>
 					</div>
 					<div class="payItem sum">
 						<p>최종 결제 금액</p>
-						<p>40,000원</p>
+						<p>${reserve.amount} 원</p>
 					</div>
-					<div class="btn">
-						<a href="#" class="btn_blue requestBtn" onClick="nicepayStart();">취소</a>
-					</div>
+					<a href="/payment/cancelRequest/${reserve.paymentId}" class="btn_blue requestBtn">취소</a>
 				</div>
 			</div>
 		</div>

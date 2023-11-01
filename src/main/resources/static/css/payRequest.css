@@ -1,11 +1,9 @@
-html, body {
-	height: 100%;
-	width: 1200px;
-	margin: 0 auto;
-}
-
 form {
 	overflow: hidden;
+}
+
+#payRequest {
+	width: 1200px;
 }
 
 #payRequest .formContent {
@@ -66,8 +64,13 @@ form {
 	justify-content: space-between;
 }
 
+#payRequest .classAmount {
+	margin-bottom: 30px;
+}
+
 #payRequest .sum {
 	border-top: 1px solid #d3d3d3;
+	margin: 20px auto;
 }
 
 #payRequest h2 {
@@ -79,7 +82,11 @@ form {
 }
 
 #payRequest .requestBtn {
-	background-color: rgb(254, 214, 214);
+	background-color: #ffd3d5;
 	padding: 10px;
 	border-radius: 7px;
+	display: block;
+	text-align: center;
+	letter-spacing: 15px;
+	font-weight: 600;
 }
