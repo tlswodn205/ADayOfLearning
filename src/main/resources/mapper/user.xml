@@ -12,7 +12,7 @@
 	</insert>
 	
 	<update id="updateByUserId">
-		UPDATE tb_user SET username = #{username},identity = #{identity}
+		UPDATE tb_user SET username = #{username},identity = #{identity},
 		password = #{password}
 		WHERE user_id = #{userId};
 	</update>
@@ -40,5 +40,21 @@
 		LEFT JOIN tb_business b ON u.user_id = p.user_id 
 		WHERE u.user_id = #{userId};
 	</select>
+	
+	<select id="findUsernameByEmail" resultType = "String">
+		SELECT u.username FROM tb_user u LEFT JOIN tb_person p on u.user_id = p.user_id WHERE p.email = #{email};
+	</select>	
+	
+	<update id="updatePasswordByUsername">
+		UPDATE tb_user SET password = #{password}
+		WHERE username = #{username};
+	</update>
+	
+		
+	<update id="updatePasswordByUserId">
+		UPDATE tb_user SET password = #{password}
+		WHERE user_id = #{userId};
+	</update>
+	
 	
 </mapper>

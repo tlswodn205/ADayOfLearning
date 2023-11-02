@@ -17,8 +17,8 @@
 	</div>
 	
 		<a href="/user/signUp">회원가입</a>
-		<a href="/user/signUp">아이디 찾기</a>
-		<a href="/user/signUp">비밀번호 찾기</a>
+		<a href="/user/findUsername">아이디 찾기</a>
+		<a href="/user/findPassword">비밀번호 찾기</a>
 </main>
 
 <script>

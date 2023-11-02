@@ -38,7 +38,7 @@
 					<a class="fa-solid fa-comments"></a>
 				</li>
 				<li>
-					<a class="fa-solid fa-user"></a>
+					<a class="fa-solid fa-user" href="/user/signIn"></a>
 				</li>
 			</ul>
 		</div>
