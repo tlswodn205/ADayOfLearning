@@ -3,7 +3,9 @@ package com.tencoding.ADayOfLearning.repository.interfaces;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.tencoding.ADayOfLearning.dto.request.UpdateUserData;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.User;
 
@@ -18,4 +20,7 @@ public interface UserRepository {
 	public User findByUsername(String username);
 	public User findByEmail(String email);
 	public BusinessMainUserDataResponseDto findUserDataByUserId(int userId);
+	public String findUsernameByEmail(String email);
+	public int updatePasswordByUsername(@Param("username") String username, @Param("password") String password);
+	public int updatePasswordByUserId(@Param("userId") int userId, @Param("password") String password);
 }

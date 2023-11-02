@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.tencoding.ADayOfLearning.dto.request.SignUpRequestDto;
 import com.tencoding.ADayOfLearning.handler.exception.CustomRestfulException;
 import com.tencoding.ADayOfLearning.repository.interfaces.PersonRepository;
 import com.tencoding.ADayOfLearning.repository.model.Person;
@@ -22,11 +21,6 @@ public class PersonService {
 	@Resource(name="mail")
 	private Mail mail;
 	
-	public void insertPerson(SignUpRequestDto signUpRequestDto, int userId) {
-		Person personEntity = signUpRequestDto.toPersonEntity(userId);
-		
-		personRepository.insert(personEntity);
-	}
 	
 	public String emailDuplicationCheck(String email) {
 		Person personEntity = personRepository.findByEmail(email);
@@ -39,5 +33,11 @@ public class PersonService {
 		mail.sendAuthEmail(email, randomStr);
 		
 		return "emailCheck_"+randomStr;
+	}
+
+
+	public Person findPersonByUserId(int userId) {
+		Person person = personRepository.findByUserId(userId);
+		return person;
 	}
 }

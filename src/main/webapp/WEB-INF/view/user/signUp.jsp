@@ -100,7 +100,14 @@ let emailCheck = 0;
 let emailStore = "";
 
 $(document).ready(function(){
-	$('#birthday').val();
+	
+	let now_utc = Date.now();
+	
+	let timeOff = new Date().getTimezoneOffset()*60000;
+	
+	let today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+	
+	$('#birthday').attr("max", today);
 });
 	
 $('#usernameDuplicationCheck').on('ready', function(){

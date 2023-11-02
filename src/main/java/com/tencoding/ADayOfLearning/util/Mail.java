@@ -36,6 +36,27 @@ public class Mail {
         javaMailSender.send(preparatory);
 	}
 	
+	
+	public void sendPasswordEmail(String email, String password) {
+		MimeMessagePreparator preparatory = mimeMessage -> {
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
+            String content = "";
+            content += "<h3>안녕하세요. 하루의배움입니다.</h3>";
+            content += "<p>비밀번호를 아래와 같이 변경했습니다.</p>";
+            content += "<div style=\"border: 1px solid black; width: 200px; text-align: center;\">";
+            content += "<strong>"+password+"</strong>";
+            content += "<h5>로그인 후에 반드시 비밀번호를 변경해주세요.</h5>";
+            content += "</div>";
+                        
+            helper.setTo(email);
+            helper.setFrom("ADayOfLearningTeam@gmail.com");
+            helper.setSubject("하루의배움 비밀번호 재발급입니다");
+            
+            helper.setText(content, true); //html 타입이므로, 두번째 파라미터에 true 설정
+        };
+        javaMailSender.send(preparatory);
+	}
+	
     public String createCode() {
         Random random = new Random();
         StringBuffer key = new StringBuffer();
