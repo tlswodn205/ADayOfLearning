@@ -26,12 +26,12 @@ public class LecturePhotoService {
 	public void insertLecturePhotos(MultipartFile[] files, int registeredLectureId) {
 		for (MultipartFile file : files) {
 			if (!file.isEmpty()) {
-				insertLecturePhoto(file, registeredLectureId);
+				insertLecturePhoto(file, registeredLectureId, false);
 			}
 		}
 	}
 
-	public void insertLecturePhoto(MultipartFile file, int registeredLectureId) {
+	public void insertLecturePhoto(MultipartFile file, int registeredLectureId, boolean isThumbnail) {
 		try {
 			byte[] bytes = file.getBytes();
 			// 파일 저장 경로 설정 *(추후 수정)*
@@ -47,7 +47,7 @@ public class LecturePhotoService {
 			System.out.println(Files.write(path, bytes));
 
 			// sql 업로드
-			LecturePhoto lecturePhoto = LecturePhoto.builder().isThumbnail(false).lectureId(registeredLectureId)
+			LecturePhoto lecturePhoto = LecturePhoto.builder().isThumbnail(isThumbnail).lectureId(registeredLectureId)
 					.img(sqlPath + fileName).build();
 
 			lecturePhotoRepository.insert(lecturePhoto);

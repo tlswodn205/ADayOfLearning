@@ -8,6 +8,8 @@ import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.PaymentRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.PaymentResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.PaymentRepository;
+import com.tencoding.ADayOfLearning.repository.model.Lecture;
+import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 import com.tencoding.ADayOfLearning.repository.model.Payment;
 
 @Service
@@ -43,4 +45,15 @@ public class PaymentService {
 		paymentRepository.update(payment);
 	}
 	
+	public Lecture getLectureBySessionId(int lectureSessionId) {
+		return paymentRepository.findLectureByLectureSessionId(lectureSessionId);
+	}
+	
+	public LectureSession getSessionbyLectureSessionId(int lectureSessionId) {
+		return paymentRepository.findSessionbyLectureSessionId(lectureSessionId);
+	}
+	
+	public String getLectureThumbnail(int lectureSessionId) {
+		return paymentRepository.findLectureThumbnailbyLectureSessionId(lectureSessionId);
+	}
 }
