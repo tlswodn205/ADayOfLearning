@@ -11,21 +11,21 @@
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/e8f010a863.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/business/style.css">
+  <link rel="stylesheet" href="/css/admin/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
         
 </head>
 <body>
-<div id= "businessPage">
+<div id= "adminPage">
 	<sideBar>
 		<div class="sideBar">
-			<img src="/images/logo/logo.png" class="logo">
+			<img src="/images/logo/logo.png" class="logo">admin
 			<ul>
 				<li>
-					<a href="/business/userDetail"><i class="fa-solid fa-user"></i>내 정보보기</a>
-					<a href="/business/chatRoom"><i class="fa-solid fa-comments"></i></i>채팅</a>
+					<a href="/admin/userList"><i class="fa-solid fa-user"></i>내 정보보기</a>
+					<a href="/admin/chatRoom"><i class="fa-solid fa-comments"></i></i>채팅</a>
 				</li>
 			</ul>
 		</div>

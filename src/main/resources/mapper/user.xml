@@ -37,7 +37,7 @@
 		SELECT u.username, p.email, p.phone_number, b.business_registration_number 
 		FROM tb_user u 
 		LEFT JOIN tb_person p ON u.user_id = p.user_id 
-		LEFT JOIN tb_business b ON u.user_id = p.user_id 
+		LEFT JOIN tb_business b ON u.user_id = b.user_id 
 		WHERE u.user_id = #{userId};
 	</select>
 	
@@ -55,6 +55,22 @@
 		UPDATE tb_user SET password = #{password}
 		WHERE user_id = #{userId};
 	</update>
+	
+	<select id="findCustomer" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainCustomerResponseDto">
+		SELECT u.user_id, u.username, p.name, p.email, p.phone_number 
+		FROM tb_user u LEFT JOIN tb_person p on u.user_id = p.user_id 
+		WHERE identity = "customer"
+		ORDER BY u.created_at DESC
+        limit 0,5;
+    </select>		
+		
+	<select id="findBusiness" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainBusinessResponseDto">
+		SELECT b.user_id, b.Business_name, b.Business_number, b.business_registration_number 
+		FROM tb_user u LEFT JOIN tb_business b on u.user_id = b.user_id
+		WHERE identity = "business"
+		ORDER BY u.created_at DESC
+        limit 0,5;
+	</select>	
 	
 	
 </mapper>
