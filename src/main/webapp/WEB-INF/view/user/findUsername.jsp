@@ -9,7 +9,7 @@
 				이메일을 입력해주세요
 			</p>
 		</div>
-		<form action="/user/findUsername" method="post" id="postFindUsername">
+		<form action="/user/showUsername" method="post" id="findUsernameForm">
 			<div>
 				<input type="email" placeholder="이메일을 입력하세요" id="email"
 					name="email">
@@ -20,18 +20,27 @@
 	</main>
 	
 <script>
+let FindUsername = {
+    version: 1,
+    init: function() {
+    	$("#findUsername").on("click", ()=>{
+    		this.submit();
+    	});
+    },
+	    
+	submit : function(){
+		let email= $("#email").val();
+		
+		if(!email){
+			alert("이메일을 입력해주세요.");
+			return false;
+		}
+		
+		$("#findUsernameForm").submit();
+	},
+}
 
-$("#findUsername").on("click", function(){
-	let email= $("#email").val();
-	
-	if(!email){
-		alert("이메일을 입력해주세요.");
-		return false;
-	}
-	
-	$("#postFindUsername").submit();
-	
-});
+FindUsername.init();
 
 </script>
 

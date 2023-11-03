@@ -54,12 +54,20 @@
 
 <script>
 
-$(document).on("click", "#businessUpdateBtn", function(){
-	let isChanged = confirm("정보를 변경하시겠습니까?");
-	if(isChanged){
-		$("#businessUpdate").submit();
-	}
-})
+let BusinessRequest = {
+    version: 1,
+    init: function() {
+    	$(document).on("click", "#businessUpdateBtn", ()=>{
+    		this.update();
+    	},
+    }
+    update:function(){
+    	let isChanged = confirm("정보를 변경하시겠습니까?");
+    	if(isChanged){
+    		$("#businessUpdate").submit();
+    	}
+    }
+}
 
 </script>
 

@@ -92,8 +92,6 @@ public class UserController {
 		if(signUpRequestDto.getPassword() == null || signUpRequestDto.getPassword().isEmpty()) {
 			throw new CustomRestfulException("비밀번호를 입력하세요.", HttpStatus.BAD_REQUEST);
 		}
-		System.out.println(signUpRequestDto.getPassword());
-		System.out.println(signUpRequestDto.getPasswordCheck());
 		
 		if(!signUpRequestDto.getPassword().equals(signUpRequestDto.getPasswordCheck())) {
 			throw new CustomRestfulException("비밀번호와 비밀번호 확인이 다릅니다.", HttpStatus.BAD_REQUEST);
