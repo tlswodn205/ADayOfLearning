@@ -9,6 +9,7 @@ import lombok.Data;
 
 @Data
 public class SignUpRequestDto {
+	private int userId;
 	private String username;
 	private String password;
 	private String passwordCheck;
@@ -27,7 +28,7 @@ public class SignUpRequestDto {
 				.build();
 	}
 	
-	public Person toPersonEntity(int userId) {
+	public Person toPersonEntity() {
 		return Person.builder()
 				.userId(userId)
 				.name(name)

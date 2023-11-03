@@ -154,7 +154,8 @@ if(authResultCode.equals("0000") /*&& authSignature.equals(authComparisonSignatu
 <html>
 <head>
 <title>NICEPAY PAY RESULT(UTF-8)</title>
-<m eta charset="utf-8">
+<meta charset="utf-8">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<table>
@@ -202,6 +203,13 @@ if(authResultCode.equals("0000") /*&& authSignature.equals(authComparisonSignatu
 	</table>
 	<p>*테스트 아이디인경우 당일 오후 11시 30분에 취소됩니다.</p>
 </body>
+
+<script>
+	$(document).ready(function() {
+		window.location.href = "../reserve/reserveList";
+	})
+</script>
+
 </html>
 <%!
 public final synchronized String getyyyyMMddHHmmss(){

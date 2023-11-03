@@ -15,16 +15,23 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.tencoding.ADayOfLearning.dto.request.BusinessRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.KakaoProfile;
 import com.tencoding.ADayOfLearning.dto.request.OAuthToken;
 import com.tencoding.ADayOfLearning.dto.request.SignInRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.SignUpRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.UpdateUserData;
+import com.tencoding.ADayOfLearning.dto.response.MyPageRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.ShowUsernameResponseDto;
 import com.tencoding.ADayOfLearning.handler.exception.CustomRestfulException;
+import com.tencoding.ADayOfLearning.repository.model.Person;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.PersonService;
 import com.tencoding.ADayOfLearning.service.UserService;
@@ -65,7 +72,7 @@ public class UserController {
 		}
 		
 		User principal = userService.signIn(signInRequestDto);
-		
+		System.out.println(principal.getPassword() +" ??? " + signInRequestDto.getPassword());
 		session.setAttribute(Define.PRINCIPAL, principal);
 		
 		return "/user/signIn";
@@ -216,8 +223,70 @@ public class UserController {
 	}
 	
 	@GetMapping("/findUsername")
-	@ResponseBody
 	public String findUsername()  {
 		return "user/findUsername";
 	}
+	
+	@PostMapping("/showUsername")
+	public String showUsername(String email, Model model)  {
+		ShowUsernameResponseDto showUsernameResponseDto = userService.findUsernameByEmail(email);
+		model.addAttribute("showUsernameResponseDto", showUsernameResponseDto);
+		
+		return "user/showUsername";
+	}
+	
+	@GetMapping("/findPassword")
+	public String findPassword()  {
+		return "user/findPassword";
+	}
+	
+	@GetMapping("/showPassword")
+	@ResponseBody
+	public int showPassword(@RequestParam String email, @RequestParam String username)  {
+		int result = userService.updateRandomPasswordByEmailAnd(email, username);
+		return result;
+	}
+	
+	@GetMapping("/userMyPage")
+	public String getUserMyPage(Model model) {
+		
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		
+		MyPageRequestDto myPageRequestDto = userService.findUserData(user.getUserId());
+		
+		model.addAttribute("myPageRequestDto", myPageRequestDto);
+		
+		return "/user/userMyPage";
+	}
+	
+	@PostMapping("/updateUserData")
+	public String updateUserData(UpdateUserData updateUserData) {
+		
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		
+		userService.updateUserData(updateUserData, user.getUserId());
+		
+		return "redirect:/user/userMyPage";
+	}
+	
+	@GetMapping("/businessRequest")
+	public String getBusinessRequest(Model model) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		Person person = personService.findPersonByUserId(user.getUserId());
+		
+		model.addAttribute("person", person);
+		
+		return "/user/businessRequest";
+	}
+	
+	@PostMapping("/businessRequest")
+	public String postBusinessRequest(BusinessRequestDto businessRequestDto) {
+
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		
+		userService.insertBusiness(businessRequestDto, user.getUserId());
+		
+		return "/";
+	}
+	
 }

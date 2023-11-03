@@ -4,6 +4,10 @@ html, body{
 	padding:0;
 }
 
+body{
+	
+  padding-top: 75px;
+}
 a {
     font-weight: bold;
     font-size: 2rem;
@@ -55,6 +59,10 @@ button {
 }
 
 header{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
  	background-color: #88888840;
 }
 
@@ -109,5 +117,29 @@ main .mainColumn{
 	display: flex; 
 	align-items: center;
 	justify-content: center;
+}
+
+footer{
+}
+
+footer .footerWrap{
+	display: flex;
+	font-size: 12px;
+    height: 130px;
+    background-color: #eee;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+}
+
+
+footer img{
+	width: 180px;
+	margin-right: 20px;
+}
+
+
+footer .companyName{
+	font-weight: 700;	
 }
 

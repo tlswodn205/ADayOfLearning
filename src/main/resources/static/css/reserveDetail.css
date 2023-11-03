@@ -34,6 +34,19 @@
 	border-radius: 7px;
 }
 
+#reserveDetail .listBtnBox {
+	display: flex;
+	justify-content: space-between;
+}
+
+#reserveDetail .listBtn {
+	width: 49%;
+	border: 1px solid #d3d3d3;
+	border-radius: 7px;
+	padding: 7px 0;
+	margin-top: 10px;
+}
+
 #reserveDetail .row {
 	display: flex;
 }
@@ -55,6 +68,7 @@
 
 #reserveDetail .sum {
 	border-top: 1px solid #d3d3d3;
+	margin: 20px auto;
 }
 
 #reserveDetail .btn {
@@ -62,7 +76,11 @@
 }
 
 #reserveDetail .requestBtn {
-	background-color: rgb(254, 214, 214);
+	background-color: #ffd3d5;
 	padding: 10px;
 	border-radius: 7px;
+	display: block;
+	text-align: center;
+	letter-spacing: 15px;
+	font-weight: 600;
 }

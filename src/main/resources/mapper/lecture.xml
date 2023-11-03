@@ -6,6 +6,11 @@
 	<insert id= "insert">
 		INSERT INTO tb_lecture(category_id,user_id, title,content, address, address_detail, latitude, longitude, maximum, price, phone_number, state, created_at)
 		values(#{categoryId},#{userId},#{title},#{content},#{address},#{addressDetail},#{latitude},#{longitude},#{maximum},#{price},#{phoneNumber},#{state},now());
+
+		<selectKey resultType="java.lang.Integer" keyProperty="lectureId" order="AFTER">
+       		 SELECT LAST_INSERT_ID()
+    	</selectKey>
+		
 	</insert>
 	
 	<update id="updateByLectureId">

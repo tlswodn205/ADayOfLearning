@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.BusinessRepository"> 
+
+	<insert id= "insert">
+		INSERT INTO tb_business(user_id, business_name, CEO_name, business_address, business_address_detail, business_number, business_registration_img, business_registration_number, state, created_at)
+		values(#{userId}, #{businessName},#{CEOname},#{businessAddress},#{businessAddressDetail},#{businessNumber}, #{businessRegistrationImg},#{businessRegistrationNumber},#{state}, now());
+	</insert>
+	
+	<update id="updateByBusinessId">
+		UPDATE tb_business SET business_name = #{businessName},
+		CEO_name = #{CEOname}, business_address = #{businessAddress},
+		business_address_detail = #{businessAddressDetail}, business_number = #{businessNumber},
+		business_registration_img = #{businessRegistrationNumberImg}, business_registration_number = #{businessRegistrationNumber}, state = #{state}
+		WHERE business_id = #{businessId};
+	</update>
+	
+	<delete id="deleteByBusinessId">
+		DELETE FROM tb_business WHERE business_id = #{businessId};
+	</delete>
+	
+	<select id="findByBusinessId" resultType = "com.tencoding.ADayOfLearning.repository.model.Business">
+		SELECT * FROM tb_business WHERE businessId = #{businessId};
+	</select>
+	
+	<select id="findByAll" resultType = "com.tencoding.ADayOfLearning.repository.model.Business">
+		SELECT * FROM tb_business;
+	</select>
+	
+	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.repository.model.Business">
+		SELECT * FROM tb_business where user_id = #{userId};
+	</select>
+	
+	<update id="updateByUserId">
+		UPDATE tb_business SET business_name = #{businessName},
+		CEO_name = #{CEOname}, business_address = #{businessAddress},
+		business_address_detail = #{businessAddressDetail}, business_number = #{businessNumber}
+		WHERE user_id = #{userId};
+	</update>
+	
+</mapper>

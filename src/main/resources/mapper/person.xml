@@ -31,4 +31,15 @@
 		SELECT * FROM tb_person WHERE email = #{email};
 	</select>
 	
+	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.repository.model.Person">
+		SELECT * FROM tb_person WHERE user_id = #{userId};
+	</select>
+	
+	<update id="updateByUserId">
+		UPDATE tb_person SET name = #{updateUserData.name},address = #{updateUserData.address},
+		address_detail = #{updateUserData.addressDetail},email = #{updateUserData.email},
+		phone_number = #{updateUserData.phoneNumber},birthday = #{updateUserData.birthday}
+		WHERE user_id = #{userId};
+	</update>
+	
 </mapper>

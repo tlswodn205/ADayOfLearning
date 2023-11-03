@@ -16,7 +16,7 @@ public class Payment {
 	private int reserveId;
 	private int amount;
 	private String paymentKind;
-	private int tid;
+	private String tid;
 	private Timestamp paymentDate;
 	private String state;
 	private Timestamp refundDate;

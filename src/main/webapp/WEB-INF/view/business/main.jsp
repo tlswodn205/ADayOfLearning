@@ -8,7 +8,7 @@
 	<div id="example" class="mainColumn">
 		<div class="mainRow">
 			<div class="mainUserComponent">
-				<a class="showMore"><i class="fa-solid fa-plus"></i> 더보기</a>
+				<a class="showMore" href="/business/userDetail"><i class="fa-solid fa-plus"></i> 더보기</a>
 				<table>
 					<thead>		
 						<tr>

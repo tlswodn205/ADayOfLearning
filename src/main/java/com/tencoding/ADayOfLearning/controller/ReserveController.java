@@ -33,7 +33,7 @@ public class ReserveController {
 	HttpSession session;
 	
 	@GetMapping("/list")
-	public String reserveList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page,@RequestParam(required = false) String status, Model model) {
+	public String getReserveList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page,@RequestParam(required = false) String status, Model model) {
 		ReserveListPageResponseDto<ReserveListResponseDto> reserveList = reserveService.findReserveByUserId(type, keyword, page, status, 1);
 		model.addAttribute("reserveList", reserveList);
 		
@@ -41,7 +41,7 @@ public class ReserveController {
 	}
 	
 	@GetMapping("/detail/{id}")
-	public String reserveDetail(Model model, @PathVariable Integer id) {
+	public String getReserveDetail(Model model, @PathVariable Integer id) {
 		ReserveResponseDto reserve = reserveService.findReserveByReserveId(id);
 		model.addAttribute("reserve", reserve);
 		return "reserve/reserveDetail";
