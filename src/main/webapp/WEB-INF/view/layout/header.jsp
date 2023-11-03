@@ -35,7 +35,7 @@
 			</ul>			
 			<ul class='topMenuLeft'>
 				<li>
-					<a class="fa-solid fa-comments"></a>
+					<a class="fa-solid fa-comments" href="/chat/room"></a>
 				</li>
 				<li>
 					<a class="fa-solid fa-user"></a>
