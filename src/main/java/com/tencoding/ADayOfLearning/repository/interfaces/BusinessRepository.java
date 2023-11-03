@@ -14,4 +14,5 @@ public interface BusinessRepository {
 	public Business findByBusinessId(int businessId);
 	public List<Business> findByAll();
 	public Business findByUserId(int userId);
+	public int updateByUserId(Business business);
 }
