@@ -3,6 +3,7 @@ package com.tencoding.ADayOfLearning.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.BusinessRepository;
@@ -79,6 +80,17 @@ public class BusinessService {
 		Business business = businessRepository.findByUserId(user.getUserId());
 		BusinessUserDetailResponseDto businessUserDetailResponseDto = new BusinessUserDetailResponseDto(user,business);
 		return businessUserDetailResponseDto;
+	}
+
+	public void updateBusinessUserData(BusinessUserRequestDto businessUserRequestDto, int userId) {
+		
+		if(businessUserRequestDto.getPassword()!=null) {
+			userRepository.updatePasswordByUserId(userId, businessUserRequestDto.getPassword());
+		}
+		
+		Business businessEntity = businessUserRequestDto.toBusinessEntity(userId);
+		
+		int result = businessRepository.updateByUserId(businessEntity);
 	}
 
 }
