@@ -24,7 +24,8 @@
 			<img src="/images/logo/logo.png" class="logo">
 			<ul>
 				<li>
-					<a><i class="fa-solid fa-user"></i>내 정보보기</a>
+					<a href="/business"><i class="fa-solid fa-user"></i>내 정보보기</a>
+					<a href="/business/chatRoom"><i class="fa-solid fa-user"></i>채팅</a>
 				</li>
 			</ul>
 		</div>

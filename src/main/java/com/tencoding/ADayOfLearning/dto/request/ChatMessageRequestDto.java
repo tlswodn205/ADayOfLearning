@@ -16,5 +16,5 @@ public class ChatMessageRequestDto {
 	private int receiveUserId;
 	private String receiveUsername; // 채팅을 받는 사람
 	private String message; // 메시지
-
+	private String createdAt;
 }

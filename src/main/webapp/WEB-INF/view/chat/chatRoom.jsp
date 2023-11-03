@@ -6,42 +6,48 @@
 <script src="/js/chatRoom.js"></script>
 <link rel="stylesheet" href="/css/chatRoom.css">
 <div id="chat">
-	<div class="chatRoomRoot">
-		<div style="font-weight: bold; padding: 5px; border: 1px solid;">
-			${principal.username}
+	<div class="chatRoomListContainer">
+		<div class="myPerson">
+			내정보 : ${principal.username}
 		</div>
+		<hr>
 		<input type="hidden" id="username" value="${principal.username}">
 		<input type="hidden" id="userId" value="${principal.userId}">
 		<div class="chatRoomList" id="chatRoomList">
 		<c:forEach var="chatRoom" items="${chatRoomList}">
-			<div class="chatRoom">
+			<div class="chatRoomContainer">
 				<input type="hidden" id="chatRoomId" value="${chatRoom.chatRoomId}">
 				<input type="hidden" id="chatUserId" value="${chatRoom.userId}">
 				<input type="hidden" id="chatUsername" value="${chatRoom.username}">
-				<a class="chatUsername" onclick="chatRoom(this)">${chatRoom.username}</a>
-				<c:choose>
-					<c:when test="${chatRoom.viewCount > 0}">
-						<span class="newMessage" id="newMessage">new</span>
-					</c:when>
-					<c:otherwise>
-						<span class="newMessage" id="newMessage" style="display : none">new</span>
-					</c:otherwise>
-				</c:choose>
-				<a class="chatDelete" id="chatLeave" onclick="chatLeave(this)">나가기</a>
+				<div class="chatRoom" onclick="chatRoom(this)">
+					<a class="chatTitle">${chatRoom.username}</a>
+					<c:choose>
+						<c:when test="${chatRoom.viewCount > 0}">
+							<span class="newMessage" id="newMessage">${chatRoom.viewCount}</span>
+						</c:when>
+						<c:otherwise>
+							<span class="newMessage" id="newMessage" style="display : none">${chatRoom.viewCount}</span>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<a class="chatLeave" id="chatLeave" onclick="chatLeave(this)">나가기</a>
 			</div>
 		</c:forEach>
 		</div>
 	</div>
-	<div class="chatView">
+	<div class="chatContainer">
 		<input type="hidden" id="nowChatRoomId" value="${newChat.chatRoomId}">
 		<input type="hidden" id="nowUserId" value="${newChat.userId}">
 		<input type="hidden" id="nowUsername" value="${newChat.username}">
 		
-		<div id="chatPerson">${newChat.username}</div>
+		<div class="chatPerson" id="chatPerson">${newChat.username}</div>
 		<hr>
 		<div class="chatContent" id="chatContent"></div>
-		<input type="text" id="chatMessage">
-		<button type="button" id="chatInput">전송</button>
+		<hr>
+		<div class="chatMessageInputContainer">
+			<input class="chatMessageInput" type="text" id="chatMessage">
+			<button class="chatMessageInputBtn" type="button" id="chatInput">전송</button>
+		</div>
 	</div>
 </div>
 <%@ include file="/WEB-INF/view/layout/footer.jsp" %>

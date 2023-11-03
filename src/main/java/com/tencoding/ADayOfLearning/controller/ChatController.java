@@ -102,8 +102,9 @@ public class ChatController{
     	log.info("/insert - {}", chatMessageRequestDto);
     	
     	// user1, user2가 chatroomuser에 있는지 확인 후 insert
-    	chatService.insertChat(chatMessageRequestDto);
-    	return ResponseEntity.ok().build();
+    	String createdAt = chatService.insertChat(chatMessageRequestDto);
+    	
+    	return ResponseEntity.ok().body(createdAt);
 	}
 	
 	/**
