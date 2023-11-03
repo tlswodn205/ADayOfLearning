@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
+import org.springframework.web.bind.annotation.PostMapping;
 import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
@@ -44,6 +47,11 @@ public class BusinessController {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		BusinessMainUserDataResponseDto userData = businessService.findUserData(1);
 		model.addAttribute("userData", userData);
+		// 예약 관련 메인
+		int countTodayLecture = businessService.countTodayLecture(1);
+		int countTodayUser = businessService.countTodayUser(1);
+		model.addAttribute("countTodayLecture", countTodayLecture);
+		model.addAttribute("countTodayUser", countTodayUser);
 		return "/business/main";
 	}
 	
@@ -93,5 +101,23 @@ public class BusinessController {
 	}
 	
 	//user end
+	
+	// lecture start
+	
+	@GetMapping("/lectureList")
+	public String getLectureList(Model model) {
+		List<BusinessLectureListResponseDto> lectureList = businessService.findLectureByUserId(1);
+		model.addAttribute("lectureList", lectureList);
+		return "/business/lecture/list";
+	}
+	
+	@GetMapping("/lectureDetail/{id}")
+	public String getLectureDetail(Model model, @PathVariable Integer id) {
+		List<BusinessLectureResponseDto> lecture = businessService.findByLectureSessionId(id);
+		model.addAttribute("lecture", lecture);
+		return "/business/lecture/detail";
+	}
+	
+	// lecture end
 	
 }
