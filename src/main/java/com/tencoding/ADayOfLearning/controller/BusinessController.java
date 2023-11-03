@@ -69,7 +69,7 @@ public class BusinessController {
 		
 		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(principal.getUserId());
 		model.addAttribute("chatRoomList", chatRoomList);
-		return "chat/chatRoom";
+		return "business/chat/chatRoom";
 	}
 	
 	//main end
