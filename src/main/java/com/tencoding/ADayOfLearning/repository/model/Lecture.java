@@ -26,4 +26,5 @@ public class Lecture {
 	private String phoneNumber;
 	private Integer state;
 	private Timestamp createdAt;
+	private Integer duration;
 }

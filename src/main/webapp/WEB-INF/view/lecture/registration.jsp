@@ -16,6 +16,7 @@ file="/WEB-INF/view/layout/header.jsp"%>
             <option value="9">DIY</option>
             <option value="10">키즈</option>
         </select>
+        <input type="text" id="registrationFormDuration" name="duration" placeholder="수업 진행 시간(분)" />
         <input type="hidden" id="registrationFormLongitude" name="longitude" />
         <input type="hidden" id="registrationFormLatitude" name="latitude" />
         <div>

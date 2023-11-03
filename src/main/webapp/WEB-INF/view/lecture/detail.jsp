@@ -10,8 +10,7 @@ file="/WEB-INF/view/layout/header.jsp"%>
             <div class="detailSubPhoto"></div>
 
             <div class="detailASet">
-                <a href="#detailContent">클래스 소개</a>
-                <a href="#detailLocation">위치</a>
+                <a href="#detailContent">클래스 소개</a> <a href="#detailLocation">위치</a>
                 <a href="#detailReview">후기</a>
             </div>
 
@@ -66,27 +65,31 @@ file="/WEB-INF/view/layout/header.jsp"%>
                     </table>
                     <div class="reserveArea">
                         <div class="dateReserve">개설된 클래스</div>
-                        <div class="reserveList">
-                            <div class="reserveSession"></div>
-                            <div class="reserveSession"></div>
-                            <div class="reserveSession"></div>
-                        </div>
+                        <div class="reserveList"></div>
                     </div>
                     <div class="detail-price">35,000원</div>
                     <div class="payment-button-set">
-                        <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">문의하기</button>
-                        <button class="enroll">클래스 신청</button>
+                        <%--
+                        <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">
+                            문의하기
+                        </button>
+                        --%>
+                        <button id="inquiryBtn">문의하기</button>
+                        <button id="enroll">클래스 신청</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af13f32c842ba98c342a15aeef40f5e4&libraries=services"></script>
+<script
+    type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af13f32c842ba98c342a15aeef40f5e4&libraries=services"
+></script>
 <script src="/js/lecturedetail.js"></script>
 <script type="text/javascript">
-	showInformation(${lecture}, ${lecturePhotos});
-    
-    console.log(${lecture});
+    let lectureData = ${lecture};
+	console.log(lectureData);
+    showInformation(lectureData, ${lecturePhotos});
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

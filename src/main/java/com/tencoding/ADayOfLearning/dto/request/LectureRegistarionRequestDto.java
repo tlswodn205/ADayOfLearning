@@ -7,6 +7,7 @@ public class LectureRegistarionRequestDto {
 	private String title;
 	private String content;
 	private Integer categoryId;
+	private Integer duration;
 	private String address;
 	private String addressDetail;
 	private Integer maximum;

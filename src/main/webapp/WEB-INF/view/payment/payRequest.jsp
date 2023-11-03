@@ -67,6 +67,8 @@
 		return userPlatform;
 	}
 </script>
+
+
 <main>
 	<div id="payRequest">
 		<div class="title">
@@ -79,13 +81,13 @@
 						<div class="sectionBox">
 							<h2>예약 정보</h2>
 							<div class="sectionBox-area">
-								<img alt="" src="https://picsum.photos/120/120">
+								<img src="${thumbnail}" width="120px" height="120px">
 								<div class="reserveItem">
 									<!-- 상점 아이디 -->
 									<input type="hidden" name="MID" value="${payRequest.merchantID}">
 									<!-- 결제 상품명 -->
-									<h4>클래스명 <input type="text" name="GoodsName"	value="${payRequest.goodsName}"></h4>
-									<p>11월 7일 (화요일) 11시 00분</p>
+									<h4>클래스명 <input id="payRequsetTitle" type="text" name="GoodsName" value="${lectureData.title}"></h4>
+									<p id="sessionDate"></p>
 								</div>
 							</div>
 						</div>
@@ -139,7 +141,7 @@
 							<h2>결제 정보</h2>
 							<div class="amount classAmount">
 								<p>클래스 금액</p>
-								<p>40,000원</p>
+								<p id="payRequsetPrice"></p>
 								<!-- 결제금액 -->
 								<input type="text" name="Amt" value="${payRequest.price}">
 							</div>
@@ -185,4 +187,13 @@
 	</div>
 </main>
 
+<script src="/js/payRequest.js"></script>
+<script type="text/javascript">
+let lectureData = ${lecture};
+let sessionData = ${session};
+
+	
+	
+	
+</script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

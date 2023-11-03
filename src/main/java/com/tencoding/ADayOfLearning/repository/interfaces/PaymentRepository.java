@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.tencoding.ADayOfLearning.dto.response.PaymentResponseDto;
+import com.tencoding.ADayOfLearning.repository.model.Lecture;
+import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 import com.tencoding.ADayOfLearning.repository.model.Payment;
 
 @Mapper
@@ -16,4 +18,7 @@ public interface PaymentRepository {
 	public List<Payment> findByAll();
 	public PaymentResponseDto findAllByPaymentId(int paymentId);
 	public int update(Payment payment);
+	public Lecture findLectureByLectureSessionId(int lectureSessionId);
+	public LectureSession findSessionbyLectureSessionId(int lectureSessionId);
+	public String findLectureThumbnailbyLectureSessionId(int lectureSessionId);
 }
