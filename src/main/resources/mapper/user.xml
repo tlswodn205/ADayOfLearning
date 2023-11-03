@@ -6,7 +6,7 @@
 	<insert id= "insert">
 		INSERT INTO tb_user(username, password, identity, created_at)
 		values(#{username},#{password},#{identity},now());
-		<selectKey resultType="int" keyProperty="userId" order="AFTER"> <!-- 입력후 co_no를 리턴함 -->
+		<selectKey resultType="int" keyProperty="userId" order="AFTER"> <!-- 입력후 reserveId를 리턴함 -->
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
