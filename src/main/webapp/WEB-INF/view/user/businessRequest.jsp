@@ -25,67 +25,80 @@
 </main>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-$(document).ready(function(){
-	
-});
-	
-$(document).on("click", "#businessRequestButton", function(){
-	let businessName = $("#businessName").val();
-	let CEOname = $("#CEOname").val();
-	let businessAddress = $("#businessAddress").val();
-	let businessNumber = $("#businessNumber").val();
-	let businessRegistrationNumber = $("#businessRegistrationNumber").val();
-	let businessRegistration = $("#businessRegistration").val();
 
-	if(!businessName){
-		alert("상호명을 입력해주세요.");
-		return false;
-	}
-	
-	if(!CEOname){
-		alert("대표자명을 입력해주세요.");
-		return false;
-	}
-	
-	if(!businessAddress){
-		alert("주소를 입력해주세요.");
-		return false;
-	}
+let BusinessRequest = {
+    version: 1,
+    init: function() {
+    	$(document).on("click", "#businessRequestButton", ()=>{
+    		this.businessRequest();
+    	});
+    	
+    	$(document).on("click", "#openZipSearch", ()=>{
+    		this.findAddress();
+    	});
 
-	if(!businessNumber){
-		alert("사업장 번호를 입력해주세요.");
-		return false;
-	}
-	
-	if(!businessRegistrationNumber){
-		alert("사업자 등록 번호를 입력해주세요.");
-		return false;
-	}
-	
-	if(!businessRegistration){
-		alert("사업자 등록증을 첨부 해주세요.");
-		return false;
-	}
-	
-	
-	$("#businessRequest").submit();
-});
+    },
+    findAddress: function() {
+   		new daum.Postcode({
+   			oncomplete : function(data) {
+   				var addr = '';
+   				if (data.userSelectedType === 'R') {
+   					addr = data.roadAddress;
+   				} else {
+   					addr = data.jibunAddress;
+   				}
 
-$(document).on("click", "#openZipSearch", function() {
-	new daum.Postcode({
-		oncomplete : function(data) {
-			var addr = '';
-			if (data.userSelectedType === 'R') {
-				addr = data.roadAddress;
-			} else {
-				addr = data.jibunAddress;
-			}
-
-			$("#address").val(addr);
-			$("#addressDetail").focus();
+   				$("#address").val(addr);
+   				$("#addressDetail").focus();
+   			}
+   		}).open();
+    },
+    
+    businessRequest : function(){
+		let businessName = $("#businessName").val();
+		let CEOname = $("#CEOname").val();
+		let businessAddress = $("#businessAddress").val();
+		let businessNumber = $("#businessNumber").val();
+		let businessRegistrationNumber = $("#businessRegistrationNumber").val();
+		let businessRegistration = $("#businessRegistration").val();
+	
+		if(!businessName){
+			alert("상호명을 입력해주세요.");
+			return false;
 		}
-	}).open();
-})
+		
+		if(!CEOname){
+			alert("대표자명을 입력해주세요.");
+			return false;
+		}
+		
+		if(!businessAddress){
+			alert("주소를 입력해주세요.");
+			return false;
+		}
+	
+		if(!businessNumber){
+			alert("사업장 번호를 입력해주세요.");
+			return false;
+		}
+		
+		if(!businessRegistrationNumber){
+			alert("사업자 등록 번호를 입력해주세요.");
+			return false;
+		}
+		
+		if(!businessRegistration){
+			alert("사업자 등록증을 첨부 해주세요.");
+			return false;
+		}
+		
+		
+		$("#businessRequest").submit();
+    },
+	 
+};
+	
+BusinessRequest.init();
 
 </script>
 

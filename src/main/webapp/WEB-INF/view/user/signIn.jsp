@@ -22,25 +22,36 @@
 </main>
 
 <script>
-$(document).on("click", "#signInBtn", function(){
-	
-	
-	let username = $("#username").val();
-	let password = $("#password").val();
-	
-	
-	if(!username){
-		alert("아이디를 입력해주세요.");
-		return false;
+
+
+let signInEvent = {
+    version: 1,
+    init: function() {
+    	$(document).on("click", "#signInBtn", ()=>{
+    		this.signIn();
+    	});
+    },
+	signIn : function(){
+		let username = $("#username").val();
+		let password = $("#password").val();
+		
+		
+		if(!username){
+			alert("아이디를 입력해주세요.");
+			return false;
+		}
+		
+		if(!password){
+			alert("비밀번호를 입력해주세요.");
+			return false;
+		}
+		
+		$("#signInForm").submit();
 	}
 	
-	if(!password){
-		alert("비밀번호를 입력해주세요.");
-		return false;
-	}
-	
-	$("#signInForm").submit();
-});
+};
+
+signInEvent.init();
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp" %>

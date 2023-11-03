@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.PaymentRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.ReserveRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.PaymentResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
+import com.tencoding.ADayOfLearning.repository.model.Lecture;
+import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.PaymentService;
 import com.tencoding.ADayOfLearning.service.ReserveService;
@@ -38,9 +42,11 @@ public class PaymentController {
 	@Autowired
 	HttpSession session;
 	
+	@Autowired
+	ObjectMapper objectMapper;
 	
 	@GetMapping("/payRequest")
-	public String paymentRequest(Model model) {
+	public String paymentRequest(Model model, @RequestParam Integer lectureSessionId) throws JsonProcessingException {
 		// TODO - 로그인한 사용자 정보 불러오기
 		// 1. 로그인 정보가 없으면 로그인 페이지로 이동 
 		// 2. PaymentRequestDto에 구매자 정보 변경 필요
@@ -49,8 +55,15 @@ public class PaymentController {
 //			return "redirect:/user/signIn";
 //		}
 		
+		Lecture lectureModel = paymentService.getLectureBySessionId(lectureSessionId);
+		LectureSession lectureSessionModel = paymentService.getSessionbyLectureSessionId(lectureSessionId);
 		PaymentRequestDto paymentRequestDto = new PaymentRequestDto();
+		
 		model.addAttribute("payRequest", paymentRequestDto);
+		model.addAttribute("lecture", objectMapper.writeValueAsString(lectureModel));
+		model.addAttribute("session", objectMapper.writeValueAsString(lectureSessionModel));
+		model.addAttribute("thumbnail", paymentService.getLectureThumbnail(lectureSessionId));
+		
 		
 		return "payment/payRequest";
 	}

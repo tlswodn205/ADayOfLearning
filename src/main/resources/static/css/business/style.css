@@ -106,6 +106,7 @@ main .title{
 	margin-top : 14px;
 	margin-left: 30px;
 	height: 29px;
+	font-weight: 700;
 }
 
 main .mainColumn{
@@ -161,3 +162,41 @@ main .mainColumn .mainRow .mainLectureComponent{
 	padding: 20px;
 	background-color: #fff;
 }
+/*detail 페이지*/
+main .DetailColumn {
+	margin: 20px;
+	width: 1100px;
+	background-color: #fff;
+	padding : 30px;
+}
+
+main .DetailColumn table{
+	margin-right: 20px;
+	margin-left: 20px;
+  	border-collapse: collapse; 
+}
+
+main .DetailColumn tr{
+	
+	font-size: 16px;
+	line-height: 60px;  
+}
+
+
+main .DetailColumn td:first-child{
+	font-weight: 700;
+  	vertical-align : top;
+	align-items: start;
+	padding-right : 30px;
+	border-right: 1px soild #353535;
+}
+
+main .DetailColumn td:last-child{
+	padding-left : 30px;
+}
+
+
+main .DetailColumn img {
+	width: 700px;
+}
+

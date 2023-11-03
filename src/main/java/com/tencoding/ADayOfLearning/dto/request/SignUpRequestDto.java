@@ -28,7 +28,7 @@ public class SignUpRequestDto {
 				.build();
 	}
 	
-	public Person toPersonEntity() {
+	public Person toPersonEntity(int userId) {
 		return Person.builder()
 				.userId(userId)
 				.name(name)

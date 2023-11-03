@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
+import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.BusinessRepository;
@@ -106,4 +107,15 @@ public class BusinessService {
 		List<BusinessLectureResponseDto> businessLectureResponseDto = businessRepository.findByLectureSessionId(lectureSessionId); 
 		return businessLectureResponseDto;
 	}
+	public void updateBusinessUserData(BusinessUserRequestDto businessUserRequestDto, int userId) {
+		
+		if(businessUserRequestDto.getPassword()!=null) {
+			userRepository.updatePasswordByUserId(userId, businessUserRequestDto.getPassword());
+		}
+		
+		Business businessEntity = businessUserRequestDto.toBusinessEntity(userId);
+		
+		int result = businessRepository.updateByUserId(businessEntity);
+	}
+
 }

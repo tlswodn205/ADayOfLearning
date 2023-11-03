@@ -50,4 +50,21 @@
 			 , refund_info = #{refundInfo}
 		 WHERE payment_id = #{paymentId};
 	</update>
+	
+	<select id="findLectureByLectureSessionId" resultType = "com.tencoding.ADayOfLearning.repository.model.Lecture">
+		SELECT *
+		FROM tb_lecture
+		WHERE lecture_id = (SELECT lecture_id FROM tb_lecture_session WHERE lecture_session_id = #{lectureSessionId});
+	</select>
+	
+	
+	<select id="findSessionbyLectureSessionId" resultType = "com.tencoding.ADayOfLearning.repository.model.LectureSession" >
+		SELECT * FROM tb_lecture_session WHERE lecture_session_id = #{lectureSessionId};
+	</select>
+	
+	
+	<select id="findLectureThumbnailbyLectureSessionId" resultType="java.lang.String" >
+		SELECT img FROM adayoflearning.tb_lecture_photo WHERE is_thumbnail = 1 AND lecture_id=(SELECT lecture_id FROM tb_lecture_session WHERE lecture_session_id = #{lectureSessionId});
+	</select>
+		
 </mapper>

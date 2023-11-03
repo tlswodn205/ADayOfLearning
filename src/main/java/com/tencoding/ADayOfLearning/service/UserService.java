@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tencoding.ADayOfLearning.dto.request.BusinessRequestDto;
@@ -47,6 +48,7 @@ public class UserService {
 	@Resource(name="mail")
 	private Mail mail;
 
+	@Transactional
 	public User signIn(SignInRequestDto signInRequestDto) {
 		User userEntity = userRepository.findByUsername(signInRequestDto.getUsername());
 		String password = signInRequestDto.getPassword();
@@ -60,21 +62,21 @@ public class UserService {
 			throw new CustomRestfulException("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
 		}
 
-		
 		return userEntity;
 	}
-
+	
+	@Transactional
 	public int insertUser(SignUpRequestDto signUpRequestDto) {
 		String password = signUpRequestDto.getPassword();
 		String hashPwd = passwordEncoder.encode(password);
-		userRepository.insert(signUpRequestDto.toUserEntity(hashPwd));
-		
-		int result = personRepository.insert(signUpRequestDto.toPersonEntity());
-		
+		User userEntity = signUpRequestDto.toUserEntity(hashPwd);
+		userRepository.insert(userEntity);
+		int result = personRepository.insert(signUpRequestDto.toPersonEntity(userEntity.getUserId()));
 		
 		return result;
 	}
 
+	@Transactional
 	public int usernameDuplicationCheck(String username) {
 		User userEntity = userRepository.findByUsername(username);
 		if(userEntity==null) {
@@ -82,16 +84,19 @@ public class UserService {
 		}
 		return 0;
 	}
-	
+
+	@Transactional
 	public User findByUserId(int userId) {
 		User userEntity = userRepository.findByUserId(userId);
 		return userEntity;
 	}
 
+	@Transactional
 	public User findUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 
+	@Transactional
 	public ShowUsernameResponseDto findUsernameByEmail(String email) {
 		String username = userRepository.findUsernameByEmail(email);
 		
@@ -103,17 +108,17 @@ public class UserService {
 		return new ShowUsernameResponseDto(username);
 	}
 
+	@Transactional
 	public int updateRandomPasswordByEmailAnd(String email, String username) {
 		String insertedUsername = userRepository.findUsernameByEmail(email);
 		if(insertedUsername == null) {
 			throw new CustomRestfulException("존재하지 않는 유저입니다.", HttpStatus.BAD_REQUEST);
 		}
-		if(username.equals(insertedUsername)) {
+		if(!username.equals(insertedUsername)) {
 			throw new CustomRestfulException("아이디가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
 		}
 		
 		String password = RandomStringUtils.randomAlphanumeric(8);
-		System.out.println(password);
 		String hashPwd = passwordEncoder.encode(password);
 		
 		int result = userRepository.updatePasswordByUsername(username, hashPwd);
@@ -125,6 +130,7 @@ public class UserService {
 		
 	}
 
+	@Transactional
 	public MyPageRequestDto findUserData(int userId) {
 		
 		User user = userRepository.findByUserId(userId);
@@ -135,6 +141,7 @@ public class UserService {
 		return myPageRequestDto; 
 	}
 
+	@Transactional
 	public void updateUserData(UpdateUserData updateUserData, int userId) {
 		
 		if(updateUserData.getPassword() != null) {
@@ -149,6 +156,7 @@ public class UserService {
 		
 	}
 
+	@Transactional
 	public void insertBusiness(BusinessRequestDto businessRequestDto, int userId) {
 		MultipartFile businessRegistrationImg = businessRequestDto.getBusinessRegistration();
 	    try {

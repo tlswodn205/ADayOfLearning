@@ -10,21 +10,27 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.ListSearchRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.ReserveDataRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.LectureSessionResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
+import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.LectureOptionService;
 import com.tencoding.ADayOfLearning.service.LecturePhotoService;
 import com.tencoding.ADayOfLearning.service.LectureService;
+import com.tencoding.ADayOfLearning.service.LectureSessionService;
 import com.tencoding.ADayOfLearning.util.Define;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +48,9 @@ public class LectureController {
 
 	@Autowired
 	LectureOptionService lectureOptionService;
+
+	@Autowired
+	LectureSessionService lectureSessionService;
 
 	@Autowired
 	HttpSession session;
@@ -105,7 +114,7 @@ public class LectureController {
 		int registeredLectureId = lectureService.insertLecture(dto, user.getUserId());
 
 		// 2. 사진 등록 부분
-		lecturePhotoService.insertLecturePhoto(thumbnail, registeredLectureId);
+		lecturePhotoService.insertLecturePhoto(thumbnail, registeredLectureId, true);
 		if (files != null) {
 			lecturePhotoService.insertLecturePhotos(files, registeredLectureId);
 		}
@@ -114,6 +123,13 @@ public class LectureController {
 		lectureOptionService.insertLectureOption(dto, registeredLectureId);
 
 		return "redirect:list";
+	}
+
+	@PostMapping("/reserve-data")
+	@ResponseBody
+	public List<LectureSessionResponseDto> postReserveData(@RequestBody ReserveDataRequestDto reserveDataRequestDto) {
+
+		return lectureSessionService.findByLectureIdAndDate(reserveDataRequestDto);
 	}
 
 }

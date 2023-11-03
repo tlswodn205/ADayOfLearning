@@ -8,4 +8,5 @@ public class ChatMessageResponsoDto {
 	private int userId;
 	private String username;
 	private String message; // 메시지
+	private String createdAt;
 }

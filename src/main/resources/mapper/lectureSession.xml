@@ -25,4 +25,16 @@
 		SELECT * FROM tb_lecture_session;
 	</select>
 	
+	<select id="findByLectureIdAndDate" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureSessionResponseDto">
+		SELECT *, (SELECT COUNT(*) 
+					FROM adayoflearning.tb_reserve r 
+ 	          		JOIN tb_payment p ON r.reserve_id = p.reserve_id
+					WHERE r.lecture_session_id = adayoflearning.tb_lecture_session.lecture_session_id 
+						  AND p.state ='결제 완료') as students 
+		FROM adayoflearning.tb_lecture_session  
+		WHERE lecture_id = #{lecuteId}
+				AND session_date BETWEEN #{date} AND DATE_ADD(#{date}, INTERVAL 1 DAY)
+	</select>
+
+	
 </mapper>

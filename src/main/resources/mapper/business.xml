@@ -86,5 +86,12 @@
 		 WHERE ls.lecture_session_id = #{lectureSessionId}
 		 ORDER BY r.reserve_id DESC
 	</select>
+  
+	<update id="updateByUserId">
+		UPDATE tb_business SET business_name = #{businessName},
+		CEO_name = #{CEOname}, business_address = #{businessAddress},
+		business_address_detail = #{businessAddressDetail}, business_number = #{businessNumber}
+		WHERE user_id = #{userId};
+	</update>
 	
 </mapper>

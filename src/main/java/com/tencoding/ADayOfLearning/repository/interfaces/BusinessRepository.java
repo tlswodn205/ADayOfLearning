@@ -20,4 +20,5 @@ public interface BusinessRepository {
 	public int countTodayUser(int userId);
 	public List<BusinessLectureListResponseDto> findLectureByUserId(int userId);
 	public List<BusinessLectureResponseDto> findByLectureSessionId(int lectureSessionId);
+	public int updateByUserId(Business business);
 }
