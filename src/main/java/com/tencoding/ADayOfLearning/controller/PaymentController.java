@@ -72,7 +72,7 @@ public class PaymentController {
 	public String cancelRequest(Model model, @PathVariable Integer id) {
 		PaymentResponseDto payment = paymentService.findPaymentByPaymentId(id);
 		model.addAttribute("payment", payment);
-		return "payment/cancelRequest";
+		return "payment/cancelRequestForm";
 	}
 	
 	@PostMapping("/cancelResult")

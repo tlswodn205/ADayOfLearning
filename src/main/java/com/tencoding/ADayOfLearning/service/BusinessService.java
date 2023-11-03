@@ -1,8 +1,12 @@
 package com.tencoding.ADayOfLearning.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.BusinessRepository;
@@ -81,4 +85,25 @@ public class BusinessService {
 		return businessUserDetailResponseDto;
 	}
 
+	// 판매자의 오늘 강의 수
+	public int countTodayLecture(int userId) {
+		return businessRepository.countTodayLecture(userId);
+	}
+	
+	// 판매자의 오늘 학생 수
+	public int countTodayUser(int userId) {
+		return businessRepository.countTodayUser(userId);
+	}
+	
+	// 판매자의 강의 리스트
+	public List<BusinessLectureListResponseDto> findLectureByUserId(int userId) {
+		List<BusinessLectureListResponseDto> businessLectureListResponseDto = businessRepository.findLectureByUserId(userId);
+		return businessLectureListResponseDto;
+	}
+	
+	// 강의 상세보기
+	public List<BusinessLectureResponseDto> findByLectureSessionId(int lectureSessionId) {
+		List<BusinessLectureResponseDto> businessLectureResponseDto = businessRepository.findByLectureSessionId(lectureSessionId); 
+		return businessLectureResponseDto;
+	}
 }

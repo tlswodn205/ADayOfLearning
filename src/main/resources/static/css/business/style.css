@@ -154,3 +154,10 @@ main .mainRow td{
     padding-top: 4px;
 	text-align: center;
 }
+
+main .mainColumn .mainRow .mainLectureComponent{
+	margin: 20px 10px 10px 20px;
+	width:530px;
+	padding: 20px;
+	background-color: #fff;
+}
