@@ -31,18 +31,17 @@
 						<th>사업자 등록번호</th>
 					</tr>
 				</thead>
-				<c:forEach var="business" items="${listPagingResponseDto.list}">
-					<tbody>
-						<tr>
-							<td>${business.username}</td>
+				<tbody>
+					<c:forEach var="business" items="${listPagingResponseDto.list}">
+							<td><a href="/admin/requestBusinessDetail/${business.businessId}">${business.username}</a></td>
 							<td>${business.businessName}</td>
 							<td>${business.CEOname}</td>
 							<td>${business.businessAddress}${business.businessAddressDetail}</td>
 							<td>${business.businessNumber}</td>
 							<td>${business.businessRegistrationNumber}</td>
 						</tr>
-					</tbody>
-				</c:forEach>
+					</c:forEach>
+				</tbody>
 			</table>
 			<div class="d-flex justify-content-center">
 				<ul class="pagination">

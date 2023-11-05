@@ -5,9 +5,12 @@ import com.tencoding.ADayOfLearning.repository.model.Business;
 import com.tencoding.ADayOfLearning.repository.model.User;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class BusinessUserDetailResponseDto {
+	private String userId;
 	private String username;
 	private String businessName;
 	private String CEOname;

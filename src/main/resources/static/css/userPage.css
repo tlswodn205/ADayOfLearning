@@ -1,0 +1,103 @@
+#userPage form{
+	width: 400px;
+}
+
+#userPage .flexDiv{
+  	width: 400px;
+	display: flex;
+}
+
+#userPage .flexDiv{
+  	width: 400px;
+	display: flex;
+}
+
+#userPage .narrowDiv {
+  width: 300px;
+  height: 50px;
+  border-radius: 5px;
+  border: solid 1px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  opacity: 1;
+}
+
+
+#userPage .narrowDiv Input {
+  width: 240px;
+  height: 40px;
+  border: none;
+  -webkit-appearance: none;
+  text-align: left;
+  margin-left: 10px;
+  overflow: auto;
+  font-size: 16px;
+}
+
+#userPage .narrowDiv Input:focus {
+  outline: none;
+  width: 240px;
+  text-align: left;
+  margin-left: 10px;
+}
+
+#userPage .flexDiv input[type=button]{
+	margin-left: 20px;
+  	width: 80px;
+	font-size: 14px;
+	color: #fff;
+	border: none;
+	border-radius: 13px;
+	padding: 10px;
+	background-color: #ccc;
+}
+
+
+#userPage .wideDiv {
+  width: 400px;
+  height: 50px;
+  border-radius: 5px;
+  border: solid 1px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  opacity: 1;
+}
+
+#userPage  .wideDiv Input {
+  width: 340px;
+  height: 40px;
+  border: none;
+  -webkit-appearance: none;
+  text-align: left;
+  margin-left: 10px;
+  overflow: auto;
+  font-size: 16px;
+}
+
+
+#userPage .wideDiv Input:focus {
+  outline: none;
+  width: 340px;
+  text-align: left;
+  margin-left: 10px;
+}
+
+#userPage from div i {
+  font-size: 16px;
+}
+
+#userPage .submitBtn{
+  	width: 400px;
+	font-size: 14px;
+	height: 50px;
+	color: #fff;
+	border: none;
+	border-radius: 13px;
+	padding: 10px;
+	background-color: #ccc;
+}
+

@@ -72,5 +72,42 @@
         limit 0,5;
 	</select>	
 	
+	<select  id="findCustomerPaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				FROM tb_person p
+				LEFT JOIN tb_user u 
+			    ON p.user_id = u.user_id
+				WHERE 1=1 AND u.identity = 'customer'
+				<if test="type == 'personName' and keyword != null">
+					and p.person_name like CONCAT('%',#{keyword},'%') 
+				</if>
+			) ost;
+	</select>
+	
+	<select id="findCustomerList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto">
+		SELECT u.username, p.*
+		FROM tb_person p
+		LEFT JOIN tb_user u 
+	    ON p.user_id = u.user_id
+		WHERE 1=1 AND u.identity = 'customer'
+			<if test="type == 'personName' and keyword != null">
+				and p.person_name like CONCAT('%',#{keyword},'%') 
+			</if>
+		ORDER BY created_at DESC
+		LIMIT #{startNum}, 10;
+	</select>
+	
 	
 </mapper>

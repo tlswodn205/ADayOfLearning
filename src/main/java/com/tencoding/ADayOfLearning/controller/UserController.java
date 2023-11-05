@@ -283,7 +283,6 @@ public class UserController {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		
 		userService.insertBusiness(businessRequestDto, user.getUserId());
-		
 		return "/";
 	}
 	

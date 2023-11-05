@@ -164,7 +164,7 @@ public class UserService {
 	                	
 	                	String fileType = businessRegistrationImg.getContentType().substring(6);
 	                    String fileName = UUID.randomUUID().toString() +"." + fileType;   //파일이름은 랜덤해야됨. 사용자가올리는 다른 파일이름이 같을 수 있음.
-	                    String filePath = "C:\\Users\\GGG\\git\\ADayOfLearning\\src\\main\\resources\\static\\images\\businessRegistrationImg";
+	                    String filePath = "C:\\Users\\ShinJaeWoo\\git\\ADayOfLearning\\src\\main\\resources\\static\\images\\businessRegistrationImg";
 	                    FileUtils.copyInputStreamToFile(businessRegistrationImg.getInputStream(), new File(filePath, fileName));
 	                    // 여기서 실제 파일이 저장(regist에서 실행됬다), inputStream을 file로 변환하는 메소드
 	                    // multipart.transferTo(new File(filePath, fileName)); // 비슷한 역할
