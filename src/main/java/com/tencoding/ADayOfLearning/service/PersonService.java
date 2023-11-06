@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.tencoding.ADayOfLearning.handler.exception.CustomFetchRestfulException;
 import com.tencoding.ADayOfLearning.handler.exception.CustomRestfulException;
 import com.tencoding.ADayOfLearning.repository.interfaces.PersonRepository;
 import com.tencoding.ADayOfLearning.repository.model.Person;
@@ -26,7 +27,7 @@ public class PersonService {
 		Person personEntity = personRepository.findByEmail(email);
 		
 		if(personEntity!=null) {
-			throw new CustomRestfulException("이미 존재하는 이메일 입니다.", HttpStatus.BAD_REQUEST);
+			throw new CustomFetchRestfulException("이미 존재하는 이메일 입니다.", HttpStatus.BAD_REQUEST);
 		}
 		
 		String randomStr = RandomStringUtils.randomAlphanumeric(6);

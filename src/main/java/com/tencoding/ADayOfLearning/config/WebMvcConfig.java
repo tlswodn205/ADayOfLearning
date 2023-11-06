@@ -25,9 +25,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authInterceptor)
-		.addPathPatterns("/admin/**");
+		.addPathPatterns("/admins/**");
 		
-		registry.addInterceptor(amdinInterceptor).addPathPatterns("/admin/**");
+		registry.addInterceptor(amdinInterceptor).addPathPatterns("/admins/**");
 	}
 
 	@Bean

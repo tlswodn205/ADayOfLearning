@@ -2,18 +2,21 @@
 html, body{
 	margin:0;
 	padding:0;
+	min-height: 100%;
 }
 
 body{
-	
   padding-top: 75px;
+  height: 100%;
 }
+
 a {
     font-weight: bold;
     font-size: 2rem;
     display: block;
     margin: 20px;
 }
+
 ul,ol {
   list-style: none;
   padding: 0;
@@ -63,7 +66,7 @@ header{
 	top: 0px;
 	left: 0px;
 	right: 0px;
- 	background-color: #88888840;
+ 	background-color: #eee;
 }
 
 header .headerWrap{

@@ -4,6 +4,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.tencoding.ADayOfLearning.handler.exception.CustomFetchRestfulException;
 import com.tencoding.ADayOfLearning.handler.exception.CustomRestfulException;
 import com.tencoding.ADayOfLearning.handler.exception.UnAuthorizedException;
 import com.tencoding.ADayOfLearning.handler.exception.UnSignUpException;
@@ -32,6 +33,13 @@ public class MyRestfullExceptionHandler {
 		sb.append("alert('"+e.getMessage() + "');");
 		sb.append("history.back();");
 		sb.append("</script>");
+		return sb.toString();
+	}
+	
+	@ExceptionHandler(CustomFetchRestfulException.class)
+	public String fetchException(CustomFetchRestfulException e) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(e.getMessage());
 		return sb.toString();
 	}
 	

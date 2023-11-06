@@ -94,4 +94,105 @@
 		WHERE user_id = #{userId};
 	</update>
 	
+	<select id="findRequestBusiness" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto">
+		SELECT user_id, Business_name, Business_number, business_registration_number
+		FROM tb_business
+		WHERE state = "등록요청"
+		ORDER BY created_at DESC
+        limit 0,5;
+	</select>
+	
+	
+	<select  id="findRequestBusinessPaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				FROM tb_business b 
+				LEFT JOIN tb_user u 
+                ON b.user_id = u.user_id
+				WHERE 1=1 AND b.state = '등록요청'
+				<if test="type == 'businessName' and keyword != null">
+					and business_name like CONCAT('%',#{keyword},'%') 
+				</if>
+			) ost;
+	</select>
+	
+	<select id="findRequestBusinessList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminRequestBusinessResponseDto">
+		SELECT u.username, b.*
+		FROM tb_business b 
+		LEFT JOIN tb_user u 
+	    ON b.user_id = u.user_id
+		WHERE 1=1 AND b.state = '등록요청'
+			<if test="type == 'businessName' and keyword != null">
+				and business_name like CONCAT('%',#{keyword},'%') 
+			</if>
+		ORDER BY created_at DESC
+		LIMIT #{startNum}, 10;
+	</select>
+	
+	<select id="findRequestBusinessByBusinessId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto">
+		SELECT u.user_id, u.username, b.*
+		FROM tb_business b 
+		LEFT JOIN tb_user u 
+	    ON b.user_id = u.user_id
+		WHERE b.business_id = #{businessId} AND b.state = '등록요청'
+	</select>
+	
+	<select  id="findBusinessPaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				FROM tb_business b 
+				LEFT JOIN tb_user u 
+                ON b.user_id = u.user_id
+				WHERE 1=1 AND u.identity = 'business'
+				<if test="type == 'businessName' and keyword != null">
+					and business_name like CONCAT('%',#{keyword},'%') 
+				</if>
+			) ost;
+	</select>
+	
+	<select id="findBusinessList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto">
+		SELECT u.username, b.*
+		FROM tb_business b 
+		LEFT JOIN tb_user u 
+	    ON b.user_id = u.user_id
+		WHERE 1=1 AND u.identity = 'business'
+			<if test="type == 'businessName' and keyword != null">
+				and business_name like CONCAT('%',#{keyword},'%') 
+			</if>
+		ORDER BY created_at DESC
+		LIMIT #{startNum}, 10;
+	</select>
+	
+		
+	<select id="findBusinessByBusinessId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto">
+		SELECT u.user_id, u.username, b.*
+		FROM tb_business b 
+		LEFT JOIN tb_user u 
+	    ON b.user_id = u.user_id
+		WHERE b.business_id = #{businessId} AND u.identity = 'business'
+	</select>
+	
+	
 </mapper>

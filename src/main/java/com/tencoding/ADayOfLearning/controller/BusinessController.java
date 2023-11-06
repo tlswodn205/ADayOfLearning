@@ -45,7 +45,7 @@ public class BusinessController {
 	@GetMapping("")
 	public String getMain(Model model) {	
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		BusinessMainUserDataResponseDto userData = businessService.findUserData(1);
+		BusinessMainUserDataResponseDto userData = businessService.findUserData(user.getUserId());
 		model.addAttribute("userData", userData);
 		// 예약 관련 메인
 		int countTodayLecture = businessService.countTodayLecture(1);
