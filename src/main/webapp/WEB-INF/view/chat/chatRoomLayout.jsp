@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/view/business/layout/header.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/js/chatRoom.js"></script>
+<link rel="stylesheet" href="/css/chatRoom.css">
 <main>
-	<div id="businessChatRoom">
-		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-		<script src="/js/chatRoom.js"></script>
-		<link rel="stylesheet" href="/css/chatRoom.css">
-		<div id="chat">
+	<div id="chat">
+		<div class="chatContainer">
 			<div class="chatRoomListContainer">
 				<div class="myPerson">
 					내정보 : ${principal.username}
@@ -37,7 +36,7 @@
 				</c:forEach>
 				</div>
 			</div>
-			<div class="chatContainer">
+			<div class="chatContentContainer">
 				<input type="hidden" id="nowChatRoomId" value="${newChat.chatRoomId}">
 				<input type="hidden" id="nowUserId" value="${newChat.userId}">
 				<input type="hidden" id="nowUsername" value="${newChat.username}">
@@ -46,7 +45,7 @@
 				<hr>
 				<div class="chatContent" id="chatContent"></div>
 				<hr>
-				<div class="chatMessageInputContainer">
+				<div class="chatMessageInputContainer" id="chatMessageInputContainer">
 					<input class="chatMessageInput" type="text" id="chatMessage">
 					<button class="chatMessageInputBtn" type="button" id="chatInput">전송</button>
 				</div>
@@ -54,4 +53,3 @@
 		</div>
 	</div>
 </main>
-<%@ include file="/WEB-INF/view/business/layout/footer.jsp" %>

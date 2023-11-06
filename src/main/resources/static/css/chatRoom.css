@@ -1,7 +1,10 @@
 #chat {
-	display: flex;
 	width: 1200px;
 	padding: 30px;
+}
+
+#chat .chatContainer {
+	display: flex;
 	align-items: flex-start;
 }
 
@@ -60,14 +63,14 @@
 	border: 2px solid;
 }
 
-#chat .chatContainer {
+#chat .chatContentContainer {
 	width: 59%;
-	height: 100%;
+	height: 700px;
 	border: 1px solid;
 	padding: 10px;
 }
 
-#chat .chatContainer .chatPerson {
+#chat .chatContentContainer .chatPerson {
 	width: 95%;
 	height: 30px;
 	display: flex;
@@ -76,52 +79,50 @@
 	font-size: 20px;
 }
 
-#chat .chatContainer .chatContent{
+#chat .chatContentContainer .chatContent{
 	height: 600px;
 	padding: 5px;
 	overflow-y: auto;
 	background-color: #e9f9f9;
 }
 
-#chat .chatContainer .chatContent .chatMy{
+#chat .chatContentContainer .chatContent .chatMy{
 	margin: 10px;
 	padding: 5px;
 	font-size: 16px;
 }
-#chat .chatContainer .chatContent .chatMy .chatUsername{
+#chat .chatContentContainer .chatContent .chatMy .chatUsername{
 	display: flex;
-	justify-content: flex-end;
+	flex-direction: row-reverse;
 }
-#chat .chatContainer .chatContent .chatMy .chat{
+#chat .chatContentContainer .chatContent .chatMy .chat{
 	display: flex;
-	justify-content: flex-end;
+	flex-direction: row-reverse;
 }
-#chat .chatContainer .chatContent .chatMy .chat .chatMessage{
+#chat .chatContentContainer .chatContent .chatMy .chat .chatMessage{
 	padding: 8px;
 	border-radius: 8px;
 	background-color: rgb(255, 255, 170);
 }
 
-#chat .chatContainer .chatContent .chatOther{
+#chat .chatContentContainer .chatContent .chatOther{
 	margin: 10px;
 	padding: 5px;
 	font-size: 16px;
 }
-#chat .chatContainer .chatContent .chatOther .chatUsername{
+#chat .chatContentContainer .chatContent .chatOther .chatUsername{
 	display: flex;
-	justify-content: flex-start;
 }
-#chat .chatContainer .chatContent .chatOther .chat{
+#chat .chatContentContainer .chatContent .chatOther .chat{
 	display: flex;
-	justify-content: flex-start;
 }
-#chat .chatContainer .chatContent .chatOther .chatMessage{
+#chat .chatContentContainer .chatContent .chatOther .chatMessage{
 	padding: 8px;
 	border-radius: 8px;
 	background-color: white;
 }
 
-#chat .chatContainer .chatContent .chatMessageTime{
+#chat .chatContentContainer .chatContent .chatMessageTime{
 	font-size: 10px;
 	font-style: italic;
 	color: rgb(120, 120, 120);
@@ -131,28 +132,28 @@
 	min-width: 55px;
 }
 
-#chat .chatContainer .chatContent .chatMessage{
+#chat .chatContentContainer .chatContent .chatMessage{
 	font-size: 16px;
 	margin-left: 4px;
 	margin-right: 4px;
 }
 
-#chat .chatContainer .chatContent .chatUsername{
+#chat .chatContentContainer .chatContent .chatUsername{
 	font-size: 16px;
 	font-weight: bold;
 	margin: 4px;
 }
 
-#chat .chatContainer .chatMessageInputContainer{
-	display: flex;
+#chat .chatContentContainer .chatMessageInputContainer{
+	display: none;
 	height: 22px;
 	margin-top: 8px;
 }
-#chat .chatContainer .chatMessageInputContainer .chatMessageInput{
+#chat .chatContentContainer .chatMessageInputContainer .chatMessageInput{
 	width: 100%;
 }
 
-#chat .chatContainer .chatMessageInputContainer .chatMessageInputBtn{
+#chat .chatContentContainer .chatMessageInputContainer .chatMessageInputBtn{
 	width: 60px;
 	margin-left: 6px;
 	font-size: 14px;
@@ -162,7 +163,7 @@
 	border-color: darkgray;
 	border-radius: 6px;
 }
-#chat .chatContainer .chatMessageInputContainer .chatMessageInputBtn:hover{
+#chat .chatContentContainer .chatMessageInputContainer .chatMessageInputBtn:hover{
 	border: 2px solid;
 	border-color: darkgray;
 	border-radius: 6px;

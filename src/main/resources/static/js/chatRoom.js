@@ -7,19 +7,20 @@ let chatInit = {
 		$(document).ready(() => {
 			this.ready();
 		});
+    },
+    // 랜더링 완료 후 시작
+    ready: function() {
+		this.chatAlarm();
+		
+		if($("#nowChatRoomId").val() !== '') {
+			chatInit.chatRoomCreated();
+		}
 		$("#chatMessage").keypress((key) => {
 			this.messageKeyPress(key);
 		});
 		$("#chatInput").click(() => {
 			this.chatMessageInsert();
 		});
-    },
-    // 랜더링 완료 후 시작
-    ready: function() {
-		this.chatAlarm();
-		if($("#nowChatRoomId").val() !== '') {
-			chatInit.chatRoomCreated();
-		}
 	},
     // 새로운 채팅 알림 기능
 	chatAlarm: function() {
@@ -104,7 +105,7 @@ function chatRoom(event) {
 	$(event).parent().find("#newMessage").text('0');
 	$(event).parent().find("#newMessage").hide();
 	
-	nowChatInit(chatRoomId.val(), chatUserId.val(), chatUsername.val());
+	nowChatInit(chatRoomId.val(), chatUserId.val(), chatUsername.val(), "flex");
 	chatList(chatRoomId.val(), chatUserId.val());
 	stompConnect(chatRoomId.val());
 }
@@ -129,7 +130,7 @@ async function chatLeave(event) {
 		let nowChatRoomId = $("#nowChatRoomId");
 		if(chatRoomId.val() === nowChatRoomId.val()) {
 			stomp.disconnect();
-			nowChatInit('', '', '');
+			nowChatInit('', '', '', 'none');
 		}
 		$(event).parent().remove();
 	} else {
@@ -193,28 +194,16 @@ function chatContentAppend(username, message, createdAt) {
 		return;
 	} else if(username === $("#username").val()){
     // 내가 한 대화
-		messageMySend(username, message, createdAt);
+		messageSend("chatMy", username, message, createdAt);
 	} else {
 	// 상대가 한 대화
-		messageOtherSend(username, message, createdAt);
+		messageSend("chatOther", username, message, createdAt);
     }
 }
 	
-// 대화창에 내가 보낸 메세지 출력
-function messageMySend(username, message, createdAt) {
-	let str = '<div class="chatMy">';
-	str += '<div class="chatUsername">' + username + '</div>';
-	str += '<div class="chat">';
-	str += '<div class="chatMessageTime">'+ createdAt + '</div>';
-	str += '<div class="chatMessage">' + message + '</div>';
-	str += '</div>';
-	str += '</div>';
-	$("#chatContent").append(str);
-}
-
-// 대화창에 상대가 보낸 메세지 출력
-function messageOtherSend(username, message, createdAt) {
-	let str = '<div class="chatOther">';
+// 대화창에 메세지 출력
+function messageSend(chatClass, username, message, createdAt) {
+	let str = '<div class="' + chatClass + '">';
 	str += '<div class="chatUsername">' + username + '</div>';
 	str += '<div class="chat">';
 	str += '<div class="chatMessage">' + message + '</div>';
@@ -225,13 +214,14 @@ function messageOtherSend(username, message, createdAt) {
 }
 
 // 대화창 초기화
-function nowChatInit(chatRoomId, chatUserId, chatUsername) {
+function nowChatInit(chatRoomId, chatUserId, chatUsername, chatMessageDisplay) {
 	$("#chatMessage").val('');
 	$("#chatPerson").text(chatUsername);
 	$("#chatContent").empty();
 	$("#nowChatRoomId").val(chatRoomId);
 	$("#nowUserId").val(chatUserId);
 	$("#nowUsername").val(chatUsername);
+	$("#chatMessageInputContainer").css("display", chatMessageDisplay);
 }
 
 // 채팅방 리스트에 목록 하나 추가

@@ -28,6 +28,23 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="mainLectureComponent">
+				<a class="showMore" href="/business/lectureList"><i class="fa-solid fa-plus"></i> 더보기</a>
+				<table>
+					<thead>		
+						<tr>
+							<th>오늘 클래스</th>
+							<th>신청 인원</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>${countTodayLecture}</td>
+							<td>${countTodayUser}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </main>

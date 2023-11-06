@@ -2,10 +2,70 @@ html, body {
 	height: 100%;
 }
 
-form {
-	overflow: hidden;
+#cancelRequest {
+	margin-bottom: 70px;
+}
+
+#cancelRequest .title {
+	text-align: center;
 }
 
 #cancelRequest {
 	width: 1200px;
+}
+
+#cancelRequest .content {
+	width: 600px;
+	margin: 0 auto;
+	padding: 10px 30px 30px;
+	border: 1px solid #d3d3d3;
+}
+
+#cancelRequest .line {
+	border-bottom: 1px solid #d3d3d3;
+}
+
+#cancelRequest .contentInfo {
+	text-align: center;
+	color: indianred;
+}
+
+#cancelRequest .sectionBox {
+	padding: 24px 0;
+}
+
+#cancelRequest .sectionBox-area {
+	display: flex;
+}
+
+#cancelRequest .sectionBox-area img {
+	margin-right: 30px;
+	border-radius: 7px;
+}
+
+#cancelRequest .sectionBox .row {
+	display: flex;
+	justify-content: space-between;
+}
+
+#cancelRequest .refundInfo {
+	width: 100%;
+	height: 50px;
+	vertical-align: top;
+	text-align: left;
+}
+
+#cancelRequest .refundBtn {
+	margin-top: 20px;
+	width: 100%;
+	background-color: #ffd3d5;
+	padding: 10px;
+	border-radius: 7px;
+	display: block;
+	text-align: center;
+	font-weight: 600;
+}
+
+#cancelRequest .refundBtn:hover {
+	color: tomato;
 }

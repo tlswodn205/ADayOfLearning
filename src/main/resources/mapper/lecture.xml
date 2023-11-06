@@ -4,8 +4,8 @@
 <mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.LectureRepository"> 
 
 	<insert id= "insert">
-		INSERT INTO tb_lecture(category_id,user_id, title,content, address, address_detail, latitude, longitude, maximum, price, phone_number, state, created_at)
-		values(#{categoryId},#{userId},#{title},#{content},#{address},#{addressDetail},#{latitude},#{longitude},#{maximum},#{price},#{phoneNumber},#{state},now());
+		INSERT INTO tb_lecture(category_id,user_id, title,content, address, address_detail, latitude, longitude, maximum, price, phone_number, state, created_at, duration)
+		values(#{categoryId},#{userId},#{title},#{content},#{address},#{addressDetail},#{latitude},#{longitude},#{maximum},#{price},#{phoneNumber},#{state},now(),#{duration});
 
 		<selectKey resultType="java.lang.Integer" keyProperty="lectureId" order="AFTER">
        		 SELECT LAST_INSERT_ID()
@@ -18,7 +18,7 @@
 		address = #{address}, address_detail = #{addressDetail},
 		latitude = #{latitude}, longitude = #{longitude},
 		maximum = #{maximum},price = #{price}
-		phone_number = #{phoneNumber},state = #{state}
+		phone_number = #{phoneNumber},state = #{state}, duration = #{duration}
 		WHERE lecture_id = #{lectureId};
 	</update>
 	
@@ -93,5 +93,24 @@
 	</select>
 
 
-
+	<!-- index에서 사용할 List start-->
+	<select id="findMostLecture" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
+		SELECT lecture_id, title, category_name, price, address, username
+		  FROM ( SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username
+					   , RANK() OVER (ORDER BY l.created_at DESC) AS order_number
+					FROM tb_lecture l
+					JOIN tb_category c ON l.category_id = c.category_id
+					JOIN tb_user u ON l.user_id = u.user_id ) AS a
+		 WHERE order_number &lt;= 10;
+	</select>
+	<select id="findNewLecture" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
+		SELECT lecture_id, title, category_name, price, address, username
+		  FROM ( SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username
+					   , RANK() OVER (ORDER BY l.created_at DESC) AS order_number
+					FROM tb_lecture l
+					JOIN tb_category c ON l.category_id = c.category_id
+					JOIN tb_user u ON l.user_id = u.user_id ) AS a
+		 WHERE order_number &lt;= 10;
+	</select>
+	<!-- index에서 사용할 List end-->
 </mapper>

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.tencoding.ADayOfLearning.dto.request.ReserveDataRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.LectureSessionResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 
 
@@ -14,4 +16,5 @@ public interface LectureSessionRepository {
 	public int deleteByLectureSessionId(int lectureSessionId);
 	public LectureSession findByLectureSessionId(int lectureSessionId);
 	public List<LectureSession> findByAll();
+	public List<LectureSessionResponseDto> findByLectureIdAndDate(ReserveDataRequestDto reserveDataRequestDto);
 }

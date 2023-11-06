@@ -112,6 +112,7 @@ $(document).ready(function() {
 		// 입력 필드의 값을 가져옵니다
 		let title = $('#registrationFormTitle').val();
 		let content = $('#registrationFormContent').val();
+	  	let duration = $('#registrationFormDuration').val();
 		let address = $('#registrationFormAddress').val();
 		let addressDetail = $('#registrationFormAddrDetail').val();
 		let maximum = $('#registrationFormMaximum').val();
@@ -119,7 +120,7 @@ $(document).ready(function() {
 		let phoneNumber = $('#registrationFormPhoneNumber').val();
 		let file = $('#registrationFormThumbnail').val();
 		// 입력 값이 공백 또는 null인 경우
-		if (!title || !content || !address || !addressDetail || !maximum || !price || !phoneNumber || !file) {
+		if (!title || !content || !duration || !address || !addressDetail || !maximum || !price || !phoneNumber || !file) {
 			alert('모든 필드를 입력해주세요.');
 		} else {
 			alert('등록성공.');
