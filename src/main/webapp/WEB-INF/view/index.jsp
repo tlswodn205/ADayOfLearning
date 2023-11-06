@@ -15,7 +15,8 @@
 					<div class="swiper">
 						<div class="swiper-wrapper">
 							<c:forEach var="lecture" items="${newLectures}">
-									<a class="lectureItem swiper-slide" href="/lecture/detail?id=${lecture.lectureId}">
+								<div class="swiper-slide">
+									<a class="lectureItem" href="/lecture/detail?id=${lecture.lectureId}">
 										<div class="lectureItemContainer">
 											<div class="lectureItemPictureArea">
 												<img class="lectureItemPicture">
@@ -27,12 +28,10 @@
 											<div class="lectureItemPrice">${lecture.price}원</div>
 										</div>
 									</a>
+								</div>
 							</c:forEach>
 						</div>
-						<div class="swiper-pagination"></div>
-						<div class="swiper-button-prev"></div>
-						<div class="swiper-button-next"></div>
-						<div class="swiper-scrollbar"></div>
+						<div class="swiper-pagination"></div>	
 					</div>
 				</div>
 			</div>
