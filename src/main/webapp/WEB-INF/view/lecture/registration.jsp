@@ -21,7 +21,7 @@ file="/WEB-INF/view/layout/header.jsp"%>
         <input type="hidden" id="registrationFormLatitude" name="latitude" />
         <div>
             <input type="text" id="registrationFormAddress" name="address" placeholder="주소" readonly="readonly"/>
-            <button type="button" onclick="execDaumPostcode()">주소검색</button>
+            <button type="button" id="registrationSearchAddress">주소검색</button>
         </div>
         <input type="text" id="registrationFormAddrDetail" name="addressDetail" placeholder="상세 주소" />
         <input type="text" id="registrationFormMaximum" name="maximum" placeholder="최대 수강 인원" />
@@ -64,7 +64,7 @@ file="/WEB-INF/view/layout/header.jsp"%>
 </div>
 
 <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" alt="닫기 버튼">
 </div>
 
 

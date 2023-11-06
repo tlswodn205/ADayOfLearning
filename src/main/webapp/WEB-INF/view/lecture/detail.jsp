@@ -64,8 +64,8 @@
                         <div class="dateReserve">개설된 클래스</div>
                         <div class="reserveList"></div>
                     </div>
-                    <div class="detail-price">35,000원</div>
-                    <div class="payment-button-set">
+                    <div class="detailPrice">35,000원</div>
+                    <div class="paymentButtonSet">
                         <%--
                         <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">문의하기</button>
                         --%>

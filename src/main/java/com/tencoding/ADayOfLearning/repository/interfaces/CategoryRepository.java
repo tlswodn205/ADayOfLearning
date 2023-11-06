@@ -13,4 +13,5 @@ public interface CategoryRepository {
 	public int deleteByCategoryId(int categoryId);
 	public Category findByCategoryId(int categoryId);
 	public List<Category> findByAll();
+	public List<String> findCategoryNameByAll();
 }
