@@ -6,6 +6,7 @@
 }
 
 #index .indexContainer {
+	padding-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -22,8 +23,20 @@
 	justify-content: left;
 }
 
-#index .lectureListContainer .lectureList .swiper{
-	width: 1000px;
+#index .swiper{
+	width: 1100px;
+	min-height: 200px;
+}
+
+#index .mainBanner{
+	max-width: 100%;
+}
+
+#index .bannerSwiper .swiper-slide{
+	height: auto;
+	display: flex;
+	text-align: center;
+	justify-content: center;
 }
 
 #index .lectureListContainer .lectureList .lectureItem {
