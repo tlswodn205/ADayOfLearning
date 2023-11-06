@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ include
-file="/WEB-INF/view/layout/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <div id="lectureDetail">
     <div class="detailMainInfo">
         <div class="detailColumn1">
@@ -45,11 +44,9 @@ file="/WEB-INF/view/layout/header.jsp"%>
                     <table class="calendarDetail">
                         <thead>
                             <tr>
-                                <td onClick="prevCalendar();" style="cursor: pointer">&#60;</td>
-                                <td colspan="5">
-                                    <span class="calYearDetail"></span>년 <span class="calMonthDetail"></span>월
-                                </td>
-                                <td onClick="nextCalendar();" style="cursor: pointer">&#62;</td>
+                                <td id="prevCalendar" style="cursor: pointer">&#60;</td>
+                                <td colspan="5"><span class="calYearDetail"></span>년 <span class="calMonthDetail"></span>월</td>
+                                <td id="nextCalendar" style="cursor: pointer">&#62;</td>
                             </tr>
                             <tr>
                                 <td>일</td>
@@ -67,12 +64,10 @@ file="/WEB-INF/view/layout/header.jsp"%>
                         <div class="dateReserve">개설된 클래스</div>
                         <div class="reserveList"></div>
                     </div>
-                    <div class="detail-price">35,000원</div>
-                    <div class="payment-button-set">
+                    <div class="detailPrice">35,000원</div>
+                    <div class="paymentButtonSet">
                         <%--
-                        <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">
-                            문의하기
-                        </button>
+                        <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">문의하기</button>
                         --%>
                         <button id="inquiryBtn">문의하기</button>
                         <button id="enroll">클래스 신청</button>
@@ -82,14 +77,10 @@ file="/WEB-INF/view/layout/header.jsp"%>
         </div>
     </div>
 </div>
-<script
-    type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af13f32c842ba98c342a15aeef40f5e4&libraries=services"
-></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af13f32c842ba98c342a15aeef40f5e4&libraries=services"></script>
 <script src="/js/lecturedetail.js"></script>
 <script type="text/javascript">
     let lectureData = ${lecture};
-	console.log(lectureData);
-    showInformation(lectureData, ${lecturePhotos});
+    let photoList = ${lecturePhotos};
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

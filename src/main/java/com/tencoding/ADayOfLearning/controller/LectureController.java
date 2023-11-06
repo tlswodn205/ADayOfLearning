@@ -25,7 +25,6 @@ import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureSessionResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
-import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.LectureOptionService;
 import com.tencoding.ADayOfLearning.service.LecturePhotoService;
