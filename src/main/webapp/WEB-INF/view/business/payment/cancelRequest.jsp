@@ -10,6 +10,7 @@
 </script>
 <main>
 	<div id="cancelRequest">
+	
 		<div class="title">
 			<h1>예약 취소 요청</h1>
 		</div>
@@ -28,8 +29,7 @@
 					</tr>
 					<tr>
 						<th>취소 금액</th>
-						<td><input type="text" name="CancelAmt"
-							value="${payment.amount}" /></td>
+						<td><input type="text" name="CancelAmt" value="${payment.amount}" /></td>
 					</tr>
 					<tr>
 						<th>부분취소 여부</th>
@@ -41,13 +41,9 @@
 				</table>
 				<a href="#" onClick="reqCancel();">요 청</a>
 			</form>
-
 		</div>
 
-
 	</div>
-
-
 </main>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

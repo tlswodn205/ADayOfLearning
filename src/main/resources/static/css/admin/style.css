@@ -1,0 +1,247 @@
+
+html, body{
+	margin:0;
+	padding:0;
+}
+
+a {
+    font-weight: bold;
+    font-size: 2rem;
+    display: block;
+    margin: 20px;
+}
+ul,ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+a {
+  all: unset;
+}
+
+a:link {
+  text-decoration: none;
+  color: #3f464d;
+}
+  
+a:visited {
+  text-decoration: none;
+  color: #3f464d;
+}
+
+a:active {
+    text-decoration: none;
+    color: #3f464d;
+}
+
+a:hover {
+  text-decoration: none;
+  color: tomato;
+  cursor: pointer;
+}
+
+button {
+
+  background: inherit ;
+  border:none; 
+  box-shadow:none; 
+  border-radius:0; 
+  padding:0; 
+  overflow:visible; 
+  cursor:pointer
+
+}
+
+
+#adminPage{
+	display: flex;
+}
+
+.sideBar{
+	width: 200px;
+	background-color: #353535;
+	height: 100%;
+}
+
+.logo{
+	padding: 10px 20px;
+	height: 25px;
+	filter: invert(1);
+}
+
+.sideBar ul {
+	border-top: 0.5px solid #888;
+}
+
+.sideBar ul a{
+	display: block;
+	padding: 10px 20px;	
+	color: #eee;
+	font-style: normal;
+	font-weight: 700;
+}
+
+.sideBar ul a:hover{
+	background-color: #00f;
+	color: #eee;
+}
+
+.sideBar ul a i{
+	margin-right: 15px;
+}
+
+main {
+display: flex;
+flex-direction: column;
+}
+
+main .mainTop{
+	width: 100%;
+	height: 49px;
+}
+
+main .title{
+	margin-top : 14px;
+	margin-left: 30px;
+	height: 29px;
+	font-weight: 700;
+}
+
+main .mainColumn{
+	width:1200px;
+	padding: 0;     
+	align-items: center;
+	justify-content: center;
+	background-color: #ccc;
+	flex: 1;
+	font-size: 13px;
+}
+
+main .mainColumn .mainRow{
+	display: flex;	
+}
+
+main .mainColumn .mainRow .mainUserComponent{
+	margin: 20px 10px 10px 20px;
+	width:530px;
+	padding: 20px;
+	background-color: #fff;
+}
+
+main .mainRow .mainComponentTop{
+	margin-bottom: 15px;
+}
+
+main .mainRow .mainComponentTop .componentTitle{
+	font-weight: 900;
+	font-size: 16px;
+}
+
+main .mainRow .mainComponentTop .showMore{
+	float:right;
+	color: #aaa;
+	margin-bottom: 10px;
+}
+
+main .mainColumn .mainRow table{
+  width: 530px;
+  border-collapse: collapse; 
+
+}
+
+main .mainRow thead{
+    border-bottom: 1px solid #353535;
+}
+
+main .mainRow th{
+    padding-bottom: 4px;
+}
+
+
+main .mainRow td{
+    padding-top: 4px;
+	text-align: center;
+}
+/*list페이지*/
+main .ListColumn{
+	margin: 20px;
+	width: 1100px;
+	background-color: #fff;
+	padding : 30px;
+}
+
+main .ListColumn table{
+  	border-collapse: collapse; 
+  	border-spacing:0px;
+}
+
+main .ListColumn tr{
+	
+	font-size: 14px;
+	line-height: 50px;  
+}
+
+main .ListColumn .inputBtn{
+	margin-top: 20px;
+	font-size: 15px;
+	color: #fff;
+	border: none;
+	border-radius: 13px;
+	padding: 10px;
+	background-color: #ccc;
+}
+
+/*detail 페이지*/
+main .DetailColumn {
+	margin: 20px;
+	width: 1100px;
+	background-color: #fff;
+	padding : 30px;
+}
+
+main .DetailColumn table{
+  	border-collapse: collapse; 
+  	border-spacing:0px;
+}
+
+main .DetailColumn tr{
+	
+	font-size: 14px;
+	line-height: 50px;  
+}
+
+
+main .DetailColumn td:first-child{
+	font-weight: 400;
+	color: #aaa;
+  	vertical-align : top;
+	align-items: start;
+	width: 200px;
+  	border-top : 1px solid #000;
+  	border-bottom : 1px solid #000;	
+}
+
+main .DetailColumn td:last-child{
+	width: 900px;
+	padding-left : 30px;
+  	border-top : 1px solid #000;
+  	border-left : 1px solid #000;
+  	border-bottom : 1px solid #000;
+}
+
+
+main .DetailColumn img {
+	width: 700px;
+}
+
+main .DetailColumn .inputBtn{
+	margin-top: 20px;
+	font-size: 15px;
+	color: #fff;
+	border: none;
+	border-radius: 13px;
+	padding: 10px;
+	background-color: #ccc;
+}

@@ -1,25 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
+
+<link rel="stylesheet" href="/css/userPage.css">
+
 <main>
-	<div id="signUp" class="mainColumn">
+	<div id="userPage" class="mainColumn">
 		<form action="/user/businessRequest" method="post" id="businessRequest"  enctype="multipart/form-data">
-			<input type="text" id="businessName" name="businessName" placeholder="상호명" value="">
+			
+			<div class="wideDiv">
+				<i class="fa-solid fa-briefcase"></i>
+				<input type="text" id="businessName" name="businessName" placeholder="상호명" value="">
+			</div>
 			<br>
-			<input type="text" id="CEOname" name="CEOname" placeholder="대표자명" value="${person.name}">
+			
+			<div class="wideDiv">
+				<i class="fa-solid fa-newspaper"></i>
+				<input type="text" id="CEOname" name="CEOname" placeholder="대표자명" value="${person.name}">
+			</div>
 			<br>
-			<input type="text" id="businessAddress" name="businessAddress" placeholder="사업장 주소" readonly value="${person.address}">
-			<input type="button" id="openZipSearch" value="주소 확인">
+			
+			
+			<div class="flexDiv">
+				<div class="narrowDiv">
+				<i class="fa-solid fa-address-book"></i>
+				<input type="text" id="businessAddress" name="businessAddress" placeholder="사업장 주소" readonly value="${person.address}">
+				</div>
+				<input type="button" id="openZipSearch" value="주소 확인">
+			</div>
 			<br>
-			<input type="text" id="businessAddressDetail" name="businessAddressDetail" placeholder="상세주소" value="${person.addressDetail}">
+			
+			<div class="wideDiv">
+				<i class="fa-solid fa-address-book"></i>
+				<input type="text" id="businessAddressDetail" name="businessAddressDetail" placeholder="상세주소" value="${person.addressDetail}">
+			</div>
 			<br>
-			<input type="number" id="businessNumber" name="businessNumber" placeholder="사업장번호" value="">
+			
+			<div class="wideDiv">
+				<i class="fa-solid fa-phone"></i>
+				<input type="number" id="businessNumber" name="businessNumber" placeholder="사업장번호" value="">
+			</div>
 			<br>
-			<input type="text" id="businessRegistrationNumber" name="businessRegistrationNumber" placeholder="사업자 등록번호" value="">
+			
+			<div class="wideDiv">
+				<input type="text" id="businessRegistrationNumber" name="businessRegistrationNumber" placeholder="사업자 등록번호" value="">
+			</div>
 			<br>
-			<input type="file" id="businessRegistration" name="businessRegistration" placeholder="사업자 등록증" value="">
+			
+			<div class="wideDiv">
+				<i class="fa-regular fa-file"></i>
+				<input type="file" id="businessRegistration" name="businessRegistration" placeholder="사업자 등록증" value="" accept="image/*">
+			</div>
 			<br>
-			<input type="button" id="businessRequestButton" value="판매자 신청">
+			
+			<input type="button" class="submitBtn" id="businessRequestButton" value="판매자 신청">
 		</form>
 	</div>
 </main>

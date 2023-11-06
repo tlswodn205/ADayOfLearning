@@ -32,11 +32,167 @@
 		SELECT * FROM tb_business where user_id = #{userId};
 	</select>
 	
+	<!-- 판매자의 오늘 강의 수 -->
+	<select id="countTodayLecture" resultType = "java.lang.Integer">
+		SELECT COUNT(ls.lecture_session_id)
+		  FROM tb_lecture_session ls
+		  JOIN tb_lecture l
+		    ON ls.lecture_id = l.lecture_id
+		 WHERE DATE_FORMAT(session_date, "%Y-%m-%d") = CURDATE()
+		   AND l.user_id = #{userId}
+	</select>
+	
+	<!-- 판매자의 오늘 학생 수 -->
+	<select id="countTodayUser" resultType = "java.lang.Integer">
+		SELECT COUNT(r.reserve_id)
+		  FROM tb_reserve r
+		  JOIN tb_lecture_session ls
+		    ON r.lecture_session_id = ls.lecture_session_id
+		  JOIN tb_payment p
+		    ON r.reserve_id = p.reserve_id
+		  JOIN tb_lecture l
+		    ON ls.lecture_id = l.lecture_id
+		 WHERE p.state = '결제 완료'
+		   AND DATE_FORMAT(ls.session_date, "%Y-%m-%d") = CURDATE()
+		   AND l.user_id = #{userId}
+	</select>
+	
+	<!-- 판매자의 강의 리스트 -->
+	<select id="findLectureByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto">
+		SELECT ls.lecture_session_id, ls.session_date, l.title, l.price, c.category_name,
+		       (SELECT COUNT(r.reserve_id) 
+		        FROM tb_reserve r
+		        JOIN tb_payment p ON r.reserve_id = p.reserve_id
+		        WHERE ls.lecture_session_id = r.lecture_session_id
+		          AND p.state = '결제 완료') AS student,
+		       l.maximum, l.state, ls.created_at
+		  FROM tb_lecture_session ls
+		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+		  JOIN tb_category c ON l.category_id = c.category_id
+		 WHERE l.user_id = #{userId}
+	</select>
+	
+	<!-- 강의 상세보기 -->
+	<select id="findByLectureSessionId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto">
+		SELECT ls.lecture_session_id, r.reserve_id, ps.name, ps.phone_number, ps.email
+			 , pm.amount, pm.state, pm.refund_info, pm.refund_date
+		  FROM tb_lecture_session ls
+		  JOIN tb_reserve r
+		    ON ls.lecture_session_id = r.lecture_session_id
+		  JOIN tb_person ps
+		    ON r.user_id = ps.user_id
+		  JOIN tb_payment pm
+		    ON r.reserve_id = pm.reserve_id
+		 WHERE ls.lecture_session_id = #{lectureSessionId}
+		 ORDER BY r.reserve_id DESC
+	</select>
+  
 	<update id="updateByUserId">
 		UPDATE tb_business SET business_name = #{businessName},
 		CEO_name = #{CEOname}, business_address = #{businessAddress},
 		business_address_detail = #{businessAddressDetail}, business_number = #{businessNumber}
 		WHERE user_id = #{userId};
 	</update>
+	
+	<select id="findRequestBusiness" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto">
+		SELECT user_id, Business_name, Business_number, business_registration_number
+		FROM tb_business
+		WHERE state = "등록요청"
+		ORDER BY created_at DESC
+        limit 0,5;
+	</select>
+	
+	
+	<select  id="findRequestBusinessPaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				FROM tb_business b 
+				LEFT JOIN tb_user u 
+                ON b.user_id = u.user_id
+				WHERE 1=1 AND b.state = '등록요청'
+				<if test="type == 'businessName' and keyword != null">
+					and business_name like CONCAT('%',#{keyword},'%') 
+				</if>
+			) ost;
+	</select>
+	
+	<select id="findRequestBusinessList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminRequestBusinessResponseDto">
+		SELECT u.username, b.*
+		FROM tb_business b 
+		LEFT JOIN tb_user u 
+	    ON b.user_id = u.user_id
+		WHERE 1=1 AND b.state = '등록요청'
+			<if test="type == 'businessName' and keyword != null">
+				and business_name like CONCAT('%',#{keyword},'%') 
+			</if>
+		ORDER BY created_at DESC
+		LIMIT #{startNum}, 10;
+	</select>
+	
+	<select id="findRequestBusinessByBusinessId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto">
+		SELECT u.user_id, u.username, b.*
+		FROM tb_business b 
+		LEFT JOIN tb_user u 
+	    ON b.user_id = u.user_id
+		WHERE b.business_id = #{businessId} AND b.state = '등록요청'
+	</select>
+	
+	<select  id="findBusinessPaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				FROM tb_business b 
+				LEFT JOIN tb_user u 
+                ON b.user_id = u.user_id
+				WHERE 1=1 AND u.identity = 'business'
+				<if test="type == 'businessName' and keyword != null">
+					and business_name like CONCAT('%',#{keyword},'%') 
+				</if>
+			) ost;
+	</select>
+	
+	<select id="findBusinessList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto">
+		SELECT u.username, b.*
+		FROM tb_business b 
+		LEFT JOIN tb_user u 
+	    ON b.user_id = u.user_id
+		WHERE 1=1 AND u.identity = 'business'
+			<if test="type == 'businessName' and keyword != null">
+				and business_name like CONCAT('%',#{keyword},'%') 
+			</if>
+		ORDER BY created_at DESC
+		LIMIT #{startNum}, 10;
+	</select>
+	
+		
+	<select id="findBusinessByBusinessId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto">
+		SELECT u.user_id, u.username, b.*
+		FROM tb_business b 
+		LEFT JOIN tb_user u 
+	    ON b.user_id = u.user_id
+		WHERE b.business_id = #{businessId} AND u.identity = 'business'
+	</select>
+	
 	
 </mapper>

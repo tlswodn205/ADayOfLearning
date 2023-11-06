@@ -47,4 +47,16 @@ public class LectureService {
 		return lecture.getLectureId();
 	}
 
+	// indexPage start
+//	public List<LectureListItemResponseDto> getMostLecture() {
+//		List<LectureListItemResponseDto> lectureList = lectureRepository.findMostLecture();
+//		return lectureList;
+//	}
+
+	public List<LectureListItemResponseDto> getNewLecture() {
+		List<LectureListItemResponseDto> lectureList = lectureRepository.findNewLecture();
+		return lectureList;
+	}
+	// indexPage end
+
 }

@@ -190,39 +190,27 @@ function stompConnect(chatRoomId) {
 // 화면 변경 관련 함수들
 // 대화창에 대화 출력하기
 function chatContentAppend(username, message, createdAt) {
-    if (message == null) {
-        return;
-    } else if (username === $('#username').val()) {
-        // 내가 한 대화
-        messageMySend(username, message, createdAt);
-    } else {
-        // 상대가 한 대화
-        messageOtherSend(username, message, createdAt);
+    if(message == null) {
+		return;
+	} else if(username === $("#username").val()){
+    // 내가 한 대화
+		messageSend("chatMy", username, message, createdAt);
+	} else {
+	// 상대가 한 대화
+		messageSend("chatOther", username, message, createdAt);
     }
 }
-
-// 대화창에 내가 보낸 메세지 출력
-function messageMySend(username, message, createdAt) {
-    let str = '<div class="chatMy">';
-    str += '<div class="chatUsername">' + username + '</div>';
-    str += '<div class="chat">';
-    str += '<div class="chatMessageTime">' + createdAt + '</div>';
-    str += '<div class="chatMessage">' + message + '</div>';
-    str += '</div>';
-    str += '</div>';
-    $('#chatContent').append(str);
-}
-
-// 대화창에 상대가 보낸 메세지 출력
-function messageOtherSend(username, message, createdAt) {
-    let str = '<div class="chatOther">';
-    str += '<div class="chatUsername">' + username + '</div>';
-    str += '<div class="chat">';
-    str += '<div class="chatMessage">' + message + '</div>';
-    str += '<div class="chatMessageTime">' + createdAt + '</div>';
-    str += '</div>';
-    str += '</div>';
-    $('#chatContent').append(str);
+	
+// 대화창에 메세지 출력
+function messageSend(chatClass, username, message, createdAt) {
+	let str = '<div class="' + chatClass + '">';
+	str += '<div class="chatUsername">' + username + '</div>';
+	str += '<div class="chat">';
+	str += '<div class="chatMessage">' + message + '</div>';
+	str += '<div class="chatMessageTime">'+ createdAt + '</div>';
+	str += '</div>';
+	str += '</div>';
+	$("#chatContent").append(str);
 }
 
 // 대화창 초기화
