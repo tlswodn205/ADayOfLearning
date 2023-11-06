@@ -130,7 +130,16 @@ main .mainColumn .mainRow .mainUserComponent{
 	background-color: #fff;
 }
 
-main .mainRow .showMore{
+main .mainRow .mainComponentTop{
+	margin-bottom: 15px;
+}
+
+main .mainRow .mainComponentTop .componentTitle{
+	font-weight: 900;
+	font-size: 16px;
+}
+
+main .mainRow .mainComponentTop .showMore{
 	float:right;
 	color: #aaa;
 	margin-bottom: 10px;

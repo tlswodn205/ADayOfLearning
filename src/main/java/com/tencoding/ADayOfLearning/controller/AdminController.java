@@ -52,8 +52,8 @@ public class AdminController {
 	@GetMapping("/customerDetail/{userId}")
 	public String getCustomerDetail(Model model, @PathVariable Integer userId) {
 		AdminCustomerResponseDto adminCustomerResponseDto = adminService.findAdminCustomerDetail(userId);
-		model.addAttribute("CustomerserData", adminCustomerResponseDto);
-		return "admin/business/requestBusinessDetail";
+		model.addAttribute("customerUserData", adminCustomerResponseDto);
+		return "admin/user/customerDetail";
 	}
 	
 	//user end

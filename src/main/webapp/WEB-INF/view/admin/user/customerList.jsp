@@ -82,6 +82,6 @@
 </main>
 
 <script type="text/javascript">
-	
+
 </script>
 <%@ include file="/WEB-INF/view/admin/layout/footer.jsp"%>

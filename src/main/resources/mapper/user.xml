@@ -109,5 +109,13 @@
 		LIMIT #{startNum}, 10;
 	</select>
 	
+	<select id="findCustomerByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto">
+		SELECT u.username, p.*
+		FROM tb_person p
+		LEFT JOIN tb_user u 
+	    ON p.user_id = u.user_id
+		WHERE u.user_id=#{userId} AND u.identity = 'customer'
+	</select>
+	
 	
 </mapper>

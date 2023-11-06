@@ -8,7 +8,10 @@
 	<div id="example" class="mainColumn">
 		<div class="mainRow">
 			<div class="mainNarrowComponent">
-				<a class="showMore" href="/admin/userDetail"><i class="fa-solid fa-plus"></i> 더보기</a>
+				<div class="mainComponentTop">
+					<span class="componentTitle">구매자 신청 리스트</span>
+					<a class="showMore" href="/admin/requestBusinessList"><i class="fa-solid fa-plus"></i> 더보기</a>
+				</div>
 				<table>
 					<thead>		
 						<tr>
@@ -31,7 +34,10 @@
 				</table>
 			</div>
 			<div class="mainNarrowComponent">
-				<a class="showMore" href="/admin/userDetail"><i class="fa-solid fa-plus"></i> 더보기</a>
+				<div class="mainComponentTop">
+					<span class="componentTitle">판매자 리스트</span>
+					<a class="showMore" href="/admin/businessList"><i class="fa-solid fa-plus"></i> 더보기</a>
+				</div>
 				<table>
 					<thead>		
 						<tr>
@@ -54,7 +60,10 @@
 		</div>
 		<div class="mainRow">
 			<div class="mainNarrowComponent">
-				<a class="showMore" href="/admin/userDetail"><i class="fa-solid fa-plus"></i> 더보기</a>
+				<div class="mainComponentTop">
+					<span class="componentTitle">구매자 리스트</span>
+					<a class="showMore" href="/admin/customerList"><i class="fa-solid fa-plus"></i> 더보기</a>
+				</div>
 				<table>
 					<thead>		
 						<tr>

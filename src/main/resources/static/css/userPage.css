@@ -7,26 +7,24 @@
 	display: flex;
 }
 
-#userPage .flexDiv{
-  	width: 400px;
-	display: flex;
+#userPage .emailCheck{
+	display: none;
+	margin-top: 20px;
 }
 
-#userPage .narrowDiv {
-  width: 300px;
+#userPage .narrowDiv{
+  width: 280px;
   height: 50px;
   border-radius: 5px;
   border: solid 1px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
   opacity: 1;
 }
 
-
 #userPage .narrowDiv Input {
-  width: 240px;
+  width: 220px;
   height: 40px;
   border: none;
   -webkit-appearance: none;
@@ -38,14 +36,14 @@
 
 #userPage .narrowDiv Input:focus {
   outline: none;
-  width: 240px;
+  width: 220px;
   text-align: left;
   margin-left: 10px;
 }
 
 #userPage .flexDiv input[type=button]{
 	margin-left: 20px;
-  	width: 80px;
+  	width: 100px;
 	font-size: 14px;
 	color: #fff;
 	border: none;
@@ -92,12 +90,13 @@
 
 #userPage .submitBtn{
   	width: 400px;
-	font-size: 14px;
+	font-size: 17px;
 	height: 50px;
 	color: #fff;
 	border: none;
 	border-radius: 13px;
 	padding: 10px;
 	background-color: #ccc;
+	margin-bottom: 30px;
 }
 

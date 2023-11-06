@@ -11,8 +11,8 @@
 			<div class="top-menu">
 				<div>
 					<input type="hidden" id="status"
-						value="${listPagingResponseDto.status}"> <select id="type"
-						name="type">
+						value="${listPagingResponseDto.status}"> 
+					<select id="type" name="type">
 						<option value="businessName"
 							${listPagingResponseDto.type eq "businessName" ? "selected":""}>상호명</option>
 					</select> <input type="text" id="keyword" placeholder="검색"
@@ -36,7 +36,7 @@
 							<td><a href="/admin/requestBusinessDetail/${business.businessId}">${business.username}</a></td>
 							<td>${business.businessName}</td>
 							<td>${business.CEOname}</td>
-							<td>${business.businessAddress}${business.businessAddressDetail}</td>
+							<td>${business.businessAddress} ${business.businessAddressDetail}</td>
 							<td>${business.businessNumber}</td>
 							<td>${business.businessRegistrationNumber}</td>
 						</tr>
@@ -82,6 +82,8 @@
 </main>
 
 <script type="text/javascript">
-	
+let requestBusiness = {
+		
+}
 </script>
 <%@ include file="/WEB-INF/view/admin/layout/footer.jsp"%>

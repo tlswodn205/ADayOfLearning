@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/view/business/layout/header.jsp" %>
+<%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
 <main>
 	<div class="mainTop">
 		<div class="title">내 정보보기</div>
 	</div>
 	<div id="userDetail" class="mainColumn">
-		<form action="/admin/agreeBusiness" id="agreeBusiness" method="post">
+		<form action="/admin/updateUser" id=updateUser" method="post">
 			<div class="DetailColumn">
 				<table>	
 					<tr>
@@ -35,11 +35,11 @@
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td><img src="${customerUserData.birthday}"></td>
+						<td><span>${customerUserData.birthday}</span></td>
 					</tr>
 				</table>
-				
-				<input type="button" class="inputBtn" id="agreeBusinessBtn" value="판매자 승인">
+				<input type="button" class="updateBtn" id="userUpdateBtn" value="유저 데이터 수정">
+				<input type="button" class="deleteBtn" id="userDeleteBtn" value="유저 데이터 수정">
 			</div>
 		</form>
 	</div>
@@ -50,14 +50,24 @@
 let AgreeBusiness = {
     version: 1,
     init: function() {
-    	$(document).on("click", "#agreeBusinessBtn", ()=>{
-    		this.submit();
+    	$(document).on("click", "#updateUserBtn", ()=>{
+    		this.update();
+    	});
+    	$(document).on("click", "#deleteUserBtn", ()=>{
+    		this.delete();
     	});
     },
-    submit:function(){
-    	let isChanged = confirm("판매자를 승인하시겠습니까?");
+    update:function(){
+    	let isChanged = confirm("유저 정보를 수정하시겠습니까?");
     	if(isChanged){
-    		$("#agreeBusiness").submit();
+    		$("#updateUser").submit();
+    	}
+    },
+
+    delete:function(){
+    	let isDelete = confirm("유저 정보를 삭제하시겠습니까?");
+    	if(isDelete){
+    		
     	}
     },
     

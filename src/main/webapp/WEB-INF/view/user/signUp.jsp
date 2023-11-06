@@ -52,14 +52,14 @@
 				</div>
 				<input type="button" id="emailCheck" value="이메일 확인"> 
 			</div>
-			<div class="flexDiv">
+			<div class="flexDiv emailCheck">
 				<div class="narrowDiv">
 					<input type="hidden" id="certificationNumber" placeholder="인증번호">
 				</div>
 				<input type="hidden" id="certificationNumberCheck" value="인증번호 확인">
 			</div>
 			
-			<input type="hidden" id="resendNumber" value="인증번호 재전송"> 
+			<input type="hidden" id="resendNumber" class="emailCheck" value="인증번호 재전송"> 
 
 			<br> 
 			<div class="flexDiv">
@@ -230,6 +230,7 @@ let signUp ={
     		return false;
     	}
     	
+    	console.log($(".emailCheck")[0]);
     	
     	$("#emailCheck").attr("disabled", true);
     	
@@ -237,18 +238,20 @@ let signUp ={
     	    method: "get", // *GET, POST, PUT, DELETE 등
  	  	}).then(response => response.json())
 		  .then(function(jsonData){
-		       if(jsonData){
+			  console.log(jsonData);
+		       if(jsonData==1){
 		       		alert("인증번호를 이메일로 전송했습니다.");
 		    	  	$('#resendNumber').attr("type", "button");
 		    	  	$('#certificationNumber').attr("type", "text");
 		    	  	$('#certificationNumberCheck').attr("type", "button");
+		        	$(".emailCheck").css("display","flex");
 		    	  	emailCheck = 1;
 		    	  	emailStore = email;
-		       		
-		       	}else{
-		       		alert("사용중인 이메일 입니다");
 		       	}
-		  });
+		  }).catch(error => {
+		    	$("#emailCheck").attr("disabled", false);
+      		 alert("사용중인 이메일 입니다");	
+  			});
     },
 
 	resendNumber : function(){
