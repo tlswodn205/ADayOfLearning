@@ -43,7 +43,7 @@
 		   AND b.user_id = d.user_id
 		   AND a.start_at &lt;= d.created_at
 		 GROUP BY a.chat_room_id, b.user_id, a.created_at, c.username
-		 ORDER BY a.created_at desc;
+		 ORDER BY a.created_at ASC;
 	</select>
 	
 	<!-- 해당 채팅방에 입장 되어 있는지 조회 -->

@@ -23,4 +23,8 @@ public interface LectureRepository {
 	public List<LectureListItemResponseDto> findByStateAll();
 
 	public List<LectureListItemResponseDto> findBySearch(ListSearchRequestDto dto);
+
+	public List<LectureListItemResponseDto> findMostLecture();
+
+	public List<LectureListItemResponseDto> findNewLecture();
 }

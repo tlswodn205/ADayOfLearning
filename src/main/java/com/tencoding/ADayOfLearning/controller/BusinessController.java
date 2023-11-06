@@ -54,7 +54,9 @@ public class BusinessController {
 		model.addAttribute("countTodayUser", countTodayUser);
 		return "/business/main";
 	}
+	//main end
 	
+	// chat start
 	@GetMapping("/chatRoom")
 	public String businessChatRoom(NewChatRequestDto newChatRequestDto, Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
@@ -79,8 +81,7 @@ public class BusinessController {
 		model.addAttribute("chatRoomList", chatRoomList);
 		return "business/chat/chatRoom";
 	}
-	
-	//main end
+	// chat end
 	
 	//user start
 	
