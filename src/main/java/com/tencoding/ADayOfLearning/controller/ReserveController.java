@@ -18,7 +18,9 @@ import com.tencoding.ADayOfLearning.dto.request.ReserveRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Reserve;
+import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.ReserveService;
+import com.tencoding.ADayOfLearning.util.Define;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +36,10 @@ public class ReserveController {
 	
 	@GetMapping("/list")
 	public String getReserveList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page,@RequestParam(required = false) String status, Model model) {
+//		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+//		if (principal == null) {
+//			return "redirect:/user/signIn";
+//		}
 		ReserveListPageResponseDto<ReserveListResponseDto> reserveList = reserveService.findReserveByUserId(type, keyword, page, status, 1);
 		model.addAttribute("reserveList", reserveList);
 		

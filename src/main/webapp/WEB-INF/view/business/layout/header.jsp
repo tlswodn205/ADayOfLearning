@@ -26,6 +26,7 @@
 				<li>
 					<a href="/business"><i class="fa-solid fa-user"></i>내 정보보기</a>
 					<a href="/business/chatRoom"><i class="fa-solid fa-user"></i>채팅</a>
+					<a href="/business/lectureList"><i class="fa-solid fa-user"></i>강의 관리</a>
 				</li>
 			</ul>
 		</div>

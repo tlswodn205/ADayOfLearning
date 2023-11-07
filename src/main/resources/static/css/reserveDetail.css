@@ -25,6 +25,10 @@
 	padding: 24px 0;
 }
 
+#reserveDetail .sectionBox:last-child {
+	border-bottom: none;
+}
+
 #reserveDetail .sectionBox-area {
 	display: flex;
 }

@@ -21,4 +21,6 @@ public interface PaymentRepository {
 	public Lecture findLectureByLectureSessionId(int lectureSessionId);
 	public LectureSession findSessionbyLectureSessionId(int lectureSessionId);
 	public String findLectureThumbnailbyLectureSessionId(int lectureSessionId);
+	public int updateRefundInfoByPaymentId(Payment payment);
+	public int updateRefundByPaymentId(Payment payment);
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,10 @@ import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.BusinessService;
@@ -119,5 +122,22 @@ public class BusinessController {
 	}
 	
 	// lecture end
+	
+	// reserve, payment start
+	
+	@GetMapping("/reserveDetail/{id}")
+	public String getReserveDetail(Model model, @PathVariable Integer id) {
+		BusinessReserveResponseDto reserve = businessService.findByReserveId(id);
+		model.addAttribute("reserve", reserve);
+		return "/business/reserve/reserveDetail";
+	}
+	
+	@PostMapping("/cancelResult")
+	public String cancelResult(@Param(value = "paymentId") Integer paymentId) {
+		businessService.updateRefundByPaymentId(paymentId);
+		return "business/reserve/cancelResult";
+	}
+	
+	// reserve, payment end
 	
 }

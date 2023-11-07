@@ -51,7 +51,9 @@
 			<div class="refundTitle">
 				<h4>상세 사유 입력</h4>
 			</div>
-			<form method="post" action="/payment/cancelRequest" id="cancelForm">
+			<form method="post" action="/payment/cancelResult" id="cancelForm">
+				<input type="hidden" id="reserveId" name="reserveId" value="${payment.reserveId}">
+				<input type="hidden" id="paymentId" name="paymentId" value="${payment.paymentId}">
 				<input type="text" id="refundInfo" class="refundInfo" name="refundInfo" placeholder="상세 사유를 입력해주세요.">
 				<button type="button" id="refundBtn" class="refundBtn">취소 요청</button>
 			</form>
@@ -60,16 +62,27 @@
 </main>
 
 <script>
-	$(document).on("click", "#refundBtn", function() {
-		let refundInfo = #("#refundInfo").val();
+let cancelRequest = {
+		version: 1,
+		init: function() {
+			$(document).on("click", "#refundBtn", () => {
+				this.submit();
+			});
+		},
 		
-		if(!refundInfo) {
-			alert("취소 사유를 입력해주세요.");
-			return false;
+		submit:function() {
+			let refundInfo = $("#refundInfo").val();
+			
+			if(!refundInfo) {
+				alert("취소 사유를 입력해주세요.");
+				return false;
+			}
+			
+			$("#cancelForm").submit();
 		}
-		
-		$("#cancelForm").submit();
-	});
+}
+cancelRequest.init();
+
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
