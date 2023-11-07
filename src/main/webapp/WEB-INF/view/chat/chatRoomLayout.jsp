@@ -36,6 +36,9 @@
 				</c:forEach>
 				</div>
 			</div>
+			
+			<div class="partition"></div>
+			
 			<div class="chatContentContainer">
 				<input type="hidden" id="nowChatRoomId" value="${newChat.chatRoomId}">
 				<input type="hidden" id="nowUserId" value="${newChat.userId}">

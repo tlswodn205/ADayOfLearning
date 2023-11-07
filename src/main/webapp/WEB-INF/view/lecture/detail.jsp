@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<script src="https://cdn.tiny.cloud/1/dtdpftxislwkjsqt3kyjkmgpi0r0p0cw5zmchcg1hwbvz9w9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <div id="lectureDetail">
     <div class="detailMainInfo">
         <div class="detailColumn1">
@@ -25,7 +27,28 @@
 
             <div id="detailReview" class="detailArea review">
                 <div class="detailHead review">후기</div>
-                <div class="detailInfo review">후기들 모음</div>
+                <div class="reviewInputContainer">
+                	<div class="reviewInputTitle">
+                		후기 작성
+                		<div class="star-rating space-x-4 mx-auto">
+							<input type="radio" id="5-stars" name="score" value="5" v-model="ratings"/>
+							<label for="5-stars" class="star pr-4">★</label>
+							<input type="radio" id="4-stars" name="score" value="4" v-model="ratings"/>
+							<label for="4-stars" class="star">★</label>
+							<input type="radio" id="3-stars" name="score" value="3" v-model="ratings"/>
+							<label for="3-stars" class="star">★</label>
+							<input type="radio" id="2-stars" name="score" value="2" v-model="ratings"/>
+							<label for="2-stars" class="star">★</label>
+							<input type="radio" id="1-stars" name="score" value="1" v-model="ratings"/>
+							<label for="1-stars" class="star">★</label>
+						</div>
+                	</div>
+                	<div class="reviewInputBody">
+		                <textarea class="reviewInput" id="reviewInput" name="content" placeholder="후기 내용"></textarea>
+		                <input type="button" id="reviewInputBtn" value="후기 등록"/>
+                	</div>
+                </div>
+                <div class="detailInfo review"></div>
             </div>
         </div>
 
@@ -82,5 +105,6 @@
 <script type="text/javascript">
     let lectureData = ${lecture};
     let photoList = ${lecturePhotos};
+    let reviewList = ${reviews};
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

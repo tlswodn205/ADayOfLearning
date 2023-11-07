@@ -5,8 +5,10 @@ let detailInit = {
 	version: 1,
 	init: function() {
 		$(document).ready(() => {
-			this.showInformation(lectureData, photoList);
+			this.showInformation(lectureData, photoList, reviewList);
 			this.buildCalendar();
+			// 리뷰 입력창 기본 세팅
+			this.reviewInputInit();
 		});
 		// 서브 이미지 클릭
 		$(document).on('click', '.subPhoto >img', (event) => this.changeImage($(event.currentTarget).prop('src')));
@@ -18,9 +20,12 @@ let detailInit = {
 		$('.futureDay, .today').click((event) => detailInit.choiceDate($(event.currentTarget)));
 		
 		$(window).scroll(this.adjustColumn2Container);
+		
+		// 리뷰 저장
+		$("#reviewInputBtn").click(() => reviewInput());
 	},
 
-	showInformation: function(lecture, photos) {
+	showInformation: function(lecture, photos, reviewList) {
 		$('.detailInfo.content').append(lecture.content);
 		$('.detailLectureAddress').text(lecture.address + ', ' + lecture.addressDetail);
 		$('.detailLectureTitle').text(lecture.title);
@@ -55,7 +60,6 @@ let detailInit = {
 					map: map,
 					position: coords,
 				});
-
 				// 인포윈도우로 장소에 대한 설명을 표시합니다
 				var infowindow = new kakao.maps.InfoWindow({
 					content: `<div style="width:150px;text-align:center;padding:6px 0;">${lecture.title}</div>`,
@@ -279,6 +283,140 @@ let detailInit = {
 	addAttr: function(url) {
 		window.location.href = url;
 	},
+  
+	reviewInputInit: function() {
+		var plugins = [
+			'advlist',
+			'autolink',
+			'lists',
+			'link',
+			'charmap',
+			'print',
+			'preview',
+			'anchor',
+			'searchreplace',
+			'visualblocks',
+			'code',
+			'fullscreen',
+			'insertdatetime',
+			'media',
+			'table',
+			'paste',
+			'code',
+			'help',
+			'wordcount',
+			'save',
+		];
+	
+		tinymce.init({
+			language: 'ko_KR', //한글판으로 변경
+			selector: '.reviewInput',
+			height: 100,
+			width: 650,
+			menubar: false,
+			plugins: plugins,
+			toolbar: [],
+	
+			/*** image upload ***/
+			image_title: true,
+			/* enable automatic uploads of images represented by blob or data URIs*/
+			automatic_uploads: true,
+			/*
+				URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+				images_upload_url: 'postAcceptor.php',
+				here we add custom filepicker only to Image dialog
+			*/
+			file_picker_types: 'image',
+			/* and here's our custom image picker*/
+			file_picker_callback: function(cb, value, meta) {
+				var input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
+	
+				/*
+				Note: In modern browsers input[type="file"] is functional without
+				even adding it to the DOM, but that might not be the case in some older
+				or quirky browsers like IE, so you might want to add it to the DOM
+				just in case, and visually hide it. And do not forget do remove it
+				once you do not need it anymore.
+				*/
+				input.onchange = function() {
+					var file = this.files[0];
+	
+					var reader = new FileReader();
+					reader.onload = function() {
+						/*
+						Note: Now we need to register the blob in TinyMCEs image blob
+						registry. In the next release this part hopefully won't be
+						necessary, as we are looking to handle it internally.
+						*/
+						var id = 'blobid' + new Date().getTime();
+						var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						var base64 = reader.result.split(',')[1];
+						var blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
+	
+						/* call the callback and populate the Title field with the file name */
+						cb(blobInfo.blobUri(), { title: file.name });
+					};
+					reader.readAsDataURL(file);
+				};
+				input.click();
+			},
+			/*** image upload ***/
+	
+			content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; margin: 10px } p { margin:0 }',
+	
+		});
+	},
+	// 리뷰 등록 버튼 ==========================
+	reviewInput: async function() {
+		
+		let reviewContent = tinymce.activeEditor.getContent();
+		let reviewScore = $('input[name="score"]:checked').val();
+		const response = await fetch("/review/insert", {
+			method: 'POST',
+			body: JSON.stringify({
+				lectureId: lectureData.lectureId,
+				score: reviewScore,
+				content: reviewContent
+			}),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+		.then((response) => response.json())
+		.then((result) => {
+			console.log(result);
+			reviewAppend(result);
+		});
+	},
+	
 };
 
 detailInit.init();
+
+// 리뷰 append ===================
+function reviewAppend(review) {
+	let reviewContainer = $('<div>').addClass('reviewContainer');
+	let reviewTitle = $('<div>').addClass('reviewTitle');
+	let reviewUser = $('<div>').addClass('reviewUser').text(review.username);
+	let reviewCreatedAt = $('<div>').addClass('reviewCreatedAt').text(review.createdAt);
+	
+	let scoreToPercent = review.score * 20;
+	let reviewScore = $('<div>').addClass('reviewScore');
+	let reviewScoreBase = $('<div>').addClass('reviewScoreBase').text('★★★★★')
+	let reviewScoreFill = $('<div>').addClass('reviewScoreFill').css("width", scoreToPercent + '%')
+					.text('★★★★★');
+	reviewScore.append(reviewScoreFill);
+	reviewScore.append(reviewScoreBase);
+
+	reviewTitle.append(reviewUser);
+	reviewTitle.append(reviewScore);
+	reviewTitle.append(reviewCreatedAt);
+	
+	let reviewContent = $('<div>').addClass('content').text(review.content);
+	reviewContainer.append(reviewTitle);
+	reviewContainer.append(reviewContent);
+	$('.detailInfo.review').append(reviewContainer);
+}
