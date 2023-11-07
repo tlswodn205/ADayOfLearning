@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tencoding.ADayOfLearning.dto.request.ReviewRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.ReviewResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.ReviewRepository;
+import com.tencoding.ADayOfLearning.repository.model.Review;
 
 @Service
 public class ReviewService {
@@ -29,5 +30,11 @@ public class ReviewService {
 	@Transactional
 	public void delete(int reviewId) {
 		reviewRepository.deleteByReviewId(reviewId);
+	}
+
+	@Transactional
+	public void update(ReviewRequestDto reviewRequestDto) {
+		Review review = reviewRequestDto.toReview();
+		reviewRepository.updateByReviewId(review);
 	}
 }

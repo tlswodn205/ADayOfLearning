@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,4 +44,14 @@ public class ReviewController {
 		reviewService.delete(reviewIdMap.get("reviewId"));
 		return ResponseEntity.ok().body("삭제 성공");
 	}
+	
+	@PutMapping("/update")
+	public @ResponseBody ResponseEntity<?> update(@RequestBody ReviewRequestDto reviewRequestDto) {
+//		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		// 유저 인가 확인
+		reviewService.update(reviewRequestDto);
+		System.out.println(reviewRequestDto);;
+		return ResponseEntity.ok().body("삭제 성공");
+	}
+	
 }
