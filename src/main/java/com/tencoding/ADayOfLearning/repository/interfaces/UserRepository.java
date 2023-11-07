@@ -19,8 +19,11 @@ import com.tencoding.ADayOfLearning.repository.model.User;
 public interface UserRepository {
 	public int insert(User user);
 	public int updateByUserId(User user);
-	public int deleteByUserId(int id);
-	public User findByUserId(int id);
+	public int agreeBusiness(Integer userId);
+	public int deleteByUserId(int userId);
+	public int deleteBusinessByUserId(int userId);
+	public int deleteCustomerByUserId(int userId);
+	public User findByUserId(int userId);
 	public List<User> findByAll();
 	public User findByUsername(String username);
 	public User findByEmail(String email);

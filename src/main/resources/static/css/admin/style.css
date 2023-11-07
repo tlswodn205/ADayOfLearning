@@ -10,6 +10,7 @@ a {
     display: block;
     margin: 20px;
 }
+
 ul,ol {
   list-style: none;
   padding: 0;
@@ -236,7 +237,12 @@ main .DetailColumn img {
 	width: 700px;
 }
 
-main .DetailColumn .inputBtn{
+main .DetailColumn .detailColumnBottom{
+	display: flex;
+	justify-content: space-between;
+}
+
+main .DetailColumn .detailColumnBottom input[type=button]:first-child{
 	margin-top: 20px;
 	font-size: 15px;
 	color: #fff;
@@ -244,4 +250,15 @@ main .DetailColumn .inputBtn{
 	border-radius: 13px;
 	padding: 10px;
 	background-color: #ccc;
+}
+
+
+main .DetailColumn .detailColumnBottom input[type=button]:last-child{
+	margin-top: 20px;
+	font-size: 15px;
+	color: #fff;
+	border: none;
+	border-radius: 13px;
+	padding: 10px;
+	background-color: #353535;
 }
