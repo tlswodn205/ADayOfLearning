@@ -3,8 +3,10 @@
 <link rel="stylesheet" href="/css/business/lectureDetail.css">
 
 <main>
+	<div class="mainTop">
+		<div class="title">강의 신청자 목록</div>
+	</div>
 	<div id="lectureDetail" class="mainColumn">
-	
 		<div class="lectureTable">
 			<c:choose>
 				<c:when test="${lecture != null}">
@@ -16,24 +18,24 @@
 							<th>이메일</th>
 							<th>가격</th>
 							<th>결제 상태</th>
-							<th>취소 사유</th>
+							<th>결제일</th>
 							<th>취소일</th>
-							<th>승인</th>
+							<th>취소 승인</th>
 						</tr>
-						<c:forEach var="item" items="${lecture}" varStatus="status">
+						<c:forEach var="list" items="${lecture}" varStatus="status">
 						
 							<tr>
 								<td><c:out value="${status.count}"></c:out></td>
-								<td>${item.name}</td>
-								<td>${item.phoneNumber}</td>
-								<td>${item.email}</td>
-								<td>${item.amount}</td>
-								<td>${item.state}</td>
-								<td>${item.refundInfo}</td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${item.refundDate}" /></td>
+								<td><a href="/business/reserveDetail/${list.reserveId}">${list.name}</a></td>
+								<td>${list.phoneNumber}</td>
+								<td>${list.email}</td>
+								<td>${list.amount}</td>
+								<td>${list.state}</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${list.paymentDate}" /></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${list.refundDate}" /></td>
 								<td>
-									<c:if test="${item.state eq '취소 요청'}">
-										<button type="button" class="refundBtn">확인</button>
+									<c:if test="${list.state eq '취소 완료'}">
+										<p>완료</p>
 									</c:if>
 								</td>
 							</tr>
@@ -51,4 +53,20 @@
 		
 	</div>
 </main>
+<script>
+/* let refundInit = {
+		version: 1,
+		init: function() {
+			$(document).("click", "#refundBtn", () => {
+				
+			});
+		}
+		
+		refundSubmit:function() {
+			window.location.href = '/business/';
+		}
+} */
+
+</script>
+
 <%@ include file="/WEB-INF/view/business/layout/footer.jsp" %>

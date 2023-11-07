@@ -17,6 +17,7 @@ import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.BusinessRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.CategoryRepository;
@@ -34,6 +35,7 @@ import com.tencoding.ADayOfLearning.repository.interfaces.ReserveRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.ReviewRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
 import com.tencoding.ADayOfLearning.repository.model.Business;
+import com.tencoding.ADayOfLearning.repository.model.Payment;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LectureOption;
 import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
@@ -132,6 +134,16 @@ public class BusinessService {
 		int result = businessRepository.updateByUserId(businessEntity);
 	}
 
+	// 학생의 예약 및 결제 상세보기
+	public BusinessReserveResponseDto findByReserveId(int reserveId) {
+		return businessRepository.findByReserveId(reserveId);
+	}
+	
+	public void updateRefundByPaymentId (int paymentId) {
+		Payment payment = paymentRepository.findByPaymentId(paymentId);
+		payment.setState("취소 완료");
+		paymentRepository.updateRefundByPaymentId(payment);
+	}
 	/**
 	 * 강의 등록
 	 * 

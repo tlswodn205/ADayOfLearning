@@ -91,7 +91,7 @@
 	<!-- 강의 상세보기 -->
 	<select id="findByLectureSessionId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto">
 		SELECT ls.lecture_session_id, r.reserve_id, ps.name, ps.phone_number, ps.email
-			 , pm.amount, pm.state, pm.refund_info, pm.refund_date
+			 , pm.amount, pm.state, pm.refund_info, pm.refund_date, pm.payment_id, pm.payment_date
 		  FROM tb_lecture_session ls
 		  JOIN tb_reserve r
 		    ON ls.lecture_session_id = r.lecture_session_id
@@ -109,6 +109,20 @@
 		business_address_detail = #{businessAddressDetail}, business_number = #{businessNumber}
 		WHERE user_id = #{userId};
 	</update>
+	
+	<!-- 학생의 예약 및 결제 상세보기 -->
+	<select id="findByReserveId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto">
+		SELECT r.reserve_id, ls.session_date, l.title, ps.name, ps.phone_number
+			 , ps.email, pm.payment_id, pm.amount, pm.state, pm.payment_date, pm.payment_kind
+     		 , pm.refund_date, pm.refund_info, pm.tid
+		  FROM tb_reserve r
+		  JOIN tb_lecture_session ls ON ls.lecture_session_id = r.lecture_session_id
+		  JOIN tb_lecture l ON l.lecture_id = ls.lecture_id
+		  JOIN tb_user u ON r.user_id = u.user_id
+		  JOIN tb_person ps ON u.user_id = ps.user_id
+		  JOIN tb_payment pm ON r.reserve_id = pm.reserve_id
+		 WHERE r.reserve_id = #{reserveId};
+	</select>
 	
 	<select id="findRequestBusiness" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto">
 		SELECT user_id, Business_name, Business_number, business_registration_number
@@ -209,6 +223,5 @@
 	    ON b.user_id = u.user_id
 		WHERE b.business_id = #{businessId} AND u.identity = 'business'
 	</select>
-	
 	
 </mapper>

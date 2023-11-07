@@ -44,10 +44,9 @@
 		 WHERE p.payment_id = #{paymentId}
 	</select>
 	
-	<update id="update">
+	<update id="updateRefundByPaymentId">
 		UPDATE tb_payment SET state = #{state}
 			 , refund_date = now()
-			 , refund_info = #{refundInfo}
 		 WHERE payment_id = #{paymentId};
 	</update>
 	
@@ -66,5 +65,11 @@
 	<select id="findLectureThumbnailbyLectureSessionId" resultType="java.lang.String" >
 		SELECT img FROM adayoflearning.tb_lecture_photo WHERE is_thumbnail = 1 AND lecture_id=(SELECT lecture_id FROM tb_lecture_session WHERE lecture_session_id = #{lectureSessionId});
 	</select>
+	
+	<update id="updateRefundInfoByPaymentId">
+		UPDATE tb_payment SET state = #{state}
+			 , refund_info = #{refundInfo}
+		 WHERE payment_id = #{paymentId};
+	</update>
 		
 </mapper>
