@@ -15,10 +15,6 @@
 	padding-bottom: 0px;
 }
 
-#lectureList .lectureListSearchArea . {
-	
-}
-
 .lectureListRow {
 	width: 600px;
 }
@@ -500,9 +496,13 @@ td {
 	padding: 6px;
 	border-bottom: 0.5px solid #999999;
 }
+#lectureDetail .detailInfo.review .reviewContainer p{
+	margin: 0px;
+}
 #lectureDetail .detailInfo.review .reviewTitle{
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 }
 #lectureDetail .detailInfo.review .reviewUser{
 	padding-left: 5px;

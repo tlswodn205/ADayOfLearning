@@ -22,7 +22,7 @@ let detailInit = {
 		$(window).scroll(this.adjustColumn2Container);
 		
 		// 리뷰 저장
-		$("#reviewInputBtn").click(() => reviewInput());
+		$("#reviewInputBtn").click(() => this.reviewInput());
 	},
 
 	showInformation: function(lecture, photos, reviewList) {
@@ -92,7 +92,15 @@ let detailInit = {
 				$('.detailSubPhoto').append(newDiv);
 			}
 		}
-		
+		if(reviewList.length > 0) {
+			// 리뷰 추가
+			reviewList.forEach((review) => {
+				reviewAppend(review);
+			});
+		} else {
+			// 아직 작성된 리뷰가 없습니다.
+			$('.detailInfo.review').text('아직 작성된 리뷰가 없습니다.');
+		}
 	},
 
 	// 서브 이미지 클릭 => 본 이미지로 올림
@@ -310,7 +318,7 @@ let detailInit = {
 	
 		tinymce.init({
 			language: 'ko_KR', //한글판으로 변경
-			selector: '.reviewInput',
+			selector: '#reviewInput',
 			height: 100,
 			width: 650,
 			menubar: false,
@@ -371,8 +379,8 @@ let detailInit = {
 	},
 	// 리뷰 등록 버튼 ==========================
 	reviewInput: async function() {
-		
 		let reviewContent = tinymce.activeEditor.getContent();
+		console.log(reviewContent);
 		let reviewScore = $('input[name="score"]:checked').val();
 		const response = await fetch("/review/insert", {
 			method: 'POST',
@@ -391,32 +399,62 @@ let detailInit = {
 			reviewAppend(result);
 		});
 	},
-	
 };
 
-detailInit.init();
+// 리뷰 삭제
+async function reviewDelete(comp) {
+	const response = await fetch("/review/delete", {
+		method: 'DELETE',
+		body: JSON.stringify({
+			reviewId: $(comp).val(),
+		}),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	})
+	.then((result) => {
+		if(result.status == 200){
+			$(comp).parents('div[class="reviewContainer"]').remove();
+		}
+	});
+}
 
 // 리뷰 append ===================
 function reviewAppend(review) {
 	let reviewContainer = $('<div>').addClass('reviewContainer');
+	let reviewId = $('<input>').attr('type', 'hidden').val(review.reviewId);
+	
+	let reviewHeader = $('<div>').addClass('reviewTitle');
 	let reviewTitle = $('<div>').addClass('reviewTitle');
 	let reviewUser = $('<div>').addClass('reviewUser').text(review.username);
 	let reviewCreatedAt = $('<div>').addClass('reviewCreatedAt').text(review.createdAt);
+	let reviewDeleteBtn = $('<button>').addClass('reviewDeleteBtn').text('삭제').val(review.reviewId)
+								.attr('onclick', 'reviewDelete(this)');
 	
 	let scoreToPercent = review.score * 20;
 	let reviewScore = $('<div>').addClass('reviewScore');
 	let reviewScoreBase = $('<div>').addClass('reviewScoreBase').text('★★★★★')
 	let reviewScoreFill = $('<div>').addClass('reviewScoreFill').css("width", scoreToPercent + '%')
 					.text('★★★★★');
-	reviewScore.append(reviewScoreFill);
-	reviewScore.append(reviewScoreBase);
-
+					
+	let reviewContent = $('<div>').addClass('content').html(review.content);
+					
 	reviewTitle.append(reviewUser);
 	reviewTitle.append(reviewScore);
 	reviewTitle.append(reviewCreatedAt);
 	
-	let reviewContent = $('<div>').addClass('content').text(review.content);
-	reviewContainer.append(reviewTitle);
+	reviewHeader.append(reviewTitle);
+	reviewHeader.append(reviewDeleteBtn);	
+	
+	reviewScore.append(reviewScoreFill);
+	reviewScore.append(reviewScoreBase);
+
+	
+	reviewContainer.append(reviewId);
+	reviewContainer.append(reviewHeader);
 	reviewContainer.append(reviewContent);
 	$('.detailInfo.review').append(reviewContainer);
 }
+
+detailInit.init();
+

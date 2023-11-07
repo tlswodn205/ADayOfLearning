@@ -25,4 +25,9 @@ public class ReviewService {
 		reviewRepository.reviewInsert(reviewRequestDto);
 		return reviewRepository.findById(reviewRequestDto.getReviewId());
 	}
+
+	@Transactional
+	public void delete(int reviewId) {
+		reviewRepository.deleteByReviewId(reviewId);
+	}
 }
