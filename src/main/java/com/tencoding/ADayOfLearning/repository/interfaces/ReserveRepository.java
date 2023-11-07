@@ -21,4 +21,5 @@ public interface ReserveRepository {
 	public List<ReserveListResponseDto> findByUserId(@Param("type")String type, @Param("keyword")String keyword, @Param("page")Integer page, @Param("status")String status, @Param("userId")int userId, @Param("startNum")int startNum );
 	public ReserveResponseDto findAllByReserveId(int reserveId);
 	public PagingResponseDto findPaging(@Param("type")String type, @Param("keyword")String keyword, @Param("page")Integer page, @Param("status")String status, @Param("userId")int userId);
+	public int existReserveByUserId(@Param("userId") int userId, @Param("lectureSessionId") int lectureSessionId);
 }

@@ -90,12 +90,23 @@
 		  LEFT JOIN tb_lecture l
 		    ON ls.lecture_id = l.lecture_id 
 		  LEFT JOIN tb_lecture_photo lp
-		    ON l.lecture_id = lp.lecture_photo_id
+		    ON l.lecture_id = lp.lecture_id
 		  LEFT JOIN tb_person p
 		    ON l.user_id = p.user_id
 		  LEFT JOIN tb_payment pa
 		    ON r.reserve_id = pa.reserve_id
 		 WHERE r.reserve_id = #{reserveId}
+	</select>
+	
+	<!-- 예약한 내역이 있는지 확인 -->
+	<select id="existReserveByUserId" resultType = "java.lang.Integer">
+		SELECT COUNT(r.reserve_id)
+		  FROM tb_reserve r
+		  JOIN tb_payment pm ON r.reserve_id = pm.reserve_id
+		  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
+		 WHERE r.user_id = #{userId}
+		   AND ls.lecture_session_id = #{lectureSessionId}
+		   AND pm.state = '결제 완료';
 	</select>
 	
 </mapper>

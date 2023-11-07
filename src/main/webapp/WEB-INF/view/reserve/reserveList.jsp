@@ -12,11 +12,11 @@
 		</div>
 		<div class="content">
 			<div class="search">
-				<select id="type" class="searchSelect" aria-label="Default select example">
+				<select id="type" name="type" class="searchSelect" aria-label="Default select example">
 					<option ${reserveList.type == 'title' ? 'selected':''}	value="title">클래스명</option>
 					<option ${reserveList.type == 'content' ? 'selected':''} value="content">판매자명</option>
 				</select>
-				<input id="keyword" value="${reserveList.keyword}" type="text" placeholder="검색">
+				<input type="text" id="keyword" value="${reserveList.keyword}" placeholder="검색">
 			</div>
 
 			<c:choose>
@@ -28,12 +28,14 @@
 									<h3>${list.state}</h3>
 								</div>
 								<div class="listItem">
-									<img alt="" src="https://picsum.photos/120/120">
+									<div class="imgContainer">
+										<img alt="썸네일" src="${list.img}">
+									</div>
 									<div class="listContent">
 										<span><fmt:formatDate pattern="yyyy. MM. dd." value="${list.paymentDate}"/> 결제</span>
 										<h4>${list.title}</h4>
 										<p><fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${list.sessionDate}"/></p>
-										<strong> <fmt:formatNumber value="${list.amount}" groupingUsed="true"/>원</strong>
+										<strong><fmt:formatNumber value="${list.amount}" groupingUsed="true"/>원</strong>
 									</div>
 								</div>
 							</a>

@@ -17,9 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.PaymentRequestDto;
-import com.tencoding.ADayOfLearning.dto.request.ReserveRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.PaymentResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 import com.tencoding.ADayOfLearning.repository.model.Person;
@@ -51,15 +49,17 @@ public class PaymentController {
 	@Autowired
 	ObjectMapper objectMapper;
 	
+	/**
+	 * 클래스 예약 및 결제 정보
+	 * @param model, lectureSessionId
+	 * @return payRequest 페이지
+	 */
 	@GetMapping("/payRequest")
 	public String paymentRequest(Model model, @RequestParam Integer lectureSessionId) throws JsonProcessingException {
-		// TODO - 로그인한 사용자 정보 불러오기
-		// 1. 로그인 정보가 없으면 로그인 페이지로 이동 
-		// 2. PaymentRequestDto에 구매자 정보 변경 필요
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-//		if (principal == null) {
-//			return "redirect:/user/signIn";
-//		}
+		if (principal == null) {
+			return "redirect:/user/signIn";
+		}
 		
 		Person person = personService.findPersonByUserId(principal.getUserId());
 		Lecture lectureModel = paymentService.getLectureBySessionId(lectureSessionId);
@@ -76,18 +76,32 @@ public class PaymentController {
 		return "payment/payRequest";
 	}
 	
+	/**
+	 * 예약 및 결제 요청
+	 * @param lectureSessionId, paymentRequestDto, request
+	 * @return 
+	 */
 	@PostMapping("/payResult")
-	public String paymentResult(ReserveRequestDto reserveRequestDto, PaymentRequestDto paymentRequestDto, HttpServletRequest request) {
+	public String paymentResult(@RequestParam Integer lectureSessionId, PaymentRequestDto paymentRequestDto, HttpServletRequest request) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		if (principal == null) {
+			return "redirect:/user/signIn";
+		}
 		String payMethod = (String)request.getParameter("PayMethod"); 	// 결제수단
 		String tid = (String)request.getParameter("TxTid"); 			// 거래 ID
+		log.info("payMethod 값이 뭘까 => {}", payMethod);
 		
-		int reserveId = reserveService.insertReserve(reserveRequestDto);
-		System.out.println("reserveId값 =====> " + reserveId);
+		int reserveId = reserveService.insertReserve(lectureSessionId, principal.getUserId());
 		paymentService.insertPayment(paymentRequestDto, reserveId, payMethod, tid);
 		
 		return "payment/payResult";
 	}
 	
+	/**
+	 * 결제 취소 폼
+	 * @param model, id
+	 * @return
+	 */
 	@GetMapping("/cancelRequest/{id}")
 	public String cancelRequest(Model model, @PathVariable Integer id) {
 		PaymentResponseDto payment = paymentService.findPaymentByPaymentId(id);
@@ -95,6 +109,11 @@ public class PaymentController {
 		return "payment/cancelRequestForm";
 	}
 	
+	/**
+	 * 결제 취소 요청 
+	 * @param cancelRequestDto, reserveId
+	 * @return
+	 */
 	@PostMapping("/cancelResult")
 	public String cancelResult(CancelRequestDto cancelRequestDto, @Param(value = "reserveId") Integer reserveId) {
 		paymentService.updateRefundInfoByPaymentId(cancelRequestDto);
