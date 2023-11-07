@@ -6,22 +6,27 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
-import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.BusinessService;
 import com.tencoding.ADayOfLearning.service.ChatRoomService;
+import com.tencoding.ADayOfLearning.service.LectureOptionService;
+import com.tencoding.ADayOfLearning.service.LecturePhotoService;
 import com.tencoding.ADayOfLearning.service.UserService;
 import com.tencoding.ADayOfLearning.util.Define;
 
@@ -35,15 +40,17 @@ public class BusinessController {
 	UserService userService;
 	@Autowired
 	ChatRoomService chatRoomService;
-	
-	
+	@Autowired
+	LecturePhotoService lecturePhotoService;
+	@Autowired
+	LectureOptionService lectureOptionService;
 	@Autowired
 	HttpSession session;
-	
-	//main start 
-	
+
+	// main start
+
 	@GetMapping("")
-	public String getMain(Model model) {	
+	public String getMain(Model model) {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		BusinessMainUserDataResponseDto userData = businessService.findUserData(user.getUserId());
 		model.addAttribute("userData", userData);
@@ -54,71 +61,80 @@ public class BusinessController {
 		model.addAttribute("countTodayUser", countTodayUser);
 		return "/business/main";
 	}
-	//main end
-	
+	// main end
+
 	// chat start
 	@GetMapping("/chatRoom")
 	public String businessChatRoom(NewChatRequestDto newChatRequestDto, Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		if(principal == null) {
+		if (principal == null) {
 			return "redirect:/user/signIn";
 		}
-		if(newChatRequestDto.getUserId() > 0) {
+		if (newChatRequestDto.getUserId() > 0) {
 			// 새로운 채팅방 생성 - chatRoom, chatRoomUser 데이터 생성
 			int chatRoomId = chatRoomService.insert(principal.getUserId(), newChatRequestDto.getUserId());
-			
+
 			// 해당 채팅방 연결을 위한 데이터 세팅
 			User chatUser = userService.findByUserId(newChatRequestDto.getUserId());
-			newChatRequestDto = NewChatRequestDto.builder()
-												.chatRoomId(chatRoomId)
-												.userId(newChatRequestDto.getUserId())
-												.username(chatUser.getUsername())
-												.build();
-			model.addAttribute("newChat" ,newChatRequestDto);
+			newChatRequestDto = NewChatRequestDto.builder().chatRoomId(chatRoomId).userId(newChatRequestDto.getUserId())
+					.username(chatUser.getUsername()).build();
+			model.addAttribute("newChat", newChatRequestDto);
 		}
-		
+
 		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(principal.getUserId());
 		model.addAttribute("chatRoomList", chatRoomList);
 		return "business/chat/chatRoom";
 	}
 	// chat end
-	
-	//user start
-	
+
+	// user start
 
 	@GetMapping("/userDetail")
 	public String getUserDetail(Model model) {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		BusinessUserDetailResponseDto businessUserDetailRequestDto =  businessService.findBusinessByUserID(user);
+		BusinessUserDetailResponseDto businessUserDetailRequestDto = businessService.findBusinessByUserID(user);
 		model.addAttribute("businessUserData", businessUserDetailRequestDto);
 		return "/business/user/userDetail";
 	}
-	
+
 	@PostMapping("/businessUpdate")
 	public String businessUpdate(BusinessUserRequestDto businessUserRequestDto) {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		businessService.updateBusinessUserData(businessUserRequestDto, user.getUserId());
 		return "redirect:/business/userDetail";
 	}
-	
-	//user end
-	
+
+	// user end
+
 	// lecture start
-	
-	@GetMapping("/lectureList")
-	public String getLectureList(Model model) {
-		List<BusinessLectureListResponseDto> lectureList = businessService.findLectureByUserId(1);
-		model.addAttribute("lectureList", lectureList);
-		return "/business/lecture/list";
-	}
-	
+
 	@GetMapping("/lectureDetail/{id}")
 	public String getLectureDetail(Model model, @PathVariable Integer id) {
 		List<BusinessLectureResponseDto> lecture = businessService.findByLectureSessionId(id);
 		model.addAttribute("lecture", lecture);
 		return "/business/lecture/detail";
 	}
-	
+
+	@GetMapping("/registration")
+	public String getRegistration() {
+
+		return "/business/lecture/registration";
+	}
+
+	@Transactional
+	@PostMapping("/registration")
+	public String postRegistration(LectureRegistarionRequestDto dto, @RequestParam("files") MultipartFile[] files,
+			@RequestParam("file") MultipartFile thumbnail) {
+
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+
+		int result = businessService.insertLecture(dto, user.getUserId(), files, thumbnail);
+		
+		return "redirect:lectureDetail/" + result;
+	}
+
 	// lecture end
+
+	
 	
 }
