@@ -23,14 +23,15 @@ import com.tencoding.ADayOfLearning.dto.request.ListSearchRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.ReserveDataRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureSessionResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ReviewResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
-import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.LectureOptionService;
 import com.tencoding.ADayOfLearning.service.LecturePhotoService;
 import com.tencoding.ADayOfLearning.service.LectureService;
 import com.tencoding.ADayOfLearning.service.LectureSessionService;
+import com.tencoding.ADayOfLearning.service.ReviewService;
 import com.tencoding.ADayOfLearning.util.Define;
 
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,9 @@ public class LectureController {
 	@Autowired
 	LectureSessionService lectureSessionService;
 
+	@Autowired
+	ReviewService reviewService;
+	
 	@Autowired
 	HttpSession session;
 
@@ -93,6 +97,8 @@ public class LectureController {
 		model.addAttribute("lecture", objectMapper.writeValueAsString(lecture));
 		model.addAttribute("lecturePhotos", objectMapper.writeValueAsString(lecturePhotos));
 
+		List<ReviewResponseDto> reviews = reviewService.getReviewsByLectureId(lecture.getLectureId());
+		model.addAttribute("reviews", objectMapper.writeValueAsString(reviews));
 		return "lecture/detail";
 	}
 

@@ -3,6 +3,12 @@
 	padding: 30px;
 }
 
+#chat .partition {
+	width: 0.1px;
+	height: 800px;
+	border-right: 0.5px solid;
+}
+
 #chat .chatContainer {
 	display: flex;
 	align-items: flex-start;
@@ -11,10 +17,10 @@
 #chat .chatRoomListContainer {
 	width: 40%;
 	height: 100%;
-	border: 1px solid;
+	margin-right: 10px;
 }
 
-#chat .chatRoomListContainer .myPerson{
+#chat .chatRoomListContainer .myPerson {
 	font-weight: bold;
 	padding-top: 5px;
 	padding-left: 5px;
@@ -22,8 +28,16 @@
 
 #chat .chatRoomContainer {
 	margin: 5px;
+	max-height: 700px;
+	overflow-y: auto;
 	display: flex;
 	align-items: center;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+
+#chat .chatRoomContainer::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
 #chat .chatRoomContainer .chatRoom {
 	width: 100%;
@@ -66,7 +80,6 @@
 #chat .chatContentContainer {
 	width: 59%;
 	height: 700px;
-	border: 1px solid;
 	padding: 10px;
 }
 
@@ -84,6 +97,12 @@
 	padding: 5px;
 	overflow-y: auto;
 	background-color: #e9f9f9;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+
+#chat .chatContentContainer .chatContent::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
 
 #chat .chatContentContainer .chatContent .chatMy{
@@ -123,7 +142,7 @@
 }
 
 #chat .chatContentContainer .chatContent .chatMessageTime{
-	font-size: 10px;
+	font-size: 12px;
 	font-style: italic;
 	color: rgb(120, 120, 120);
 	display: flex;
