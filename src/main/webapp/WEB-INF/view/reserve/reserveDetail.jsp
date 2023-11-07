@@ -38,7 +38,7 @@
 						<img alt="" src="https://picsum.photos/120/120">
 						<div class="classItem">
 							<h4>${reserve.title}</h4>
-							<p>${reserve.sessionDate}</p>
+							<p><fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${reserve.sessionDate}"/></p>
 						</div>
 					</div>
 					<div class="listBtnBox">
@@ -57,7 +57,7 @@
 							</div>
 							<div class="row">
 								<p>예약 신청일</p>
-								<p>${reserve.createdAt}</p>
+								<p><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${reserve.createdAt}" /></p>
 							</div>
 							<div class="row">
 								<p>처리상태</p>
@@ -83,7 +83,15 @@
 						<p>최종 결제 금액</p>
 						<p>${reserve.amount} 원</p>
 					</div>
-					<a href="/payment/cancelRequest/${reserve.paymentId}" class="btn_blue requestBtn">취소</a>
+					<c:if test="${reserve.state == '결제 완료'}">
+						<a href="/payment/cancelRequest/${reserve.paymentId}" class="btn_blue requestBtn">결제 취소</a>
+					</c:if>
+					<c:if test="${reserve.state == '취소 요청'}">
+						<p class="btn_blue requestBtn">취소 대기</p>
+					</c:if>
+					<c:if test="${reserve.state == '취소 완료'}">
+						<p class="btn_blue requestBtn">취소 완료</p>
+					</c:if>
 				</div>
 			</div>
 		</div>

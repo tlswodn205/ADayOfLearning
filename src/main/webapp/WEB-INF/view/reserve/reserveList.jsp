@@ -30,10 +30,10 @@
 								<div class="listItem">
 									<img alt="" src="https://picsum.photos/120/120">
 									<div class="listContent">
-										<span>${list.paymentDate}</span>
+										<span><fmt:formatDate pattern="yyyy. MM. dd." value="${list.paymentDate}"/> 결제</span>
 										<h4>${list.title}</h4>
-										<p>${list.sessionDate}</p>
-										<strong>${list.amount}</strong>
+										<p><fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${list.sessionDate}"/></p>
+										<strong> <fmt:formatNumber value="${list.amount}" groupingUsed="true"/>원</strong>
 									</div>
 								</div>
 							</a>

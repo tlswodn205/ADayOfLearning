@@ -3,11 +3,12 @@
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
 <main>
 	<div class="mainTop">
-		<div class="title">내 정보보기</div>
+		<div class="title">판매자 승인 상세보기</div>
 	</div>
 	<div id="userDetail" class="mainColumn">
-		<form action="/admin/agreeBusiness" id="agreeBusiness" method="post">
+		<form action="/admin/agreeBusiness/${businessUserData.userId}" id="agreeBusiness" method="post">
 			<div class="DetailColumn">
+				<input type="hidden" id="userId" value="${businessUserData.userId}">
 				<table>	
 					<tr>
 						<td>아이디</td>
@@ -39,7 +40,10 @@
 					</tr>
 				</table>
 				
-				<input type="button" class="inputBtn" id="agreeBusinessBtn" value="판매자 승인">
+				<div class="detailColumnBottom">
+					<input type="button" class="inputBtn" id="agreeBusinessBtn" value="판매자 승인">
+					<input type="button" class="inputBtn" id="disagreeBusinessBtn" value="판매자 승인 거부">
+				</div>
 			</div>
 		</form>
 	</div>
@@ -51,13 +55,24 @@ let AgreeBusiness = {
     version: 1,
     init: function() {
     	$(document).on("click", "#agreeBusinessBtn", ()=>{
-    		this.submit();
+    		this.agree();
+    	});
+    	$(document).on("click", "#disagreeBusinessBtn", ()=>{
+    		this.disagree();
     	});
     },
-    submit:function(){
+    agree:function(){
     	let isChanged = confirm("판매자를 승인하시겠습니까?");
     	if(isChanged){
     		$("#agreeBusiness").submit();
+    	}
+    },
+    disagree:function(){
+		console.log($("#userId").val());
+    	let isChanged = confirm("판매자를 승인을 거부하겠습니까?");
+    	if(isChanged){
+    		let userId = $("#userId").val();
+			window.location.href = "/admin/disagreeBusiness/"+userId;
     	}
     },
     

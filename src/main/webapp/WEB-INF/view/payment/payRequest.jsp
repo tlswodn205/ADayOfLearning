@@ -85,9 +85,11 @@
 								<div class="reserveItem">
 									<!-- 상점 아이디 -->
 									<input type="hidden" name="MID" value="${payRequest.merchantID}">
-									<!-- 결제 상품명 -->
-									<h4>클래스명 <input id="payRequsetTitle" type="text" name="GoodsName" value="${lectureData.title}"></h4>
-									<p id="sessionDate"></p>
+									<!-- 클래스명(결제 상품명) -->
+									<input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lecture.title}">
+									<p><fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${session.sessionDate}"/></p>
+									<%-- <input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lectureData.title}"> --%>
+									<!-- <p id="sessionDate"></p> -->
 								</div>
 							</div>
 						</div>
@@ -99,21 +101,17 @@
 									<div class="row">
 										<!-- 구매자명 -->
 										<p>예약자</p>
-										<p>김그린</p>
-										<input type="text" name="BuyerName"
-											value="${payRequest.buyerName}">
+										<input type="text" readonly name="BuyerName" value="${buyer.name}">
 									</div>
 									<div class="row">
 										<!-- 구매자 연락처 -->
 										<p>연락처</p>
-										<p>010-1234-1234</p>
-										<input type="text" name="BuyerTel" value="${payRequest.buyerTel}">
+										<input type="text" readonly name="BuyerTel" value="${buyer.phoneNumber}">
 									</div>
 									<div class="row">
 										<!-- 구매자 이메일 -->
 										<p>이메일</p>
-										<p>aaa@naver.com</p>
-										<input type="text" name="BuyerEmail" value="${payRequest.buyerEmail}">
+										<input type="text" readonly name="BuyerEmail" value="${buyer.email}">
 									</div>
 								</div>
 							</div>
@@ -140,14 +138,17 @@
 						<div class="payInfo">
 							<h2>결제 정보</h2>
 							<div class="amount classAmount">
-								<p>클래스 금액</p>
-								<p id="payRequsetPrice"></p>
 								<!-- 결제금액 -->
-								<input type="text" name="Amt" value="${payRequest.price}">
+								<p>클래스 금액</p>
+								<p>${lecture.price}</p>
+								<%-- <input type="text" readonly name="Amt" value="${lecture.price}"> --%>
+								<!-- <p id="payRequsetPrice"></p> -->
 							</div>
 							<div class="amount sum">
 								<p>최종 결제 금액</p>
-								<p>40,000원</p>
+								<!-- <p id="payRequsetPrice"></p> -->
+								<input type="text" readonly name="Amt" value="${lecture.price}">
+								<%-- <input type="text" readonly name="Amt" value="${lectureData.price}"> --%>
 							</div>
 							<div class="submitBtn">
 								<!-- 결제 수단 -->
@@ -169,14 +170,12 @@
 								<!-- 상점 예약필드 -->
 
 								<!-- 변경 불가능 -->
-								<input type="hidden" name="EdiDate"
-									value="${payRequest.ediDate}" />
+								<input type="hidden" name="EdiDate" value="${payRequest.ediDate}" />
 								<!-- 전문 생성일시 -->
-								<input type="hidden" name="SignData"
-									value="${payRequest.hashString}" />
+								<input type="hidden" name="SignData" value="${payRequest.hashString}" />
 								<!-- 해쉬값 -->
 
-								<a href="#" class="btn_blue requestBtn" onClick="nicepayStart();">요청</a>
+								<a href="#" class="btn_blue requestBtn" onClick="nicepayStart();">결제하기</a>
 							</div>
 						</div>
 					</div>
@@ -189,11 +188,10 @@
 
 <script src="/js/payRequest.js"></script>
 <script type="text/javascript">
+/* 
 let lectureData = ${lecture};
 let sessionData = ${session};
-
-	
-	
+ */
 	
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

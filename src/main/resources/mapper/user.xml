@@ -17,8 +17,21 @@
 		WHERE user_id = #{userId};
 	</update>
 	
+	<update id="agreeBusiness">
+		UPDATE tb_user SET identity = "business"
+		WHERE user_id = #{userId};
+	</update>
+	
 	<delete id="deleteByUserId">
 		DELETE FROM tb_user WHERE user_id = #{userId};
+	</delete>
+	
+	<delete id="deleteCustomerByUserId">
+		UPDATE tb_user SET identity = "deletedCustomer" WHERE user_id = #{userId};
+	</delete>
+	
+	<delete id="deleteBusinessByUserId">
+		UPDATE tb_user SET identity = "deletedBusiness" WHERE user_id = #{userId};
 	</delete>
 	
 	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.repository.model.User">

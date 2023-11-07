@@ -38,11 +38,11 @@ public class PaymentService {
 		return paymentResponseDto;
 	}
 	
-	public void updatePayment(CancelRequestDto cancelRequestDto) {
+	public void updateRefundInfoByPaymentId(CancelRequestDto cancelRequestDto) {
 		Payment payment = paymentRepository.findByPaymentId(cancelRequestDto.getPaymentId());
-		payment.setState("결제 취소");
+		payment.setState("취소 요청");
 		payment.setRefundInfo(cancelRequestDto.getRefundInfo());
-		paymentRepository.update(payment);
+		paymentRepository.updateRefundInfoByPaymentId(payment);
 	}
 	
 	public Lecture getLectureBySessionId(int lectureSessionId) {
@@ -56,4 +56,5 @@ public class PaymentService {
 	public String getLectureThumbnail(int lectureSessionId) {
 		return paymentRepository.findLectureThumbnailbyLectureSessionId(lectureSessionId);
 	}
+	
 }

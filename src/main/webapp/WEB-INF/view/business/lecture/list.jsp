@@ -3,6 +3,9 @@
 <link rel="stylesheet" href="/css/business/lectureList.css">
 
 <main>
+	<div class="mainTop">
+		<div class="title">강의 관리</div>
+	</div>
 	<div id="lectureList" class="mainColumn">
 
 		<div class="lectureTable">

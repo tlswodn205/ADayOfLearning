@@ -25,6 +25,10 @@ form {
 	padding: 24px 0;
 }
 
+#payRequest .sectionBox:last-child {
+	border-bottom: none;
+}
+
 #payRequest .sectionBox-area {
 	display: flex;
 }
@@ -89,4 +93,23 @@ form {
 	text-align: center;
 	letter-spacing: 15px;
 	font-weight: 600;
+}
+
+#payRequest input[type="text"] {
+    border: none;
+    font-size: 16px;
+}
+
+#payRequest input[type="text"]:focus {
+    outline: none;
+}
+
+#payRequest .reserveItem {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+#payRequest .amount input {
+	text-align: end;
 }

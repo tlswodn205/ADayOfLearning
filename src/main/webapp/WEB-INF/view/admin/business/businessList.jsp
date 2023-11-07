@@ -33,7 +33,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="business" items="${listPagingResponseDto.list}">
-							<td><a href="/admin/requestBusinessDetail/${business.businessId}">${business.username}</a></td>
+							<td><a href="/admin/businessDetail/${business.businessId}">${business.username}</a></td>
 							<td>${business.businessName}</td>
 							<td>${business.CEOname}</td>
 							<td>${business.businessAddress}${business.businessAddressDetail}</td>

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.ListSearchRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.ReserveDataRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
@@ -62,6 +59,12 @@ public class LectureController {
 	@Autowired
 	ObjectMapper objectMapper;
 
+	/**
+	 * /list get요청
+	 * 
+	 * @param Model, 리스트 페이지, 최저가, 최고가, 카테고리, 제목, 지역, 날짜
+	 * @return list 페이지
+	 */
 	@GetMapping("/list")
 	public String getList(Model model, @RequestParam(defaultValue = "1") Integer page,
 			@RequestParam(required = false) Integer min_price, @RequestParam(required = false) Integer max_price,
@@ -89,6 +92,12 @@ public class LectureController {
 		return "lecture/list";
 	}
 
+	/**
+	 * /detail get요청
+	 * 
+	 * @param Model, 강의id
+	 * @return detail 페이지
+	 */
 	@GetMapping("/detail")
 	public String getDetail(Model model, @RequestParam Integer id) throws JsonProcessingException {
 		Lecture lecture = lectureService.getLectureById(id);
@@ -102,35 +111,12 @@ public class LectureController {
 		return "lecture/detail";
 	}
 
-	@GetMapping("/registration")
-	public String getRegistration() {
-		// TODO : 로그인 정보가 없다면 뒤로가기 보내기
-
-		return "lecture/registration";
-	}
-
-	@Transactional
-	@PostMapping("/registration")
-	public String postRegistration(LectureRegistarionRequestDto dto, @RequestParam("files") MultipartFile[] files,
-			@RequestParam("file") MultipartFile thumbnail) {
-
-		// 1. 강의 등록 부분
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		// 강의를 등록하고 등록된 id를 반환받음
-		int registeredLectureId = lectureService.insertLecture(dto, user.getUserId());
-
-		// 2. 사진 등록 부분
-		lecturePhotoService.insertLecturePhoto(thumbnail, registeredLectureId, true);
-		if (files != null) {
-			lecturePhotoService.insertLecturePhotos(files, registeredLectureId);
-		}
-
-		// 3 .옵션 등록 부분
-		lectureOptionService.insertLectureOption(dto, registeredLectureId);
-
-		return "redirect:list";
-	}
-
+	/**
+	 * 세션 리스트 요청
+	 * 
+	 * @param ReserveDataRequestDto
+	 * @return 클래스의 세션 리스트
+	 */
 	@PostMapping("/reserve-data")
 	@ResponseBody
 	public List<LectureSessionResponseDto> postReserveData(@RequestBody ReserveDataRequestDto reserveDataRequestDto) {

@@ -60,7 +60,6 @@ let detailInit = {
 					map: map,
 					position: coords,
 				});
-
 				// 인포윈도우로 장소에 대한 설명을 표시합니다
 				var infowindow = new kakao.maps.InfoWindow({
 					content: `<div style="width:150px;text-align:center;padding:6px 0;">${lecture.title}</div>`,
@@ -94,16 +93,6 @@ let detailInit = {
 			}
 		}
 		
-		// 리뷰 리스트 ============================
-		if(reviewList.length > 0) {
-			// 리뷰 추가
-			reviewList.forEach((review) => {
-				reviewAppend(review);
-			});
-		} else {
-			// 아직 작성된 리뷰가 없습니다.
-			$('.detailInfo.review').text('아직 작성된 리뷰가 없습니다.');
-		}
 	},
 
 	// 서브 이미지 클릭 => 본 이미지로 올림
@@ -294,6 +283,7 @@ let detailInit = {
 	addAttr: function(url) {
 		window.location.href = url;
 	},
+  
 	reviewInputInit: function() {
 		var plugins = [
 			'advlist',
