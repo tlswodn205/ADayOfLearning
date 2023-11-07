@@ -14,6 +14,7 @@ public interface PersonRepository {
 	public int insert(Person person);
 	public int updateByPersonId(Person person);
 	public int deleteByPersonId(int personId);
+	public int deleteByUserId(int userId);
 	public Person findByPersonId(int personId);
 	public List<Person> findByAll();
 	public Person findByEmail(String email);

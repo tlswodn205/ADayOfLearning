@@ -16,9 +16,25 @@
 		WHERE business_id = #{businessId};
 	</update>
 	
+	<update id="agreeBusiness">
+		UPDATE tb_business SET state = "등록완료"
+		WHERE user_id = #{userId};
+	</update>
+	
 	<delete id="deleteByBusinessId">
 		DELETE FROM tb_business WHERE business_id = #{businessId};
 	</delete>
+	
+	<delete id="disagreeBusiness">
+		DELETE FROM tb_business WHERE user_id = #{userId};
+	</delete>
+	
+	<update id="updateAtAdmin">
+		UPDATE tb_business SET business_name = #{businessName},
+		CEO_name = #{CEOname}, business_address = #{businessAddress},
+		business_address_detail = #{businessAddressDetail}, business_number = #{businessNumber}
+		WHERE user_id = #{userId};
+	</update>
 	
 	<select id="findByBusinessId" resultType = "com.tencoding.ADayOfLearning.repository.model.Business">
 		SELECT * FROM tb_business WHERE businessId = #{businessId};
@@ -96,7 +112,7 @@
 	
 	<select id="findRequestBusiness" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto">
 		SELECT user_id, Business_name, Business_number, business_registration_number
-		FROM tb_business
+		FROM tb_business	
 		WHERE state = "등록요청"
 		ORDER BY created_at DESC
         limit 0,5;

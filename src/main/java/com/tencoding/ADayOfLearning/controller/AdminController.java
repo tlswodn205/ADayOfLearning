@@ -1,23 +1,29 @@
 package com.tencoding.ADayOfLearning.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tencoding.ADayOfLearning.dto.request.UpdateBusinessRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.UpdateUserData;
 import com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminRequestBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
+import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.AdminService;
+import com.tencoding.ADayOfLearning.util.Define;
 
 import lombok.Getter;
 
@@ -56,6 +62,18 @@ public class AdminController {
 		return "admin/user/customerDetail";
 	}
 	
+	@PostMapping("/updateUser/{userId}")
+	public String postUpdateUser(@PathVariable Integer userId, UpdateUserData updateUserData) {
+		adminService.updateCustomer(updateUserData, userId);
+		return "redirect:/admin/customerDetail/"+userId;
+	}
+	
+	@DeleteMapping("/deleteUser/{userId}")
+	public String DeleteUser(Model model, @PathVariable Integer userId) {
+		adminService.deleteCustomer(userId);
+		return "redirect:/admin/customerList";
+	}
+	
 	//user end
 	
 	//business start
@@ -75,9 +93,16 @@ public class AdminController {
 		return "admin/business/requestBusinessDetail";
 	}
 	
-	@PostMapping("/agreeBusiness")
-	public String postAgreeBusiness() {
-		return "admin/agreeBusiness";
+	@PostMapping("/agreeBusiness/{userId}")
+	public String postAgreeBusiness(@PathVariable Integer userId) {
+		int businessId = adminService.agreeBusiness(userId);
+		return "redirect:/admin/businessDetail/"+businessId;
+	}
+	
+	@GetMapping("/disagreeBusiness/{userId}")
+	public String getDisagreeBusiness(@PathVariable Integer userId) {
+		adminService.disagreeBusiness(userId);
+		return "redirect:/admin/requestBusinessList";
 	}
 	
 	@GetMapping("/businessList")
@@ -85,14 +110,28 @@ public class AdminController {
 		ListPagingResponseDto<AdminBusinessResponseDto> listPagingResponseDto = adminService.findAdminBusinessList(type, keyword, page);
 		
 		model.addAttribute("listPagingResponseDto", listPagingResponseDto);
-		return "admin/business/requestBusinessList";
+		return "admin/business/businessList";
 	}
 	
 	@GetMapping("/businessDetail/{businessId}")
 	public String getBusinessDetail(Model model, @PathVariable Integer businessId) {
 		BusinessUserDetailResponseDto businessUserDetailRequestDto = adminService.findAdminBusinessDetail(businessId);
 		model.addAttribute("businessUserData", businessUserDetailRequestDto);
-		return "admin/business/BusinessDetail";
+		return "admin/business/businessDetail";
+	}
+	
+	@PostMapping("/updateBusiness")
+	public String postUpdateBusiness(Model model, UpdateBusinessRequestDto updateBusinessRequestDto) {
+		int businessId = adminService.updateBusiness(updateBusinessRequestDto);
+		return "redirect:/admin/businessDetail/"+businessId;
+	}
+
+	
+	@PostMapping("/deleteBusiness/{userID}")
+	public String deleteBusiness(@PathVariable int userId) {
+
+		adminService.deleteBusiness(userId);
+		return "redirect:/admin/businessList";
 	}
 	//business end
 	

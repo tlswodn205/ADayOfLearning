@@ -17,6 +17,4 @@ public class UpdateUserData {
 	private String addressDetail;
 	private String phoneNumber;
 	private Date birthday;
-	
-	
 }

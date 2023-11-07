@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tencoding.ADayOfLearning.dto.request.UpdateBusinessRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.UpdateUserData;
 import com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainBusinessResponseDto;
@@ -30,6 +32,7 @@ import com.tencoding.ADayOfLearning.repository.interfaces.PersonRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.ReserveRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.ReviewRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
+import com.tencoding.ADayOfLearning.repository.model.Business;
 
 @Service
 public class AdminService {
@@ -107,6 +110,18 @@ public class AdminService {
 		AdminCustomerResponseDto adminCustomerResponseDto = userRepository.findCustomerByUserId(userId);
 		return adminCustomerResponseDto;
 	}
+
+	public int deleteCustomer(Integer userId) {
+		int result = userRepository.deleteByUserId(userId);
+		return result;
+	}
+
+	public void updateCustomer(UpdateUserData updateUserData, int userId) {
+		if(updateUserData.getPassword() ==null && updateUserData.getPassword().equals(null)){
+			userRepository.updatePasswordByUserId(userId, updateUserData.getPassword());
+		}
+		personRepository.updateByUserId(updateUserData, userId);
+	}
 	
 	//user end
 	
@@ -142,6 +157,35 @@ public class AdminService {
 		BusinessUserDetailResponseDto businessUserDetailResponseDto = businessRepository.findBusinessByBusinessId(businessId);
 		return businessUserDetailResponseDto;
 	}
+
+	public int agreeBusiness(Integer userId) {
+		businessRepository.agreeBusiness(userId);
+		userRepository.agreeBusiness(userId);
+		Business business = businessRepository.findByUserId(userId);
+		return business.getUserId();
+	}
+	
+	public void disagreeBusiness(Integer userId) {
+		businessRepository.disagreeBusiness(userId);
+	}
+
+	public int updateBusiness(UpdateBusinessRequestDto updateBusinessRequestDto) {
+		if(updateBusinessRequestDto.getPassword() != null) {
+			userRepository.updatePasswordByUserId(updateBusinessRequestDto.getUserId(), updateBusinessRequestDto.getPassword());
+		}
+		
+		businessRepository.updateAtAdmin(updateBusinessRequestDto);
+		Business business = businessRepository.findByUserId(updateBusinessRequestDto.getUserId());
+		
+		
+		return business.getBusinessId();
+	}
+
+	public void deleteBusiness(int userId) {
+		userRepository.deleteCustomerByUserId(userId);
+	}
+	
+	//business end
 
 
 }

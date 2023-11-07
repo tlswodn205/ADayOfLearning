@@ -316,6 +316,7 @@ let signUp ={
 		    	  	$('#resendNumber').attr("type", "hidden");
 		    	  	$('#certificationNumber').attr("type", "hidden");
 		    	  	$('#certificationNumberCheck').attr("type", "hidden");
+		        	$(".emailCheck").css("display","none");
 		    		let email = $('#email').attr("readonly", true);
 		       	}else{
 		       		alert("인증번호가 일치하지 않습니다.");
