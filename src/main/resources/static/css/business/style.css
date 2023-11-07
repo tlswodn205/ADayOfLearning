@@ -123,14 +123,24 @@ main .mainColumn .mainRow{
 	display: flex;	
 }
 
-main .mainColumn .mainRow .mainUserComponent{
+main .mainColumn .mainRow .mainNarrowComponent{
 	margin: 20px 10px 10px 20px;
+	font-size: 12px;
 	width:530px;
 	padding: 20px;
 	background-color: #fff;
 }
 
-main .mainRow .showMore{
+main .mainRow .mainComponentTop{
+	margin-bottom: 15px;
+}
+
+main .mainRow .mainComponentTop .componentTitle{
+	font-weight: 900;
+	font-size: 16px;
+}
+
+main .mainRow .mainComponentTop .showMore{
 	float:right;
 	color: #aaa;
 	margin-bottom: 10px;
@@ -171,32 +181,47 @@ main .DetailColumn {
 }
 
 main .DetailColumn table{
-	margin-right: 20px;
-	margin-left: 20px;
   	border-collapse: collapse; 
+  	border-spacing:0px;
 }
 
 main .DetailColumn tr{
 	
-	font-size: 16px;
-	line-height: 60px;  
+	font-size: 14px;
+	line-height: 50px;  
 }
 
 
 main .DetailColumn td:first-child{
-	font-weight: 700;
+	font-weight: 400;
+	color: #aaa;
   	vertical-align : top;
 	align-items: start;
-	padding-right : 30px;
-	border-right: 1px soild #353535;
+	width: 200px;
+  	border-top : 1px solid #000;
+  	border-bottom : 1px solid #000;	
 }
 
 main .DetailColumn td:last-child{
+	width: 900px;
 	padding-left : 30px;
+  	border-top : 1px solid #000;
+  	border-left : 1px solid #000;
+  	border-bottom : 1px solid #000;
 }
 
 
 main .DetailColumn img {
 	width: 700px;
+}
+
+main .DetailColumn .inputBtn{
+	margin-top: 20px;
+	font-size: 15px;
+	color: #fff;
+	border: none;
+	border-radius: 13px;
+	padding: 10px;
+	background-color: #ccc;
 }
 

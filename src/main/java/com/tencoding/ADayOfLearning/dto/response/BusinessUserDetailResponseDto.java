@@ -5,9 +5,13 @@ import com.tencoding.ADayOfLearning.repository.model.Business;
 import com.tencoding.ADayOfLearning.repository.model.User;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class BusinessUserDetailResponseDto {
+	private String userId;
+	private boolean isKakao;
 	private String username;
 	private String businessName;
 	private String CEOname;
@@ -28,5 +32,11 @@ public class BusinessUserDetailResponseDto {
 		this.businessNumber = business.getBusinessNumber();
 		this.businessRegistrationNumber = business.getBusinessRegistrationNumber();
 		this.state = business.getState();
+
+		if(username.indexOf("_kakao")==username.length()-6) {
+			this.isKakao = true;
+		}else {
+			this.isKakao = false;
+		}
 	}
 }

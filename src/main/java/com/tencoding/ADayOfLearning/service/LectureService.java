@@ -29,22 +29,16 @@ public class LectureService {
 		return lectureRepository.findByLectureId(id);
 	}
 
-	/**
-	 * 강의 등록
-	 * 
-	 * @param LectureRegistarionRequestDto
-	 * @return 생성된 강의의 id
-	 */
-	public int insertLecture(LectureRegistarionRequestDto dto, int userId) {
+	// indexPage start
+//	public List<LectureListItemResponseDto> getMostLecture() {
+//		List<LectureListItemResponseDto> lectureList = lectureRepository.findMostLecture();
+//		return lectureList;
+//	}
 
-		Lecture lecture = new Lecture().builder().categoryId(dto.getCategoryId()).userId(userId).title(dto.getTitle())
-				.content(dto.getContent()).address(dto.getAddress()).addressDetail(dto.getAddressDetail())
-				.maximum(dto.getMaximum()).price(dto.getPrice()).phoneNumber(dto.getPhoneNumber()).state(1)
-				.latitude(dto.getLatitude()).longitude(dto.getLongitude()).duration(dto.getDuration()).build();
-
-		lectureRepository.insert(lecture);
-
-		return lecture.getLectureId();
+	public List<LectureListItemResponseDto> getNewLecture() {
+		List<LectureListItemResponseDto> lectureList = lectureRepository.findNewLecture();
+		return lectureList;
 	}
+	// indexPage end
 
 }

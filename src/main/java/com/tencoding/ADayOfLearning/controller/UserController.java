@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,7 +73,6 @@ public class UserController {
 		}
 		
 		User principal = userService.signIn(signInRequestDto);
-		System.out.println(principal.getPassword() +" ??? " + signInRequestDto.getPassword());
 		session.setAttribute(Define.PRINCIPAL, principal);
 		
 		return "/user/signIn";
@@ -283,7 +283,6 @@ public class UserController {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		
 		userService.insertBusiness(businessRequestDto, user.getUserId());
-		
 		return "/";
 	}
 	

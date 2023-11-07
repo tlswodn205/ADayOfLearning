@@ -1,16 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
+
+<link rel="stylesheet" href="/css/userPage.css">
+
 <main>
-	<div id="signUp" class="mainColumn">
+	<div id="userPage" class="mainColumn">
 		<form action="/user/updateUserData" method="post" id="updateUserData" >
 			<c:choose>
 				<c:when test="${!myPageRequestDto.kakao}">
+					<div class="wideDiv">
+					<i class="fa-solid fa-user"></i>
 					<input type="text" id="username" name="username" placeholder="아이디" readonly value="${myPageRequestDto.username}">
+					</div>
 					<br>
+					
+					<div class="wideDiv">
 					<input type="password" id="password" name="password" placeholder="비밀번호">
+					</div>
 					<br>
+					
+					<div class="wideDiv">
 					<input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인">
+					</div>
 					<br>
 				</c:when>
 				
@@ -20,21 +32,46 @@
 					<input type="hidden" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인" value="">
 				</c:otherwise>
 			</c:choose>
-			<input type="text" id="name" name="name" placeholder="이름" value="${myPageRequestDto.name}">
+			
+			<div class="wideDiv">
+				<i class="fa-solid fa-newspaper"></i>
+				<input type="text" id="name" name="name" placeholder="이름" value="${myPageRequestDto.name}">
+			</div>
 			<br>
+			
+			<div class="wideDiv">
+					<i class="fa-solid fa-envelope"></i>
 			<input type="text" id="email" name="email" placeholder="이메일" readonly value="${myPageRequestDto.email}">
+			</div>
 
 			<br>
-			<input type="text" id="address" name="address" placeholder="주소" readonly value="${myPageRequestDto.address}">
-			<input type="button" id="openZipSearch" value="주소 확인">
+			<div class="flexDiv">
+				<div class="narrowDiv">
+					<i class="fa-solid fa-address-book"></i>
+					<input type="text" id="address" name="address" placeholder="주소" readonly value="${myPageRequestDto.address}">
+				</div>
+				<input type="button" id="openZipSearch" value="주소 확인">
+			</div>
 			<br>
-			<input type="text" id="addressDetail" name="addressDetail" placeholder="상세주소" value="${myPageRequestDto.addressDetail}">
+			
+			<div class="wideDiv">
+				<i class="fa-solid fa-address-book"></i>
+				<input type="text" id="addressDetail" name="addressDetail" placeholder="상세주소" value="${myPageRequestDto.addressDetail}">
+			</div>
 			<br>
-			<input type="number" id="phoneNumber" name="phoneNumber" placeholder="전화번호" value="${myPageRequestDto.phoneNumber}">
-			<br>			
+			
+			<div class="wideDiv">
+				<i class="fa-solid fa-phone"></i>
+				<input type="number" id="phoneNumber" name="phoneNumber" placeholder="전화번호" value="${myPageRequestDto.phoneNumber}">
+			</div>
+			<br>		
+			
+			<div class="wideDiv">	
+				<i class="fa-solid fa-cake-candles"></i>
 			<input type="date" id="birthday" name="birthday"  value="${myPageRequestDto.birthday}">
+			</div>
 			<br>
-			<input type="button" id="updateUserDataBtn" value="개인정보저장">
+			<input type="button" class="submitBtn" id="updateUserDataBtn" value="개인정보저장">
 		</form>
 	</div>
 </main>

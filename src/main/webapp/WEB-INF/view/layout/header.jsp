@@ -21,7 +21,9 @@
 <body>
 	<header>
 		<div class="headerWrap">
-			<img src="/images/logo/logo.png" class="logo">
+			<a href="/">
+				<img src="/images/logo/logo.png" class="logo">
+			</a>
 			<ul class='topMenuRight'>
 				<li>
 					<a href="/lecture/list">수업보기</a>

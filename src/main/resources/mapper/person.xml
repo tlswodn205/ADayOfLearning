@@ -19,6 +19,10 @@
 		DELETE FROM tb_person WHERE person_id = #{personId};
 	</delete>
 	
+	<delete id="deleteByUserId">
+		DELETE FROM tb_person WHERE user_id = #{userId};
+	</delete>
+	
 	<select id="findByPersonId" resultType = "com.tencoding.ADayOfLearning.repository.model.Person">
 		SELECT * FROM tb_person WHERE person_id = #{personId};
 	</select>

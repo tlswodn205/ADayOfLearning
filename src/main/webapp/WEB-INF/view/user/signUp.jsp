@@ -2,19 +2,32 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+
+<link rel="stylesheet" href="/css/userPage.css">
+  
 <main>
-	<div id="signUp" class="mainColumn">
+	<div id="userPage" class="mainColumn">
 		<form action="/user/signUp" method="post" id="signUpForm">
 			<c:choose>
 				<c:when test="${signInRequestDto==null}">
-					<input type="text" id="username" name="username" placeholder="아이디">
-					<input type="button" id="usernameDuplicationCheck" value="회원 중복 확인">
+					<div class="flexDiv">
+						<div class="narrowDiv">
+							<i class="fa-solid fa-user"></i>
+							<input type="text" id="username" name="username" placeholder="아이디">
+						</div>
+						<input type="button" id="usernameDuplicationCheck" value="중복 확인">
+					</div>
 					<br>
-					<input type="password" id="password" name="password"
-						placeholder="비밀번호">
+					<div class="wideDiv">
+						<i class="fa-solid fa-lock"></i>
+						<input type="password" id="password" name="password" placeholder="비밀번호">
+					</div>
 					<br>
-					<input type="password" id="passwordCheck" name="passwordCheck"
-						placeholder="비밀번호 확인">
+					<div class="wideDiv">
+						<i class="fa-solid fa-lock"></i>
+						<input type="password" id="passwordCheck" name="passwordCheck"
+							placeholder="비밀번호 확인">
+					</div>
 					<br>
 				</c:when>
 
@@ -27,20 +40,51 @@
 						placeholder="비밀번호 확인" value="${signInRequestDto.password}">
 				</c:otherwise>
 			</c:choose>
-			<input type="text" id="name" name="name" placeholder="이름"> <br>
-			<input type="text" id="email" name="email" placeholder="이메일">
-			<input type="button" id="emailCheck" value="이메일 확인"> <input
-				type="hidden" id="resendNumber" value="인증번호 재전송"> <input
-				type="hidden" id="certificationNumber" placeholder="인증번호"> <input
-				type="hidden" id="certificationNumberCheck" value="인증번호 확인">
+			<div class="wideDiv">
+				<i class="fa-solid fa-newspaper"></i>
+				<input type="text" id="name" name="name" placeholder="이름"> 
+			</div>
+			<br>
+			<div class="flexDiv">
+				<div class="narrowDiv">
+					<i class="fa-solid fa-envelope"></i>
+					<input type="text" id="email" name="email" placeholder="이메일">
+				</div>
+				<input type="button" id="emailCheck" value="이메일 확인"> 
+			</div>
+			<div class="flexDiv emailCheck">
+				<div class="narrowDiv">
+					<input type="hidden" id="certificationNumber" placeholder="인증번호">
+				</div>
+				<input type="hidden" id="certificationNumberCheck" value="인증번호 확인">
+			</div>
+			
+			<input type="hidden" id="resendNumber" class="emailCheck" value="인증번호 재전송"> 
 
-			<br> <input type="text" id="address" name="address"
-				placeholder="주소" readonly> <input type="button"
-				id="openZipSearch" value="주소 확인"> <br> <input
-				type="text" id="addressDetail" name="addressDetail"
-				placeholder="상세주소"> <br> <input type="number"
-				id="phoneNumber" name="phoneNumber" placeholder="전화번호"> <br>
-			<input type="date" id="birthday" name="birthday"> <br>
+			<br> 
+			<div class="flexDiv">
+				<div class="narrowDiv">
+					<i class="fa-solid fa-address-book"></i>
+					<input type="text" id="address" name="address" placeholder="주소" readonly> 
+				</div>
+				<input type="button" id="openZipSearch" value="주소 확인"> 
+			</div>
+			<br> 
+			<div class="wideDiv">
+				<i class="fa-solid fa-address-book"></i>
+				<input type="text" id="addressDetail" name="addressDetail" placeholder="상세주소"> 
+			</div>
+			<br> 
+			<div class="wideDiv">
+				<i class="fa-solid fa-phone"></i>
+				<input type="number" id="phoneNumber" name="phoneNumber" placeholder="전화번호"> 
+			</div>
+			<br>
+			<div class="wideDiv">
+				<i class="fa-solid fa-cake-candles"></i>
+				<input type="date" id="birthday" name="birthday"> 
+			</div>
+			<br>
 			<div>
 				<input type="checkbox" id="check1" name="check1"> <label
 					for="check1">하루의배움이 본인의 개인 정보를 수집 및 이용하는 것에 동의합니다.*</label>
@@ -91,7 +135,9 @@
 					제기할 수 있습니다. 귀하는 언제든지 동의를 철회하거나 프로필을 삭제할 수 있습니다. 본사의 개인 정보 관리와 귀하의
 					권리에 대한 더 많은 정보를 원하시면, privacy@ADayOfLearning.com으로 연락 주시기 바랍니다.</li>
 			</details>
-			<br> <input type="button" id="signUpBtn" value="회원가입">
+			<br> 
+			<input type="button" class="submitBtn" id="signUpBtn" value="회원가입">
+			<br>
 		</form>
 	</div>
 </main>
@@ -184,6 +230,7 @@ let signUp ={
     		return false;
     	}
     	
+    	console.log($(".emailCheck")[0]);
     	
     	$("#emailCheck").attr("disabled", true);
     	
@@ -191,18 +238,20 @@ let signUp ={
     	    method: "get", // *GET, POST, PUT, DELETE 등
  	  	}).then(response => response.json())
 		  .then(function(jsonData){
-		       if(jsonData){
+			  console.log(jsonData);
+		       if(jsonData==1){
 		       		alert("인증번호를 이메일로 전송했습니다.");
 		    	  	$('#resendNumber').attr("type", "button");
 		    	  	$('#certificationNumber').attr("type", "text");
 		    	  	$('#certificationNumberCheck').attr("type", "button");
+		        	$(".emailCheck").css("display","flex");
 		    	  	emailCheck = 1;
 		    	  	emailStore = email;
-		       		
-		       	}else{
-		       		alert("사용중인 이메일 입니다");
 		       	}
-		  });
+		  }).catch(error => {
+		    	$("#emailCheck").attr("disabled", false);
+      		 alert("사용중인 이메일 입니다");	
+  			});
     },
 
 	resendNumber : function(){
@@ -267,6 +316,7 @@ let signUp ={
 		    	  	$('#resendNumber').attr("type", "hidden");
 		    	  	$('#certificationNumber').attr("type", "hidden");
 		    	  	$('#certificationNumberCheck').attr("type", "hidden");
+		        	$(".emailCheck").css("display","none");
 		    		let email = $('#email').attr("readonly", true);
 		       	}else{
 		       		alert("인증번호가 일치하지 않습니다.");

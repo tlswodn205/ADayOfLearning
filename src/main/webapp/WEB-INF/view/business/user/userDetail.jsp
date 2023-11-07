@@ -5,10 +5,9 @@
 	<div class="mainTop">
 		<div class="title">내 정보보기</div>
 	</div>
-	<div id="example" class="mainColumn">
+	<div id="userDetail" class="mainColumn">
 		<form action="/business/businessUpdate" id="businessUpdate" method="post">
 			<div class="DetailColumn">
-				<input type="button" id="businessUpdateBtn" value="정보변경">
 				<table>	
 					<tr>
 						<td>아이디</td>
@@ -47,6 +46,8 @@
 						<td><img src="${businessUserData.businessRegistrationImg}"></td>
 					</tr>
 				</table>
+				
+				<input type="button" class="inputBtn" id="businessUpdateBtn" value="정보변경">
 			</div>
 		</form>
 	</div>
@@ -54,20 +55,24 @@
 
 <script>
 
-let BusinessRequest = {
+let BusinessUserDetail = {
     version: 1,
     init: function() {
     	$(document).on("click", "#businessUpdateBtn", ()=>{
     		this.update();
-    	},
-    }
+    	});
+    },
     update:function(){
     	let isChanged = confirm("정보를 변경하시겠습니까?");
     	if(isChanged){
     		$("#businessUpdate").submit();
     	}
-    }
-}
+    },
+    
+    
+};
+
+BusinessUserDetail.init();
 
 </script>
 

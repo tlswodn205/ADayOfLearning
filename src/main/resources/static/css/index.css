@@ -1,0 +1,137 @@
+#index {
+	width: 1200px;
+	min-height: 600px;
+	height: 100%;
+	padding: 0px;
+}
+
+#index .indexContainer {
+	padding-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#index .lectureListContainer .lectureListTitle{
+	font-size: 32px;
+	font-weight: bold;
+}
+
+#index .lectureListContainer .lectureList{
+	display: flex;
+	width: 1200px;
+	height: fit-content;
+	justify-content: left;
+}
+
+#index .swiper{
+	width: 1100px;
+	min-height: 200px;
+}
+
+#index .mainBanner{
+	max-width: 100%;
+}
+
+#index .bannerSwiper .swiper-slide{
+	height: auto;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+}
+
+#index .lectureListContainer .lectureList .lectureItem {
+	position: relative;
+	box-sizing: border-box;
+	background-color: #fefefe;
+	border-radius: 6px;
+}
+
+#index .lectureListContainer .lectureList .lectureItemContainer {
+	position: relative;
+	box-sizing: border-box;
+	height: 330px;
+	border-radius: 5px;
+	margin-bottom: 30px;
+	border: 0.5px solid #dddddd;
+}
+
+#index .lectureListContainer .lectureList .lectureItemPictureArea {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #fff1f2;
+	border-radius: 5px;
+	width: 100%;
+	height: 200px;
+}
+
+#index .lectureListContainer .lectureList .lectureItemPicture {
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	border-radius: 5px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
+	z-index: 0;
+}
+
+#index .lectureListContainer .lectureList .lectureItemAddress {
+	position: absolute;
+	bottom: 8px;
+	left: 8px;
+	z-index: 1;
+	font-size: small;
+	font-weight: 600;
+	color: #000;
+	height: fit-content;
+	width: fit-content;
+	background-color: rgba(255, 255, 255, 0.4);
+	/*20% 불투명도*/
+	padding: 1px 6px;
+	border-radius: 5px;
+}
+
+#index .lectureListContainer .lectureList .lectureItemCategory {
+	position: absolute;
+	box-sizing: border-box;
+	top: 208px;
+	left: 8px;
+	border: 1px solid #ffd3d5;
+	border-radius: 5px;
+	width: fit-content;
+	height: fit-content;
+	padding: 2px 14px;
+	font-size: 14px;
+	background-color: #fff1f2;
+	color: #666666;
+}
+
+#index .lectureListContainer .lectureList .lectureItemTitle {
+	position: absolute;
+	box-sizing: border-box;
+	top: 242px;
+	left: 0px;
+	border-radius: 5px;
+	width: fit-content;
+	height: fit-content;
+	padding: 0 8px;
+	color: #333333;
+}
+
+#index .lectureListContainer .lectureList .lectureItemProvider {
+	position: absolute;
+	bottom: 8px;
+	left: 8px;
+	font-size: 15px;
+	color: #333333;
+}
+
+#index .lectureListContainer .lectureList .lectureItemPrice {
+	position: absolute;
+	bottom: 8px;
+	right: 8px;
+	color: #333333;
+}
