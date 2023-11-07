@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tencoding.ADayOfLearning.dto.ReserveListPageResponseDto;
-import com.tencoding.ADayOfLearning.dto.request.ReserveRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
@@ -19,13 +18,22 @@ public class ReserveService {
 	@Autowired
 	ReserveRepository reserveRepository;
 	
-	public int insertReserve(ReserveRequestDto reserveRequestDto) {
-		Reserve reserve = new Reserve();
-		reserve.setUserId(1);
-		reserve.setLectureSessionId(1);
-		reserveRepository.insert(reserve);
+	public int existReserveByUserId(int userId, int lectureSessionId) {
+		return reserveRepository.existReserveByUserId(userId, lectureSessionId);
+	}
+	
+	public int insertReserve(int lectureSessionId, int userId) {
+		int result = 0;
+		if (reserveRepository.existReserveByUserId(userId, lectureSessionId) == 0) {
+			Reserve reserveEntity = Reserve.builder()
+					.lectureSessionId(lectureSessionId)
+					.userId(userId)
+					.build();
+			reserveRepository.insert(reserveEntity);
+			result = reserveEntity.getReserveId();
+		}
 		
-		return reserve.getReserveId();
+		return result;
 	}
 	
 	public ReserveListPageResponseDto<ReserveListResponseDto> findReserveByUserId(String type, String keyword,Integer page, String status, int userId) { 
