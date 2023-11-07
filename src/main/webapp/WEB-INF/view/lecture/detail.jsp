@@ -30,17 +30,17 @@
                 <div class="reviewInputContainer">
                 	<div class="reviewInputTitle">
                 		후기 작성
-                		<div class="star-rating space-x-4 mx-auto">
-							<input type="radio" id="5-stars" name="score" value="5" v-model="ratings"/>
-							<label for="5-stars" class="star pr-4">★</label>
-							<input type="radio" id="4-stars" name="score" value="4" v-model="ratings"/>
-							<label for="4-stars" class="star">★</label>
-							<input type="radio" id="3-stars" name="score" value="3" v-model="ratings"/>
-							<label for="3-stars" class="star">★</label>
-							<input type="radio" id="2-stars" name="score" value="2" v-model="ratings"/>
-							<label for="2-stars" class="star">★</label>
-							<input type="radio" id="1-stars" name="score" value="1" v-model="ratings"/>
-							<label for="1-stars" class="star">★</label>
+                		<div class="star-rating input">
+							<input type="radio" id="5-starsInput" name="scoreInput" value="5"/>
+							<label for="5-starsInput" class="star">★</label>
+							<input type="radio" id="4-starsInput" name="scoreInput" value="4"/>
+							<label for="4-starsInput" class="star">★</label>
+							<input type="radio" id="3-starsInput" name="scoreInput" value="3" checked="checked" />
+							<label for="3-starsInput" class="star">★</label>
+							<input type="radio" id="2-starsInput" name="scoreInput" value="2"/>
+							<label for="2-starsInput" class="star">★</label>
+							<input type="radio" id="1-starsInput" name="scoreInput" value="1"/>
+							<label for="1-starsInput" class="star">★</label>
 						</div>
                 	</div>
                 	<div class="reviewInputBody">
