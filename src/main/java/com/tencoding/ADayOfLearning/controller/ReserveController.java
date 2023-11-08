@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tencoding.ADayOfLearning.dto.ReserveListPageResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ReserveListPageResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.User;

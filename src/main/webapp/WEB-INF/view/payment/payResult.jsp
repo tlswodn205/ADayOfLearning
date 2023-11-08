@@ -156,8 +156,14 @@ if(authResultCode.equals("0000") /*&& authSignature.equals(authComparisonSignatu
 <title>NICEPAY PAY RESULT(UTF-8)</title>
 <meta charset="utf-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		window.location.href = "../reserve/list";
+	})
+</script>
 </head>
-<body>
+<body style="display: none;">
 	<table>
 		<%if("9999".equals(resultJsonStr)){%>
 		<tr>
@@ -185,30 +191,11 @@ if(authResultCode.equals("0000") /*&& authSignature.equals(authComparisonSignatu
 			<th>거래 번호</th>
 			<td><%=TID%></td>
 		</tr>
-		<!--<%/*if(Signature.equals(paySignature)){%>
-		<tr>
-			<th>Signature</th>
-			<td><%=Signature%></td>
-		</tr>
-		<%}else{%>
-		<tr>
-			<th>승인 Signature</th>
-			<td><%=Signature%></td>
-		</tr>
-		<tr>
-			<th>생성 Signature</th>
-			<td><%=paySignature%></td>
-		</tr> -->
-		<%}*/}%>
+		<%}%>
 	</table>
 	<p>*테스트 아이디인경우 당일 오후 11시 30분에 취소됩니다.</p>
 </body>
 
-<script>
-	$(document).ready(function() {
-		window.location.href = "../reserve/reserveList";
-	})
-</script>
 
 </html>
 <%!

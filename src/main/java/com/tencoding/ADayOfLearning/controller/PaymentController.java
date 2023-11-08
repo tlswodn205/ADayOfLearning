@@ -64,7 +64,7 @@ public class PaymentController {
 		Person person = personService.findPersonByUserId(principal.getUserId());
 		Lecture lectureModel = paymentService.getLectureBySessionId(lectureSessionId);
 		LectureSession lectureSessionModel = paymentService.getSessionbyLectureSessionId(lectureSessionId);
-		PaymentRequestDto paymentRequestDto = new PaymentRequestDto();
+		PaymentRequestDto paymentRequestDto = new PaymentRequestDto(lectureModel.getTitle(),lectureModel.getPrice().toString(),person.getName(), person.getPhoneNumber(), person.getEmail());
 		
 		model.addAttribute("payRequest", paymentRequestDto);
 		model.addAttribute("buyer", person);
@@ -82,17 +82,17 @@ public class PaymentController {
 	 * @return 
 	 */
 	@PostMapping("/payResult")
-	public String paymentResult(@RequestParam Integer lectureSessionId, PaymentRequestDto paymentRequestDto, HttpServletRequest request) {
+	public String paymentResult(@RequestParam Integer lectureSessionId, @RequestParam String Amt, HttpServletRequest request) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		if (principal == null) {
 			return "redirect:/user/signIn";
 		}
 		String payMethod = (String)request.getParameter("PayMethod"); 	// 결제수단
 		String tid = (String)request.getParameter("TxTid"); 			// 거래 ID
-		log.info("payMethod 값이 뭘까 => {}", payMethod);
+		log.info("payMethod 값이 뭘까 ========> {}", payMethod);
 		
 		int reserveId = reserveService.insertReserve(lectureSessionId, principal.getUserId());
-		paymentService.insertPayment(paymentRequestDto, reserveId, payMethod, tid);
+		paymentService.insertPayment(Amt, reserveId, payMethod, tid);
 		
 		return "payment/payResult";
 	}

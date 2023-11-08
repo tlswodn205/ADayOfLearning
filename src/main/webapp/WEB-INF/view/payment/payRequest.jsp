@@ -147,7 +147,7 @@
 							</div>
 							<div class="amount sum">
 								<p>최종 결제 금액</p>
-								<input type="text" readonly name="Amt" value="${payRequest.price}">
+								<input type="text" readonly name="Amt" value="${lecture.price}">
 								<%-- <input type="text" readonly name="Amt" value="${lectureData.price}"> --%>
 							</div>
 							<div class="submitBtn">
