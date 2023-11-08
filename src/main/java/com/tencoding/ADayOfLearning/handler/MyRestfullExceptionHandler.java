@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.tencoding.ADayOfLearning.handler.exception.CustomFetchRestfulException;
 import com.tencoding.ADayOfLearning.handler.exception.CustomRestfulException;
 import com.tencoding.ADayOfLearning.handler.exception.UnAuthorizedException;
+import com.tencoding.ADayOfLearning.handler.exception.UnMatchingException;
 import com.tencoding.ADayOfLearning.handler.exception.UnSignUpException;
 
 /**
@@ -63,4 +64,15 @@ public class MyRestfullExceptionHandler {
 		sb.append("</script>");
 		return sb.toString();
 	}
+	
+	@ExceptionHandler(UnMatchingException.class)
+	public String notMatchingException(UnMatchingException e) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<script>");
+		sb.append("alert('"+e.getMessage() + "');");
+		sb.append("window.history.back();");
+		sb.append("</script>");
+		return sb.toString();
+	}
+	
 }

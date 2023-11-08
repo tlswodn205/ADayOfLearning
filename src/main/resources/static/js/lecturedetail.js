@@ -14,15 +14,23 @@ let detailInit = {
 			this.reviewInputInit();
 		});
 		// 서브 이미지 클릭
-		$(document).on('click', '.subPhoto >img', (event) => this.changeImage($(event.currentTarget).prop('src')));
+		$(document).on('click', '.subPhoto >img', (event) => {
+			this.changeImage($(event.currentTarget).prop('src'));
+			$('.subPhoto>img').removeClass("focus");
+			$(event.currentTarget).addClass("focus");
+		});
 		// 이전 달 클릭
 		$('#prevCalendar').on('click', () => this.prevCalendar());
 		// 다음 달 클릭
 		$('#nextCalendar').on('click', () => this.nextCalendar());
 		// 날짜 선택 함수
 		$('.futureDay, .today').click((event) => detailInit.choiceDate($(event.currentTarget)));
-		
-		$(window).scroll(this.adjustColumn2Container);
+		$(window).scroll(this.handleScrollElementFixed);
+
+		// "클래스 소개" 링크를 클릭했을 때 스크롤 위치를 조정합니다.
+		$('.detailASet > a').on('click', function(event) {
+			detailInit.moveScroll($(event.currentTarget), event);
+		});
 		
 		// 리뷰 저장
 		$("#reviewInputBtn").click(() => this.reviewInput());
@@ -30,10 +38,11 @@ let detailInit = {
 
 	showInformation: function(lecture, photos, reviewList) {
 		$('.detailInfo.content').append(lecture.content);
-		$('.detailLectureAddress').text(lecture.address + ', ' + lecture.addressDetail);
+		$('.lectureDetatilRight.address').text(lecture.address + ', ' + lecture.addressDetail);
 		$('.detailLectureTitle').text(lecture.title);
-		$('.maximumStudents').text(`최대 수용가능 인원 ${lecture.maximum}명`);
-		$('.detailPrice').text(lecture.price.toLocaleString('ko-KR') + '원');
+		$('.lectureDetatilRight.maximum').text(`최대 수용가능 인원 ${lecture.maximum}명`);
+		$('.lectureDetatilRight.phone').text(lecture.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+		$('.lectureDetatilRight.price').text(lecture.price.toLocaleString('ko-KR') + ' 원');
 
 		// 지도 ==========================
 		var mapContainer = $('.detailInfo.location')[0], // 지도를 표시할 div
@@ -85,8 +94,11 @@ let detailInit = {
 				// 새로운 <div> 요소를 생성하고 클래스를 추가
 				let newDiv = $('<div>').addClass('subPhoto');
 
-				// <img> 요소를 생성하고 src와 alt 속성을 설정
-				let newImg = $('<img>').attr('src', photo.img).attr('height', '92px');
+				// <img> 요소를 생성하고 src와 alt 속성을	 설정
+				let newImg = $('<img>').attr('src', photo.img);
+				if (i == 0) {
+					newImg.addClass("focus");
+				}
 
 				// <img> 요소를 <div> 요소 내에 추가
 				newDiv.append(newImg);
@@ -95,6 +107,7 @@ let detailInit = {
 				$('.detailSubPhoto').append(newDiv);
 			}
 		}
+    
 		if(reviewList.length > 0) {
 			// 리뷰 추가
 			reviewList.forEach((review) => {
@@ -213,37 +226,50 @@ let detailInit = {
 			.then((result) => {
 				$('.reserveList').empty();
 				if (result.length > 0) {
+					if(result.length > 2) {
+						$('.reserveList').css("overflow","scroll");
+						$('.reserveList').css("overflow-y","hidden");
+					}
 					// 새로운 컨테이너 요소 생성
 					result.forEach((element) => {
 						const $reserveSession = $('<div class="reserveSession">');
 						const unixTimestamp = element.sessionDate;
 						let minutesOffset = lectureData.duration;
-						$reserveSession.click(function() {
-							detailInit.makePaymentUrl(element.lectureSessionId);
-						});
 
 						this.calculateTimeWithOffset(unixTimestamp, minutesOffset);
+						const $state = $(`<div class="reserveSessionState">`);
 
 						// 모집 상태 요소 생성 및 텍스트 설정
-						const $state = $(`<div class="reserveSessionState">`).text('모집중');
-
-						const $count = $('<div class="reserveSessionCount">').text(`${element.students}/${lectureData.maximum}`);
-
+						if (element.students >= lectureData.maximum) {
+							$state.text('모집 완료!');
+							$reserveSession.addClass('done');
+						} else {
+							$state.text('모집중!');
+							$reserveSession.click(function() {
+								detailInit.makePaymentUrl(element.lectureSessionId);
+							});
+							$reserveSession.css("cursor", "pointer");
+						}
+						const $count = $('<div class="reserveSessionCount">').text(`인원 : ${element.students}/${lectureData.maximum}`);
 						// 시간대 요소 생성 및 텍스트 설정
-						const $duration = $('<div class="reserveSessionDuration">').text(this.calculateTimeWithOffset(unixTimestamp, minutesOffset));
-
+						const $duration = $('<div class="reserveSessionDuration">').text(`수업 시간 : \n${this.calculateTimeWithOffset(unixTimestamp, minutesOffset)}`);
 						// 생성한 하위 요소들을 컨테이너에 추가
 						$reserveSession.append($state, $count, $duration);
-
 						// 컨테이너를 원하는 부모 요소에 추가
 						$('.reserveList').append($reserveSession);
 					});
+				} else {
+					$noReserve = $(`<div class="noReserve">`);
+					$noReserve.text('개설된 예약이 없어요 ');
+					$noReserve.append('<i class="fa-regular fa-face-sad-tear fa-lg"></i>');
+					$('.reserveList').append($noReserve);
 				}
 			});
 	},
 
-	adjustColumn2Container: function() {
+	handleScrollElementFixed: function() {
 		let scrollPosition = $(window).scrollTop();
+		console.log(scrollPosition);
 		if (scrollPosition == 0) {
 			$('.column2Container').css({
 				position: 'static',
@@ -294,6 +320,29 @@ let detailInit = {
 	addAttr: function(url) {
 		window.location.href = url;
 	},
+  
+	moveScroll: function(a, event) {
+		event.preventDefault(); // 기본 동작(링크 이동)을 중지합니다.
+		var url = a.prop('href');
+
+		// URL에서 해시 부분 (예: #detailContent) 가져오기
+		var hash = url.substring(url.indexOf('#'));
+
+		// 대상 요소인 #detailContent의 상단 위치를 구합니다.
+		let targetPosition = $(hash).offset().top;
+
+		// 60px을 빼서 원하는 위치로 이동합니다.
+		targetPosition -= 60;
+
+		// 스무스한 스크롤을 적용하여 위치로 이동합니다.
+		$('html, body').animate({
+			scrollTop: targetPosition
+		}, 700); // 700ms (0.7초) 동안 스무스한 스크롤을 적용
+	},
+
+
+};
+
 	reviewInputInit: function() {
 		tinyInit('#reviewInput', 650, 100);
 		insertTiny = tinymce.activeEditor;
