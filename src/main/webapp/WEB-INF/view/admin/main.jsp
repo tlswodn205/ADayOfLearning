@@ -10,7 +10,7 @@
 			<div class="mainNarrowComponent">
 				<div class="mainComponentTop">
 					<span class="componentTitle">구매자 리스트</span>
-					<a class="showMore" href="/admin/customerListList"><i class="fa-solid fa-plus"></i> 더보기</a>
+					<a class="showMore" href="/admin/customerList"><i class="fa-solid fa-plus"></i> 더보기</a>
 				</div>
 				<table>
 					<thead>		
@@ -42,15 +42,15 @@
 					<thead>		
 						<tr>
 							<th>상호명</th>
-							<th>사업장 전화번화</th>
+							<th>사업장 전화번호</th>
 							<th>사업자 등록번호</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="business" items="${adminMainResponseDto.adminMainBusinessListResponseDto}">
 							<tr>
-								<td>${business.BusinessName}</td>
-								<td>${business.BusinessNumber}</td>
+								<td>${business.businessName}</td>
+								<td>${business.businessNumber}</td>
 								<td>${business.businessRegistrationNumber}</td>
 							</tr>
 						</c:forEach>

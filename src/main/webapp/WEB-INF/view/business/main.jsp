@@ -7,8 +7,11 @@
 	</div>
 	<div id="example" class="mainColumn">
 		<div class="mainRow">
-			<div class="mainUserComponent">
-				<a class="showMore" href="/business/userDetail"><i class="fa-solid fa-plus"></i> 더보기</a>
+			<div class="mainNarrowComponent">
+				<div class="mainComponentTop">
+					<span class="componentTitle">내 정보</span>
+					<a class="showMore" href="/business/userDetail"><i class="fa-solid fa-plus"></i> 더보기</a>
+				</div>
 				<table>
 					<thead>		
 						<tr>
@@ -29,7 +32,10 @@
 				</table>
 			</div>
 			<div class="mainLectureComponent">
-				<a class="showMore" href="/business/lectureList"><i class="fa-solid fa-plus"></i> 더보기</a>
+				<div class="mainComponentTop">
+					<span class="componentTitle">수업 리스트</span>
+					<a class="showMore" href="/business/lectureList"><i class="fa-solid fa-plus"></i> 더보기</a>
+				</div>
 				<table>
 					<thead>		
 						<tr>

@@ -49,9 +49,14 @@
 	border: none;
 	border-radius: 13px;
 	padding: 10px;
-	background-color: #ccc;
+	background-color: #f5d04295;
 }
 
+#userPage .flexDiv input[type=button]:hover{
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
+}
 
 #userPage .wideDiv {
   width: 400px;
@@ -96,7 +101,23 @@
 	border: none;
 	border-radius: 13px;
 	padding: 10px;
-	background-color: #ccc;
+	background-color: #f5d04295;
 	margin-bottom: 30px;
 }
 
+#userPage #resendNumber{
+	color: #0000ff80;
+	width: 150px;
+}
+
+#userPage #resendNumber:hover{
+	cursor:pointer;
+	color: #0000ff;
+	width: 150px;
+}
+
+#userPage .submitBtn:hover{
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
+}

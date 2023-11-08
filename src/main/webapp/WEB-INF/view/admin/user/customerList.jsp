@@ -4,7 +4,7 @@
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp"%>
 <main>
 	<div class="mainTop">
-		<div class="title">판매자 리스트</div>
+		<div class="title">구매자 리스트</div>
 	</div>
 	<div id="userDetail" class="mainColumn">
 		<div class="ListColumn">
@@ -24,7 +24,7 @@
 				<thead>
 					<tr>
 						<th>아이디</th>
-						<th>대표자명</th>
+						<th>이름</th>
 						<th>주소</th>
 						<th>이메일</th>
 						<th>전화번호</th>
