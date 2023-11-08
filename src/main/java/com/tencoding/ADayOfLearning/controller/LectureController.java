@@ -17,19 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tencoding.ADayOfLearning.dto.request.ListSearchRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.MapBoundsRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.ReserveDataRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureSessionResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReviewResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
-import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.LectureOptionService;
 import com.tencoding.ADayOfLearning.service.LecturePhotoService;
 import com.tencoding.ADayOfLearning.service.LectureService;
 import com.tencoding.ADayOfLearning.service.LectureSessionService;
 import com.tencoding.ADayOfLearning.service.ReviewService;
-import com.tencoding.ADayOfLearning.util.Define;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -124,4 +123,13 @@ public class LectureController {
 		return lectureSessionService.findByLectureIdAndDate(reserveDataRequestDto);
 	}
 
+	/**
+	 * 지도의 위치정보로 해당 위치의 클래스 리스트 조회
+	 * @param mapBoundsRequestDto
+	 * @return List<LectureSessionResponseDto>
+	 */
+	@GetMapping("/findMap")
+	public @ResponseBody List<LectureListItemResponseDto> findMap(MapBoundsRequestDto mapBoundsRequestDto) {
+		return lectureService.getLectureListByMap(mapBoundsRequestDto);
+	}
 }

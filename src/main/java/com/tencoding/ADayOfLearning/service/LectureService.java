@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.ListSearchRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.MapBoundsRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.LastLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.LectureRepository;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
@@ -30,15 +31,19 @@ public class LectureService {
 	}
 
 	// indexPage start
-//	public List<LectureListItemResponseDto> getMostLecture() {
-//		List<LectureListItemResponseDto> lectureList = lectureRepository.findMostLecture();
-//		return lectureList;
-//	}
-
 	public List<LectureListItemResponseDto> getNewLecture() {
 		List<LectureListItemResponseDto> lectureList = lectureRepository.findNewLecture();
 		return lectureList;
 	}
 	// indexPage end
+
+	public List<LectureListItemResponseDto> getLectureListByMap(MapBoundsRequestDto mapBoundsRequestDto) {
+		List<LectureListItemResponseDto> lectureList = lectureRepository.findByMapBounds(mapBoundsRequestDto);
+		return lectureList;
+	}
+
+	public LastLectureResponseDto getLastLecture() {
+		return lectureRepository.findLastLecture();
+	}
 
 }
