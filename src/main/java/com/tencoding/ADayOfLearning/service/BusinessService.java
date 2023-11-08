@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.SessionRequestDto;
@@ -23,6 +26,8 @@ import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.BusinessRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.CategoryRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.ChatRepository;
@@ -114,11 +119,26 @@ public class BusinessService {
 		return businessRepository.countTodayUser(userId);
 	}
 
-	// 판매자의 강의 리스트
-	public List<BusinessLectureListResponseDto> findLectureByUserId(int userId) {
+	// 판매자의 진행중인 강의 리스트
+	public ListPagingResponseDto<BusinessLectureListResponseDto> findProgressLectureByUserId(String type, String keyword, Integer page, int userId) {
+		PagingResponseDto pagingResponseDto = businessRepository.findProgressLecturePaging(type, keyword, page, userId);
+		int startNum = (page-1)*10;
 		List<BusinessLectureListResponseDto> businessLectureListResponseDto = businessRepository
-				.findLectureByUserId(userId);
-		return businessLectureListResponseDto;
+				.findProgressLectureByUserId(type, keyword, startNum, userId);
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = 
+				new ListPagingResponseDto<BusinessLectureListResponseDto>(pagingResponseDto, type, keyword, "", businessLectureListResponseDto);
+		return listPagingResponseDto;
+	}
+	
+	// 판매자의 완료된 강의 리스트
+	public ListPagingResponseDto<BusinessLectureListResponseDto> findCompletedLectureByUserId(String type, String keyword, Integer page, int userId) {
+		PagingResponseDto pagingResponseDto = businessRepository.findCompletedLecturePaging(type, keyword, page, userId);
+		int startNum = (page-1)*10;
+		List<BusinessLectureListResponseDto> businessLectureListResponseDto = businessRepository
+				.findCompletedLectureByUserId(type, keyword, startNum, userId);
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = 
+				new ListPagingResponseDto<BusinessLectureListResponseDto>(pagingResponseDto, type, keyword, "", businessLectureListResponseDto);
+		return listPagingResponseDto;
 	}
 
 	// 강의 상세보기
@@ -200,7 +220,9 @@ public class BusinessService {
 			String sqlPath = "/images/lectureImages/";
 			// 파일 이름 : UUID 형식(128비트 길이의 고유 식별자)
 			String identifier = Integer.toString(registeredLectureId) + "_";
-			String fileName = identifier + UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes()) + ".jpg";
+
+        	String fileType = file.getContentType().substring(6);
+			String fileName = identifier + UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes()) + "."+ fileType;
 
 			// 서버 로컬폴더에 업로드
 			java.nio.file.Path path = Paths.get(uploadDir + fileName);

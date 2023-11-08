@@ -6,7 +6,7 @@ html, body{
 }
 
 body{
-  padding-top: 75px;
+  padding-top: 90px;
   height: 100%;
 }
 
@@ -66,8 +66,9 @@ header{
 	top: 0px;
 	left: 0px;
 	right: 0px;
- 	background-color: #eee;
  	z-index: 100;
+ 	background-color: #fff;
+	box-shadow: 0px 1.5px 5px 1px #ccc;
 }
 
 header .headerWrap{
@@ -147,3 +148,36 @@ footer .companyName{
 	font-weight: 700;	
 }
 
+
+@keyframes slideYellow {
+  from {
+	background-color: #f5d04295;
+  }
+
+  to {
+	background-color: #f5d042;
+  }
+}
+@keyframes slideWhite {
+  from {
+	background-color: #fff;
+  }
+
+  to {
+	background-color: #eee;
+  }
+}
+
+/*
+ :hover{
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
+}
+
+ :hover{
+	animation-duration: 1s;
+	animation-name: slideWhite;
+	animation-fill-mode: forwards;
+}
+*/

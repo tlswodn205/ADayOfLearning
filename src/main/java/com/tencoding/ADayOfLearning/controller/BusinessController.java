@@ -22,9 +22,14 @@ import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.SessionRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
+import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
 import com.tencoding.ADayOfLearning.handler.exception.UnMatchingException;
@@ -117,6 +122,22 @@ public class BusinessController {
 	// user end
 
 	// lecture start
+
+	@GetMapping("/lectureList")
+	public String getLectureList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page, Model model) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = businessService.findProgressLectureByUserId(type, keyword, page, user.getUserId());
+		model.addAttribute("listPagingResponseDto", listPagingResponseDto);
+		return "/business/lecture/list";
+	}
+
+	@GetMapping("/completedList")
+	public String getCompletedLectureList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page, Model model) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = businessService.findCompletedLectureByUserId(type, keyword, page, user.getUserId());
+		model.addAttribute("listPagingResponseDto", listPagingResponseDto);
+		return "/business/lecture/list";
+	}
 
 	@GetMapping("/lectureDetail/{id}")
 	public String getLectureDetail(Model model, @PathVariable Integer id) {

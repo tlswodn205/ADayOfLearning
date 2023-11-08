@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<script src="https://cdn.tiny.cloud/1/dtdpftxislwkjsqt3kyjkmgpi0r0p0cw5zmchcg1hwbvz9w9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <div id="lectureDetail">
     <div class="detailMainInfo">
         <div class="detailColumn1">
@@ -29,11 +31,29 @@
             </div>
 
             <div id="detailReview" class="detailArea review">
-                <div class="detailHead review">
-                    후기
-                    <div class="detailHeadBottomLine"></div>
+                <div class="detailHead review">후기</div>
+                <div class="reviewInputContainer">
+                	<div class="reviewInputTitle">
+                		후기 작성
+                		<div class="star-rating input">
+							<input type="radio" id="5-starsInput" name="scoreInput" value="5"/>
+							<label for="5-starsInput" class="star">★</label>
+							<input type="radio" id="4-starsInput" name="scoreInput" value="4"/>
+							<label for="4-starsInput" class="star">★</label>
+							<input type="radio" id="3-starsInput" name="scoreInput" value="3" checked="checked" />
+							<label for="3-starsInput" class="star">★</label>
+							<input type="radio" id="2-starsInput" name="scoreInput" value="2"/>
+							<label for="2-starsInput" class="star">★</label>
+							<input type="radio" id="1-starsInput" name="scoreInput" value="1"/>
+							<label for="1-starsInput" class="star">★</label>
+						</div>
+                	</div>
+                	<div class="reviewInputBody">
+		                <textarea class="reviewInput" id="reviewInput" name="content" placeholder="후기 내용"></textarea>
+		                <input type="button" id="reviewInputBtn" value="후기 등록"/>
+                	</div>
                 </div>
-                <div class="detailInfo review">후기들 모음</div>
+                <div class="detailInfo review"></div>
             </div>
         </div>
 
@@ -108,6 +128,6 @@
 <script type="text/javascript">
     let lectureData = ${lecture};
     let photoList = ${lecturePhotos};
-    
+    let reviewList = ${reviews};
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

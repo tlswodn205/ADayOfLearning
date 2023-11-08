@@ -28,7 +28,8 @@ public interface BusinessRepository {
 	public Business findByUserId(int userId);
 	public int countTodayLecture(int userId);
 	public int countTodayUser(int userId);
-	public List<BusinessLectureListResponseDto> findLectureByUserId(int userId);
+	public PagingResponseDto findProgressLecturePaging(@Param("type") String type, @Param("keyword") String keyword, @Param("page") Integer page, @Param("userId")int userId);
+	public List<BusinessLectureListResponseDto> findProgressLectureByUserId(@Param("type") String type, @Param("keyword") String keyword, @Param("startNum") int startNum, @Param("userId") int userId);
 	public List<BusinessLectureResponseDto> findByLectureSessionId(int lectureSessionId);
 	public int updateByUserId(Business business);
 	public BusinessReserveResponseDto findByReserveId(int reserveId);
@@ -40,4 +41,6 @@ public interface BusinessRepository {
 	public List<AdminBusinessResponseDto> findBusinessList(@Param("type") String type, @Param("keyword") String keyword, @Param("startNum") int startNum);
 	public BusinessUserDetailResponseDto findBusinessByBusinessId(Integer businessId);
 	public int updateAtAdmin(UpdateBusinessRequestDto updateBusinessRequestDto);
+	public PagingResponseDto findCompletedLecturePaging(@Param("type") String type, @Param("keyword") String keyword, @Param("page") Integer page, @Param("userId")int userId);
+	public List<BusinessLectureListResponseDto> findCompletedLectureByUserId(@Param("type") String type, @Param("keyword") String keyword, @Param("startNum") int startNum, @Param("userId") int userId);
 }

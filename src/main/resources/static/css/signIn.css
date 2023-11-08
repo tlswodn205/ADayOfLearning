@@ -9,6 +9,7 @@
   z-index: 1;
   opacity: 1;
 }
+
 #signIn #signInForm div input {
   width: 340px;
   height: 40px;
@@ -56,12 +57,49 @@
 	border: none;
 	border-radius: 13px;
 	padding: 10px;
-	background-color: #ccc;
+	background-color: #f5d04295;
+}
+
+#signIn #signInBtn:hover{
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
 }
 
 #signIn #kakaoBtn{
 	width:400px;
 	height: 50px;
-	border-radius: 13px;
-	 
+	border-radius: 13px; 
+	background-color: #FEE50095;
+	font-size: 17px;
+	display: flex;
+  	align-items: center;
+}
+
+#signIn #kakaoBtn:hover{
+	animation-duration: 1s;
+	animation-name: slideKakao;
+	animation-fill-mode: forwards;
+}
+#signIn #kakaoBtn i{
+	margin-right: 105px;
+	opacity: 0.95;
+	margin-left: 20px;
+	animation-duration: 1s;
+	animation-name: slideKakao;
+	animation-fill-mode: forwards;
+}
+
+@keyframes slideKakao {
+  from {
+	background-color: #FEE50095;
+  }
+
+  to {
+	background-color: #FEE500;
+  }
+}
+
+#signIn #kakaoBtn i{
+	font-size: 20px;
 }

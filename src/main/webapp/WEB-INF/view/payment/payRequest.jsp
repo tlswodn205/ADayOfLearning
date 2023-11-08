@@ -86,6 +86,7 @@
 									<!-- 상점 아이디 -->
 									<input type="hidden" name="MID" value="${payRequest.merchantID}">
 									<!-- 클래스명(결제 상품명) -->
+									<input type="hidden" name="lectureSessionId" value="${session.lectureSessionId}">
 									<input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lecture.title}">
 									<p><fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${session.sessionDate}"/></p>
 									<%-- <input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lectureData.title}"> --%>
@@ -146,8 +147,7 @@
 							</div>
 							<div class="amount sum">
 								<p>최종 결제 금액</p>
-								<!-- <p id="payRequsetPrice"></p> -->
-								<input type="text" readonly name="Amt" value="${lecture.price}">
+								<input type="text" readonly name="Amt" value="${payRequest.price}">
 								<%-- <input type="text" readonly name="Amt" value="${lectureData.price}"> --%>
 							</div>
 							<div class="submitBtn">

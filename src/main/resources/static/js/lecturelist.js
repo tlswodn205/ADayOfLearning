@@ -7,7 +7,7 @@ let listInit = {
 	init: function() {
 		$(document).ready(() => {
 			this.postData();
-			this.addLocationAllOption();
+			this.addCategoryAllOption();
 			this.setLocation();
 			this.buildCalendar();
 			this.printListPagination(currentPage, lectureListData);
@@ -15,6 +15,8 @@ let listInit = {
 
 		// 드롭다운 버튼 클릭
 		$('.dropBtn').click(() => this.setDropdownContentVisibility());
+		
+		$('.dropCategoryBtn').click(() => this.setDropdownCategoryVisibility());
 
 		// 초기화 버튼 클릭
 		$('#searchFormReset').on('click', () => this.resetBtn());
@@ -30,6 +32,12 @@ let listInit = {
 			// 클릭한 지역을 가져와서 설정
 			let location = $(event.currentTarget).text();
 			this.setLocationVal(location);
+		});
+		
+		$(document).on('click', '.categoryElement', (event) => {
+			// 클릭한 카테고리를 가져와서 설정
+			let category = $(event.currentTarget).text();
+			this.setCategoryVal(category);
 		});
 
 		// 검색 버튼 클릭
@@ -174,26 +182,32 @@ let listInit = {
 		}
 	},
 
-	addLocationAllOption: function() {
-		const category = $('.formCategory');
-		const option = $('<option>').attr('value', '전체').text('전체');
-		category.append(option);
+	addCategoryAllOption: function() {
+		$('.categoryElement').css('cursor', 'pointer');
+		
+		let column = $('.column.ca');
+		let ele = $('<div>').text("전체").addClass('categoryElement');
+		console.log(column);
+		column.append(ele);
 	},
 
-	postData: async function() {
+	postData: function() {
 		let url = 'http://localhost:8080/category/getCategory';
 		fetch(url)
 			.then((response) => response.json())
 			.then((data) =>
 				data.forEach((item) => {
-					const category = $('.formCategory');
-					const option = $('<option>').attr('value', item).text(item);
-					category.append(option);
+					let column = $('.column.ca');
+					let ele = $('<div>').text(item).addClass('categoryElement');
+					console.log(column);
+					column.append(ele);
 				})
 			);
 	},
 
 	setDropdownContentVisibility: function() {
+		let dropdownCategory = $('.dropdownCategory');
+			dropdownCategory.css('display', 'none');
 		let dropdownContent = $('.dropdownContent');
 		if (dropdownContent.css('display') === 'block') {
 			dropdownContent.css('display', 'none');
@@ -226,9 +240,27 @@ let listInit = {
 		// 드롭다운 메뉴 숨기기
 		$('.dropdownContent').css('display', 'none');
 	},
+	setCategoryVal: function(category) {
+		// 선택한 항목의 값을 input 태그에 설정
+		$('.formCategory').val(category);
+		// 드롭다운 메뉴 숨기기
+		$('.dropdownCategory').css('display', 'none');
+	},
 	// 초기화 버튼 기능
 	resetBtn: function() {
 		window.location.href = 'list?page=1';
+	},
+	
+	
+	setDropdownCategoryVisibility: function() {
+		let dropdownContent = $('.dropdownContent');
+			dropdownContent.css('display', 'none');
+		let dropdownCategory = $('.dropdownCategory');
+		if (dropdownCategory.css('display') === 'block') {
+			dropdownCategory.css('display', 'none');
+		} else {
+			dropdownCategory.css('display', 'block');
+		}
 	},
 
 	// 이전달 버튼 클릭

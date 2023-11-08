@@ -1,12 +1,17 @@
 let date = $('.selectedDate'); // <input class="selectedDate"/>요소 선택
 let nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로 초기화
 
+let insertTiny;
+let updateTiny;
+
 let detailInit = {
 	version: 1,
 	init: function() {
 		$(document).ready(() => {
-			this.showInformation(lectureData, photoList);
+			this.showInformation(lectureData, photoList, reviewList);
 			this.buildCalendar();
+			// 리뷰 입력창 기본 세팅
+			this.reviewInputInit();
 		});
 		// 서브 이미지 클릭
 		$(document).on('click', '.subPhoto >img', (event) => {
@@ -20,18 +25,18 @@ let detailInit = {
 		$('#nextCalendar').on('click', () => this.nextCalendar());
 		// 날짜 선택 함수
 		$('.futureDay, .today').click((event) => detailInit.choiceDate($(event.currentTarget)));
-
 		$(window).scroll(this.handleScrollElementFixed);
 
 		// "클래스 소개" 링크를 클릭했을 때 스크롤 위치를 조정합니다.
 		$('.detailASet > a').on('click', function(event) {
 			detailInit.moveScroll($(event.currentTarget), event);
 		});
-
-
+		
+		// 리뷰 저장
+		$("#reviewInputBtn").click(() => this.reviewInput());
 	},
 
-	showInformation: function(lecture, photos) {
+	showInformation: function(lecture, photos, reviewList) {
 		$('.detailInfo.content').append(lecture.content);
 		$('.lectureDetatilRight.address').text(lecture.address + ', ' + lecture.addressDetail);
 		$('.detailLectureTitle').text(lecture.title);
@@ -67,7 +72,6 @@ let detailInit = {
 					map: map,
 					position: coords,
 				});
-
 				// 인포윈도우로 장소에 대한 설명을 표시합니다
 				var infowindow = new kakao.maps.InfoWindow({
 					content: `<div style="width:150px;text-align:center;padding:6px 0;">${lecture.title}</div>`,
@@ -103,7 +107,16 @@ let detailInit = {
 				$('.detailSubPhoto').append(newDiv);
 			}
 		}
-
+    
+		if(reviewList.length > 0) {
+			// 리뷰 추가
+			reviewList.forEach((review) => {
+				reviewAppend(review);
+			});
+		} else {
+			// 아직 작성된 리뷰가 없습니다.
+			$('.detailInfo.review').text('아직 작성된 리뷰가 없습니다.');
+		}
 	},
 
 	// 서브 이미지 클릭 => 본 이미지로 올림
@@ -307,6 +320,7 @@ let detailInit = {
 	addAttr: function(url) {
 		window.location.href = url;
 	},
+  
 	moveScroll: function(a, event) {
 		event.preventDefault(); // 기본 동작(링크 이동)을 중지합니다.
 		var url = a.prop('href');
@@ -329,13 +343,285 @@ let detailInit = {
 
 };
 
+	reviewInputInit: function() {
+		tinyInit('#reviewInput', 650, 100);
+		insertTiny = tinymce.activeEditor;
+	},
+	// 리뷰 등록 버튼 ==========================
+	reviewInput: async function() {
+		let reviewContent = insertTiny.getContent();
+		let reviewScore = $('input[name="scoreInput"]:checked').val();
+		
+		const response = await fetch("/review/insert", {
+			method: 'POST',
+			body: JSON.stringify({
+				lectureId: lectureData.lectureId,
+				score: reviewScore,
+				content: reviewContent
+			}),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+		.then((response) => response.json())
+		.then((result) => {
+			console.log(result);
+			reviewAppend(result);
+		});
+	},
+};
 
+// 리뷰 수정 버튼
+function reviewUpdateBtn(comp) {
+	let reviewContainer = $(comp).parents('div[class="reviewContainer"]');
+	let reviewContent = reviewContainer.find("#reviewContent").html();
+	// 별점 수정 가능하게 확인 ===================
+	
+	reviewUpdateShow(reviewContainer);
+	
+	$("#reviewUpdateContent").remove();
+	reviewContainer.append($('<textarea>').addClass('reviewInput').attr('id','reviewUpdateContent')
+								.text(reviewContent));
+	
+	tinyInit('#reviewUpdateContent', 650, 100);
+	updateTiny = tinymce.activeEditor;
+}
+// 리뷰 수정 완료 버튼
+async function reviewUpdateProc(comp) {
+	let reviewContainer = $(comp).parents('div[class="reviewContainer"]');
+	let reviewContent = reviewContainer.find("#reviewContent");
+	
+	await reviewUpdate(reviewContainer);
+	
+	reviewContent.html(updateTiny.getContent());
 
+	reviewChangeShow(reviewContainer);
+	updateTiny.editorContainer.remove();
+	
+	console.log(updateTiny.getContent())
+}
+// 리뷰 수정 취소 버튼
+function reviewUpdateBack(comp) {
+	let reviewContainer = $(comp).parents('div[class="reviewContainer"]');
+	updateTiny.editorContainer.remove();
+	reviewChangeShow(reviewContainer);
+}
 
+// 리뷰 삭제
+async function reviewDelete(comp) {
+	const response = await fetch("/review/delete", {
+		method: 'DELETE',
+		body: JSON.stringify({
+			reviewId: $(comp).val(),
+		}),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	})
+	.then((result) => {
+		if(result.status == 200){
+			$(comp).parents('div[class="reviewContainer"]').remove();
+		}
+	});
+}
 
+async function reviewUpdate(reviewContainer) {
+	let score = $('input[name="scoreUpdate"]:checked').val()
+	const response = await fetch("/review/update", {
+		method: 'put',
+		body: JSON.stringify({
+			reviewId: reviewContainer.val(),
+			score: score,
+			content: updateTiny.getContent()
+		}),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	})
+	.then((result) => {
+		if(result.status == 200){
+			console.log('성공');
+			reviewContainer.find("#reviewScoreFill").css('width', score * 20 + '%');
+		}
+	});
+}
+// 리뷰 append ===================
+function reviewAppend(review) {
+	let reviewContainer = $('<div>').addClass('reviewContainer').val(review.reviewId);
+	let reviewId = $('<input>').attr('type', 'hidden').val(review.reviewId);
+	let reviewHeader = $('<div>').addClass('reviewHeader');
+	
+	// 별점 관련
+	let reviewScoreContainer = $('<div>').addClass('reviewScoreContainer').attr('id','reviewScoreContainer');
+	let reviewScore = $('<div>').addClass('reviewScore').attr('id','reviewScore').val(review.score);
+	
+	let scoreToPercent = review.score * 20;
+	let reviewScoreBase = $('<div>').addClass('reviewScoreBase').text('★★★★★')
+	let reviewScoreFill = $('<div>').addClass('reviewScoreFill').attr('id','reviewScoreFill').css("width", scoreToPercent + '%')
+					.text('★★★★★');
+					
+	reviewScore.append(reviewScoreFill);
+	reviewScore.append(reviewScoreBase);
+	reviewScoreContainer.append(reviewScore)
+	
+	// 유저 이름, 시간, 별점
+	let reviewTitle = $('<div>').addClass('reviewTitle').attr('id','reviewTitle');
+	let reviewUser = $('<div>').addClass('reviewUser').text(review.username);
+	let reviewCreatedAt = $('<div>').addClass('reviewCreatedAt').text(review.createdAt);
+	reviewTitle.append(reviewUser);
+	reviewTitle.append(reviewScoreContainer);
+	reviewTitle.append(reviewCreatedAt);
+	reviewHeader.append(reviewTitle);
+	
+	// 수정, 삭제버튼
+	let reviewChange = $('<div>').addClass('reviewChange').attr('id','reviewChange');
+	let reviewUpdateBtn = $('<button>').addClass('reviewUpdateBtn').text('수정').val(review.reviewId)
+								.attr('onclick', 'reviewUpdateBtn(this)');
+	let reviewDeleteBtn = $('<button>').addClass('reviewDeleteBtn').text('삭제').val(review.reviewId)
+								.attr('onclick', 'reviewDelete(this)');
+	reviewChange.append(reviewUpdateBtn);
+	reviewChange.append(reviewDeleteBtn);
+	reviewHeader.append(reviewChange);
+	
+	// 수정 이후 버튼
+	let reviewUpdate = $('<div>').addClass('reviewUpdate').attr('id','reviewUpdate').hide();
+	let reviewUpdateProc = $('<button>').addClass('reviewUpdateBtn').text('수정 완료').val(review.reviewId)
+								.attr('onclick', 'reviewUpdateProc(this)');
+	let reviewUpdateBack = $('<button>').addClass('reviewUpdateBack').text('취소').val(review.reviewId)
+								.attr('onclick', 'reviewUpdateBack(this)');
+	reviewUpdate.append(reviewUpdateProc);
+	reviewUpdate.append(reviewUpdateBack);
+	reviewHeader.append(reviewUpdate);
+	
+	// 리뷰 내용
+	let reviewContent = $('<div>').addClass('reviewContent').attr('id','reviewContent').html(review.content);
+	// 리뷰 전체 Container
+	
+	reviewContainer.append(reviewId);
+	reviewContainer.append(reviewHeader);
+	reviewContainer.append(reviewContent);
+	$('.detailInfo.review').append(reviewContainer);
+}
 
+// 수정 버튼 누름
+function reviewUpdateShow(reviewContainer){
+	reviewContainer.find("#reviewContent").hide();
+	reviewContainer.find("#reviewChange").hide();
+	reviewContainer.find("#reviewUpdate").show();
+	reviewContainer.find("#reviewScore").hide();
 
+	// 평점 변경 가능하게 수정
+	let reviewScore = reviewContainer.find("#reviewScore");
+	let reviewScoreUpdate = $('<div>').addClass('star-rating update').attr('id','scoreUpdate');
+	
+	for(let i = 5; i >= 1 ; i-- ) {
+		if(i === parseInt(reviewScore.val())) {
+			reviewScoreUpdate.append($('<input>').attr('type', 'radio').attr('id',i + '-starsUpdate').attr('name','scoreUpdate')
+					.val(i).attr('checked', true));
+		} else {
+			reviewScoreUpdate.append($('<input>').attr('type', 'radio').attr('id',i + '-starsUpdate').attr('name','scoreUpdate')
+					.val(i));
+		}
+		reviewScoreUpdate.append($('<label>').attr('for',i + '-starsUpdate').addClass('star').text('★'));
+	}
+	reviewContainer.find("#reviewScoreContainer").append(reviewScoreUpdate);
+	
+}
+// 수정 완료, 취소 버튼 누름
+function reviewChangeShow(reviewContainer){
+	reviewContainer.find("#reviewContent").show();
+	reviewContainer.find("#reviewChange").show();
+	reviewContainer.find("#reviewUpdate").hide();
+	reviewContainer.find("#reviewScore").show();
+	reviewContainer.find("#scoreUpdate").remove();	
+}
 
+// tiby 에디터 초기화
+function tinyInit(selector, width, height) {
+	var plugins = [
+		'advlist',
+		'autolink',
+		'lists',
+		'link',
+		'charmap',
+		'print',
+		'preview',
+		'anchor',
+		'searchreplace',
+		'visualblocks',
+		'code',
+		'fullscreen',
+		'insertdatetime',
+		'media',
+		'table',
+		'paste',
+		'code',
+		'help',
+		'wordcount',
+		'save',
+	];
 
+	tinymce.init({
+		language: 'ko_KR', //한글판으로 변경
+		selector: selector,
+		width: width,
+		height: height,
+		menubar: false,
+		plugins: plugins,
+		toolbar: [],
+
+		/*** image upload ***/
+		image_title: true,
+		/* enable automatic uploads of images represented by blob or data URIs*/
+		automatic_uploads: true,
+		/*
+			URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+			images_upload_url: 'postAcceptor.php',
+			here we add custom filepicker only to Image dialog
+		*/
+		file_picker_types: 'image',
+		/* and here's our custom image picker*/
+		file_picker_callback: function(cb, value, meta) {
+			var input = document.createElement('input');
+			input.setAttribute('type', 'file');
+			input.setAttribute('accept', 'image/*');
+
+			/*
+			Note: In modern browsers input[type="file"] is functional without
+			even adding it to the DOM, but that might not be the case in some older
+			or quirky browsers like IE, so you might want to add it to the DOM
+			just in case, and visually hide it. And do not forget do remove it
+			once you do not need it anymore.
+			*/
+			input.onchange = function() {
+				var file = this.files[0];
+
+				var reader = new FileReader();
+				reader.onload = function() {
+					/*
+					Note: Now we need to register the blob in TinyMCEs image blob
+					registry. In the next release this part hopefully won't be
+					necessary, as we are looking to handle it internally.
+					*/
+					var id = 'blobid' + new Date().getTime();
+					var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+					var base64 = reader.result.split(',')[1];
+					var blobInfo = blobCache.create(id, file, base64);
+					blobCache.add(blobInfo);
+
+					/* call the callback and populate the Title field with the file name */
+					cb(blobInfo.blobUri(), { title: file.name });
+				};
+				reader.readAsDataURL(file);
+			};
+			input.click();
+		},
+		/*** image upload ***/
+
+		content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; margin: 10px } p { margin:0 }',
+
+	});
+}
 
 detailInit.init();
+

@@ -21,12 +21,15 @@
 <div id= "businessPage">
 	<sideBar>
 		<div class="sideBar">
-			<img src="/images/logo/logo.png" class="logo">
+			<a href="/business">
+				<img src="/images/logo/logo.png" class="logo">
+			</a>
 			<ul>
 				<li>
-					<a href="/business"><i class="fa-solid fa-user"></i>내 정보보기</a>
+					<a href="/business/userDetail"><i class="fa-solid fa-user"></i>내 정보보기</a>
 					<a href="/business/chatRoom"><i class="fa-solid fa-user"></i>채팅</a>
 					<a href="/business/lectureList"><i class="fa-solid fa-user"></i>강의 관리</a>
+					<a href="/business/completedList"><i class="fa-solid fa-user"></i>완료된 강의</a>
 				</li>
 			</ul>
 		</div>
