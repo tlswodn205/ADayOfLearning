@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.tencoding.ADayOfLearning.dto.request.ListSearchRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.MapBoundsRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.LastLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 
@@ -24,7 +26,9 @@ public interface LectureRepository {
 
 	public List<LectureListItemResponseDto> findBySearch(ListSearchRequestDto dto);
 
-	public List<LectureListItemResponseDto> findMostLecture();
-
 	public List<LectureListItemResponseDto> findNewLecture();
+
+	public List<LectureListItemResponseDto> findByMapBounds(MapBoundsRequestDto mapBoundsRequestDto);
+
+	public LastLectureResponseDto findLastLecture();
 }
