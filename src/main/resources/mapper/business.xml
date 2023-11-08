@@ -73,8 +73,8 @@
 		   AND l.user_id = #{userId}
 	</select>
 	
-	<!-- 판매자의 강의 리스트 -->
-	<select id="findLectureByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto">
+	<!-- 판매자의 진행중인 강의 리스트 -->
+	<select id="findProgressLectureByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto">
 		SELECT ls.lecture_session_id, ls.session_date, l.title, l.price, c.category_name,
 		       (SELECT COUNT(r.reserve_id) 
 		        FROM tb_reserve r
@@ -85,7 +85,84 @@
 		  FROM tb_lecture_session ls
 		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
 		  JOIN tb_category c ON l.category_id = c.category_id
-		 WHERE l.user_id = #{userId}
+		 WHERE 1=1 AND l.user_id = #{userId}
+		   AND DATE_FORMAT(session_date, "%Y-%m-%d") >= CURDATE()
+		 	<if test="type == 'title' and keyword != null">
+					and l.title like CONCAT('%',#{keyword},'%')
+			</if>
+		 ORDER BY ls.session_date
+		 LIMIT #{startNum}, 10;
+	</select>
+	
+	<select  id="findProgressLecturePaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				  FROM tb_lecture_session ls
+				  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+				  JOIN tb_category c ON l.category_id = c.category_id
+				 WHERE 1=1 AND l.user_id = #{userId}
+				   AND DATE_FORMAT(session_date, "%Y-%m-%d") >= CURDATE()
+				<if test="type == 'personName' and keyword != null">
+					and p.person_name like CONCAT('%',#{keyword},'%') 
+				</if>
+			) ost;
+	</select>
+	
+	<!-- 판매자의 완료된 강의 리스트 -->
+	<select id="findCompletedLectureByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto">
+		SELECT ls.lecture_session_id, ls.session_date, l.title, l.price, c.category_name,
+		       (SELECT COUNT(r.reserve_id) 
+		        FROM tb_reserve r
+		        JOIN tb_payment p ON r.reserve_id = p.reserve_id
+		        WHERE ls.lecture_session_id = r.lecture_session_id
+		          AND p.state = '결제 완료') AS student,
+		       l.maximum, l.state, ls.created_at
+		  FROM tb_lecture_session ls
+		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+		  JOIN tb_category c ON l.category_id = c.category_id
+		 WHERE 1=1 AND l.user_id = #{userId}
+		   AND DATE_FORMAT(session_date, "%Y-%m-%d") &lt; CURDATE()
+		 	<if test="type == 'title' and keyword != null">
+					and l.title like CONCAT('%',#{keyword},'%')
+			</if>
+		 ORDER BY ls.session_date
+		 LIMIT #{startNum}, 10;
+	</select>
+	
+	<select  id="findCompletedLecturePaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				  FROM tb_lecture_session ls
+				  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+				  JOIN tb_category c ON l.category_id = c.category_id
+				 WHERE 1=1 AND l.user_id = #{userId}
+				   AND DATE_FORMAT(session_date, "%Y-%m-%d") &lt; CURDATE()
+				<if test="type == 'personName' and keyword != null">
+					and p.person_name like CONCAT('%',#{keyword},'%') 
+				</if>
+			) ost;
 	</select>
 	
 	<!-- 강의 상세보기 -->

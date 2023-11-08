@@ -19,10 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
@@ -113,6 +115,22 @@ public class BusinessController {
 
 	// lecture start
 
+	@GetMapping("/lectureList")
+	public String getLectureList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page, Model model) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = businessService.findProgressLectureByUserId(type, keyword, page, user.getUserId());
+		model.addAttribute("listPagingResponseDto", listPagingResponseDto);
+		return "/business/lecture/list";
+	}
+
+	@GetMapping("/completedList")
+	public String getCompletedLectureList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page, Model model) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = businessService.findCompletedLectureByUserId(type, keyword, page, user.getUserId());
+		model.addAttribute("listPagingResponseDto", listPagingResponseDto);
+		return "/business/lecture/list";
+	}
+
 	@GetMapping("/lectureDetail/{id}")
 	public String getLectureDetail(Model model, @PathVariable Integer id) {
 		List<BusinessLectureResponseDto> lecture = businessService.findByLectureSessionId(id);
@@ -134,29 +152,27 @@ public class BusinessController {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 
 		int result = businessService.insertLecture(dto, user.getUserId(), files, thumbnail);
-		
+
 		return "redirect:lectureDetail/" + result;
 	}
 
 	// lecture end
 
-	
-	
 	// reserve, payment start
-	
+
 	@GetMapping("/reserveDetail/{id}")
 	public String getReserveDetail(Model model, @PathVariable Integer id) {
 		BusinessReserveResponseDto reserve = businessService.findByReserveId(id);
 		model.addAttribute("reserve", reserve);
 		return "/business/reserve/reserveDetail";
 	}
-	
+
 	@PostMapping("/cancelResult")
 	public String cancelResult(@Param(value = "paymentId") Integer paymentId) {
 		businessService.updateRefundByPaymentId(paymentId);
 		return "business/reserve/cancelResult";
 	}
-	
+
 	// reserve, payment end
-	
+
 }

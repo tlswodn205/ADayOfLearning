@@ -61,19 +61,20 @@ let chatInit = {
         if (stomp == null) {
             return;
         }
-        let chatMessage = $('#chatMessage');
-        if (chatMessage.val() === '' || chatMessage.val() === null) {
+        let chatMessage = $('#chatMessage').val();
+        if (chatMessage === '' || chatMessage === null) {
             console.log('채팅 내용 없음');
             return;
         }
-
+		chatMessage = chatMessage.replace(/</gi, '&lt');
+		chatMessage = chatMessage.replace(/>/gi, '&gt');
         let sendData = {
             chatRoomId: $('#nowChatRoomId').val(),
             sendUserId: $('#userId').val(),
             sendUsername: $('#username').val(),
             receiveUserId: $('#nowUserId').val(),
             receiveUsername: $('#nowUsername').val(),
-            message: chatMessage.val(),
+            message: chatMessage,
         };
 
         $.ajax({
@@ -85,7 +86,7 @@ let chatInit = {
                 console.log('insert 성공: ', response);
                 sendData.createdAt = response;
                 stomp.send('/pub/chat/message', {}, JSON.stringify(sendData));
-                chatMessage.val('');
+                $('#chatMessage').val('');
             },
             error: function (error) {
                 console.log('insert 실패: ', error);

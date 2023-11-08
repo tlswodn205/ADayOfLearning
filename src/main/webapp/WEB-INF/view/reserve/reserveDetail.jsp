@@ -35,7 +35,9 @@
 				<div class="sectionBox">
 					<h2>예약 클래스</h2>
 					<div class="sectionBox-area">
-						<img alt="" src="https://picsum.photos/120/120">
+						<div class="imgContainer">
+							<img alt="썸네일" src="${reserve.img}">
+						</div>
 						<div class="classItem">
 							<h4>${reserve.title}</h4>
 							<p><fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${reserve.sessionDate}"/></p>
@@ -77,11 +79,11 @@
 					</div>
 					<div class="payItem">
 						<p>클래스 금액</p>
-						<p>${reserve.amount} 원</p>
+						<p><fmt:formatNumber value="${reserve.amount}" groupingUsed="true"/>원</p>
 					</div>
 					<div class="payItem sum">
 						<p>최종 결제 금액</p>
-						<p>${reserve.amount} 원</p>
+						<p><fmt:formatNumber value="${reserve.amount}" groupingUsed="true"/>원</p>
 					</div>
 					<c:if test="${reserve.state == '결제 완료'}">
 						<a href="/payment/cancelRequest/${reserve.paymentId}" class="btn_blue requestBtn">결제 취소</a>
