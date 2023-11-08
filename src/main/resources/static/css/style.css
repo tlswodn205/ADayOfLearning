@@ -67,6 +67,7 @@ header{
 	left: 0px;
 	right: 0px;
  	background-color: #eee;
+ 	z-index: 100;
 }
 
 header .headerWrap{

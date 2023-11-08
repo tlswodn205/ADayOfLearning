@@ -1,11 +1,13 @@
 package com.tencoding.ADayOfLearning.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,19 +21,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.SessionRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
-import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
-import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
+import com.tencoding.ADayOfLearning.handler.exception.UnMatchingException;
+import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.BusinessService;
 import com.tencoding.ADayOfLearning.service.ChatRoomService;
 import com.tencoding.ADayOfLearning.service.LectureOptionService;
 import com.tencoding.ADayOfLearning.service.LecturePhotoService;
+import com.tencoding.ADayOfLearning.service.LectureService;
 import com.tencoding.ADayOfLearning.service.UserService;
 import com.tencoding.ADayOfLearning.util.Define;
 
@@ -45,6 +48,8 @@ public class BusinessController {
 	UserService userService;
 	@Autowired
 	ChatRoomService chatRoomService;
+	@Autowired
+	LectureService lectureService;
 	@Autowired
 	LecturePhotoService lecturePhotoService;
 	@Autowired
@@ -134,29 +139,49 @@ public class BusinessController {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 
 		int result = businessService.insertLecture(dto, user.getUserId(), files, thumbnail);
-		
+
 		return "redirect:lectureDetail/" + result;
+	}
+
+	@GetMapping("/open/{id}")
+	public String getOpenSession(Model model, @PathVariable Integer id) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		Lecture lecture = lectureService.getLectureById(id);
+
+		if (user.getUserId() != lecture.getUserId()) {
+			throw new UnMatchingException("잘못된 접근입니다.", HttpStatus.FORBIDDEN);
+		}
+
+		model.addAttribute("lectureId", id);
+		model.addAttribute("lecture", lecture);
+
+		return "/business/lecture/open";
+	}
+
+	@PostMapping("/open")
+	public String postOpenSession(SessionRequestDto sessionRequestDto) throws ParseException {
+		businessService.insertSession(sessionRequestDto);
+
+		return "redirect:lectureDetail/" + sessionRequestDto.getLectureId();
 	}
 
 	// lecture end
 
-	
-	
 	// reserve, payment start
-	
+
 	@GetMapping("/reserveDetail/{id}")
 	public String getReserveDetail(Model model, @PathVariable Integer id) {
 		BusinessReserveResponseDto reserve = businessService.findByReserveId(id);
 		model.addAttribute("reserve", reserve);
 		return "/business/reserve/reserveDetail";
 	}
-	
+
 	@PostMapping("/cancelResult")
 	public String cancelResult(@Param(value = "paymentId") Integer paymentId) {
 		businessService.updateRefundByPaymentId(paymentId);
 		return "business/reserve/cancelResult";
 	}
-	
+
 	// reserve, payment end
-	
+
 }

@@ -3,19 +3,23 @@ package com.tencoding.ADayOfLearning.service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.SessionRequestDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
@@ -35,10 +39,11 @@ import com.tencoding.ADayOfLearning.repository.interfaces.ReserveRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.ReviewRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.UserRepository;
 import com.tencoding.ADayOfLearning.repository.model.Business;
-import com.tencoding.ADayOfLearning.repository.model.Payment;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LectureOption;
 import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
+import com.tencoding.ADayOfLearning.repository.model.LectureSession;
+import com.tencoding.ADayOfLearning.repository.model.Payment;
 import com.tencoding.ADayOfLearning.repository.model.User;
 
 @Service
@@ -138,12 +143,13 @@ public class BusinessService {
 	public BusinessReserveResponseDto findByReserveId(int reserveId) {
 		return businessRepository.findByReserveId(reserveId);
 	}
-	
-	public void updateRefundByPaymentId (int paymentId) {
+
+	public void updateRefundByPaymentId(int paymentId) {
 		Payment payment = paymentRepository.findByPaymentId(paymentId);
 		payment.setState("취소 완료");
 		paymentRepository.updateRefundByPaymentId(payment);
 	}
+
 	/**
 	 * 강의 등록
 	 * 
@@ -218,6 +224,21 @@ public class BusinessService {
 
 			lectureOptionRepository.insert(option);
 		}
+	}
+
+	public int insertSession(SessionRequestDto sessionRequestDto) throws ParseException {
+		String tempDate = sessionRequestDto.getSessionDate();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+		Date date = sdf.parse(tempDate);
+		Timestamp timestamp = new Timestamp(date.getTime());
+		
+		LectureSession lectureSession = LectureSession.builder().lectureId(sessionRequestDto.getLectureId()).sessionDate(timestamp).build();
+		
+		int result = lectureSessionRepository.insert(lectureSession);
+
+		return result;
 	}
 
 }

@@ -8,15 +8,11 @@
 	text-decoration: none;
 }
 
-#lectureList  .lectureListSearchArea {
+#lectureList .lectureListSearchArea {
 	display: flex;
 	width: 1200px;
 	margin: 0 auto;
 	padding-bottom: 0px;
-}
-
-#lectureList .lectureListSearchArea . {
-	
 }
 
 .lectureListRow {
@@ -270,9 +266,11 @@ td {
 	font-size: 15px;
 }
 
-/* ==================================================== */
-
-/*디테일 페이지*/
+/*
+	==========================
+	==== 강의 상세 페이지 ====
+	==========================
+*/
 
 #lectureDetail {
 	margin: 0 auto;
@@ -289,25 +287,25 @@ td {
 .detailColumn1 {
 	box-sizing: border-box;
 	width: 63%;
-	background-color: papayawhip;
-	padding: 16px 20px;
+	padding: 0 16px 20px 16px;
 }
 
 .detailMainPhoto {
 	box-sizing: border-box;
 	max-width: 100%;
 	height: fit-content;
-	background-color: indianred;
 	margin-bottom: 16px;
+
 }
 
 .detailMainPhoto>img {
 	max-width: 100%;
+	object-fit: cover;
+	border-radius: 10px;
 }
 
 .detailSubPhoto {
 	box-sizing: border-box;
-	background-color: indianred;
 	width: 100%;
 	height: 100px;
 	display: flex;
@@ -316,12 +314,31 @@ td {
 	padding: 4px 0;
 }
 
-.tempPhoto {
+.subPhoto {
 	box-sizing: border-box;
-	width: 20%;
-	height: 80%;
-	background-color: darkgreen;
-	margin: 2% 1%;
+	width: 120px;
+	/* 원하는 컨테이너 너비 */
+	height: 92px;
+	/* 원하는 컨테이너 높이 */
+	overflow: hidden;
+	cursor: pointer;
+	margin: 0 0.5%;
+}
+
+.subPhoto>img {
+	box-sizing: border-box;
+	border-radius: 5px;
+	object-fit: cover;
+	width: 100%;
+	/* 원하는 컨테이너 너비 */
+	height: 100%;
+	/* 원하는 컨테이너 높이 */
+}
+
+.subPhoto>.focus {
+	border: 3px solid #f5d042;
+	border-radius: 5px;
+
 }
 
 .detailColumn2 {
@@ -335,14 +352,20 @@ td {
 }
 
 .detailLectureTitle {
+	margin-top: 0;
 	font-size: 28px;
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
-	margin-top: 10px;
-	padding: 0 16px;
 }
 
+.detailReviewInfo {
+	text-align: right;
+	/* 텍스트 오른쪽 정렬 */
+}
 
+.detailReviewInfo>div {
+	display: inline-block;
+}
 
 .detailButtonSet {
 	margin: 0;
@@ -350,7 +373,12 @@ td {
 	height: fit-content;
 }
 
+.column2Container>div {
+	margin: 0;
+}
+
 /* ============디테일 달력========== */
+
 td {
 	width: 30px;
 	height: 20px;
@@ -358,11 +386,11 @@ td {
 
 .calendarDetail {
 	text-align: center;
-	margin: 20px auto;
+	margin: 8px auto;
 	height: 306px;
-	border: 1px solid #666666;
+	border: 1px solid #999999;
 	border-radius: 5px;
-	padding: 0 12px;
+	padding: 10px;
 }
 
 .calendarDetail>thead>tr:first-child>td {
@@ -374,9 +402,13 @@ td {
 	font-weight: 600;
 }
 
+.calendarDetail>thead>tr {
+	margin: 8px 0;
+}
+
 .calendarDetail>tbody>tr>td>p {
 	height: 35px;
-	width: 45px;
+	width: 43px;
 	border-radius: 35px;
 	transition-duration: 0.2s;
 	line-height: 35px;
@@ -397,7 +429,7 @@ td {
 }
 
 .futureDay {
-	background-color: #ffffff;
+	background-color: #FAFAFA;
 	cursor: pointer;
 }
 
@@ -418,78 +450,166 @@ td {
 .detailArea {
 	width: 100%;
 	box-sizing: border-box;
-	border: 1px solid #999999;
+	border-bottom: 1px solid #dddddd;
 	height: fit-content;
 }
 
 .detailInfo {
 	width: 100%;
-	border: 1px solid #dddddd;
-	height: 400px;
+	height: fit-content;
+	min-height: 400px;
+}
+
+.detailInfo.location {
+	margin-top: 20px;
+}
+
+.detailHead {
+	position: relative;
+	width: fit-content;
+	font-size: 24px;
+	font-weight: 900;
+	color: #000715;
+	padding: 25px 0;
+}
+
+.detailHeadBottomLine {
+	position: absolute;
+	bottom: 32px;
+	background-color: #f5d042;
+	width: 100%;
+	height: 8px;
+	z-index: -1;
+}
+
+.detailASet {
+	z-index: 90;
+	background-color: #ffffff;
+	width: 725px;
+	border-bottom: 1px solid #dddddd;
+
 }
 
 .detailASet>a {
 	display: inline-block;
 	width: fit-content;
 	height: fit-content;
-	padding: 6px;
+	padding: 6px 24px;
 	border: 1px solid #dddddd;
+	border-bottom: none;
 }
 
 .reserveArea {
 	display: none;
 	box-sizing: border-box;
-	width: 404px;
-	margin: 0 auto;
-	border: 1px solid #666666;
+	width: 100%;
+	margin: 8px auto;
+	border: 1px solid #999999;
 	border-radius: 5px;
 	padding: 6px;
 }
 
 .reserveList {
 	box-sizing: border-box;
-	border: 1px solid #666666;
+	border: 1px solid #999999;
 	border-radius: 5px;
-	height: 130px;
+	height: 150px;
 	display: flex;
 	padding: 3px;
 	justify-content: left;
+	
 }
 
 .reserveSession {
+	padding: 8px;
 	box-sizing: border-box;
-	width: 30%;
+	min-width: 35%;
 	height: 100%;
-	border: 1px solid #666666;
+	border: 1px solid #999999;
 	border-radius: 5px;
 	margin-right: 8px;
 }
 
+.noReserve {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	/* 수평 가운데 정렬 */
+	align-items: center;
+	/* 수직 가운데 정렬 */
+
+}
+
+.reserveSession.done {
+	background-color: #DDDDDD;
+}
+.reserveSessionState {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.reserveSessionDuration {
+	vertical-align: bottom;
+	/* 내부 요소를 수직 방향으로 하단 정렬 */
+}
+
+
 .paymentButtonSet {
-	width: 404px;
-	margin: 0 auto;
+	width: 100%;
+	margin: 8px auto 0 auto;
 }
 
 .paymentButtonSet>button {
-	width: 49.5%;
-	height: 30px;
-	border: 1px solid #666666;
+	width: calc(48% - 2px);
+	height: 36px;
+	border: 1px solid #999999;
+	box-sizing: border-box;
 	border-radius: 5px;
+	font-size: 16px;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.detailPrice {
+.lectureDetatilRight {
+	display: inline-block;
+	margin: 3px 0;
+}
+
+.fa-solid {
+	min-width: 14px;
+	text-align: center;
+}
+
+.lectureDetatilRight.price {
 	width: 100%;
+	font-size: 18px;
+	font-weight: 500;
 	text-align: right;
 }
 
-.enroll {}
+#inquiryBtn {
+	margin-right: 2%;
+	color: #333333;
+}
+
+#enroll {
+	margin-left: 2%;
+	background-color: #f5d042;
+	border-color: #f5d042;
+}
 
 .column2Container {
 	box-sizing: border-box;
 	width: 420px;
-	border: 1px solid #666666;
 	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 5px 8px 0px, rgba(0, 0, 0, 0.12) 0px 1px 14px 0px;
+	background-color: #FAFAFA;
+	padding: 16px;
 }
+
+
+
+
 
 
 /*
