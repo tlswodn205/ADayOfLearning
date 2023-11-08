@@ -59,7 +59,7 @@
 				<input type="hidden" id="certificationNumberCheck" value="인증번호 확인">
 			</div>
 			
-			<input type="hidden" id="resendNumber" class="emailCheck" value="인증번호 재전송"> 
+			<span id="resendNumber" class="emailCheck">인증번호 재전송</span>
 
 			<br> 
 			<div class="flexDiv">

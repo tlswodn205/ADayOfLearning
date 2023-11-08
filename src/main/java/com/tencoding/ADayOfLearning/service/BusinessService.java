@@ -194,7 +194,9 @@ public class BusinessService {
 			String sqlPath = "/images/lectureImages/";
 			// 파일 이름 : UUID 형식(128비트 길이의 고유 식별자)
 			String identifier = Integer.toString(registeredLectureId) + "_";
-			String fileName = identifier + UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes()) + ".jpg";
+
+        	String fileType = file.getContentType().substring(6);
+			String fileName = identifier + UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes()) + "."+ fileType;
 
 			// 서버 로컬폴더에 업로드
 			java.nio.file.Path path = Paths.get(uploadDir + fileName);

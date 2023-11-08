@@ -36,12 +36,25 @@
 				</li>
 			</ul>			
 			<ul class='topMenuLeft'>
-				<li>
-					<a class="fa-solid fa-comments" href="/chat/room"></a>
-				</li>
-				<li>
-					<a class="fa-solid fa-user" href="/user/signIn"></a>
-				</li>
+			
+	        <c:choose>
+	            <c:when test="${principal ne null}"> 
+					<li>
+						<a class="fa-solid fa-comments" href="/chat/room"></a>
+					</li>
+					<li>
+						<a class="fa-solid fa-user" href="/user/userMyPage"></a>
+					</li>
+					<li>
+						<a class="fa-solid fa-right-from-bracket" href="/user/logout"></a>
+					</li>
+				</c:when>
+				<c:otherwise> 
+					<li>
+						<a class="fa-solid fa-right-to-bracket" href="/user/signIn"></a>
+					</li>
+				</c:otherwise>
+			</c:choose>
 			</ul>
 		</div>
 	</header>
