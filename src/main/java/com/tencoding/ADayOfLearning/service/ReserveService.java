@@ -4,14 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.tencoding.ADayOfLearning.dto.ReserveListPageResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ReserveListPageResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.ReserveRepository;
 import com.tencoding.ADayOfLearning.repository.model.Reserve;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ReserveService {
 
@@ -22,18 +26,27 @@ public class ReserveService {
 		return reserveRepository.existReserveByUserId(userId, lectureSessionId);
 	}
 	
+	@Transactional
 	public int insertReserve(int lectureSessionId, int userId) {
-		int result = 0;
-		if (reserveRepository.existReserveByUserId(userId, lectureSessionId) == 0) {
-			Reserve reserveEntity = Reserve.builder()
-					.lectureSessionId(lectureSessionId)
-					.userId(userId)
-					.build();
-			reserveRepository.insert(reserveEntity);
-			result = reserveEntity.getReserveId();
-		}
+		Reserve reserveEntity = Reserve.builder()
+				.lectureSessionId(lectureSessionId)
+				.userId(userId)
+				.build();
+		reserveRepository.insert(reserveEntity);
+		return reserveEntity.getReserveId();
 		
-		return result;
+//		현재 예약된 내역이 없을 때 예약 가능
+//		int result = 0;
+//		if (reserveRepository.existReserveByUserId(userId, lectureSessionId) == 0) {
+//			Reserve reserveEntity = Reserve.builder()
+//					.lectureSessionId(lectureSessionId)
+//					.userId(userId)
+//					.build();
+//			reserveRepository.insert(reserveEntity);
+//			result = reserveEntity.getReserveId();
+//		}
+//		
+//		return result;
 	}
 	
 	public ReserveListPageResponseDto<ReserveListResponseDto> findReserveByUserId(String type, String keyword,Integer page, String status, int userId) { 

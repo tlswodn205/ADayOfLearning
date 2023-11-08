@@ -1,8 +1,6 @@
-package com.tencoding.ADayOfLearning.dto;
+package com.tencoding.ADayOfLearning.dto.response;
 
 import java.util.List;
-
-import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

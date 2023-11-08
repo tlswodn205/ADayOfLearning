@@ -14,9 +14,10 @@
 			<div class="search">
 				<select id="type" name="type" class="searchSelect" aria-label="Default select example">
 					<option ${reserveList.type == 'title' ? 'selected':''}	value="title">클래스명</option>
-					<option ${reserveList.type == 'content' ? 'selected':''} value="content">판매자명</option>
+					<%-- <option ${reserveList.type == 'content' ? 'selected':''} value="content">판매자명</option> --%>
 				</select>
 				<input type="text" id="keyword" value="${reserveList.keyword}" placeholder="검색">
+				<button type="button" id="searchBtn" class="searchBtn">검색</button>
 			</div>
 
 			<c:choose>

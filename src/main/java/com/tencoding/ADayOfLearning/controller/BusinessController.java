@@ -168,7 +168,8 @@ public class BusinessController {
 	}
 
 	@PostMapping("/cancelResult")
-	public String cancelResult(@Param(value = "paymentId") Integer paymentId) {
+	public String cancelResult(@Param(value = "paymentId") Integer paymentId,@Param(value = "reserveId") Integer reserveId, Model model) {
+		model.addAttribute("reserveId", reserveId);
 		businessService.updateRefundByPaymentId(paymentId);
 		return "business/reserve/cancelResult";
 	}

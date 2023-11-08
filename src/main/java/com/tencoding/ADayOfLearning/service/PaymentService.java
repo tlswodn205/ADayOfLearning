@@ -20,10 +20,10 @@ public class PaymentService {
 	
 	
 	@Transactional
-	public int insertPayment(PaymentRequestDto paymentRequestDto, int reserveId, String payMethod, String tid) {
+	public int insertPayment(String Amt, int reserveId, String payMethod, String tid) {
 		Payment payment = Payment.builder()
 				.reserveId(reserveId)
-				.amount(Integer.parseInt(paymentRequestDto.getPrice()))
+				.amount(Integer.parseInt(Amt))
 				.paymentKind(payMethod)
 				.tid(tid)
 				.state("결제 완료")
@@ -38,6 +38,7 @@ public class PaymentService {
 		return paymentResponseDto;
 	}
 	
+	@Transactional
 	public void updateRefundInfoByPaymentId(CancelRequestDto cancelRequestDto) {
 		Payment payment = paymentRepository.findByPaymentId(cancelRequestDto.getPaymentId());
 		payment.setState("취소 요청");

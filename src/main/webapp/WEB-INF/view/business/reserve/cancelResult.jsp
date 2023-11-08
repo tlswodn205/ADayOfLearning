@@ -99,8 +99,14 @@ if("9999".equals(resultJsonStr)){
 <head>
 <title>NICEPAY CANCEL RESULT(UTF-8)</title>
 <meta charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		window.location.href = "/business/reserveDetail/" + ${reserveId};
+	})
+</script>
 </head>
-<body> 
+<body style="display: none;"> 
 	<table>												  
 		<tr>
 			<th>취소 결과 내용</th>
