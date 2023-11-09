@@ -1,5 +1,6 @@
 package com.tencoding.ADayOfLearning.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatMessageResponsoDto;
@@ -46,13 +49,17 @@ public class ChatController{
 	@Autowired
 	HttpSession session;
 	
+	@Autowired
+	ObjectMapper objectMapper;
+	
 	/**
 	 * 채팅방 목록 리스트 조회
 	 * @param model
 	 * @return
+	 * @throws JsonProcessingException 
 	 */
 	@GetMapping("/room")
-	public String chatRoomList(NewChatRequestDto newChatRequestDto, Model model) {
+	public String chatRoomList(NewChatRequestDto newChatRequestDto, Model model) throws JsonProcessingException {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		if(principal == null) {
 			return "redirect:/user/signIn";
@@ -75,7 +82,8 @@ public class ChatController{
 		}
 		
 		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(principal.getUserId());
-		model.addAttribute("chatRoomList", chatRoomList);
+		model.addAttribute("chatRoomList", objectMapper.writeValueAsString(chatRoomList));
+		
 		return "chat/chatRoom";
 	}
 	
@@ -102,7 +110,8 @@ public class ChatController{
     	log.info("/insert - {}", chatMessageRequestDto);
     	
     	// user1, user2가 chatroomuser에 있는지 확인 후 insert
-    	String createdAt = chatService.insertChat(chatMessageRequestDto);
+    	Map<String, String> createdAt = new HashMap<>();
+    	createdAt.put("createdAt", chatService.insertChat(chatMessageRequestDto));
     	
     	return ResponseEntity.ok().body(createdAt);
 	}
