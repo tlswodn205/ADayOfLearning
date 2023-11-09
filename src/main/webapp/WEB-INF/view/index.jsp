@@ -23,10 +23,10 @@
 					<div class="swiper-pagination"></div>	
 				</div>
 			</div>
+			<!-- 메인뷰 끝 -->
 			<br>
+			<!-- 새로운 클래스 시작 -->
 			<div class="lectureListContainer">
-				<!-- 메인뷰 끝 -->
-				<!-- 새로운 클래스 시작 -->
 				<div class="lectureListTitle">새로운 클래스</div>
 				<div class="lectureList">
 					<div class="swiper lectureSwiper">

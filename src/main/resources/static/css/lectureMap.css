@@ -1,77 +1,28 @@
-#index {
-	width: 1200px;
-	min-height: 600px;
-	height: 100%;
-	padding: 0px;
+.map{
+	width: 700px;
+	height: 500px;
 }
 
-#index .indexContainer {
-	display: flex;
-	flex-direction: column;
-}
-
-#index .lectureListContainer .lectureListTitle{
-	font-size: 32px;
-	font-weight: bold;
-}
-
-#index .lectureListContainer .lectureList{
-	display: flex;
-	width: 1200px;
-	height: fit-content;
-	justify-content: left;
-}
-
-#index .swiper{
-	width: 1200px;
-}
-
-#index .mainBanner{
-	width: 1200px;
-}
-
-#index .bannerSwiper .swiper-slide{
-	height: auto;
-	display: flex;
-	text-align: center;
-	justify-content: center;
-}
-
-#index .indexContainer {
-	padding-top: 30px;
-	display: flex;
-	flex-direction: column;
-}
-
-.lectureListContainer .lectureListTitle{
-	font-size: 32px;
-	font-weight: bold;
-}
-
-.lectureListContainer .lectureList{
-	display: flex;
-	width: 1200px;
-	height: fit-content;
-	justify-content: left;
-}
-
-.lectureListContainer .lectureList .lectureItem {
+.lectureItem {
 	position: relative;
 	box-sizing: border-box;
 	background-color: #fefefe;
 	border-radius: 6px;
+	margin: 0;
 }
 
-.lectureListContainer .lectureList .lectureItemContainer {
+.lectureItemContainer {
 	position: relative;
 	box-sizing: border-box;
+	width: 276px;
 	height: 330px;
 	border-radius: 5px;
 	margin-bottom: 30px;
 	border: 0.5px solid #dddddd;
+	margin: 0;
 }
 
-.lectureListContainer .lectureList .lectureItemPictureArea {
+.lectureItemPictureArea {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -81,7 +32,7 @@
 	height: 200px;
 }
 
-.lectureListContainer .lectureList .lectureItemPicture {
+.lectureItemPicture {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -94,7 +45,7 @@
 	z-index: 0;
 }
 
-.lectureListContainer .lectureList .lectureItemAddress {
+.lectureItemAddress {
 	position: absolute;
 	bottom: 8px;
 	left: 8px;
@@ -110,7 +61,7 @@
 	border-radius: 5px;
 }
 
-.lectureListContainer .lectureList .lectureItemCategory {
+.lectureItemCategory {
 	position: absolute;
 	box-sizing: border-box;
 	top: 208px;
@@ -125,7 +76,7 @@
 	color: #666666;
 }
 
-.lectureListContainer .lectureList .lectureItemTitle {
+.lectureItemTitle {
 	position: absolute;
 	box-sizing: border-box;
 	top: 242px;
@@ -137,7 +88,7 @@
 	color: #333333;
 }
 
-.lectureListContainer .lectureList .lectureItemProvider {
+.lectureItemProvider {
 	position: absolute;
 	bottom: 8px;
 	left: 8px;
@@ -145,7 +96,7 @@
 	color: #333333;
 }
 
-.lectureListContainer .lectureList .lectureItemPrice {
+.lectureItemPrice {
 	position: absolute;
 	bottom: 8px;
 	right: 8px;
