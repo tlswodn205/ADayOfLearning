@@ -4,13 +4,8 @@
 }
 
 .lectureItem {
-	position: relative;
-	box-sizing: border-box;
-	background-color: #fefefe;
-	border-radius: 6px;
-	margin: 0;
+	display: contents;
 }
-
 .lectureItemContainer {
 	position: relative;
 	box-sizing: border-box;

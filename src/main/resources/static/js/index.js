@@ -1,9 +1,10 @@
 let indexInit = {
 	init: function() {
-		$(document).ready(function() {
-			indexInit.bannerSwiperInit();
-			indexInit.lectureSwiperInit();
-		})
+		$(document).ready(() => {
+			this.bannerSwiperInit();
+			this.lectureSwiperInit();
+			this.lectureListInit();
+		});
 	},
 	bannerSwiperInit: function() {
 		let bannerSwiper = new Swiper('.bannerSwiper', {
@@ -27,8 +28,14 @@ let indexInit = {
 				disableOnInteraction: false,
 			},
 		});
+	},
+	lectureListInit: function() {
+		console.log(lectureList);
+		lectureList.forEach(function (lecture, index) {
+			let swiperSlide = $('<div>', { class: 'swiper-slide' }).append(lectureContainer(lecture));
+			$('#swiper-wrapper').append(swiperSlide);
+		});
 	}
-
 }
 
 indexInit.init();

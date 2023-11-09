@@ -15,6 +15,7 @@
 </main>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af13f32c842ba98c342a15aeef40f5e4&libraries=services"></script>
 <script src="/js/lectureMap.js"></script>
+<script src="/js/lectureItem.js"></script>
 <script type="text/javascript">
     let lastLecture = ${lastLecture};
 </script>
