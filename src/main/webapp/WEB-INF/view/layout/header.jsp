@@ -47,7 +47,7 @@
 						<a class="fa-solid fa-user" href="/user/userMyPage"></a>
 					</li>
 					<li>
-						<a class="fa-solid fa-right-from-bracket" href="/user/logout"></a>
+						<a class="fa-solid fa-right-from-bracket" href="/user/signOut"></a>
 					</li>
 				</c:when>
 				<c:otherwise> 
