@@ -6,7 +6,6 @@
 }
 
 #index .indexContainer {
-	padding-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -24,12 +23,11 @@
 }
 
 #index .swiper{
-	width: 1100px;
-	min-height: 200px;
+	width: 1200px;
 }
 
 #index .mainBanner{
-	max-width: 100%;
+	width: 1200px;
 }
 
 #index .bannerSwiper .swiper-slide{

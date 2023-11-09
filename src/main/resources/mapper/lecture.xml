@@ -70,11 +70,12 @@
 	
 <!-- !!!날짜와 이미지가 안뿌려지는 테스트용!!! -->
 	<select id="findBySearch" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username
+		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username, (SELECT img FROM tb_lecture_photo WHERE is_thumbnail=1 AND lecture_id= l.lecture_id) as img
 		FROM tb_lecture l 
 		JOIN tb_category c ON l.category_id = c.category_id
 		JOIN tb_user u ON l.user_id = u.user_id
         WHERE l.state = 1
+        ORDER BY l.created_at DESC
         <if test="title != null">
 			AND REPLACE(l.title, ' ', '') LIKE '%${title}%'
 		</if>
@@ -89,12 +90,13 @@
 		</if>	
          <if test="location != null">
 			AND address LIKE '${location}%'
-		</if>	
+			</if>	
+			LIMIT #{startNum},12
 	</select>
 
 	<!-- index에서 사용할 List start-->
 	<select id="findNewLecture" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT lecture_id, title, category_name, price, address, username
+		SELECT lecture_id, title, category_name, price, address, username, (SELECT img FROM tb_lecture_photo WHERE is_thumbnail=1 AND lecture_id= a.lecture_id) as img
 		  FROM ( SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username
 					   , RANK() OVER (ORDER BY l.created_at DESC) AS order_number
 					FROM tb_lecture l

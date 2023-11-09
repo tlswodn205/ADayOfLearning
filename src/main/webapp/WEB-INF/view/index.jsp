@@ -42,7 +42,7 @@
 											<div class="lectureItemCategory">${lecture.categoryName}</div>
 											<div class="lectureItemProvider">${lecture.username}</div>
 											<div class="lectureItemTitle">${lecture.title}</div>
-											<div class="lectureItemPrice">${lecture.price}원</div>
+											<div class="lectureItemPrice"><fmt><fmt:formatNumber type="number" maxFractionDigits="3" value="${lecture.price}" />원</div>
 										</div>
 									</a>
 								</div>

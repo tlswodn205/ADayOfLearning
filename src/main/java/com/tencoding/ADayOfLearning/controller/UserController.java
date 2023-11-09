@@ -286,4 +286,11 @@ public class UserController {
 		return "/";
 	}
 	
+
+	@GetMapping("/signOut")
+	public String signOut() {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 }
