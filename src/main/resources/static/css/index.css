@@ -5,13 +5,29 @@
 	padding: 0px;
 }
 
+#index .indexContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+#index .lectureListContainer .lectureListTitle{
+	font-size: 32px;
+	font-weight: bold;
+}
+
+#index .lectureListContainer .lectureList{
+	display: flex;
+	width: 1200px;
+	height: fit-content;
+	justify-content: left;
+}
+
 #index .swiper{
-	width: 1100px;
-	min-height: 200px;
+	width: 1200px;
 }
 
 #index .mainBanner{
-	max-width: 100%;
+	width: 1200px;
 }
 
 #index .bannerSwiper .swiper-slide{

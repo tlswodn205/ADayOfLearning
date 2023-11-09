@@ -187,7 +187,6 @@ let listInit = {
 		
 		let column = $('.column.ca');
 		let ele = $('<div>').text("전체").addClass('categoryElement');
-		console.log(column);
 		column.append(ele);
 	},
 
@@ -199,7 +198,6 @@ let listInit = {
 				data.forEach((item) => {
 					let column = $('.column.ca');
 					let ele = $('<div>').text(item).addClass('categoryElement');
-					console.log(column);
 					column.append(ele);
 				})
 			);

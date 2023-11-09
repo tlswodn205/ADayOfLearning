@@ -81,7 +81,7 @@ public class LectureController {
 		}
 
 		ListSearchRequestDto listSearchRequestDto = new ListSearchRequestDto().builder().minPrice(min_price)
-				.maxPrice(max_price).categoryName(category).title(title).location(location).build();
+				.maxPrice(max_price).categoryName(category).title(title).location(location).startNum((page-1)*12).build();
 
 		List<LectureListItemResponseDto> list = lectureService.getLectureListBySearch(listSearchRequestDto);
 
