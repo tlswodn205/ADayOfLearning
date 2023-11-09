@@ -93,25 +93,6 @@ function addressSearch(lecture) {
 	});
 }
 
-function lectureContainer(lecture) {
-	let lectureContainer =
-	$('<div>').append(
-		$('<a>', { class: 'lectureItem', href: "/lecture/detail?id=" + lecture.lectureId}).append(
-			$('<div>', { class: 'lectureItemContainer' }).append(
-				$('<div>', { class: 'lectureItemPictureArea' }).append(
-					$('<img>', { class: 'lectureItemPicture' }),
-					$('<div>', { class: 'lectureItemAddress', text: lecture.address })
-				),
-				$('<div>', { class: 'lectureItemCategory', text: lecture.categoryName}),
-				$('<div>', { class: 'lectureItemProvider', text: lecture.username}),
-				$('<div>', { class: 'lectureItemTitle', text: lecture.title}),
-				$('<div>', { class: 'lectureItemPrice', text: lecture.price + '원'}),
-			)
-		)
-	)
-	return lectureContainer;
-}
-
 let map;
 let infowindows = [];
 lectureMapInit.init();

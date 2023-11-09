@@ -23,10 +23,10 @@ public class IndexController {
 	ObjectMapper objectMapper;
 	
 	@GetMapping({"", "index"})
-	public String index(Model model) {
+	public String index(Model model) throws JsonProcessingException {
 		List<LectureListItemResponseDto> newLectureList = lectureService.getNewLecture();
 		
-		model.addAttribute("newLectures", newLectureList);
+		model.addAttribute("newLectures", objectMapper.writeValueAsString(newLectureList));
 		return "index";
 	}
 	

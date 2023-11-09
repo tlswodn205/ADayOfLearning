@@ -39,13 +39,9 @@
 	justify-content: left;
 }
 
-.lectureListContainer .lectureList .lectureItem {
-	position: relative;
-	box-sizing: border-box;
-	background-color: #fefefe;
-	border-radius: 6px;
+.lectureListContainer .lectureList .lectureContainer {
+	margin-top: 10px;
 }
-
 .lectureListContainer .lectureList .lectureItemContainer {
 	position: relative;
 	box-sizing: border-box;
@@ -53,6 +49,13 @@
 	border-radius: 5px;
 	margin-bottom: 30px;
 	border: 0.5px solid #dddddd;
+	background-color: #fefefe;
+}
+
+.lectureListContainer .lectureList .lectureItem {
+	display: contents;
+	position: relative;
+	box-sizing: border-box;
 }
 
 .lectureListContainer .lectureList .lectureItemPictureArea {
