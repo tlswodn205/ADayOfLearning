@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
+<link rel="stylesheet" href="/css/lectureMap.css">
 <main>
 	<div id="lectureMapPage" class="mainColumn">
 		<div class="areaMapContainer">
 			지도
-			<div class="map" id="map" style="width: 500px; height: 500px">
+			<div class="map" id="map">
 				
 			</div>
 			<div id="result"></div>

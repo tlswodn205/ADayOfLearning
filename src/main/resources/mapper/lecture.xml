@@ -120,7 +120,7 @@
 	<select id="findLastLecture" resultType = "com.tencoding.ADayOfLearning.dto.response.LastLectureResponseDto">
 		SELECT lecture_id, latitude, longitude
 		  FROM ( SELECT lecture_id, latitude, longitude
-					  , RANK() OVER (ORDER BY created_at DESC) AS order_number
+					  , RANK() OVER (ORDER BY lecture_id DESC) AS order_number
 				   FROM tb_lecture 
 				  WHERE state = 1 ) AS a
 		 WHERE order_number = 1;

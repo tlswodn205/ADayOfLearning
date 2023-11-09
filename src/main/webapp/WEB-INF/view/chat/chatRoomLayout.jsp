@@ -2,7 +2,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="/js/chatRoom.js"></script>
 <link rel="stylesheet" href="/css/chatRoom.css">
 <main>
 	<div id="chat">
@@ -14,27 +13,7 @@
 				<hr>
 				<input type="hidden" id="username" value="${principal.username}">
 				<input type="hidden" id="userId" value="${principal.userId}">
-				<div class="chatRoomList" id="chatRoomList">
-				<c:forEach var="chatRoom" items="${chatRoomList}">
-					<div class="chatRoomContainer">
-						<input type="hidden" id="chatRoomId" value="${chatRoom.chatRoomId}">
-						<input type="hidden" id="chatUserId" value="${chatRoom.userId}">
-						<input type="hidden" id="chatUsername" value="${chatRoom.username}">
-						<div class="chatRoom" onclick="chatRoom(this)">
-							<a class="chatTitle">${chatRoom.username}</a>
-							<c:choose>
-								<c:when test="${chatRoom.viewCount > 0}">
-									<span class="newMessage" id="newMessage">${chatRoom.viewCount}</span>
-								</c:when>
-								<c:otherwise>
-									<span class="newMessage" id="newMessage" style="display : none">${chatRoom.viewCount}</span>
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<a class="chatLeave" id="chatLeave" onclick="chatLeave(this)">나가기</a>
-					</div>
-				</c:forEach>
-				</div>
+				<div class="chatRoomList" id="chatRoomList"></div>
 			</div>
 			
 			<div class="partition"></div>
@@ -56,3 +35,7 @@
 		</div>
 	</div>
 </main>
+<script>
+	let chatRoomList = ${chatRoomList};
+</script>
+<script src="/js/chatRoom.js"></script>

@@ -128,6 +128,8 @@
 <script type="text/javascript">
     let lectureData = ${lecture};
     let photoList = ${lecturePhotos};
+    
+    console.log(photoList);
     let reviewList = ${reviews};
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
