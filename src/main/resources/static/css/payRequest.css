@@ -3,13 +3,13 @@ form {
 }
 
 #payRequest {
-	width: 1200px;
+	width: 1080px;
 }
 
 #payRequest .formContent {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 50px;
+	margin-top: 40px;
 }
 
 #payRequest .contentLeft {
@@ -81,35 +81,69 @@ form {
 	margin-top: 0;
 }
 
-#payRequest .btn {
-	margin: 21px 0;
-}
+/*======================= 결제하기 버튼 start =======================*/
 
 #payRequest .requestBtn {
-	background-color: #ffd3d5;
-	padding: 10px;
-	border-radius: 7px;
+	background-color: #f5d04295;
+	border-radius: 13px;
 	display: block;
 	text-align: center;
 	letter-spacing: 15px;
 	font-weight: 600;
+	font-size: 15px;
+	color: #fff;
+	padding: 15px;
 }
+
+#payRequest .requestBtn:hover {
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
+}
+
+/*======================= 결제하기 버튼 end =======================*/
 
 #payRequest input[type="text"] {
     border: none;
     font-size: 16px;
+    padding: 0;
 }
 
 #payRequest input[type="text"]:focus {
     outline: none;
 }
 
+#payRequest .amount input {
+	text-align: end;
+}
+
+/*======================= 예약 클래스 정보 start =======================*/
 #payRequest .reserveItem {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 }
 
-#payRequest .amount input {
-	text-align: end;
+#payRequest .reserveItem p {
+	margin: 0;
 }
+
+#payRequest .reserveItem .payRequsetTitle {
+	font-weight: bold;
+	font-size: 17px;
+}
+/*======================= 예약 클래스 정보 end =======================*/
+
+
+/*======================= 확인 사항 start =======================*/
+#payRequest .note {
+	border: 1px solid #d3d3d3;
+	border-radius: 12px;
+	padding: 5px 20px;
+}
+
+#payRequest .note strong {
+	font-size: 17px;
+}
+/*======================= 확인 사항 end =======================*/
+

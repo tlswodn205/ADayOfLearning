@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/business/layout/header.jsp"%>
-<link rel="stylesheet" href="/css/business/lectureList.css">
 
 <main>
 	<div class="mainTop">
 		<div class="title">강의 관리</div>
 	</div>
 	<div id="lectureList" class="mainColumn">
-
-		<div class="lectureTable">
+		<div class="ListColumn">
 			<table>
 				<thead>
 					<tr>

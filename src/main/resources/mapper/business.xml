@@ -301,4 +301,73 @@
 		WHERE b.business_id = #{businessId} AND u.identity = 'business'
 	</select>
 	
+	<select id="monthlySales" resultType="com.tencoding.ADayOfLearning.dto.response.BusinessSalesResponseDto">
+		WITH all_months AS (
+			SELECT CONCAT(YEAR(NOW()), '-', LPAD(months.m, 2, '0')) AS month
+			  FROM (SELECT 1 AS m UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12) AS months
+		)
+		SELECT a.month AS period,
+			   COALESCE(SUM(pm.amount), 0) AS period_total
+		  FROM all_months a
+		  LEFT JOIN (SELECT p.payment_date, p.amount, p.state, ls.session_date
+					  FROM tb_payment p
+					  JOIN tb_reserve r ON p.reserve_id = r.reserve_id
+					  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
+					  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+					 WHERE l.user_id = #{userId}) AS pm ON DATE_FORMAT(pm.session_date, "%Y-%m") = a.month AND pm.state = "결제 완료"
+		 GROUP BY a.period
+		 ORDER BY a.period;
+	</select>
+	
+	<select id="sevenDaysSales" resultType = "com.tencoding.ADayOfLearning.dto.response.BusinessSalesResponseDto">
+		WITH seven_days AS (
+		    SELECT CURDATE() - INTERVAL days.num DAY AS day
+		    FROM (SELECT 0 AS num UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6) AS days
+		)
+		SELECT a.day AS period,
+		       COALESCE(SUM(pm.amount), 0) AS period_total
+		  FROM seven_days a
+		  LEFT JOIN (SELECT p.payment_date, p.amount, p.state, ls.session_date
+					  FROM tb_payment p
+					  JOIN tb_reserve r ON p.reserve_id = r.reserve_id
+					  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
+					  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+					 WHERE l.user_id = #{userId}) AS pm ON DATE_FORMAT(pm.session_date, "%Y-%m-%d") = a.day AND pm.state = "결제 완료"
+		 GROUP BY a.period
+		 ORDER BY a.period;
+	</select>
+	
+	<select id="monthlySalesTotal" resultType = "java.lang.Integer">
+		SELECT sum(p.amount) AS total
+		  FROM tb_payment p
+		  JOIN tb_reserve r ON p.reserve_id = r.reserve_id
+		  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
+		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+		 WHERE l.user_id = #{userId}
+		   AND DATE_FORMAT(ls.session_date, "%Y") = YEAR(NOW())
+		   AND p.state = "결제 완료";
+	</select>
+	
+	<select id="sevenDaysSalesTotal" resultType = "java.lang.Integer">
+		SELECT sum(p.amount) AS total
+		  FROM tb_payment p
+		  JOIN tb_reserve r ON p.reserve_id = r.reserve_id
+		  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
+		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+		 WHERE l.user_id = #{userId}
+		   AND DATE(ls.session_date) BETWEEN CURDATE()-6 AND CURDATE()
+		   AND p.state = "결제 완료";
+	</select>
+	
+	<select id="lastMonthSalesTotal" resultType = "java.lang.Integer">
+		SELECT SUM(p.amount) AS total
+		  FROM tb_payment p
+		  JOIN tb_reserve r ON p.reserve_id = r.reserve_id
+		  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
+		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+		 WHERE l.user_id = #{userId}
+		   AND DATE_FORMAT(ls.session_date, "%Y-%m") = DATE_FORMAT((CURDATE() - INTERVAL 1 MONTH), "%Y-%m")
+		   AND p.state = "결제 완료";
+	</select>
+	
 </mapper>

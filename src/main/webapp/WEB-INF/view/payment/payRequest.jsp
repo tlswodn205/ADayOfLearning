@@ -78,6 +78,10 @@
 			<form name="payForm" method="post" action="payResult">
 				<div class="formContent">
 					<div class="contentLeft">
+						<div class="sectionBox note">
+							<p><strong>예약하려는 클래스의 정보를 확인해주세요.</strong></p>
+							<p>클래스 제목, 위치, 시간이 올바른지 확인하십시오.</p>
+						</div>
 						<div class="sectionBox">
 							<h2>예약 정보</h2>
 							<div class="sectionBox-area">
@@ -88,6 +92,7 @@
 									<!-- 클래스명(결제 상품명) -->
 									<input type="hidden" name="lectureSessionId" value="${session.lectureSessionId}">
 									<input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lecture.title}">
+									<p>${lecture.address} ${lecture.addressDetail}</p>
 									<p><fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${session.sessionDate}"/></p>
 									<%-- <input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lectureData.title}"> --%>
 									<!-- <p id="sessionDate"></p> -->

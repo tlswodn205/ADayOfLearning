@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -29,6 +30,11 @@ import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessSalesResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
+import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
@@ -231,10 +237,40 @@ public class BusinessController {
 	}
 
 	@PostMapping("/cancelResult")
-	public String cancelResult(@Param(value = "paymentId") Integer paymentId,@Param(value = "reserveId") Integer reserveId, Model model) {
+	public String postCancelResult(@Param(value = "paymentId") Integer paymentId,@Param(value = "reserveId") Integer reserveId, Model model) {
 		model.addAttribute("reserveId", reserveId);
 		businessService.updateRefundByPaymentId(paymentId);
 		return "business/reserve/cancelResult";
+	}
+	
+	@GetMapping("/salesStatus")
+	public String getPaymentStatus(Model model) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		if (user == null) {
+			return "redirect:/user/signIn";
+		}
+		
+		int monthlyTotal = businessService.getMonthlySalesTotal(user.getUserId());
+		int sevenDaysTotal = businessService.getPastSevenDaysSalesTotal(user.getUserId());
+		int lastMonthTotal = businessService.getLastMonthSalesTotal(user.getUserId());
+		model.addAttribute("monthlyTotal", monthlyTotal);
+		model.addAttribute("sevenDaysTotal", sevenDaysTotal);
+		model.addAttribute("lastMonthTotal", lastMonthTotal);
+		
+		
+		return "business/payment/salesStatus";
+	}
+	
+	@GetMapping("/monthly-data")
+    public ResponseEntity<?> getMonthlySales() {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		return ResponseEntity.ok(businessService.getMonthlySales(user.getUserId()));
+    }
+	
+	@GetMapping("/daily-data")
+	public ResponseEntity<?> getPastSevenDaysSales() {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		return ResponseEntity.ok(businessService.getPastSevenDaysSales(user.getUserId()));
 	}
 
 	// reserve, payment end
