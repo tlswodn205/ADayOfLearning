@@ -38,7 +38,12 @@
 			
 			<div class="wideDiv">
 				<i class="fa-solid fa-phone"></i>
-				<input type="number" id="businessNumber" name="businessNumber" placeholder="사업장번호" value="">
+				<div class="telbox">
+					<input type="hidden" id="businessNumber" name="businessNumber" placeholder="사업장번호" value=""> 
+					<input type="number" class="tel" id="tel1"> - 
+					<input type="number" class="tel" id="tel2"> - 
+					<input type="number" class="tel" id="tel3"> 
+				</div>
 			</div>
 			<br>
 			
@@ -92,10 +97,16 @@ let BusinessRequest = {
 		let businessName = $("#businessName").val();
 		let CEOname = $("#CEOname").val();
 		let businessAddress = $("#businessAddress").val();
-		let businessNumber = $("#businessNumber").val();
 		let businessRegistrationNumber = $("#businessRegistrationNumber").val();
 		let businessRegistration = $("#businessRegistration").val();
-	
+
+    	let tel1 = $('#tel1').val();
+    	let tel2 = $('#tel2').val();
+    	let tel3 = $('#tel3').val();
+
+    	let businessNumber = tel1+ "-"+tel2+'-'+tel3;
+    	$("#businessNumber").val(businessNumber);
+    	
 		if(!businessName){
 			alert("상호명을 입력해주세요.");
 			return false;
@@ -110,11 +121,26 @@ let BusinessRequest = {
 			alert("주소를 입력해주세요.");
 			return false;
 		}
-	
-		if(!businessNumber){
-			alert("사업장 번호를 입력해주세요.");
-			return false;
+
+		if(tel1.toString().length==0 || tel2.toString().length==0 || tel3.toString().length==0){
+    		alert("사업장 전화번호를 입력해주세요.");
+    		return false;
 		}
+    	
+    	if(!(tel1.toString().length==3)){
+    		alert("사업장 전화번호를 다시 입력해주세요.");
+    		return false;
+    	}
+
+    	if(!(tel2.toString().length==3 || tel2.toString().length==4)){
+    		alert("사업장 전화번호를 다시 입력해주세요.");
+    		return false;
+    	}
+
+    	if(!(tel3.toString().length==4)){
+    		alert("사업장 전화번호를 다시 입력해주세요.");
+    		return false;
+    	}
 		
 		if(!businessRegistrationNumber){
 			alert("사업자 등록 번호를 입력해주세요.");

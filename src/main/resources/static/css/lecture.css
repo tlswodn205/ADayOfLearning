@@ -298,13 +298,13 @@ td {
 	box-sizing: border-box;
 	top: 208px;
 	left: 8px;
-	border: 1px solid #ffd3d5;
+	border: 1px solid #FEE500;
 	border-radius: 5px;
 	width: fit-content;
 	height: fit-content;
 	padding: 2px 14px;
 	font-size: 14px;
-	background-color: #fff1f2;
+	background-color: #FEE50090;
 	color: #666666;
 }
 
@@ -560,6 +560,7 @@ td {
 
 .detailInfo.location {
 	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .detailHead {
@@ -732,6 +733,8 @@ td {
 }
 
 #lectureDetail .detailInfo.review .reviewUser {
+	font-weight: 700;
+	font-size: 19px;
 	padding-left: 5px;
 	padding-right: 10px;
 }
@@ -750,11 +753,14 @@ td {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	margin-bottom: 20px;
 }
 
 /* 별점 ================ */
 #lectureDetail .reviewInputContainer .reviewInputTitle {
 	display: flex;
+	margin-bottom: 10px;
+	align-items: center;
 }
 
 #lectureDetail .reviewInputContainer .reviewInputBody {
@@ -765,7 +771,8 @@ td {
 	color: rgba(0, 0, 0, 0.2);
 	position: relative;
 	unicode-bidi: bidi-override;
-	width: auto;
+	width: 80px;
+	height: 100%;
 	-webkit-text-fill-color: transparent;
 	/* Will override color (regardless of order) */
 	-webkit-text-stroke-width: 1.3px;
@@ -778,16 +785,52 @@ td {
 	position: absolute;
 	z-index: 1;
 	display: flex;
-	top: 0;
+	bottom: 0;
 	left: 0;
 	overflow: hidden;
 	-webkit-text-fill-color: gold;
 }
 
 #lectureDetail .reviewScoreBase {
+	position: absolute;
 	z-index: 0;
+	bottom: 0;
 	padding: 0;
 }
+
+#lectureDetail .tox-statusbar{
+	display: none;
+}
+#lectureDetail .tox-tinymce{
+	border-radius: 10px;
+}
+
+#lectureDetail #reviewInputBtn{
+	
+	margin-left: 20px;
+  	width: 80px;
+	font-size: 16px;
+	line-height: 25px;
+	color: #000;
+	border: none;
+	border-radius: 10px;
+	padding: 10px;
+	background-color: #f5d04295;
+}
+
+#lectureDetail #reviewInputBtn:hover{
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
+}
+
+#lectureDetail .review{
+}
+
+#lectureDetail .reviewUpdateBtn{
+	margin-right: 10px;
+}
+
 
 /* 별점 입력 */
 

@@ -52,9 +52,14 @@ button {
   padding:0; 
   overflow:visible; 
   cursor:pointer
-
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
 
 #adminPage{
 	display: flex;
@@ -69,7 +74,6 @@ button {
 .logo{
 	padding: 10px 20px;
 	height: 25px;
-	filter: invert(1);
 }
 
 .sideBar ul {
@@ -244,6 +248,15 @@ main .DetailColumn td:last-child{
   	border-bottom : 1px solid #000;
 }
 
+main .DetailColumn .tel{
+	width: 40px;
+	margin : 0px;
+}
+
+main .DetailColumn .tel:focus{
+	width: 40px;
+	margin : 0px;
+}
 
 main .DetailColumn img {
 	width: 700px;

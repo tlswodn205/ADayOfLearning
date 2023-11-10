@@ -34,7 +34,7 @@
                 <div class="detailHead review">후기</div>
                 <div class="reviewInputContainer">
                 	<div class="reviewInputTitle">
-                		후기 작성
+                		별점
                 		<div class="star-rating input">
 							<input type="radio" id="5-starsInput" name="scoreInput" value="5"/>
 							<label for="5-starsInput" class="star">★</label>
@@ -50,7 +50,7 @@
                 	</div>
                 	<div class="reviewInputBody">
 		                <textarea class="reviewInput" id="reviewInput" name="content" placeholder="후기 내용"></textarea>
-		                <input type="button" id="reviewInputBtn" value="후기 등록"/>
+		                <input type="button" id="reviewInputBtn" value="후기&#10;등록"/>
                 	</div>
                 </div>
                 <div class="detailInfo review"></div>

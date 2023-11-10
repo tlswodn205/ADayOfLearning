@@ -43,39 +43,13 @@
 		WHERE l.state = 1 AND p.is_thumbnail = 1;
 	</select>
 
-<!-- 날짜가 포함안됨	 -->
-<!-- 	<select id="findBySearch" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto"> -->
-<!-- 		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username, p.img -->
-<!-- 		FROM tb_lecture l  -->
-<!-- 		JOIN tb_category c ON l.category_id = c.category_id -->
-<!-- 		JOIN tb_user u ON l.user_id = u.user_id -->
-<!--         JOIN tb_lecture_photo p ON p.lecture_id = l.lecture_id -->
-<!--         WHERE l.state = 1 AND p.is_thumbnail = 1 -->
-<!--         <if test="title != null"> -->
-<!-- 			AND REPLACE(l.title, ' ', '') LIKE '%${title}%' -->
-<!-- 		</if> -->
-<!-- 		 <if test="categoryName != null"> -->
-<!-- 			AND c.category_name = #{categoryName} -->
-<!-- 		</if>	 -->
-<!--          <if test="minPrice != null"> -->
-<!-- 			AND l.price >= #{minPrice} -->
-<!-- 		</if>	 -->
-<!--          <if test="maxPrice != null"> -->
-<!-- 			AND #{maxPrice} >= l.price -->
-<!-- 		</if>	 -->
-<!--          <if test="location != null"> -->
-<!-- 			AND address LIKE '${location}%' -->
-<!-- 		</if>	 -->
-<!-- 	</select> -->
-	
-<!-- !!!날짜와 이미지가 안뿌려지는 테스트용!!! -->
 	<select id="findBySearch" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username, (SELECT img FROM tb_lecture_photo WHERE is_thumbnail=1 AND lecture_id= l.lecture_id) as img
+		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username, p.img
 		FROM tb_lecture l 
 		JOIN tb_category c ON l.category_id = c.category_id
 		JOIN tb_user u ON l.user_id = u.user_id
-        WHERE l.state = 1
-        ORDER BY l.created_at DESC
+		LEFT JOIN tb_lecture_photo p ON p.lecture_id= l.lecture_id 
+        WHERE l.state = 1 AND p.is_thumbnail=1
         <if test="title != null">
 			AND REPLACE(l.title, ' ', '') LIKE '%${title}%'
 		</if>
@@ -91,17 +65,20 @@
          <if test="location != null">
 			AND address LIKE '${location}%'
 			</if>	
+        	ORDER BY l.created_at DESC
 			LIMIT #{startNum},12
 	</select>
 
 	<!-- index에서 사용할 List start-->
 	<select id="findNewLecture" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT lecture_id, title, category_name, price, address, username, (SELECT img FROM tb_lecture_photo WHERE is_thumbnail=1 AND lecture_id= a.lecture_id) as img
+		SELECT lecture_id, title, category_name, price, address, username, img
 		  FROM ( SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username
-					   , RANK() OVER (ORDER BY l.created_at DESC) AS order_number
+					   , RANK() OVER (ORDER BY l.created_at DESC) AS order_number, p.img
 					FROM tb_lecture l
-					JOIN tb_category c ON l.category_id = c.category_id
-					JOIN tb_user u ON l.user_id = u.user_id ) AS a
+					LEFT JOIN tb_category c ON l.category_id = c.category_id
+					LEFT JOIN tb_user u ON l.user_id = u.user_id 
+					LEFT JOIN tb_lecture_photo p ON p.lecture_id= l.lecture_id 
+					WHERE p.is_thumbnail=1) AS a
 		 WHERE order_number &lt;= 10;
 	</select>
 	<!-- index에서 사용할 List end-->

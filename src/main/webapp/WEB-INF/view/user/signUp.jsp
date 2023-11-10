@@ -77,7 +77,12 @@
 			<br> 
 			<div class="wideDiv">
 				<i class="fa-solid fa-phone"></i>
-				<input type="number" id="phoneNumber" name="phoneNumber" placeholder="전화번호"> 
+				<div class="telbox">
+					<input type="hidden" id="phoneNumber" name="phoneNumber" placeholder="전화번호"> 
+					<input type="number" class="tel" id="tel1"> - 
+					<input type="number" class="tel" id="tel2"> - 
+					<input type="number" class="tel" id="tel3"> 
+				</div>
 			</div>
 			<br>
 			<div class="wideDiv">
@@ -333,8 +338,14 @@ let signUp ={
     	let name = $("#name").val();
     	let email = $("#email").val();
     	let address = $("#address").val();
-    	let phoneNumber = $("#phoneNumber").val();
     	let birthday = $("#birthday").val();
+    	
+    	let tel1 = $('#tel1').val();
+    	let tel2 = $('#tel2').val();
+    	let tel3 = $('#tel3').val();
+    	
+    	let phoneNumber = tel1+ "-"+tel2+'-'+tel3;
+    	$("#phoneNumber").val(phoneNumber);
     	
     	if(!username){
     		alert("아이디를 입력해주세요.");
@@ -376,8 +387,23 @@ let signUp ={
     		return false;
     	}
 
-    	if(!phoneNumber){
+		if(tel1.toString().length==0 || tel2.toString().length==0 || tel3.toString().length==0){
     		alert("전화번호를 입력해주세요.");
+    		return false;
+		}
+    	
+    	if(!(tel1.toString().length==3)){
+    		alert("전화번호를 다시 입력해주세요.");
+    		return false;
+    	}
+
+    	if(!(tel2.toString().length==3 || tel2.toString().length==4)){
+    		alert("전화번호를 다시 입력해주세요.");
+    		return false;
+    	}
+
+    	if(!(tel3.toString().length==4)){
+    		alert("전화번호를 다시 입력해주세요.");
     		return false;
     	}
     	
@@ -390,6 +416,7 @@ let signUp ={
     		alert("필수 동의 항목을 체크 해주세요.");
     		return false;
     	}
+    	
     	
     	$("#signUpForm").submit();
     },

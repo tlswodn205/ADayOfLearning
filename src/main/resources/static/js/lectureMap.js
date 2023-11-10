@@ -11,7 +11,7 @@ let lectureMapInit = {
 		let locPosition = new kakao.maps.LatLng(lastLecture === null ? 37.56682645618825 : lastLecture.latitude, lastLecture === null ? 126.97865791770842 : lastLecture.longitude);
 		let mapOption = {
 			center: locPosition, // 지도의 중심좌표
-			level: 3 // 지도의 확대 레벨
+			level: 4 // 지도의 확대 레벨
 		};
 		// 지도를 생성합니다
 		map = new kakao.maps.Map(mapContainer, mapOption);

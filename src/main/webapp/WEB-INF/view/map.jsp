@@ -5,7 +5,6 @@
 <main>
 	<div id="lectureMapPage" class="mainColumn">
 		<div class="areaMapContainer">
-			지도
 			<div class="map" id="map">
 				
 			</div>
