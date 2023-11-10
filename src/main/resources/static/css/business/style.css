@@ -227,8 +227,13 @@ main .DetailColumn .tel:focus{
 
 
 main .DetailColumn img {
-	width: 700px;
+/*	width: 700px;*/
 }
+
+main .DetailColumn .hidden{
+	display: none;
+}
+
 
 main .DetailColumn .inputBtn{
 	margin-top: 20px;

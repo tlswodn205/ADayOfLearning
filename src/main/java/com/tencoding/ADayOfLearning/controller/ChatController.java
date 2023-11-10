@@ -65,7 +65,7 @@ public class ChatController{
 			return "redirect:/user/signIn";
 		}
 		log.info("/room - {}", newChatRequestDto);
-		if(newChatRequestDto.getUserId() > 0) {
+		if(principal.getUserId() != newChatRequestDto.getUserId() && newChatRequestDto.getUserId() > 0) {
 			// 새로운 채팅방 생성
 			// chatRoom, chatRoomUser 데이터 생성
 			int chatRoomId = chatRoomService.insert(principal.getUserId(), newChatRequestDto.getUserId());
@@ -78,7 +78,7 @@ public class ChatController{
 												.userId(newChatRequestDto.getUserId())
 												.username(chatUser.getUsername())
 												.build();
-			model.addAttribute("newChat" ,newChatRequestDto);
+			model.addAttribute("newChat", newChatRequestDto);
 		}
 		
 		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(principal.getUserId());

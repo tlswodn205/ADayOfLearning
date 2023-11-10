@@ -11,4 +11,5 @@ public class LectureSessionResponseDto {
 	private Timestamp sessionDate;
 	private Timestamp createdAt;
 	private int students;
+	private int myReserve;
 }

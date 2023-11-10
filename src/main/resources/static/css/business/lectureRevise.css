@@ -1,0 +1,48 @@
+/* 강의 수정 */
+#thumbnailImageContainer{
+	position: relative;
+}
+
+#imageContainer{
+	position: relative;
+	display: flex;
+}
+
+#imageContainer > div{
+	margin-right: 8px;
+}
+
+
+#imageContainer > div:last-child {
+  margin-right: 0;
+}
+
+.imagePanel{
+	position: relative;
+}
+
+.reviseLectureImg {
+	position: relative;
+	z-index: 1;
+}
+
+.reviseLectureImgOverlay {
+	width: 100px;
+	height: 60px;
+	position: absolute;
+	box-sizing: border-box;
+	border: 2px solid #000;
+	z-index: 2;
+	top: 0;
+}
+
+.deleteImg {
+	background-image: url('/images/businessRegistrationImg/Xmark.png');
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
+	width: 15px;
+	height: 15px;
+	border:1px solid #000;
+}

@@ -16,6 +16,11 @@ public class LectureSessionService {
 	LectureSessionRepository lectureSessionRepository;
 
 	public List<LectureSessionResponseDto> findByLectureIdAndDate(ReserveDataRequestDto reserveDataRequestDto) {
-		return lectureSessionRepository.findByLectureIdAndDate(reserveDataRequestDto);
+		System.out.println("====================================");
+		System.out.println(reserveDataRequestDto);
+		List<LectureSessionResponseDto> list = lectureSessionRepository.findByLectureIdAndDate(reserveDataRequestDto);
+		System.out.println(list);
+		
+		return list;
 	}
 }

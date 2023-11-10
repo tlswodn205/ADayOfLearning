@@ -18,22 +18,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.SessionRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.revisePhotoListRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
-import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
-import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
 import com.tencoding.ADayOfLearning.handler.exception.UnMatchingException;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
+import com.tencoding.ADayOfLearning.repository.model.LectureOption;
+import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.BusinessService;
 import com.tencoding.ADayOfLearning.service.ChatRoomService;
@@ -61,7 +63,9 @@ public class BusinessController {
 	LectureOptionService lectureOptionService;
 	@Autowired
 	HttpSession session;
-
+	@Autowired
+	ObjectMapper objectMapper;
+	
 	// main start
 
 	@GetMapping("")
@@ -185,6 +189,35 @@ public class BusinessController {
 
 		return "redirect:lectureDetail/" + sessionRequestDto.getLectureId();
 	}
+	
+	@GetMapping("/revise/{lectureId}")
+	public String getReviseLecture(@PathVariable Integer lectureId, Model model) throws JsonProcessingException {
+		Lecture lecture = lectureService.getLectureById(lectureId);
+		List<LecturePhoto> photoList = lecturePhotoService.getLecturePhotosById(lectureId);
+		List<LectureOption> optionList = lectureOptionService.getLectureOptionByLectureId(lectureId);
+		
+		
+		model.addAttribute("id", lectureId);
+		model.addAttribute("lecture", lecture);
+		model.addAttribute("photoList", objectMapper.writeValueAsString(photoList));
+		model.addAttribute("optionList", objectMapper.writeValueAsString(optionList));
+		
+		return "/business/lecture/revise";
+	}
+	
+	@PostMapping("/revise") 
+	public String postReviseLecture(LectureRegistarionRequestDto dto, revisePhotoListRequestDto revisePhotoListRequestDto, Integer lectureId) {
+		
+		int result = businessService.updateLecture(dto, revisePhotoListRequestDto, lectureId);
+		
+		if (result != 1) {
+			// 유효성검사 throw
+		}
+		
+		return "redirect:/lecture/detail?id=" + lectureId;
+	}
+	
+	
 
 	// lecture end
 
