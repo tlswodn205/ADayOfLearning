@@ -897,3 +897,7 @@ td {
 	top: -3px;
 	z-index: 1;
 }
+
+div {
+	box-sizing: border-box;
+}

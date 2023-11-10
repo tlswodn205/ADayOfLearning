@@ -129,5 +129,7 @@
     let lectureData = ${lecture};
     let photoList = ${lecturePhotos};
     let reviewList = ${reviews};
+    
+    console.log(reviewList);
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

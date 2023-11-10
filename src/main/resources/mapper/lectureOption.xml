@@ -25,4 +25,12 @@
 		SELECT * FROM tb_lecture_option;
 	</select>
 	
+	<select id="findByLectureId" resultType = "com.tencoding.ADayOfLearning.repository.model.LectureOption">
+		SELECT * FROM adayoflearning.tb_lecture_option WHERE lecture_id = #{lectureId};
+	</select>
+	
+	<delete id="deleteByLectureId" >
+		DELETE FROM tb_lecture_option WHERE lecture_id = #{lectureId};
+	</delete>
+	
 </mapper>

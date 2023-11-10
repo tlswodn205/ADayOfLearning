@@ -4,12 +4,12 @@
 <mapper namespace="com.tencoding.ADayOfLearning.repository.interfaces.LecturePhotoRepository"> 
 
 	<insert id= "insert">
-		INSERT INTO tb_lecture_photo(lecture_id,is_thumbnail,img,created_at)
-		values(#{lectureId},#{isThumbnail},#{img},now());
+		INSERT INTO tb_lecture_photo(lecture_id,is_thumbnail,img, origin_name, created_at)
+		values(#{lectureId},#{isThumbnail},#{img}, #{originName}, now());
 	</insert>
 	
 	<update id="updateByLecturePhotoId">
-		UPDATE tb_lecture_photo SET is_thumbnail = #{isThumbnail}, img = #{img}
+		UPDATE tb_lecture_photo SET is_thumbnail = #{isThumbnail}, img = #{img}, origin_name = #{originName}
 		WHERE lecture_photo_id = #{lecturePhotoId};
 	</update>
 	
