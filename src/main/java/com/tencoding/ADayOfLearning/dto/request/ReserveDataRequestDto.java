@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReserveDataRequestDto {
-	private Integer lecuteId;
+	private Integer lectureId;
 	private String date;
+	private Integer userId;
 }

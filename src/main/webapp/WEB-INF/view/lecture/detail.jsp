@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <script src="https://cdn.tiny.cloud/1/dtdpftxislwkjsqt3kyjkmgpi0r0p0cw5zmchcg1hwbvz9w9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<input type="hidden" id="userId" value="${principal.userId}"/>
 <div id="lectureDetail">
     <div class="detailMainInfo">
         <div class="detailColumn1">
@@ -44,7 +45,7 @@
                 <div class="reviewInputContainer">
                 	<div class="reviewInputTitle">
                 		후기 작성
-                		<div class="star-rating input">
+                		<div class="star-rating input" id="star-input">
 							<input type="radio" id="5-starsInput" name="scoreInput" value="5"/>
 							<label for="5-starsInput" class="star">★</label>
 							<input type="radio" id="4-starsInput" name="scoreInput" value="4"/>
@@ -62,7 +63,9 @@
 		                <input type="button" id="reviewInputBtn" value="후기 등록"/>
                 	</div>
                 </div>
-                <div class="detailInfo review"></div>
+                <div class="detailInfo review">
+                	<div class="reviewNone" id="reviewNone">아직 작성된 후기가 없습니다.</div>
+                </div>
             </div>
         </div>
 
@@ -121,11 +124,8 @@
                     </div>
                     <div class="lectureDetatilRight price"></div>
                     <div class="paymentButtonSet">
-                        <%--
-                        <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">문의하기</button>
-                        --%>
                         <button id="inquiryBtn">문의하기</button>
-                        <button id="enroll">클래스 신청</button>
+                        <button id="enroll" style="display: none">클래스 신청</button>
                     </div>
                 </div>
             </div>
@@ -137,8 +137,6 @@
 <script type="text/javascript">
     let lectureData = ${lecture};
     let photoList = ${lecturePhotos};
-    
-    console.log(photoList);
     let reviewList = ${reviews};
     
     console.log(reviewList);
