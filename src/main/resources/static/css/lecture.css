@@ -357,11 +357,17 @@ td {
 	/* 수직 가운데 정렬 */
 	text-decoration: none;
 	color: #333333;
-	border: 1px solid #666666;
-	height: 30px;
-	width: 30px;
-	border-radius: 15px;
+	height: 36px;
+	width: 36px;
+	border-radius: 18px;
 	font-size: 15px;
+	margin:3px;
+	
+}
+
+
+.paginationElement.current {
+	background-color: #f5d042;
 }
 
 /*

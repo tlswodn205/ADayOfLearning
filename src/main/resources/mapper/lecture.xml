@@ -75,7 +75,7 @@
 		JOIN tb_category c ON l.category_id = c.category_id
 		JOIN tb_user u ON l.user_id = u.user_id
         WHERE l.state = 1
-        ORDER BY l.created_at DESC
+        
         <if test="title != null">
 			AND REPLACE(l.title, ' ', '') LIKE '%${title}%'
 		</if>
@@ -91,6 +91,7 @@
          <if test="location != null">
 			AND address LIKE '${location}%'
 			</if>	
+			ORDER BY l.created_at DESC
 			LIMIT #{startNum},12
 	</select>
 
@@ -126,5 +127,30 @@
 				   FROM tb_lecture 
 				  WHERE state = 1 ) AS a
 		 WHERE order_number = 1;
+	</select>
+	
+	<select id="findAllCount" resultType = "java.lang.Integer">
+		SELECT count(*)
+		FROM tb_lecture l 
+		JOIN tb_category c ON l.category_id = c.category_id
+		JOIN tb_user u ON l.user_id = u.user_id
+        WHERE l.state = 1
+        
+        <if test="title != null">
+			AND REPLACE(l.title, ' ', '') LIKE '%${title}%'
+		</if>
+		 <if test="categoryName != null">
+			AND c.category_name = #{categoryName}
+		</if>	
+         <if test="minPrice != null">
+			AND l.price >= #{minPrice}
+		</if>	
+         <if test="maxPrice != null">
+			AND #{maxPrice} >= l.price
+		</if>	
+         <if test="location != null">
+			AND address LIKE '${location}%'
+		</if>	
+
 	</select>
 </mapper>
