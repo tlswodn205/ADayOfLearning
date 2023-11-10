@@ -54,7 +54,7 @@ let chatInit = {
 	},
 	// 채팅 내용 입력창에서 enter 인식
 	messageKeyPress: function(key) {
-		if (key.keyCode == 13) {
+		if (key.keyCode == 13 && !key.shiftKey) {
 			this.chatMessageInsert();
 		}
 	},
@@ -64,7 +64,7 @@ let chatInit = {
 			return;
 		}
 		let chatMessage = $('#chatMessage').val();
-		if (chatMessage === '' || chatMessage === null) {
+		if (chatMessage.trim() === '' || chatMessage.trim() === null) {
 			console.error('채팅 내용 없음');
 			return;
 		}
@@ -73,9 +73,10 @@ let chatInit = {
 			sendUserId: $('#userId').val(),
 			sendUsername: $('#username').val(),
 			receiveUserId: $('#nowUserId').val(),
-			receiveUsername: $('#nowUsername').val(),
+			receiveUsername: $('#chatPerson').text(),
 			message: chatMessage,
 		};
+		console.log(sendData)
 		await fetch('/chat/insert', {
 			method: 'POST',
 			headers: {
@@ -107,11 +108,11 @@ function chatRoom(event) {
 	}
 	let chatRoomId = $(event).parent().find('#chatRoomId');
 	let chatUserId = $(event).parent().find('#chatUserId');
-	let chatUsername = $(event).parent().find('#chatUsername');
+	let chatName = $(event).parent().find('#chatName');
 	$(event).parent().find('#newMessage').text('0');
 	$(event).parent().find('#newMessage').hide();
 
-	nowChatInit(chatRoomId.val(), chatUserId.val(), chatUsername.val(), 'flex');
+	nowChatInit(chatRoomId.val(), chatUserId.val(), chatName.val(), 'flex');
 	chatList(chatRoomId.val(), chatUserId.val());
 	stompConnect(chatRoomId.val());
 }
@@ -156,7 +157,7 @@ function chatList(chatRoomId, userId) {
 		success: function(response) {
 			// 채팅 히스토리 출력
 			response.forEach(function(chat, index) {
-				chatContentAppend(chat.username, chat.message, chat.createdAt);
+				chatContentAppend(chat.name, chat.message, chat.createdAt);
 			});
 			$('#chatContent').scrollTop($('#chatContent')[0].scrollHeight);
 		},
@@ -192,15 +193,15 @@ function stompConnect(chatRoomId) {
 
 // 화면 변경 관련 함수들
 // 대화창에 대화 출력하기
-function chatContentAppend(username, message, createdAt) {
+function chatContentAppend(name, message, createdAt) {
 	if (message == null) {
 		return;
-	} else if (username === $("#username").val()) {
+	} else if (name === $("#username").val()) {
 		// 내가 한 대화
-		messageSend("chatMy", username, message, createdAt);
+		messageSend("chatMy", name, message, createdAt);
 	} else {
 		// 상대가 한 대화
-		messageSend("chatOther", username, message, createdAt);
+		messageSend("chatOther", name, message, createdAt);
 	}
 }
 
@@ -218,13 +219,13 @@ function messageSend(chatClass, username, message, createdAt) {
 }
 
 // 대화창 초기화
-function nowChatInit(chatRoomId, chatUserId, chatUsername, chatMessageDisplay) {
+function nowChatInit(chatRoomId, chatUserId, chatName, chatMessageDisplay) {
 	$('#chatMessage').val('');
-	$('#chatPerson').text(chatUsername);
+	$('#chatPerson').text(chatName);
 	$('#chatContent').empty();
 	$('#nowChatRoomId').val(chatRoomId);
 	$('#nowUserId').val(chatUserId);
-	$('#nowUsername').val(chatUsername);
+	$('#nowName').val(chatName);
 	$('#chatMessageInputContainer').css('display', chatMessageDisplay);
 }
 
@@ -234,9 +235,9 @@ function chatRoomAppend(content) {
 	$('<div>', { class: 'chatRoomContainer' }).append(
 		$('<input>', { type: 'hidden', id: 'chatRoomId', value: content.chatRoomId }),
 		$('<input>', { type: 'hidden', id: 'chatUserId', value: content.userId }),
-		$('<input>', { type: 'hidden', id: 'chatUsername', value: content.username }),
+		$('<input>', { type: 'hidden', id: 'chatName', value: content.name }),
 		$('<div>', { class: 'chatRoom', click: function() { chatRoom(this); } }).append(
-			$('<a>', { class: 'chatTitle', text: content.username }),
+			$('<a>', { class: 'chatTitle', text: content.name }),
 			$('<span>', { class: 'newMessage', id: 'newMessage', text: content.viewCount
 						, style: content.viewCount > 0 ? '' : 'display:none'
 			})

@@ -243,9 +243,9 @@ let detailInit = {
         return value;
     },
     // 예약 데이터 불러오는 함수
-    postData: async function () {
+    postData: function () {
         let url = 'http://localhost:8080/lecture/reserve-data';
-        const response = await fetch(url, {
+        fetch(url, {
             method: 'POST',
             body: JSON.stringify({
                 lectureId: lectureData.lectureId,
