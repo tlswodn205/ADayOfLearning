@@ -52,6 +52,7 @@
 	background-color: #f5d04295;
 }
 
+
 #userPage .flexDiv input[type=button]:hover{
 	animation-duration: 1s;
 	animation-name: slideYellow;
@@ -91,6 +92,22 @@
 
 #userPage from div i {
   font-size: 16px;
+}
+
+#userPage .wideDiv .telbox{
+  width: 340px;
+  margin-left: 10px;
+}
+
+#userPage .wideDiv .telbox .tel{
+	width: 90px;
+	margin : 0px;
+	text-align: center;
+}
+
+#userPage .wideDiv .telbox .tel:focus{
+	width: 90px;
+	margin : 0px;
 }
 
 #userPage .submitBtn{

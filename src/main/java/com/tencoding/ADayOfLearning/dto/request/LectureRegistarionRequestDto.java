@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class LectureRegistarionRequestDto {
 	private String title;
+	private Integer state;
 	private String content;
 	private Integer categoryId;
 	private Integer duration;

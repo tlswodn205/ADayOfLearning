@@ -7,7 +7,7 @@ file="/WEB-INF/view/business/layout/header.jsp"%>
 	<div id="businessDetail" class="mainColumn">
     <form action="registration" method="post" id="registrationForm" enctype="multipart/form-data">
 		<div class="DetailColumn">
-		 <input type="hidden" id="registrationFormLongitude" name="longitude" />
+		<input type="hidden" id="registrationFormLongitude" name="longitude" />
         <input type="hidden" id="registrationFormLatitude" name="latitude" />
 		<table>	
 			<tr>

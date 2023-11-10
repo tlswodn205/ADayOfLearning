@@ -94,6 +94,7 @@ file="/WEB-INF/view/layout/header.jsp"%>
 <script type="text/javascript">
 	let currentPage = ${page};
 	let lectureListData = ${lectures};
+	let allCount = ${count};
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

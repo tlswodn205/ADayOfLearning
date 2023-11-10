@@ -52,9 +52,14 @@ button {
   padding:0; 
   overflow:visible; 
   cursor:pointer
-
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
 
 #adminPage{
 	display: flex;
@@ -69,7 +74,6 @@ button {
 .logo{
 	padding: 10px 20px;
 	height: 25px;
-	filter: invert(1);
 }
 
 .sideBar ul {
@@ -124,7 +128,7 @@ main .mainColumn .mainRow{
 	display: flex;	
 }
 
-main .mainColumn .mainRow .mainUserComponent{
+main .mainColumn .mainRow .mainNarrowComponent{
 	margin: 20px 10px 10px 20px;
 	width:530px;
 	padding: 20px;
@@ -152,7 +156,7 @@ main .mainColumn .mainRow table{
 
 }
 
-main .mainRow thead{
+main .mainRow thead tr{
     border-bottom: 1px solid #353535;
 }
 
@@ -160,9 +164,12 @@ main .mainRow th{
     padding-bottom: 4px;
 }
 
+main .mainRow tbody tr{
+    border-bottom: 1px solid #ccc;
+}
 
 main .mainRow td{
-    padding-top: 4px;
+    padding: 4px 0px;
 	text-align: center;
 }
 /*list페이지*/
@@ -174,12 +181,21 @@ main .ListColumn{
 }
 
 main .ListColumn table{
+	width: 1100px;
   	border-collapse: collapse; 
-  	border-spacing:0px;
+}
+
+main .ListColumn thead tr{
+    border-bottom: 1px solid #353535;
+	line-height: 50px;  
+}
+
+main .ListColumn tbody tr{
+    border-bottom: 1px solid #ccc;
+	line-height: 50px;  
 }
 
 main .ListColumn tr{
-	
 	font-size: 14px;
 	line-height: 50px;  
 }
@@ -232,6 +248,15 @@ main .DetailColumn td:last-child{
   	border-bottom : 1px solid #000;
 }
 
+main .DetailColumn .tel{
+	width: 40px;
+	margin : 0px;
+}
+
+main .DetailColumn .tel:focus{
+	width: 40px;
+	margin : 0px;
+}
 
 main .DetailColumn img {
 	width: 700px;

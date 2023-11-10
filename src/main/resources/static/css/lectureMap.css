@@ -1,0 +1,99 @@
+.map{
+	width: 1200px;
+	height: 700px;
+}
+
+.lectureItem {
+	display: contents;
+}
+.lectureItemContainer {
+	position: relative;
+	box-sizing: border-box;
+	width: 276px;
+	height: 330px;
+	border-radius: 5px;
+	margin-bottom: 30px;
+	border: 0.5px solid #dddddd;
+	margin: 0;
+}
+
+.lectureItemPictureArea {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #fff1f2;
+	border-radius: 5px;
+	width: 100%;
+	height: 200px;
+}
+
+.lectureItemPicture {
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	border-radius: 5px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
+	z-index: 0;
+}
+
+.lectureItemAddress {
+	position: absolute;
+	bottom: 8px;
+	left: 8px;
+	z-index: 1;
+	font-size: small;
+	font-weight: 600;
+	color: #000;
+	height: fit-content;
+	width: fit-content;
+	background-color: rgba(255, 255, 255, 0.4);
+	/*20% 불투명도*/
+	padding: 1px 6px;
+	border-radius: 5px;
+}
+
+.lectureItemCategory {
+	position: absolute;
+	box-sizing: border-box;
+	top: 208px;
+	left: 8px;
+	border: 1px solid #FEE500;
+	border-radius: 5px;
+	width: fit-content;
+	height: fit-content;
+	padding: 2px 14px;
+	font-size: 14px;
+	background-color: #FEE50090;
+	color: #666666;
+}
+
+.lectureItemTitle {
+	position: absolute;
+	box-sizing: border-box;
+	top: 242px;
+	left: 0px;
+	border-radius: 5px;
+	width: fit-content;
+	height: fit-content;
+	padding: 0 8px;
+	color: #333333;
+}
+
+.lectureItemProvider {
+	position: absolute;
+	bottom: 8px;
+	left: 8px;
+	font-size: 15px;
+	color: #333333;
+}
+
+.lectureItemPrice {
+	position: absolute;
+	bottom: 8px;
+	right: 8px;
+	color: #333333;
+}

@@ -174,7 +174,7 @@ public class UserService {
 	                    businessRepository.insert(businessEntity);
 	                    
 	                }
-	                    
+	                    	
 	        }
 	    catch (Exception e) {
 

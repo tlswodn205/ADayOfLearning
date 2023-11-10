@@ -24,11 +24,13 @@ import com.tencoding.ADayOfLearning.dto.response.LectureSessionResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReviewResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
+import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.LectureOptionService;
 import com.tencoding.ADayOfLearning.service.LecturePhotoService;
 import com.tencoding.ADayOfLearning.service.LectureService;
 import com.tencoding.ADayOfLearning.service.LectureSessionService;
 import com.tencoding.ADayOfLearning.service.ReviewService;
+import com.tencoding.ADayOfLearning.util.Define;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,7 +53,7 @@ public class LectureController {
 
 	@Autowired
 	ReviewService reviewService;
-	
+
 	@Autowired
 	HttpSession session;
 
@@ -81,11 +83,15 @@ public class LectureController {
 		}
 
 		ListSearchRequestDto listSearchRequestDto = new ListSearchRequestDto().builder().minPrice(min_price)
-				.maxPrice(max_price).categoryName(category).title(title).location(location).build();
+				.maxPrice(max_price).categoryName(category).title(title).location(location).startNum((page - 1) * 12)
+				.build();
+
+		int LectureAllCount = lectureService.getCount(listSearchRequestDto);
 
 		List<LectureListItemResponseDto> list = lectureService.getLectureListBySearch(listSearchRequestDto);
 
 		model.addAttribute("lectures", objectMapper.writeValueAsString(list));
+		model.addAttribute("count", LectureAllCount);
 		model.addAttribute("page", page);
 
 		return "lecture/list";
@@ -101,9 +107,11 @@ public class LectureController {
 	public String getDetail(Model model, @RequestParam Integer id) throws JsonProcessingException {
 		Lecture lecture = lectureService.getLectureById(id);
 		List<LecturePhoto> lecturePhotos = lecturePhotoService.getLecturePhotosById(id);
-
+		List<String> optionList = lectureOptionService.getLectureOptionStringByLectureId(id);
+		
 		model.addAttribute("lecture", objectMapper.writeValueAsString(lecture));
 		model.addAttribute("lecturePhotos", objectMapper.writeValueAsString(lecturePhotos));
+		model.addAttribute("lectureOptions", objectMapper.writeValueAsString(optionList));
 
 		List<ReviewResponseDto> reviews = reviewService.getReviewsByLectureId(lecture.getLectureId());
 		model.addAttribute("reviews", objectMapper.writeValueAsString(reviews));
@@ -119,12 +127,20 @@ public class LectureController {
 	@PostMapping("/reserve-data")
 	@ResponseBody
 	public List<LectureSessionResponseDto> postReserveData(@RequestBody ReserveDataRequestDto reserveDataRequestDto) {
-
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		if(user != null) {
+			reserveDataRequestDto.setUserId(user.getUserId());
+		} else {
+			reserveDataRequestDto.setUserId(0);
+		}
+			
+		System.out.println(reserveDataRequestDto);
 		return lectureSessionService.findByLectureIdAndDate(reserveDataRequestDto);
 	}
 
 	/**
 	 * 지도의 위치정보로 해당 위치의 클래스 리스트 조회
+	 * 
 	 * @param mapBoundsRequestDto
 	 * @return List<LectureSessionResponseDto>
 	 */

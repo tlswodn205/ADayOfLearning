@@ -15,4 +15,5 @@ public class ListSearchRequestDto {
 	private String categoryName;
 	private String title;
 	private String location;
+	private Integer startNum;
 }

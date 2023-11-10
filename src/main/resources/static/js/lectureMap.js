@@ -1,7 +1,6 @@
 let lectureMapInit = {
 	version: 1,
 	init: function() {
-		console.log('세팅 시작');
 		$(document).ready(() => {
 			this.mapInit();
 		})
@@ -9,10 +8,10 @@ let lectureMapInit = {
 	// mapInit 시작
 	mapInit: function() {
 		let mapContainer = $('#map')[0]; // 지도를 표시할 div
-		let locPosition = new kakao.maps.LatLng(lastLecture.latitude, lastLecture.longitude);
+		let locPosition = new kakao.maps.LatLng(lastLecture === null ? 37.56682645618825 : lastLecture.latitude, lastLecture === null ? 126.97865791770842 : lastLecture.longitude);
 		let mapOption = {
 			center: locPosition, // 지도의 중심좌표
-			level: 3 // 지도의 확대 레벨
+			level: 4 // 지도의 확대 레벨
 		};
 		// 지도를 생성합니다
 		map = new kakao.maps.Map(mapContainer, mapOption);
@@ -20,7 +19,6 @@ let lectureMapInit = {
 		// 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성합니다
 		let zoomControl = new kakao.maps.ZoomControl();
 		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-		console.log(locPosition);
 		map.setCenter(locPosition);
 		
 		this.searchLecture(lastLecture);
@@ -45,31 +43,35 @@ let lectureMapInit = {
 				'Content-Type': 'application/json',
 			},
 		})
-			.then((response) => response.json())
-			.then((response) => {
-				markers = [];
-				response.forEach(function(lecture, index) {
-					addressSearch(lecture);
-				});
+		.then((response) => response.json())
+		.then((response) => {
+			markers = [];
+			response.forEach(function(lecture, index) {
+				addressSearch(lecture);
 			});
-
+		});
 	}
 }
 function addressSearch(lecture) {
 	let geocoder = new kakao.maps.services.Geocoder();
 	geocoder.addressSearch(lecture.address, function(result, status) {
 		// 정상적으로 검색이 완료됐으면
+		console.log(lecture);
 		if (status === kakao.maps.services.Status.OK) {
+			console.log('주소 조회 완료');
 			let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
+			console.log(coords);
 			// 결과값으로 받은 위치를 마커로 표시합니다
 			let marker = new kakao.maps.Marker({
 				map: map,
 				position: coords,
 			});
+			console.log(marker);
+			
 			// 인포윈도우로 장소에 대한 설명을 표시합니다
 			let infowindow = new kakao.maps.InfoWindow({
-				content: `<div style="width:150px;text-align:center;padding:6px 0;">${lecture.title}</div>`,
+				content: lectureContainer(lecture).html(),
 			});
 			infowindows.push(infowindow);
 			
@@ -90,6 +92,7 @@ function addressSearch(lecture) {
 		}
 	});
 }
+
 let map;
 let infowindows = [];
 lectureMapInit.init();

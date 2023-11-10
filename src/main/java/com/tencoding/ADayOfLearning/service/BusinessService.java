@@ -15,12 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.LectureRegistarionRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.SessionRequestDto;
+import com.tencoding.ADayOfLearning.dto.request.revisePhotoListRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
@@ -51,6 +49,7 @@ import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
 import com.tencoding.ADayOfLearning.repository.model.LectureSession;
 import com.tencoding.ADayOfLearning.repository.model.Payment;
 import com.tencoding.ADayOfLearning.repository.model.User;
+import com.tencoding.ADayOfLearning.util.Define;
 
 @Service
 public class BusinessService {
@@ -121,24 +120,27 @@ public class BusinessService {
 	}
 
 	// 판매자의 진행중인 강의 리스트
-	public ListPagingResponseDto<BusinessLectureListResponseDto> findProgressLectureByUserId(String type, String keyword, Integer page, int userId) {
+	public ListPagingResponseDto<BusinessLectureListResponseDto> findProgressLectureByUserId(String type,
+			String keyword, Integer page, int userId) {
 		PagingResponseDto pagingResponseDto = businessRepository.findProgressLecturePaging(type, keyword, page, userId);
-		int startNum = (page-1)*10;
+		int startNum = (page - 1) * 10;
 		List<BusinessLectureListResponseDto> businessLectureListResponseDto = businessRepository
 				.findProgressLectureByUserId(type, keyword, startNum, userId);
-		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = 
-				new ListPagingResponseDto<BusinessLectureListResponseDto>(pagingResponseDto, type, keyword, "", businessLectureListResponseDto);
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = new ListPagingResponseDto<BusinessLectureListResponseDto>(
+				pagingResponseDto, type, keyword, "", businessLectureListResponseDto);
 		return listPagingResponseDto;
 	}
-	
+
 	// 판매자의 완료된 강의 리스트
-	public ListPagingResponseDto<BusinessLectureListResponseDto> findCompletedLectureByUserId(String type, String keyword, Integer page, int userId) {
-		PagingResponseDto pagingResponseDto = businessRepository.findCompletedLecturePaging(type, keyword, page, userId);
-		int startNum = (page-1)*10;
+	public ListPagingResponseDto<BusinessLectureListResponseDto> findCompletedLectureByUserId(String type,
+			String keyword, Integer page, int userId) {
+		PagingResponseDto pagingResponseDto = businessRepository.findCompletedLecturePaging(type, keyword, page,
+				userId);
+		int startNum = (page - 1) * 10;
 		List<BusinessLectureListResponseDto> businessLectureListResponseDto = businessRepository
 				.findCompletedLectureByUserId(type, keyword, startNum, userId);
-		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = 
-				new ListPagingResponseDto<BusinessLectureListResponseDto>(pagingResponseDto, type, keyword, "", businessLectureListResponseDto);
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = new ListPagingResponseDto<BusinessLectureListResponseDto>(
+				pagingResponseDto, type, keyword, "", businessLectureListResponseDto);
 		return listPagingResponseDto;
 	}
 
@@ -214,30 +216,36 @@ public class BusinessService {
 
 	public void insertLecturePhoto(MultipartFile file, int registeredLectureId, boolean isThumbnail) {
 		try {
-			byte[] bytes = file.getBytes();
-			// 파일 저장 경로 설정 *(추후 수정)*
-			String uploadDir = "C:\\workspace\\spring\\ADayOfLearning\\src\\main\\resources\\static\\images\\lectureImages\\";
-			// sql에 올릴 경로
-			String sqlPath = "/images/lectureImages/";
-			// 파일 이름 : UUID 형식(128비트 길이의 고유 식별자)
-			String identifier = Integer.toString(registeredLectureId) + "_";
-
-        	String fileType = file.getContentType().substring(6);
-			String fileName = identifier + UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes()) + "."+ fileType;
-
-			// 서버 로컬폴더에 업로드
-			java.nio.file.Path path = Paths.get(uploadDir + fileName);
-			System.out.println(Files.write(path, bytes));
+			String fileName = uploadLocal(file, registeredLectureId);
 
 			// sql 업로드
 			LecturePhoto lecturePhoto = LecturePhoto.builder().isThumbnail(isThumbnail).lectureId(registeredLectureId)
-					.img(sqlPath + fileName).build();
+					.img(fileName).originName(file.getOriginalFilename()).build();
 
 			lecturePhotoRepository.insert(lecturePhoto);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String uploadLocal(MultipartFile file, Integer lectureId) throws IOException {
+		byte[] bytes = file.getBytes();
+		// 파일 저장 경로 설정
+		String uploadDir = Define.LOCALPATH + "ADayOfLearning\\src\\main\\resources\\static\\images\\lectureImages\\";
+		// sql에 올릴 경로
+		String sqlPath = "/images/lectureImages/";
+		// 파일 이름 : UUID 형식(128비트 길이의 고유 식별자)
+		String identifier = Integer.toString(lectureId) + "_";
+
+		String fileType = file.getContentType().substring(6);
+		String fileName = identifier + UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes()) + "." + fileType;
+
+		// 서버 로컬폴더에 업로드
+		java.nio.file.Path path = Paths.get(uploadDir + fileName);
+		Files.write(path, bytes);
+
+		return sqlPath + fileName;
 	}
 
 	public void insertOptionIfTrue(Boolean condition, int optionId, int lectureId) {
@@ -256,14 +264,15 @@ public class BusinessService {
 
 		Date date = sdf.parse(tempDate);
 		Timestamp timestamp = new Timestamp(date.getTime());
-		
-		LectureSession lectureSession = LectureSession.builder().lectureId(sessionRequestDto.getLectureId()).sessionDate(timestamp).build();
-		
+
+		LectureSession lectureSession = LectureSession.builder().lectureId(sessionRequestDto.getLectureId())
+				.sessionDate(timestamp).build();
+
 		int result = lectureSessionRepository.insert(lectureSession);
 
 		return result;
 	}
-	
+  
 	public List<BusinessSalesResponseDto> getMonthlySales(int userId) {
 		List<BusinessSalesResponseDto> businessSalesResponseDto = businessRepository.monthlySales(userId);
 		return businessSalesResponseDto;
@@ -285,4 +294,62 @@ public class BusinessService {
 	public int getLastMonthSalesTotal(int userId) {
 		return businessRepository.lastMonthSalesTotal(userId);
 	}
+
+	@Transactional
+	public int updateLecture(LectureRegistarionRequestDto dto, revisePhotoListRequestDto revisePhotoListRequestDto,
+			Integer lectureId) {
+
+		// 1. 강의 정보
+		Lecture lecture = new Lecture().builder().lectureId(lectureId).categoryId(dto.getCategoryId()).title(dto.getTitle())
+				.content(dto.getContent()).address(dto.getAddress()).addressDetail(dto.getAddressDetail())
+				.maximum(dto.getMaximum()).price(dto.getPrice()).phoneNumber(dto.getPhoneNumber())
+				.latitude(dto.getLatitude()).longitude(dto.getLongitude()).state(dto.getState()).duration(dto.getDuration()).build();
+
+		lectureRepository.updateByLectureId(lecture);
+
+		// 2. 사진 처리 로직
+		revisePhotoListRequestDto.getRevisePhotoList().forEach(item -> {
+			if (item.getState().equals(Define.DELETE)) {
+				if (item.getLecturePhotoId() != null) {
+					lecturePhotoRepository.deleteByLecturePhotoId(item.getLecturePhotoId());
+				}
+
+			} else if (item.getState().equals(Define.UPDATE)) {
+				try {
+					String fileName = uploadLocal(item.getFile(), lectureId);
+					LecturePhoto lecturePhoto = lecturePhotoRepository.findByLecturePhotoId(item.getLecturePhotoId());
+					lecturePhoto.builder().img(fileName).build();
+					lecturePhotoRepository.updateByLecturePhotoId(lecturePhoto);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			} else if (item.getState().equals(Define.INSERT)) {
+				try {
+					String fileName = uploadLocal(item.getFile(), lectureId);
+					LecturePhoto lecturePhoto = LecturePhoto.builder().isThumbnail(false).lectureId(lectureId)
+							.img(fileName).originName(item.getFile().getOriginalFilename()).build();
+					lecturePhotoRepository.insert(lecturePhoto);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		// 3. 옵션 처리 로직
+		lectureOptionRepository.deleteByLectureId(lectureId);
+		insertOptionIfTrue(dto.getParkingSpaceAvailable(), 1, lectureId);
+		insertOptionIfTrue(dto.getRecordingProvided(), 2, lectureId);
+		insertOptionIfTrue(dto.getMaterialsProvided(), 3, lectureId);
+		insertOptionIfTrue(dto.getKidsPlayAreaAvailable(), 4, lectureId);
+		insertOptionIfTrue(dto.getWomenOnly(), 5, lectureId);
+		insertOptionIfTrue(dto.getMenOnly(), 6, lectureId);
+		insertOptionIfTrue(dto.getNoKidsZone(), 7, lectureId);
+
+		return 1;
+
+	}
+
 }

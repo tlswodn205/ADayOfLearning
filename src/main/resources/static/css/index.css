@@ -6,7 +6,6 @@
 }
 
 #index .indexContainer {
-	padding-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -24,12 +23,11 @@
 }
 
 #index .swiper{
-	width: 1100px;
-	min-height: 200px;
+	width: 1200px;
 }
 
 #index .mainBanner{
-	max-width: 100%;
+	width: 1200px;
 }
 
 #index .bannerSwiper .swiper-slide{
@@ -39,23 +37,44 @@
 	justify-content: center;
 }
 
-#index .lectureListContainer .lectureList .lectureItem {
-	position: relative;
-	box-sizing: border-box;
-	background-color: #fefefe;
-	border-radius: 6px;
+#index .indexContainer {
+	padding-top: 30px;
+	display: flex;
+	flex-direction: column;
 }
 
-#index .lectureListContainer .lectureList .lectureItemContainer {
+.lectureListContainer .lectureListTitle{
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.lectureListContainer .lectureList{
+	display: flex;
+	width: 1200px;
+	height: fit-content;
+	justify-content: left;
+}
+
+.lectureListContainer .lectureList .lectureContainer {
+	margin-top: 10px;
+}
+.lectureListContainer .lectureList .lectureItemContainer {
 	position: relative;
 	box-sizing: border-box;
 	height: 330px;
 	border-radius: 5px;
 	margin-bottom: 30px;
 	border: 0.5px solid #dddddd;
+	background-color: #fefefe;
 }
 
-#index .lectureListContainer .lectureList .lectureItemPictureArea {
+.lectureListContainer .lectureList .lectureItem {
+	display: contents;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.lectureListContainer .lectureList .lectureItemPictureArea {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -65,7 +84,7 @@
 	height: 200px;
 }
 
-#index .lectureListContainer .lectureList .lectureItemPicture {
+.lectureListContainer .lectureList .lectureItemPicture {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -78,7 +97,7 @@
 	z-index: 0;
 }
 
-#index .lectureListContainer .lectureList .lectureItemAddress {
+.lectureListContainer .lectureList .lectureItemAddress {
 	position: absolute;
 	bottom: 8px;
 	left: 8px;
@@ -94,22 +113,22 @@
 	border-radius: 5px;
 }
 
-#index .lectureListContainer .lectureList .lectureItemCategory {
+.lectureListContainer .lectureList .lectureItemCategory {
 	position: absolute;
 	box-sizing: border-box;
 	top: 208px;
 	left: 8px;
-	border: 1px solid #ffd3d5;
+	border: 1px solid #FEE500;
 	border-radius: 5px;
 	width: fit-content;
 	height: fit-content;
 	padding: 2px 14px;
 	font-size: 14px;
-	background-color: #fff1f2;
+	background-color: #FEE50090;
 	color: #666666;
 }
 
-#index .lectureListContainer .lectureList .lectureItemTitle {
+.lectureListContainer .lectureList .lectureItemTitle {
 	position: absolute;
 	box-sizing: border-box;
 	top: 242px;
@@ -121,7 +140,7 @@
 	color: #333333;
 }
 
-#index .lectureListContainer .lectureList .lectureItemProvider {
+.lectureListContainer .lectureList .lectureItemProvider {
 	position: absolute;
 	bottom: 8px;
 	left: 8px;
@@ -129,7 +148,7 @@
 	color: #333333;
 }
 
-#index .lectureListContainer .lectureList .lectureItemPrice {
+.lectureListContainer .lectureList .lectureItemPrice {
 	position: absolute;
 	bottom: 8px;
 	right: 8px;

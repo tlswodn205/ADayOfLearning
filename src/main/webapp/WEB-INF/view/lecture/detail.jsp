@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <script src="https://cdn.tiny.cloud/1/dtdpftxislwkjsqt3kyjkmgpi0r0p0cw5zmchcg1hwbvz9w9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<input type="hidden" id="userId" value="${principal.userId}"/>
 <div id="lectureDetail">
     <div class="detailMainInfo">
         <div class="detailColumn1">
@@ -11,8 +12,14 @@
             <%-- 서브사진 --%>
             <div class="detailSubPhoto"></div>
             <%-- 강의 소개 머리 --%>
-            <div class="detailASet"><a href="#detailContent">클래스 소개</a> <a href="#detailLocation">위치</a> <a href="#detailReview">후기</a></div>
+            <div class="detailASet">
+            	<a href="#detailContent">클래스 소개</a>
+            	<a href="#detailOption">제공 옵션</a>
+            	<a href="#detailLocation">위치</a> 
+            	<a href="#detailReview">후기</a>
+            </div>
 
+			<%-- 클래스 소개 --%>
             <div id="detailContent" class="detailArea content">
                 <div class="detailHead content">
                     클래스 소개
@@ -21,21 +28,31 @@
                 <div class="detailInfo content"></div>
             </div>
 
+			<%-- 서비스 --%>
+            <div id="detailOption" class="detailArea option">
+                <div class="detailHead option">
+                    제공되는 옵션
+                    <div class="detailHeadBottomLine"></div>
+                </div>
+                <div class="detailInfo option"></div>
+            </div>
+
+			<%-- 위치&지도 --%>
             <div id="detailLocation" class="detailArea location">
                 <div class="detailHead location">
                     위치
                     <div class="detailHeadBottomLine"></div>
                 </div>
-                <div class="detailLectureAddress"></div>
                 <div class="detailInfo location"></div>
             </div>
 
+			<%-- 리뷰 --%>
             <div id="detailReview" class="detailArea review">
                 <div class="detailHead review">후기</div>
                 <div class="reviewInputContainer">
                 	<div class="reviewInputTitle">
-                		후기 작성
-                		<div class="star-rating input">
+                		별점
+                		<div class="star-rating input" id="star-input">
 							<input type="radio" id="5-starsInput" name="scoreInput" value="5"/>
 							<label for="5-starsInput" class="star">★</label>
 							<input type="radio" id="4-starsInput" name="scoreInput" value="4"/>
@@ -50,10 +67,12 @@
                 	</div>
                 	<div class="reviewInputBody">
 		                <textarea class="reviewInput" id="reviewInput" name="content" placeholder="후기 내용"></textarea>
-		                <input type="button" id="reviewInputBtn" value="후기 등록"/>
+		                <input type="button" id="reviewInputBtn" value="후기&#10;등록"/>
                 	</div>
                 </div>
-                <div class="detailInfo review"></div>
+                <div class="detailInfo review">
+                	<div class="reviewNone" id="reviewNone">아직 작성된 후기가 없습니다.</div>
+                </div>
             </div>
         </div>
 
@@ -85,6 +104,12 @@
                     <div class="lectureDetatilRight phone"></div>
                 </div>
 
+ 				<%-- 강의 진행 시간 --%>
+                <div>
+                    <i class="fa-regular fa-clock"></i>
+                    <div class="lectureDetatilRight duration"></div>
+                </div>
+
                 <div>
                     <input class="selectedDate" type="hidden" name="date" />
                     <table class="calendarDetail">
@@ -112,11 +137,8 @@
                     </div>
                     <div class="lectureDetatilRight price"></div>
                     <div class="paymentButtonSet">
-                        <%--
-                        <button id="inquiryBtn" onclick="location.href = '/chat/room/${lecture.userId}'">문의하기</button>
-                        --%>
                         <button id="inquiryBtn">문의하기</button>
-                        <button id="enroll">클래스 신청</button>
+                        <button id="enroll" style="display: none">클래스 신청</button>
                     </div>
                 </div>
             </div>
@@ -129,5 +151,9 @@
     let lectureData = ${lecture};
     let photoList = ${lecturePhotos};
     let reviewList = ${reviews};
+    let options = ${lectureOptions};
+    console.log(options);
+    
+    console.log(reviewList);
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

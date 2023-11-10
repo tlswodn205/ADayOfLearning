@@ -46,4 +46,9 @@ public class LectureService {
 		return lectureRepository.findLastLecture();
 	}
 
+	public int getCount(ListSearchRequestDto listSearchRequestDto) {
+		
+		return lectureRepository.findAllCount(listSearchRequestDto);
+	}
+
 }

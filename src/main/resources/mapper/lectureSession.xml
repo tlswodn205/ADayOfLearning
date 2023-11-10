@@ -26,14 +26,19 @@
 	</select>
 	
 	<select id="findByLectureIdAndDate" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureSessionResponseDto">
-		SELECT *, (SELECT COUNT(*) 
-					FROM adayoflearning.tb_reserve r 
- 	          		JOIN tb_payment p ON r.reserve_id = p.reserve_id
-					WHERE r.lecture_session_id = adayoflearning.tb_lecture_session.lecture_session_id 
-						  AND p.state ='결제 완료') as students 
-		FROM adayoflearning.tb_lecture_session  
-		WHERE lecture_id = #{lecuteId}
-				AND session_date BETWEEN #{date} AND DATE_ADD(#{date}, INTERVAL 1 DAY)
+		SELECT ls.lecture_session_id, ls.lecture_id, ls.session_date, ls.created_at
+			 , count(p.payment_id) as students
+		     , sum(CASE WHEN (r.user_id = #{userId} AND p.payment_id IS NOT NULL) THEN 1 ELSE 0 END) AS my_reserve
+		  FROM ( SELECT lecture_session_id, lecture_id, session_date, created_at
+					FROM tb_lecture_session
+				   WHERE lecture_id = #{lectureId}
+					 AND session_date BETWEEN #{date} AND DATE_ADD(#{date}, INTERVAL 1 DAY) ) ls
+		  LEFT JOIN tb_reserve r
+		    ON ls.lecture_session_id = r.lecture_session_id
+		  LEFT JOIN tb_payment p
+		    ON r.reserve_id = p.reserve_id
+		   AND p.state = '결제 완료'
+		 GROUP BY ls.lecture_session_id, ls.lecture_id, ls.session_date, ls.created_at;
 	</select>
 
 	

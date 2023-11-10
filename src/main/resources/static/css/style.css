@@ -3,10 +3,11 @@ html, body{
 	margin:0;
 	padding:0;
 	min-height: 100%;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 body{
-  padding-top: 90px;
+  padding-top: 80px;
   height: 100%;
 }
 
@@ -50,15 +51,25 @@ a:hover {
 }
 
 button {
-
   background: inherit ;
   border:none; 
   box-shadow:none; 
   border-radius:0; 
   padding:0; 
   overflow:visible; 
-  cursor:pointer
+  cursor:pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+input{
+	
+  font-family: 'Noto Sans KR', sans-serif;
+}
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 header{
@@ -68,19 +79,21 @@ header{
 	right: 0px;
  	z-index: 100;
  	background-color: #fff;
-	box-shadow: 0px 1.5px 5px 1px #ccc;
+	box-shadow: 0px 1px 1px 1px #f0f0f0;
+	display: flex;
+	justify-content: center;
 }
 
 header .headerWrap{
 	display: flex;
 	height:60px;
-    margin-left: 15%;
-    margin-right: 15%;
+	width: 1200px;
  	align-items:center;
 }
 
 header .logo{
-	height:45px;
+	padding-top: 5px;
+	height:40px;
 	margin-right: 20px;
 }
 
@@ -90,13 +103,9 @@ header .topMenuRight{
 
 
 header .topMenuRight li {
-    border-right: 1px solid #000; /* 모든 <li> 요소 사이에 선 그리기 */
     padding: 0px 20px; /* 내용과 선 사이의 간격 조절 (선택 사항) */
 }
 
-header .topMenuRight li:last-child {
-    border-right: none; /* 마지막 <li> 요소의 border-bottom 제거 */
-}
 
 header .topMenuLeft{
 	display: flex;
@@ -148,6 +157,40 @@ footer .companyName{
 	font-weight: 700;	
 }
 
+.yellowButton{
+	display: flex;
+	font-size: 14px;
+	width: 110px;
+	border-radius: 15px;
+	height: 30px;
+	background-color: #f5d04295;
+	justify-content: center;
+	align-items: center;
+}
+
+.yellowButton:hover{
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
+	color: #000;
+}
+
+.redButton{
+	display: flex;
+	font-size: 14px;
+	width: 110px;
+	border-radius: 15px;
+	height: 30px;
+	justify-content: center;
+	align-items: center;
+}
+
+.redButton:hover{
+	animation-duration: 1s;
+	animation-name: slideRed;
+	animation-fill-mode: forwards;
+	color: #000;
+}
 
 @keyframes slideYellow {
   from {
@@ -158,6 +201,17 @@ footer .companyName{
 	background-color: #f5d042;
   }
 }
+
+@keyframes slideRed {
+  from {
+	background-color: #ffffff;
+  }
+
+  to {
+	background-color: #ff000050;
+  }
+}
+
 @keyframes slideWhite {
   from {
 	background-color: #fff;
