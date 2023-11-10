@@ -30,29 +30,31 @@
 					<a href="/lecture/list">수업보기</a>
 				</li>
 				<li>
-					<a>새소식</a>
+					<a href="/map">지도</a>
 				</li>
-				<li>
-					<a>서비스소개</a>
-				</li>
+				<c:if test="${principal ne null}"> 
+					<li>
+						<a href="/chat/room">채팅</a>
+					</li>
+					<li>
+						<a href="/user/businessRequest">판매자 신청</a>
+					</li>
+				</c:if>
 			</ul>			
 			<ul class='topMenuLeft'>
 			
 	        <c:choose>
 	            <c:when test="${principal ne null}"> 
 					<li>
-						<a class="fa-solid fa-comments" href="/chat/room"></a>
+						<a class="yellowButton" href="/user/userMyPage">마이페이지</a>
 					</li>
 					<li>
-						<a class="fa-solid fa-user" href="/user/userMyPage"></a>
-					</li>
-					<li>
-						<a class="fa-solid fa-right-from-bracket" href="/user/signOut"></a>
+						<a class="redButton" href="/user/signOut">로그아웃</a>
 					</li>
 				</c:when>
 				<c:otherwise> 
 					<li>
-						<a class="fa-solid fa-right-to-bracket" href="/user/signIn"></a>
+						<a class="yellowButton" href="/user/signIn">로그인</a>
 					</li>
 				</c:otherwise>
 			</c:choose>

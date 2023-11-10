@@ -397,15 +397,16 @@ let detailInit = {
     reviewInputInit: function () {
         /*
 		if(userId !== '' && $('.reviewUser[name="'+ userId + '"]').length === 0) {
-	        tinyInit('#reviewInput', 650, 100);
+	        tinyInit('#reviewInput', 620, 100);
 	        insertTiny = tinymce.activeEditor;
 		} else {
 			$('#star-input').hide()
 			$('.reviewInputBody').hide();
 		}
 		*/
-        tinyInit('#reviewInput', 650, 100);
+        tinyInit('#reviewInput',620,100);
         insertTiny = tinymce.activeEditor;
+        
     },
     // 리뷰 등록 버튼 ==========================
     reviewInput: async function () {

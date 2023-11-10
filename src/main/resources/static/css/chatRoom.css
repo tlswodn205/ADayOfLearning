@@ -15,7 +15,7 @@
 }
 
 #chat .chatRoomListContainer {
-	width: 40%;
+	width: 342px;
 	height: 100%;
 	margin-right: 10px;
 }
@@ -78,7 +78,7 @@
 }
 
 #chat .chatContentContainer {
-	width: 59%;
+	width: 855px;
 	height: 700px;
 	padding: 10px;
 }

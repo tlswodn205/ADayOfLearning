@@ -1,6 +1,6 @@
 .map{
-	width: 700px;
-	height: 500px;
+	width: 1200px;
+	height: 700px;
 }
 
 .lectureItem {
@@ -61,13 +61,13 @@
 	box-sizing: border-box;
 	top: 208px;
 	left: 8px;
-	border: 1px solid #ffd3d5;
+	border: 1px solid #FEE500;
 	border-radius: 5px;
 	width: fit-content;
 	height: fit-content;
 	padding: 2px 14px;
 	font-size: 14px;
-	background-color: #fff1f2;
+	background-color: #FEE50090;
 	color: #666666;
 }
 

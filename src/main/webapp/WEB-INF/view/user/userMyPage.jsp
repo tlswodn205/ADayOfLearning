@@ -62,7 +62,12 @@
 			
 			<div class="wideDiv">
 				<i class="fa-solid fa-phone"></i>
-				<input type="number" id="phoneNumber" name="phoneNumber" placeholder="전화번호" value="${myPageRequestDto.phoneNumber}">
+				<div class="telbox">
+					<input type="hidden" id="phoneNumber" name="phoneNumber" placeholder="전화번호"  value="${myPageRequestDto.phoneNumber}"> 
+					<input type="number" class="tel" id="tel1"> - 
+					<input type="number" class="tel" id="tel2"> - 
+					<input type="number" class="tel" id="tel3"> 
+				</div>
 			</div>
 			<br>		
 			
@@ -89,6 +94,7 @@ let updateUserData = {
 		$(document).on("click", "#updateUserDataBtn", ()=>{
 			this.submit();
 		});
+		
 		$(document).on("click", "#openZipSearch", ()=>{
 			this.findAddress();
 		});
@@ -101,17 +107,30 @@ let updateUserData = {
 		let today = new Date(now_utc-timeOff).toISOString().split("T")[0];
 		
 		$('#birthday').attr("max", today);
+		
+
+		let phoneNumber = $('#phoneNumber').val();
+		let phoneNumbers = phoneNumber.split('-');
+		
+		
+		$('#tel1').val(phoneNumbers[0]);
+		$('#tel2').val(phoneNumbers[1]);
+		$('#tel3').val(phoneNumbers[2]);
 	},
 	submit : function(){
 		let password = $("#password").val();
 		let passwordCheck = $("#passwordCheck").val();
 		let name = $("#name").val();
-		let email = $("#email").val();
 		let address = $("#address").val();
-		let phoneNumber = $("#phoneNumber").val();
 		let birthday = $("#birthday").val();
 		
-		
+    	let tel1 = $('#tel1').val();
+    	let tel2 = $('#tel2').val();
+    	let tel3 = $('#tel3').val();
+
+    	let phoneNumber = tel1+ "-"+tel2+'-'+tel3;
+    	$("#phoneNumber").val(phoneNumber);
+    	
 		if(password != passwordCheck){
 			alert("비밀번호와 비밀번호 확인이 다릅니다.");
 			return false;
@@ -122,20 +141,30 @@ let updateUserData = {
 			return false;
 		}	
 		
-		if(!email){
-			alert("이메일을 입력해주세요.");
-			return false;
-		}
-		
 		if(!address){
 			alert("주소를 입력해주세요.");
 			return false;
 		}
 
-		if(!phoneNumber){
-			alert("전화번호를 입력해주세요.");
-			return false;
+		if(tel1.toString().length==0 || tel2.toString().length==0 || tel3.toString().length==0){
+    		alert("전화번호를 입력해주세요.");
+    		return false;
 		}
+    	
+    	if(!(tel1.toString().length==3)){
+    		alert("전화번호를 다시 입력해주세요.");
+    		return false;
+    	}
+
+    	if(!(tel2.toString().length==3 || tel2.toString().length==4)){
+    		alert("전화번호를 다시 입력해주세요.");
+    		return false;
+    	}
+
+    	if(!(tel3.toString().length==4)){
+    		alert("전화번호를 다시 입력해주세요.");
+    		return false;
+    	}
 		
 		if(!birthday){
 			alert("생일을 입력해주세요.");
