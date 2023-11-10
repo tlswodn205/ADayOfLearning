@@ -107,9 +107,11 @@ public class LectureController {
 	public String getDetail(Model model, @RequestParam Integer id) throws JsonProcessingException {
 		Lecture lecture = lectureService.getLectureById(id);
 		List<LecturePhoto> lecturePhotos = lecturePhotoService.getLecturePhotosById(id);
-
+		List<String> optionList = lectureOptionService.getLectureOptionStringByLectureId(id);
+		
 		model.addAttribute("lecture", objectMapper.writeValueAsString(lecture));
 		model.addAttribute("lecturePhotos", objectMapper.writeValueAsString(lecturePhotos));
+		model.addAttribute("lectureOptions", objectMapper.writeValueAsString(optionList));
 
 		List<ReviewResponseDto> reviews = reviewService.getReviewsByLectureId(lecture.getLectureId());
 		model.addAttribute("reviews", objectMapper.writeValueAsString(reviews));

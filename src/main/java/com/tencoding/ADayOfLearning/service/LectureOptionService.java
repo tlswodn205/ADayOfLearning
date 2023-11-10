@@ -13,11 +13,15 @@ public class LectureOptionService {
 
 	@Autowired
 	LectureOptionRepository lectureOptionRepository;
-	
+
 	public List<LectureOption> getLectureOptionByLectureId(int lectureId) {
 		List<LectureOption> list = lectureOptionRepository.findByLectureId(lectureId);
-		
+
 		return list;
+	}
+
+	public List<String> getLectureOptionStringByLectureId(int lectureId) {
+		return lectureOptionRepository.findLectureOptionStringByLectureId(lectureId);
 	}
 
 }
