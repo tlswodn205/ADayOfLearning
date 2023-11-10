@@ -21,6 +21,15 @@
                 <div class="detailInfo content"></div>
             </div>
 
+            <div id="detailService" class="detailArea content">
+                <div class="detailHead service">
+                    제공되는 서비스
+                    <div class="detailHeadBottomLine"></div>
+                </div>
+                <div class="detailInfo service"></div>
+            </div>
+
+
             <div id="detailLocation" class="detailArea location">
                 <div class="detailHead location">
                     위치

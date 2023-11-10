@@ -51,7 +51,7 @@ public class LectureController {
 
 	@Autowired
 	ReviewService reviewService;
-	
+
 	@Autowired
 	HttpSession session;
 
@@ -81,11 +81,15 @@ public class LectureController {
 		}
 
 		ListSearchRequestDto listSearchRequestDto = new ListSearchRequestDto().builder().minPrice(min_price)
-				.maxPrice(max_price).categoryName(category).title(title).location(location).startNum((page-1)*12).build();
+				.maxPrice(max_price).categoryName(category).title(title).location(location).startNum((page - 1) * 12)
+				.build();
+
+		int LectureAllCount = lectureService.getCount(listSearchRequestDto);
 
 		List<LectureListItemResponseDto> list = lectureService.getLectureListBySearch(listSearchRequestDto);
 
 		model.addAttribute("lectures", objectMapper.writeValueAsString(list));
+		model.addAttribute("count", LectureAllCount);
 		model.addAttribute("page", page);
 
 		return "lecture/list";
@@ -125,6 +129,7 @@ public class LectureController {
 
 	/**
 	 * 지도의 위치정보로 해당 위치의 클래스 리스트 조회
+	 * 
 	 * @param mapBoundsRequestDto
 	 * @return List<LectureSessionResponseDto>
 	 */

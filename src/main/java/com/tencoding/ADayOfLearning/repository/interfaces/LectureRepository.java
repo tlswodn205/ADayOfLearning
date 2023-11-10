@@ -31,4 +31,6 @@ public interface LectureRepository {
 	public List<LectureListItemResponseDto> findByMapBounds(MapBoundsRequestDto mapBoundsRequestDto);
 
 	public LastLectureResponseDto findLastLecture();
+
+	public int findAllCount(ListSearchRequestDto listSearchRequestDto);;
 }
