@@ -208,7 +208,8 @@ footer .companyName{
   }
 
   to {
-	background-color: #ff000050;
+	background-color: #ff000098;
+	color: #fff;
   }
 }
 

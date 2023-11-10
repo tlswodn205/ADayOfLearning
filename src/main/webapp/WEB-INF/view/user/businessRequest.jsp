@@ -40,9 +40,9 @@
 				<i class="fa-solid fa-phone"></i>
 				<div class="telbox">
 					<input type="hidden" id="businessNumber" name="businessNumber" placeholder="사업장번호" value=""> 
-					<input type="number" class="tel" id="tel1"> - 
-					<input type="number" class="tel" id="tel2"> - 
-					<input type="number" class="tel" id="tel3"> 
+					<input type="number" class="tel" id="tel1" maxlength="3"> - 
+					<input type="number" class="tel" id="tel2" maxlength="4"> - 
+					<input type="number" class="tel" id="tel3" maxlength="4"> 
 				</div>
 			</div>
 			<br>
@@ -76,6 +76,15 @@ let BusinessRequest = {
     		this.findAddress();
     	});
 
+		$(document).on("input", "#tel1", ()=>{
+			this.telChange(1,3);
+		});
+		$(document).on("input", "#tel2", ()=>{
+			this.telChange(2,4);
+		});
+		$(document).on("input", "#tel3", ()=>{
+			this.telChange(3,4);
+		});
     },
     findAddress: function() {
    		new daum.Postcode({
@@ -154,7 +163,19 @@ let BusinessRequest = {
 		
 		
 		$("#businessRequest").submit();
-    },
+    },	
+    telChange: function(i, mLength) {
+		let str = $('#tel' + i).val();
+ 		if($('#tel' + i).val().length > mLength) {
+ 			let number = str.substring(0,mLength);
+ 			$('#tel' + i).val(number);
+		}
+		if(str.length >= mLength && i < 3) {
+			$('#tel'+ (i + 1)).focus();
+		} else if (i === 3) {
+			$('#businessRegistrationNumber').focus();
+		}
+	}
 	 
 };
 	

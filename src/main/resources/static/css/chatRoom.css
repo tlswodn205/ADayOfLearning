@@ -6,7 +6,14 @@
 #chat .partition {
 	width: 0.1px;
 	height: 800px;
-	border-right: 0.5px solid;
+	border-right: 2px solid #eee;
+}
+
+#chat hr{
+    background:#eee;
+    height: 2px ;
+    border: 0;
+    margin: 0;
 }
 
 #chat .chatContainer {
@@ -17,23 +24,23 @@
 #chat .chatRoomListContainer {
 	width: 342px;
 	height: 100%;
-	margin-right: 10px;
 }
 
 #chat .chatRoomListContainer .myPerson {
-	font-weight: bold;
+	font-size: 20px;
 	padding-top: 5px;
 	padding-left: 5px;
 }
 
 #chat .chatRoomContainer {
-	margin: 5px;
 	max-height: 700px;
 	overflow-y: auto;
 	display: flex;
 	align-items: center;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
+	border-bottom: 1px solid #eee;
+	margin-right: 5px;
 }
 
 #chat .chatRoomContainer::-webkit-scrollbar {
@@ -67,20 +74,21 @@
 	font-size: 14px;
 	color: red;
 	margin: 5px;
+	border-radius: 5px ;
 	padding: 4px;
 	min-width: 50px;
 	text-align: center;
-	border: 1px solid;
 	cursor: pointer;
 }
 #chat .chatRoomContainer .chatLeave:hover{
-	border: 2px solid;
+	animation-duration: 1s;
+	animation-name: slideRed;
+	animation-fill-mode: forwards;
 }
 
 #chat .chatContentContainer {
 	width: 855px;
 	height: 700px;
-	padding: 10px;
 }
 
 #chat .chatContentContainer .chatPerson {
@@ -95,6 +103,7 @@
 #chat .chatContentContainer .chatContent{
 	height: 600px;
 	padding: 5px;
+	margin: 10px 0px 10px 10px;
 	overflow-y: auto;
 	background-color: #e9f9f9;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
@@ -165,27 +174,33 @@
 
 #chat .chatContentContainer .chatMessageInputContainer{
 	display: none;
-	height: 22px;
+	height: 44px;
 	margin-top: 8px;
 }
 #chat .chatContentContainer .chatMessageInputContainer .chatMessageInput{
+	
+	border-radius: 6px;
+	margin-left: 10px;
 	width: 100%;
+	height: 38px;
+	font-size: 16px;
 }
 
 #chat .chatContentContainer .chatMessageInputContainer .chatMessageInputBtn{
-	width: 60px;
+	width: 100px;
+	height: 100%;
 	margin-left: 6px;
-	font-size: 14px;
+	font-size: 16px;
 	vertical-align: middle;
 	text-align: center;
-	border: 1px solid;
-	border-color: darkgray;
+	background-color: #f5d04295;
 	border-radius: 6px;
 }
+
 #chat .chatContentContainer .chatMessageInputContainer .chatMessageInputBtn:hover{
-	border: 2px solid;
-	border-color: darkgray;
-	border-radius: 6px;
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
 }
 
 

@@ -69,11 +69,11 @@ public class ChatService {
 		log.info("insertChat");
 		log.info("{}", chatMessageRequestDto);
 		chatRoomUserService.updateStartAt(chatMessageRequestDto.getChatRoomId(), chatMessageRequestDto.getReceiveUserId());
-		User userEntity = userRepository.findByUsername(chatMessageRequestDto.getSendUsername());
+//		User userEntity = userRepository.findByUserId(chatMessageRequestDto.getSendUserId());
 		
 		Chat chatEntity = Chat.builder()
 				.chatRoomId(chatMessageRequestDto.getChatRoomId())
-				.userId(userEntity.getUserId())
+				.userId(chatMessageRequestDto.getSendUserId())
 				.context(chatMessageRequestDto.getMessage())
 				.viewAt(true)
 				.build();

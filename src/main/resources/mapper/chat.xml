@@ -35,11 +35,11 @@
 		SELECT a.chat_room_id
 			 , a.user_id
 		     , a.context as message
-		     , b.username
+		     , b.name
 		     , concat(CASE WHEN date_format(a.created_at, "%p") = 'AM' THEN '오전' ELSE '오후' END
 						, date_format(a.created_at, " %I:%i")) AS created_at
 		  FROM tb_chat a
-		  JOIN tb_user b
+		  JOIN tb_person b
 		    ON a.user_id = b.user_id
 		 WHERE a.chat_room_id = #{chatRoomId}
 		   AND a.created_at &gt;= #{startAt}

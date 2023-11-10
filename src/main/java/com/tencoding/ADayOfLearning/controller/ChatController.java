@@ -23,10 +23,12 @@ import com.tencoding.ADayOfLearning.dto.request.ChatMessageRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.NewChatRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatMessageResponsoDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
+import com.tencoding.ADayOfLearning.repository.model.Person;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.ChatRoomService;
 import com.tencoding.ADayOfLearning.service.ChatRoomUserService;
 import com.tencoding.ADayOfLearning.service.ChatService;
+import com.tencoding.ADayOfLearning.service.PersonService;
 import com.tencoding.ADayOfLearning.service.UserService;
 import com.tencoding.ADayOfLearning.util.Define;
 
@@ -45,6 +47,8 @@ public class ChatController{
 	ChatRoomService chatRoomService;
 	@Autowired
 	ChatRoomUserService chatRoomUserService;
+	@Autowired
+	PersonService personService;
 	
 	@Autowired
 	HttpSession session;
@@ -83,6 +87,9 @@ public class ChatController{
 		
 		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(principal.getUserId());
 		model.addAttribute("chatRoomList", objectMapper.writeValueAsString(chatRoomList));
+		
+		Person person = personService.findPersonByUserId(principal.getUserId());
+		model.addAttribute("person", person);
 		
 		return "chat/chatRoom";
 	}

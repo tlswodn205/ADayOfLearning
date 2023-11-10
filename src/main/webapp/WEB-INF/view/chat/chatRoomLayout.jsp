@@ -8,10 +8,10 @@
 		<div class="chatContainer">
 			<div class="chatRoomListContainer">
 				<div class="myPerson">
-					내정보 : ${principal.username}
+					내정보 : ${person.name}
 				</div>
 				<hr>
-				<input type="hidden" id="username" value="${principal.username}">
+				<input type="hidden" id="username" value="${person.name}">
 				<input type="hidden" id="userId" value="${principal.userId}">
 				<div class="chatRoomList" id="chatRoomList"></div>
 			</div>
@@ -28,8 +28,8 @@
 				<div class="chatContent" id="chatContent"></div>
 				<hr>
 				<div class="chatMessageInputContainer" id="chatMessageInputContainer">
-					<input class="chatMessageInput" type="text" id="chatMessage">
-					<button class="chatMessageInputBtn" type="button" id="chatInput">전송</button>
+					<textarea class="chatMessageInput" id="chatMessage"></textarea>
+					<button class="chatMessageInputBtn" id="chatInput">전 송</button>
 				</div>
 			</div>
 		</div>

@@ -47,7 +47,7 @@
 		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username, p.img
 		FROM tb_lecture l 
 		JOIN tb_category c ON l.category_id = c.category_id
-		JOIN tb_user u ON l.user_id = u.user_i
+		JOIN tb_user u ON l.user_id = u.user_id
 		LEFT JOIN tb_lecture_photo p ON p.lecture_id= l.lecture_id 
         WHERE l.state = 1 AND p.is_thumbnail=1
         <if test="title != null">
