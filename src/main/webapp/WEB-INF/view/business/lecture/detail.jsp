@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/business/layout/header.jsp" %>
-<link rel="stylesheet" href="/css/business/lectureDetail.css">
 
 <main>
 	<div class="mainTop">
 		<div class="title">강의 신청자 목록</div>
 	</div>
 	<div id="lectureDetail" class="mainColumn">
-		<div class="lectureTable">
+		<div class="ListColumn">
 			<c:choose>
 				<c:when test="${lecture != null}">
 					<table>

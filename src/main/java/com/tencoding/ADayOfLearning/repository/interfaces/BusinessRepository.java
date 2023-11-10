@@ -10,6 +10,7 @@ import com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminRequestBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessSalesResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
@@ -43,4 +44,9 @@ public interface BusinessRepository {
 	public int updateAtAdmin(UpdateBusinessRequestDto updateBusinessRequestDto);
 	public PagingResponseDto findCompletedLecturePaging(@Param("type") String type, @Param("keyword") String keyword, @Param("page") Integer page, @Param("userId")int userId);
 	public List<BusinessLectureListResponseDto> findCompletedLectureByUserId(@Param("type") String type, @Param("keyword") String keyword, @Param("startNum") int startNum, @Param("userId") int userId);
+	public List<BusinessSalesResponseDto> monthlySales(int userId);
+	public List<BusinessSalesResponseDto> sevenDaysSales(int userId);
+	public int monthlySalesTotal(int userId);
+	public int sevenDaysSalesTotal(int userId);
+	public int lastMonthSalesTotal(int userId);
 }

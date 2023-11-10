@@ -12,19 +12,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PaymentRequestDto {
-	private String merchantKey; 		 // 상점키
-	private String merchantID; 				// 상점아이디
+	private String merchantKey; 		 							// 상점키
+	private String merchantID; 										// 상점아이디
 	private String goodsName; 										// 결제상품명
 	private String price; 											// 결제상품금액	
-//	private String price = "1000"; 									// 결제상품금액	
 	private String buyerName; 										// 구매자명
 	private String buyerTel; 										// 구매자연락처
 	private String buyerEmail; 										// 구매자메일주소
 	private String moid 			= "mnoid1234567890"; 			// 상품주문번호	
-//	private String returnURL 		= "http://localhost:8080/payment/payResult"; // 결과페이지(절대경로) - 모바일 결제창 전용
 	private String ediDate;	
 	private String hashString;	
-	
 	
 	
 	public final synchronized String getyyyyMMddHHmmss(){
@@ -66,6 +63,5 @@ public class PaymentRequestDto {
 		this.ediDate = getyyyyMMddHHmmss();
 		this.hashString = encrypt(ediDate + merchantID + price + merchantKey);
 	}
-	
 	
 }

@@ -27,6 +27,7 @@ import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessSalesResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.BusinessRepository;
 import com.tencoding.ADayOfLearning.repository.interfaces.CategoryRepository;
@@ -262,5 +263,26 @@ public class BusinessService {
 
 		return result;
 	}
-
+	
+	public List<BusinessSalesResponseDto> getMonthlySales(int userId) {
+		List<BusinessSalesResponseDto> businessSalesResponseDto = businessRepository.monthlySales(userId);
+		return businessSalesResponseDto;
+	}
+	
+	public List<BusinessSalesResponseDto> getPastSevenDaysSales(int userId) {
+		List<BusinessSalesResponseDto> businessSalesResponseDto = businessRepository.sevenDaysSales(userId);
+		return businessSalesResponseDto;
+	}
+	
+	public int getMonthlySalesTotal(int userId) {
+		return businessRepository.monthlySalesTotal(userId);
+	}
+	
+	public int getPastSevenDaysSalesTotal(int userId) {
+		return businessRepository.sevenDaysSalesTotal(userId);
+	}
+	
+	public int getLastMonthSalesTotal(int userId) {
+		return businessRepository.lastMonthSalesTotal(userId);
+	}
 }
