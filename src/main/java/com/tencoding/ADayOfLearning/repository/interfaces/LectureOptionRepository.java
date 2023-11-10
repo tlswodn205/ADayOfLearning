@@ -13,4 +13,6 @@ public interface LectureOptionRepository {
 	public int deleteByLectureOptionId(int lectureOptionId);
 	public LectureOption findByLectureOptionId(int lectureOptionId);
 	public List<LectureOption> findByAll();
+	public List<LectureOption> findByLectureId(int lectureId);
+	public int deleteByLectureId(int lectureId);
 }

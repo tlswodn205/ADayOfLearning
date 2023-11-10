@@ -17,8 +17,8 @@
 		UPDATE tb_lecture SET title = #{title}, content = #{content},
 		address = #{address}, address_detail = #{addressDetail},
 		latitude = #{latitude}, longitude = #{longitude},
-		maximum = #{maximum},price = #{price}
-		phone_number = #{phoneNumber},state = #{state}, duration = #{duration}
+		maximum = #{maximum}, price = #{price},	phone_number = #{phoneNumber},
+		state = #{state}, duration = #{duration}
 		WHERE lecture_id = #{lectureId};
 	</update>
 	

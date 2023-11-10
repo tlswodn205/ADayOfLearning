@@ -16,5 +16,6 @@ public class LecturePhoto {
 	private int lectureId;
 	private boolean isThumbnail;
 	private String img;
+	private String originName;
 	private Timestamp createdAt;
 }
