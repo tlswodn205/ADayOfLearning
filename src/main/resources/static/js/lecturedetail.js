@@ -37,18 +37,50 @@ let detailInit = {
         // 문의하기
         $('#inquiryBtn').click(() => this.inquiry());
         // 클래스 리뷰 점수
-		classScore();
+        classScore();
     },
 
     showInformation: function (lecture, photos, reviewList) {
-		userId = $('#userId').val();
+        userId = $('#userId').val();
         $('.detailInfo.content').append(lecture.content);
         $('.lectureDetatilRight.address').text(lecture.address + ', ' + lecture.addressDetail);
         $('.detailLectureTitle').text(lecture.title);
         $('.lectureDetatilRight.maximum').text(`최대 수용가능 인원 ${lecture.maximum}명`);
         $('.lectureDetatilRight.phone').text(lecture.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+         $('.lectureDetatilRight.duration').text("강의 진행 시간 " + lecture.duration + '분');
         $('.lectureDetatilRight.price').text(lecture.price.toLocaleString('ko-KR') + ' 원');
-		
+
+        options.forEach((item) => {
+            let $div = $('<div>');
+            $div.addClass('optionContainer');
+            switch (item) {
+                case '주차공간 준비됨':
+                    $div.append('<i class="fa-solid fa-car"></i>');
+                    break;
+                case '녹화본 제공':
+                    $div.append('<i class="fa-solid fa-video"></i>');
+                    break;
+                case '준비물 제공':
+                    $div.append('<i class="fa-solid fa-box-open">');
+                    break;
+                case '어린이 놀이구역 있음':
+                    $div.append('<i class="fa-solid fa-child">');
+                    break;
+                case '여성회원들만':
+                    $div.append('<i class="fa-solid fa-venus">');
+                    break;
+                case '남성회원들만':
+                    $div.append('<i class="fa-solid fa-mars"></i>');
+                    break;
+                case '노키즈존':
+                    $div.append('<i class="fa-solid fa-ban"></i>');
+                    break;
+                default:
+            }
+            $div.append(`  <div>${item}</div>`);
+            $('.detailInfo.option').append($div);
+        });
+
         // 지도 ==========================
         var mapContainer = $('.detailInfo.location')[0], // 지도를 표시할 div
             mapOption = {
@@ -225,7 +257,7 @@ let detailInit = {
         })
             .then((response) => response.json())
             .then((result) => {
-				$('#enroll').hide();
+                $('#enroll').hide();
                 $('.reserveList').empty();
                 if (result.length > 0) {
                     if (result.length > 2) {
@@ -246,30 +278,30 @@ let detailInit = {
                             $state.text('모집 완료!');
                             $reserveSession.addClass('done');
                             console.log(element.seesionDate);
-							if(element.myReserve === 1) {
-								console.log('모집 완료 && 내가 신청 함');
-								// 모집 완료 && 내가 신청 함
-							} else {
-								console.log('모집 완료 && 내가 신청 안함');
-								// 모집 완료 && 내가 신청 안함
-							}
+                            if (element.myReserve === 1) {
+                                console.log('모집 완료 && 내가 신청 함');
+                                // 모집 완료 && 내가 신청 함
+                            } else {
+                                console.log('모집 완료 && 내가 신청 안함');
+                                // 모집 완료 && 내가 신청 안함
+                            }
                         } else {
                             $state.text('모집중!');
                             $reserveSession.css('cursor', 'pointer');
-							if (element.myReserve === 1) {
-								console.log('모집중 && 내가 신청 함');
-								// 모집중 && 내가 신청 함
-							} else {
-								console.log('모집중 && 내가 신청 안함');
-								// 모집중 && 내가 신청 안함
-	                            $reserveSession.click(function () {
-									$('.reserveSession.select').removeClass('select');
-									$reserveSession.addClass('select');
-									$('#enroll').show();
-	                                detailInit.makePaymentUrl(element.lectureSessionId);
-	                            });
-							}
-						}
+                            if (element.myReserve === 1) {
+                                console.log('모집중 && 내가 신청 함');
+                                // 모집중 && 내가 신청 함
+                            } else {
+                                console.log('모집중 && 내가 신청 안함');
+                                // 모집중 && 내가 신청 안함
+                                $reserveSession.click(function () {
+                                    $('.reserveSession.select').removeClass('select');
+                                    $reserveSession.addClass('select');
+                                    $('#enroll').show();
+                                    detailInit.makePaymentUrl(element.lectureSessionId);
+                                });
+                            }
+                        }
                         const $count = $('<div class="reserveSessionCount">').text(`인원 : ${element.students}/${lectureData.maximum}`);
                         // 시간대 요소 생성 및 텍스트 설정
                         const $duration = $('<div class="reserveSessionDuration">').text(`수업 시간 : \n${this.calculateTimeWithOffset(unixTimestamp, minutesOffset)}`);
@@ -363,7 +395,7 @@ let detailInit = {
     },
     // 리뷰 등록 기본 세팅
     reviewInputInit: function () {
-		/*
+        /*
 		if(userId !== '' && $('.reviewUser[name="'+ userId + '"]').length === 0) {
 	        tinyInit('#reviewInput', 650, 100);
 	        insertTiny = tinymce.activeEditor;
@@ -391,25 +423,24 @@ let detailInit = {
                 'Content-Type': 'application/json',
             },
         })
-        .then((response) => response.json())
-        .then((result) => {
-            reviewAppend(result);
-            insertTiny.setContent('');
-            classScore();
-        });
+            .then((response) => response.json())
+            .then((result) => {
+                reviewAppend(result);
+                insertTiny.setContent('');
+                classScore();
+            });
     },
     // 문의하기
-    inquiry: function() {
-		location.href = '/chat/room?userId=' + lectureData.userId;
-	}
-	
-};// detailInit() 끝
+    inquiry: function () {
+        location.href = '/chat/room?userId=' + lectureData.userId;
+    },
+}; // detailInit() 끝
 
 // 리뷰 수정 버튼
 function reviewUpdateBtn(comp) {
-	if($('#scoreUpdate').length > 0) {
-		reviewChangeShow($('#scoreUpdate').closest('.reviewContainer'));
-	}
+    if ($('#scoreUpdate').length > 0) {
+        reviewChangeShow($('#scoreUpdate').closest('.reviewContainer'));
+    }
     let reviewContainer = $(comp).parents('div[class="reviewContainer"]');
     let reviewContent = reviewContainer.find('#reviewContent').html();
     // 별점 수정 가능하게 확인 ===================
@@ -470,9 +501,9 @@ async function reviewDelete(comp) {
     }).then((result) => {
         if (result.status == 200) {
             $(comp).parents('div[class="reviewContainer"]').remove();
-            if($('#reviewContainer').length == 0) {
-				$('#reviewNone').show();
-			}
+            if ($('#reviewContainer').length == 0) {
+                $('#reviewNone').show();
+            }
             classScore();
         }
     });
@@ -480,31 +511,34 @@ async function reviewDelete(comp) {
 
 // 리뷰 append ===================
 function reviewAppend(review) {
-	$('#reviewNone').hide();
-    let reviewContainer = $('<div>', { class: 'reviewContainer'}).val(review.reviewId).append(
-	    $('<div>', { class: 'reviewHeader' }).append(
-			$('<div>', { class: 'reviewTitle', id: 'reviewTitle'}).append(
-				$('<div>', { class: 'reviewUser', name: review.userId, text: review.username }),
-				$('<div>', { class: 'reviewScoreContainer', id: 'reviewScoreContainer' }).append(
-				    $('<div>', { class: 'reviewScore', id: 'reviewScore' }).val(review.score).append(
-					    $('<div>', { class: 'reviewScoreFill', id: 'reviewScoreFill', style: 'width: '+ (review.score * 20) + '%'
-					    					, text: '★★★★★' }),
-						$('<div>', { class: 'reviewScoreBase', text: '★★★★★' })
-					),
-				),
-				$('<div>', { class: 'reviewCreatedAt', text: review.createdAt }),
-			),
-    		$('<div>', { class : 'reviewChange', id: 'reviewChange', style : review.userId === userId ? '' : 'display: none'}).append(  
-			    $('<button>', { class: 'reviewUpdateBtn', text: '수정', onclick: 'reviewUpdateBtn(this)' }),
-			    $('<button>', { class: 'reviewDeleteBtn', text: '삭제', value: review.reviewId, onclick: 'reviewDelete(this)' })
-			),
-		    $('<div>', { class: 'reviewUpdate', id: 'reviewUpdate', style : 'display: none' }).append(
-			    $('<button>', { class: 'reviewUpdateProc', text: '수정 완료', value: review.reviewId, onclick: 'reviewUpdateProc(this)' }),
-		    	$('<button>', { class: 'reviewUpdateBack', text: '취소', onclick: 'reviewUpdateBack(this)' })
-			)
-		),
-		$('<div>', { class: 'reviewContent', id: 'reviewContent', html: review.content})
-	);
+    $('#reviewNone').hide();
+    let reviewContainer = $('<div>', { class: 'reviewContainer' })
+        .val(review.reviewId)
+        .append(
+            $('<div>', { class: 'reviewHeader' }).append(
+                $('<div>', { class: 'reviewTitle', id: 'reviewTitle' }).append(
+                    $('<div>', { class: 'reviewUser', name: review.userId, text: review.username }),
+                    $('<div>', { class: 'reviewScoreContainer', id: 'reviewScoreContainer' }).append(
+                        $('<div>', { class: 'reviewScore', id: 'reviewScore' })
+                            .val(review.score)
+                            .append(
+                                $('<div>', { class: 'reviewScoreFill', id: 'reviewScoreFill', style: 'width: ' + review.score * 20 + '%', text: '★★★★★' }),
+                                $('<div>', { class: 'reviewScoreBase', text: '★★★★★' })
+                            )
+                    ),
+                    $('<div>', { class: 'reviewCreatedAt', text: review.createdAt })
+                ),
+                $('<div>', { class: 'reviewChange', id: 'reviewChange', style: review.userId === userId ? '' : 'display: none' }).append(
+                    $('<button>', { class: 'reviewUpdateBtn', text: '수정', onclick: 'reviewUpdateBtn(this)' }),
+                    $('<button>', { class: 'reviewDeleteBtn', text: '삭제', value: review.reviewId, onclick: 'reviewDelete(this)' })
+                ),
+                $('<div>', { class: 'reviewUpdate', id: 'reviewUpdate', style: 'display: none' }).append(
+                    $('<button>', { class: 'reviewUpdateProc', text: '수정 완료', value: review.reviewId, onclick: 'reviewUpdateProc(this)' }),
+                    $('<button>', { class: 'reviewUpdateBack', text: '취소', onclick: 'reviewUpdateBack(this)' })
+                )
+            ),
+            $('<div>', { class: 'reviewContent', id: 'reviewContent', html: review.content })
+        );
     $('.detailInfo.review').append(reviewContainer);
 }
 
@@ -515,16 +549,15 @@ function reviewUpdateShow(reviewContainer) {
     reviewContainer.find('#reviewUpdate').show();
     reviewContainer.find('#reviewScore').hide();
     $('#scoreUpdate').remove();
-	
+
     // 평점 변경 가능하게 수정
     let reviewScore = reviewContainer.find('#reviewScore');
     let reviewScoreUpdate = $('<div>').addClass('star-rating update').attr('id', 'scoreUpdate');
 
     for (let i = 5; i >= 1; i--) {
         reviewScoreUpdate.append(
-			$('<input>', { type: 'radio', id: i + '-starsUpdate'
-						, name: 'scoreUpdate', val: i, checked: i === parseInt(reviewScore.val()) ? true : false }),
-        	$('<label>', { for: i + '-starsUpdate', class: 'star', text: '★' })
+            $('<input>', { type: 'radio', id: i + '-starsUpdate', name: 'scoreUpdate', val: i, checked: i === parseInt(reviewScore.val()) ? true : false }),
+            $('<label>', { for: i + '-starsUpdate', class: 'star', text: '★' })
         );
     }
     reviewContainer.find('#reviewScoreContainer').append(reviewScoreUpdate);
@@ -542,18 +575,18 @@ function reviewChangeShow(reviewContainer) {
 
 // 클래스 평점 계산
 function classScore() {
-	let scoreAvg = 0.0;
-	let scoreAll = $('.reviewScore');
-	if(scoreAll.length > 0) {
-		scoreAll.each((index, score) => {
-			scoreAvg += parseInt(score.value);
-		})
-		scoreAvg = scoreAvg / scoreAll.length;
-	}
-	
-	scoreAvg = parseFloat(scoreAvg.toFixed(2)) === parseInt(scoreAvg) ? parseInt(scoreAvg) :
-				parseFloat(scoreAvg.toFixed(2)) === parseFloat(scoreAvg.toFixed(1)) ? scoreAvg.toFixed(1) : scoreAvg.toFixed(2);
-	$('.detailReviewAvr').text('(' + scoreAvg + ')')
+    let scoreAvg = 0.0;
+    let scoreAll = $('.reviewScore');
+    if (scoreAll.length > 0) {
+        scoreAll.each((index, score) => {
+            scoreAvg += parseInt(score.value);
+        });
+        scoreAvg = scoreAvg / scoreAll.length;
+    }
+
+    scoreAvg =
+        parseFloat(scoreAvg.toFixed(2)) === parseInt(scoreAvg) ? parseInt(scoreAvg) : parseFloat(scoreAvg.toFixed(2)) === parseFloat(scoreAvg.toFixed(1)) ? scoreAvg.toFixed(1) : scoreAvg.toFixed(2);
+    $('.detailReviewAvr').text('(' + scoreAvg + ')');
 }
 
 // tiby 에디터 초기화

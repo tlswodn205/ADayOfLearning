@@ -33,4 +33,11 @@
 		DELETE FROM tb_lecture_option WHERE lecture_id = #{lectureId};
 	</delete>
 	
+	<select id="findLectureOptionStringByLectureId" resultType = "String">
+		SELECT o.option_name 
+		FROM tb_lecture_option lo 
+		JOIN tb_option o ON lo.option_id = o.option_id
+		WHERE lecture_id = #{lectureId};
+	</select>
+	
 </mapper>

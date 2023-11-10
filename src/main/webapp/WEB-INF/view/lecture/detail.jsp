@@ -12,8 +12,14 @@
             <%-- 서브사진 --%>
             <div class="detailSubPhoto"></div>
             <%-- 강의 소개 머리 --%>
-            <div class="detailASet"><a href="#detailContent">클래스 소개</a> <a href="#detailLocation">위치</a> <a href="#detailReview">후기</a></div>
+            <div class="detailASet">
+            	<a href="#detailContent">클래스 소개</a>
+            	<a href="#detailOption">제공 옵션</a>
+            	<a href="#detailLocation">위치</a> 
+            	<a href="#detailReview">후기</a>
+            </div>
 
+			<%-- 클래스 소개 --%>
             <div id="detailContent" class="detailArea content">
                 <div class="detailHead content">
                     클래스 소개
@@ -22,24 +28,25 @@
                 <div class="detailInfo content"></div>
             </div>
 
-            <div id="detailService" class="detailArea content">
-                <div class="detailHead service">
-                    제공되는 서비스
+			<%-- 서비스 --%>
+            <div id="detailOption" class="detailArea option">
+                <div class="detailHead option">
+                    제공되는 옵션
                     <div class="detailHeadBottomLine"></div>
                 </div>
-                <div class="detailInfo service"></div>
+                <div class="detailInfo option"></div>
             </div>
 
-
+			<%-- 위치&지도 --%>
             <div id="detailLocation" class="detailArea location">
                 <div class="detailHead location">
                     위치
                     <div class="detailHeadBottomLine"></div>
                 </div>
-                <div class="detailLectureAddress"></div>
                 <div class="detailInfo location"></div>
             </div>
 
+			<%-- 리뷰 --%>
             <div id="detailReview" class="detailArea review">
                 <div class="detailHead review">후기</div>
                 <div class="reviewInputContainer">
@@ -97,6 +104,12 @@
                     <div class="lectureDetatilRight phone"></div>
                 </div>
 
+ 				<%-- 강의 진행 시간 --%>
+                <div>
+                    <i class="fa-regular fa-clock"></i>
+                    <div class="lectureDetatilRight duration"></div>
+                </div>
+
                 <div>
                     <input class="selectedDate" type="hidden" name="date" />
                     <table class="calendarDetail">
@@ -138,6 +151,8 @@
     let lectureData = ${lecture};
     let photoList = ${lecturePhotos};
     let reviewList = ${reviews};
+    let options = ${lectureOptions};
+    console.log(options);
     
     console.log(reviewList);
 </script>
