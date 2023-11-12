@@ -96,8 +96,8 @@ let BusinessRequest = {
    					addr = data.jibunAddress;
    				}
 
-   				$("#address").val(addr);
-   				$("#addressDetail").focus();
+   				$("#businessAddress").val(addr);
+   				$("#businessAddressDetail").focus();
    			}
    		}).open();
     },

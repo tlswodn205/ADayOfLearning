@@ -17,6 +17,7 @@ import com.tencoding.ADayOfLearning.dto.request.UpdateBusinessRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.UpdateUserData;
 import com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.AdminLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminRequestBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
@@ -135,5 +136,14 @@ public class AdminController {
 	}
 	//business end
 	
+	//lecture start
+	
+	@GetMapping("/lectureList")
+	public String lectureList(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page, Model model) {
+		ListPagingResponseDto<AdminLectureListResponseDto> listPagingResponseDto= adminService.lectureList(type, keyword, page);
+		model.addAttribute("listPagingResponseDto", listPagingResponseDto);
+		return "/admin/lecture/list";
+	}
+	//lecture end
 	
 }

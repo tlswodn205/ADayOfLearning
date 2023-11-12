@@ -21,7 +21,7 @@
 <div id= "adminPage">
 	<sideBar>
 		<div class="sideBar">
-			<img src="/images/logo/logo.png" class="logo">admin
+			<img src="/images/logo/logoWhite.png" class="logo">admin
 			<ul>
 				<li>
 					<a href="/admin/userList"><i class="fa-solid fa-user"></i>내 정보보기</a>

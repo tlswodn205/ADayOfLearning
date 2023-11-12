@@ -22,7 +22,7 @@
 	<sideBar>
 		<div class="sideBar">
 			<a href="/business">
-				<img src="/images/logo/logo.png" class="logo">
+				<img src="/images/logo/logoWhite.png" class="logo">
 			</a>
 			<ul>
 				<li>

@@ -25,7 +25,9 @@
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" id="address"  name="address" value="${customerUserData.address}"></td>
+						<td><input type="text" id="address"  name="address" value="${customerUserData.address}">
+						<input type="button" id="openZipSearch" value="주소 확인">
+						</td>
 					</tr>
 					<tr>
 						<td>상세주소</td>
@@ -67,6 +69,9 @@ let adminCustomerDetail = {
     	});
     	$(document).on("click", "#userDeleteBtn", ()=>{
     		this.delete();
+    	});
+    	$(document).on("click", "#openZipSearch", ()=>{
+    		this.findAddress();
     	});
 		$(document).ready( ()=>{
 			this.ready();
@@ -172,6 +177,21 @@ let adminCustomerDetail = {
    		}).catch(error => {
       		 alert("삭제 실패했습니다.");	
   		});
+    },
+    findAddress: function() {
+   		new daum.Postcode({
+   			oncomplete : function(data) {
+   				var addr = '';
+   				if (data.userSelectedType === 'R') {
+   					addr = data.roadAddress;
+   				} else {
+   					addr = data.jibunAddress;
+   				}
+
+   				$("#address").val(addr);
+   				$("#addressDetail").focus();
+   			}
+   		}).open();
     },
 	telChange: function(i, mLength) {
 		let str = $('#tel' + i).val();
