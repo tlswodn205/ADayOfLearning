@@ -28,7 +28,9 @@
 					</tr>
 					<tr>
 						<td>사업장 주소</td>
-						<td><input type="text" name="businessAddress" id="businessAddress" value="${businessUserData.businessAddress}"></td>
+						<td><input type="text" name="businessAddress" id="businessAddress" value="${businessUserData.businessAddress}">
+						<input type="button" id="openZipSearch" value="주소 확인">
+						</td>
 					</tr>
 					<tr>
 						<td>사업장 상세주소</td>
@@ -69,7 +71,10 @@ let BusinessUserDetail = {
 
 		$(document).ready( ()=>{
 			this.ready();
-		});
+		});    	
+		$(document).on("click", "#openZipSearch", ()=>{
+    		this.findAddress();
+    	});
 		$(document).on("input", "#tel1", ()=>{
 			this.telChange(1,3);
 		});
@@ -144,6 +149,21 @@ let BusinessUserDetail = {
 		
 
 		$("#businessUpdate").submit();
+    },
+    findAddress: function() {
+   		new daum.Postcode({
+   			oncomplete : function(data) {
+   				var addr = '';
+   				if (data.userSelectedType === 'R') {
+   					addr = data.roadAddress;
+   				} else {
+   					addr = data.jibunAddress;
+   				}
+
+   				$("#address").val(addr);
+   				$("#addressDetail").focus();
+   			}
+   		}).open();
     },
     
 	telChange: function(i, mLength) {

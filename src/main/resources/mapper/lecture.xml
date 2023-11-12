@@ -127,6 +127,47 @@
          <if test="location != null">
 			AND address LIKE '${location}%'
 		</if>	
-
 	</select>
+	
+	
+	<select  id="findLecturePaging" resultType = "com.tencoding.ADayOfLearning.dto.response.PagingResponseDto">
+		SELECT totalCount, totalPage, currentPage,	
+				CASE
+					WHEN currentPage = 1
+					THEN 1
+					ELSE 0 
+				END AS isFirst,
+			   CASE
+					WHEN currentPage = totalPage
+					THEN 1
+					ELSE 0 
+				END AS isLast
+			FROM(
+				SELECT count(*) totalCount, ceil(count(*)/10) totalPage,#{page} currentPage, 0 isFirst, 0 isLast
+				FROM tb_lecture l 
+				WHERE 1=1
+				<if test="type == 'lectureName' and keyword != null">
+					and lecture_name like CONCAT('%',#{keyword},'%') 
+				</if>
+			) ost;
+	</select>
+	
+	<select id="findLectureList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminLectureListResponseDto">
+		SELECT l.lecture_id, l.title, l.user_id, 
+		b.business_name, l.address, l.address_detail, l.price,
+		l.price, c.category_name, l.state,l.created_at
+		FROM tb_lecture l 
+		LEFT JOIN tb_category c
+	    ON c.category_id = l.category_id
+		LEFT JOIN tb_business b 
+	    ON l.user_id = b.user_id
+		WHERE 1=1
+				<if test="type == 'lectureName' and keyword != null">
+					and lecture_name like CONCAT('%',#{keyword},'%') 
+				</if>
+		ORDER BY l.created_at DESC
+		LIMIT #{startNum}, 10;
+	</select>
+	
+	
 </mapper>

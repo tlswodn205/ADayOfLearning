@@ -9,6 +9,7 @@ import com.tencoding.ADayOfLearning.dto.request.UpdateBusinessRequestDto;
 import com.tencoding.ADayOfLearning.dto.request.UpdateUserData;
 import com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.AdminLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainCustomerResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto;
@@ -183,6 +184,15 @@ public class AdminService {
 
 	public void deleteBusiness(int userId) {
 		userRepository.deleteCustomerByUserId(userId);
+	}
+
+	public ListPagingResponseDto<AdminLectureListResponseDto> lectureList(String type, String keyword, Integer page) {
+		PagingResponseDto pagingResponseDto = lectureRepository.findLecturePaging(type, keyword, page);
+		int startNum = (page-1)*10;
+		List<AdminLectureListResponseDto> adminLectureListResponseDto = lectureRepository.findLectureList(type, keyword, startNum);
+		ListPagingResponseDto<AdminLectureListResponseDto> listPagingResponseDto = 
+				new ListPagingResponseDto<AdminLectureListResponseDto>(pagingResponseDto, type, keyword, "", adminLectureListResponseDto);
+		return listPagingResponseDto;
 	}
 	
 	//business end

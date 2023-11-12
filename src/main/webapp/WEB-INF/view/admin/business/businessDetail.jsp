@@ -31,7 +31,9 @@
 					</tr>
 					<tr>
 						<td>사업장 주소</td>
-						<td><input type="text"id="businessAddress" name="businessAddress" value="${businessUserData.businessAddress}"></td>
+						<td><input type="text"id="businessAddress" name="businessAddress" value="${businessUserData.businessAddress}">
+						<input type="button" id="openZipSearch" value="주소 확인">
+						</td>
 					</tr>
 					<tr>
 						<td>사업장 상세주소</td>
