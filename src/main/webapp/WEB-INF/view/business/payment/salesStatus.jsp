@@ -6,20 +6,19 @@
 <script src="/js/business/salesStatus.js"></script>
 
 <style>
-.table {
+.chart {
 	display: flex;
-	
+	justify-content: space-around;
+	margin-bottom: 30px;
 }
-.tableItem {
+.chart div {
 	border: 1px solid #d3d3d3;
 	border-radius: 13px;
 	text-align: center;
-	cursor: pointer;
-	width: 20%;
-	margin-right: 20px;
+	width: 24%;
 }
-.chartArea {
-	margin: 20px;
+.chartItem {
+	cursor: pointer;
 }
 </style>
 
@@ -31,18 +30,22 @@
 	</div>
 	<div class="mainColumn">
 		<div class="DetailColumn">
-			<div class="table">
-				<div id="sevenDaysTable" class="tableItem">
+			<div class="chart">
+				<div id="sevenDaysTable" class="chartItem">
 					<h4>최근 매출</h4>
-					<p>${sevenDaysTotal}</p>
+					<p><fmt:formatNumber value="${sevenDaysTotal}" groupingUsed="true"/>원</p>
 				</div>
-				<div id="monthlyTable" class="tableItem">
+				<div id="monthlyTable" class="chartItem">
 					<h4>연 매출</h4>
-					<p>${monthlyTotal}</p>
+					<p><fmt:formatNumber value="${monthlyTotal}" groupingUsed="true"/>원</p>
 				</div>
-				<div class="tableItem">
+				<div>
 					<h4>지난 달 매출</h4>
-					<p>${lastMonthTotal}</p>
+					<p><fmt:formatNumber value="${lastMonthTotal}" groupingUsed="true"/>원</p>
+				</div>
+				<div>
+					<h4>다음 7일 예상 매출</h4>
+					<p><fmt:formatNumber value="${nextSevenDaysTotal}" groupingUsed="true"/>원</p>
 				</div>
 			</div>
 			<div id="chartArea" class="chartArea">

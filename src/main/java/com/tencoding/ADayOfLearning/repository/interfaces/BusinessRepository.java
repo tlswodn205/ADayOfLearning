@@ -49,4 +49,5 @@ public interface BusinessRepository {
 	public int monthlySalesTotal(int userId);
 	public int sevenDaysSalesTotal(int userId);
 	public int lastMonthSalesTotal(int userId);
+	public int nextSevenDaysSalesTotal(int userId);
 }
