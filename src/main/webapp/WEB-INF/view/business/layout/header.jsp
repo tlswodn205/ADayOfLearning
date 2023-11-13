@@ -27,9 +27,17 @@
 			<ul>
 				<li>
 					<a href="/business/userDetail"><i class="fa-solid fa-user"></i>내 정보보기</a>
+				</li>
+				<li>
 					<a href="/business/chatRoom"><i class="fa-solid fa-comment"></i>채팅</a>
+				</li>
+				<li>
 					<a href="/business/lectureList"><i class="fa-solid fa-chalkboard-user"></i>강의 관리</a>
+				</li>
+				<li>
 					<a href="/business/completedList"><i class="fa-regular fa-circle-check"></i>완료된 강의</a>
+				</li>
+				<li>
 					<a href="/business/salesStatus"><i class="fa-solid fa-chart-column"></i>매출 관리</a>
 				</li>
 			</ul>

@@ -29,19 +29,21 @@
 	
 	<select id="findAllByPaymentId" resultType = "com.tencoding.ADayOfLearning.dto.response.PaymentResponseDto">
 		SELECT p.payment_id, p.amount, p.tid, p.created_at, p.state, r.reserve_id, ls.session_date
-			 , l.title, lp.img, ps.name
+			 , l.title, lp.img, ps.name, b.business_name
 		  FROM tb_payment p
 		  JOIN tb_reserve r
-		    ON p.reserve_id = r.reserve_id
+			ON p.reserve_id = r.reserve_id
 		  JOIN tb_lecture_session ls
-		    ON r.lecture_session_id = ls.lecture_session_id
+			ON r.lecture_session_id = ls.lecture_session_id
 		  JOIN tb_lecture l
-		    ON ls.lecture_id = l.lecture_id
+			ON ls.lecture_id = l.lecture_id
 		  LEFT JOIN tb_lecture_photo lp
-		    ON l.lecture_id = lp.lecture_id
+			ON l.lecture_id = lp.lecture_id
 		  JOIN tb_person ps
-		    ON l.user_id = ps.user_id
-		 WHERE p.payment_id = #{paymentId}
+			ON l.user_id = ps.user_id
+		  LEFT JOIN tb_business b
+		    ON l.user_id = b.user_id
+		 WHERE p.payment_id = #{paymentId};
 	</select>
 	
 	<update id="updateRefundByPaymentId">

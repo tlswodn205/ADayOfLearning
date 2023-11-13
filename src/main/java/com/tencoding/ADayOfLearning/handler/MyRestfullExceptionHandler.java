@@ -40,7 +40,7 @@ public class MyRestfullExceptionHandler {
 	@ExceptionHandler(CustomFetchRestfulException.class)
 	public String fetchException(CustomFetchRestfulException e) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(e.getMessage());
+		sb.append("Function(){alert('"+e.getMessage()+"');");
 		return sb.toString();
 	}
 	

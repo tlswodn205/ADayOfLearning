@@ -15,8 +15,7 @@ import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.util.Define;
 
 @Component
-public class AdminInterceptor implements HandlerInterceptor{
-	
+public class BusinessInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -25,7 +24,12 @@ public class AdminInterceptor implements HandlerInterceptor{
 				        
 		User principal = (User)session.getAttribute(Define.PRINCIPAL);
 		if(principal == null) {
-			throw new CustomRestfulException("관리자만 접근가능합니다.",
+			throw new UnAuthorizedException("로그인을 해주세요.",
+					HttpStatus.UNAUTHORIZED);
+		}
+		
+		if(principal.getIdentity() =="business") {
+			throw new CustomRestfulException("판매자만 접근가능합니다.",
 					HttpStatus.UNAUTHORIZED);
 		}
 		return true;

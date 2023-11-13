@@ -44,12 +44,15 @@
 	</select>
 
 	<select id="findBySearch" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username, p.img
-		FROM tb_lecture l 
-		JOIN tb_category c ON l.category_id = c.category_id
-		JOIN tb_user u ON l.user_id = u.user_id
+        SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, b.business_name
+		, RANK() OVER (ORDER BY l.created_at DESC) AS order_number, p.img,count(r.score) as reviewCount,round(avg(CASE WHEN r.score IS NULL THEN 0 END),1) as reviewScore
+		FROM tb_lecture l
+		LEFT JOIN tb_category c ON l.category_id = c.category_id
+		LEFT JOIN tb_user u ON l.user_id = u.user_id 
 		LEFT JOIN tb_lecture_photo p ON p.lecture_id= l.lecture_id 
-        WHERE l.state = 1 AND p.is_thumbnail=1
+		LEFT JOIN tb_business b ON b.user_id= l.user_id 
+		LEFT JOIN tb_review r ON r.lecture_id= l.lecture_id 
+		WHERE p.is_thumbnail=1
         <if test="title != null">
 			AND REPLACE(l.title, ' ', '') LIKE '%${title}%'
 		</if>
@@ -64,33 +67,42 @@
 		</if>	
          <if test="location != null">
 			AND address LIKE '${location}%'
-			</if>	
-			ORDER BY l.created_at DESC
-			LIMIT #{startNum},12
+		</if>	
+       	GROUP BY l.lecture_id
+		ORDER BY l.created_at DESC
+		LIMIT #{startNum},12
 	</select>
 
 	<!-- index에서 사용할 List start-->
 	<select id="findNewLecture" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT lecture_id, title, category_name, price, address, username, img
-		  FROM ( SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username
-					   , RANK() OVER (ORDER BY l.created_at DESC) AS order_number, p.img
+          SELECT lecture_id, title, category_name, price, address, business_name, img, count(score) as reviewCount,round(avg(CASE WHEN score IS NULL THEN 0 END),1) as reviewScore
+		  FROM ( SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, b.business_name
+					   , RANK() OVER (ORDER BY l.created_at DESC) AS order_number, p.img, r.score
 					FROM tb_lecture l
 					LEFT JOIN tb_category c ON l.category_id = c.category_id
 					LEFT JOIN tb_user u ON l.user_id = u.user_id 
 					LEFT JOIN tb_lecture_photo p ON p.lecture_id= l.lecture_id 
+					LEFT JOIN tb_business b ON b.user_id= l.user_id 
+					LEFT JOIN tb_review r ON r.lecture_id= l.lecture_id 
 					WHERE p.is_thumbnail=1) AS a
-		 WHERE order_number &lt;= 10;
+		 WHERE order_number &lt;= 10
+         GROUP BY lecture_id;
 	</select>
 	<!-- index에서 사용할 List end-->
 	
 	<!-- 위도 경도 범위 내 조회 -->
 	<select id="findByMapBounds" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, u.username
-		  FROM tb_lecture l 
+		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, b.business_name
+			, RANK() OVER (ORDER BY l.created_at DESC) AS order_number, p.img,count(r.score) as reviewCount,round(avg(CASE WHEN r.score IS NULL THEN 0 END),1) as reviewScore
+			FROM tb_lecture l
 		  JOIN tb_category c
 			ON l.category_id = c.category_id
 		  JOIN tb_user u
 			ON l.user_id = u.user_id
+		  LEFT JOIN tb_business b 
+		    ON b.user_id= l.user_id 
+		  LEFT JOIN tb_review r 
+		    ON r.lecture_id= l.lecture_id 
          WHERE l.state = 1
            AND (l.latitude &gt; #{qa} AND l.latitude &lt; #{pa} )
            AND (l.longitude &gt; #{ha} AND l.longitude &lt; #{oa} )

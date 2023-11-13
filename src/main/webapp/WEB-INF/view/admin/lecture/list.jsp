@@ -26,10 +26,10 @@
 							<td>${lectureList.lectureId}</td>
 							<td><a
 								href="/admin/lectureDetail/${lectureList.lectureId}">${lectureList.title}</a></td>
-							<td>${lectureList.businessName}</td>
-							<td>${lectureList.address}{lectureList.addressDetail}</td>
-							<td>${lectureList.price}</td>
 							<td>${lectureList.categoryName}</td>
+							<td>${lectureList.businessName}</td>
+							<td>${lectureList.address}${lectureList.addressDetail}</td>
+							<td><fmt:formatNumber value="${lectureList.price}" type="currency"/></td>
 							<td>${lectureList.state}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${lectureList.createdAt}" /></td>
 						</tr>

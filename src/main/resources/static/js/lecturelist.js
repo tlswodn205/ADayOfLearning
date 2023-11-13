@@ -72,30 +72,37 @@ let listInit = {
 		pageCount * 12;
 
 		for (let i = startLecture; i <= lastLecture; i++) {
-			if (list[i] != null) {
-				let lectureItemA = $('<a>')
-					.addClass('lectureItemA')
-					.attr('href', 'detail?id=' + list[i].lectureId);
-				let lectureItem = $('<div>').addClass('lectureItem');
-				let pictureDiv = $('<div>').addClass('lectureItemPictureArea');
-				let pictureImg = $('<img>').addClass('lectureItemPicture').attr('src', list[i].img);
-				let addressDiv = $('<div>').addClass('lectureItemAddress').text(list[i].address);
-				let categoryDiv = $('<div>').addClass('lectureItemCategory').text(list[i].categoryName);
-				let providerDiv = $('<div>').addClass('lectureItemProvider').text(list[i].username);
-				let titleDiv = $('<div>').addClass('lectureItemTitle').text(list[i].title);
-				let priceDiv = $('<div>')
-					.addClass('lectureItemPrice')
-					.text(list[i].price.toLocaleString('ko-KR') + '원');
+            if (list[i] != null) {
+                let lectureItemA = $('<a>')
+                    .addClass('lectureItemA')
+                    .attr('href', 'detail?id=' + list[i].lectureId);
+                let lectureItem = $('<div>').addClass('lectureItem');
+                let pictureDiv = $('<div>').addClass('lectureItemPictureArea');
+                let pictureImg = $('<img>').addClass('lectureItemPicture').attr('src', list[i].img);
+                let addressDiv = $('<div>').addClass('lectureItemAddress').text(list[i].address);
+                let addInfoTop = $('<div>').addClass('lectureItemInfoTop');
+                let categoryDiv = $('<div>').addClass('lectureItemCategory').text(list[i].categoryName);
+                let reviewInfo = $('<div>').addClass('lectureItemReview');
+                let yellowStar = $('<i>').addClass('fa-solid fa-star');
+                let reviewScore = $('<div>').addClass('lectureItemReviewScore').text(list[i].reviewScore);
+                let reviewCount = $('<div>').addClass('lectureItemReviewCount').text("("+list[i].reviewCount+")");
+                let providerDiv = $('<div>').addClass('lectureItemProvider').text(list[i].username);
+                let titleDiv = $('<div>').addClass('lectureItemTitle').text(list[i].title);
+                let priceDiv = $('<div>')
+                    .addClass('lectureItemPrice')
+                    .text(list[i].price.toLocaleString('ko-KR') + '원');
 
-				pictureDiv.append(pictureImg, addressDiv);
-				lectureItem.append(pictureDiv, categoryDiv, providerDiv, titleDiv, priceDiv);
-
-				lectureItemA.append(lectureItem);
-				lectureList.append(lectureItemA);
-			} else {
-				break;
-			}
-		}
+                pictureDiv.append(pictureImg, addressDiv);
+                lectureItem.append(pictureDiv, addInfoTop, providerDiv, titleDiv, priceDiv);
+                addInfoTop.append(categoryDiv, reviewInfo);
+                reviewInfo.append(yellowStar, reviewScore, reviewCount);
+			
+                lectureItemA.append(lectureItem);
+                lectureList.append(lectureItemA);
+            } else {
+                break;
+            }
+        }
 		var currentURL = window.location.href;
 		var url = new URL(currentURL);
 

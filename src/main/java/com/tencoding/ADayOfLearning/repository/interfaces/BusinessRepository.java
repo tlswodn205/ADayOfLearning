@@ -46,7 +46,8 @@ public interface BusinessRepository {
 	public List<BusinessLectureListResponseDto> findCompletedLectureByUserId(@Param("type") String type, @Param("keyword") String keyword, @Param("startNum") int startNum, @Param("userId") int userId);
 	public List<BusinessSalesResponseDto> monthlySales(int userId);
 	public List<BusinessSalesResponseDto> sevenDaysSales(int userId);
-	public int monthlySalesTotal(int userId);
-	public int sevenDaysSalesTotal(int userId);
-	public int lastMonthSalesTotal(int userId);
+	public Integer monthlySalesTotal(int userId);
+	public Integer sevenDaysSalesTotal(int userId);
+	public Integer lastMonthSalesTotal(int userId);
+	public Integer nextSevenDaysSalesTotal(int userId);
 }

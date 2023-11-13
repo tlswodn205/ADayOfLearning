@@ -235,7 +235,7 @@
 	</select>
 	
 	<select id="findRequestBusinessList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminRequestBusinessResponseDto">
-		SELECT u.username, b.*
+		SELECT  IF(substr(username,length(username)-5)='_kakao', '카카오 로그인', username ) as username, b.*
 		FROM tb_business b 
 		LEFT JOIN tb_user u 
 	    ON b.user_id = u.user_id
@@ -280,14 +280,14 @@
 	</select>
 	
 	<select id="findBusinessList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto">
-		SELECT u.username, b.*
+		SELECT  IF(substr(username,length(username)-5)='_kakao', '카카오 로그인', username ) as username, b.*
 		FROM tb_business b 
 		LEFT JOIN tb_user u 
 	    ON b.user_id = u.user_id
 		WHERE 1=1 AND u.identity = 'business'
-			<if test="type == 'businessName' and keyword != null">
-				and business_name like CONCAT('%',#{keyword},'%') 
-			</if>
+				<if test="type == 'businessName' and keyword != null">
+					and business_name like CONCAT('%',#{keyword},'%') 
+				</if>
 		ORDER BY created_at DESC
 		LIMIT #{startNum}, 10;
 	</select>
@@ -367,6 +367,17 @@
 		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
 		 WHERE l.user_id = #{userId}
 		   AND DATE_FORMAT(ls.session_date, "%Y-%m") = DATE_FORMAT((CURDATE() - INTERVAL 1 MONTH), "%Y-%m")
+		   AND p.state = "결제 완료";
+	</select>
+	
+	<select id="nextSevenDaysSalesTotal" resultType = "java.lang.Integer">
+		SELECT SUM(p.amount) AS total
+		  FROM tb_payment p
+		  JOIN tb_reserve r ON p.reserve_id = r.reserve_id
+		  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
+		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
+		 WHERE l.user_id = 1
+		   AND DATE(ls.session_date) BETWEEN CURDATE()+1 AND CURDATE()+7
 		   AND p.state = "결제 완료";
 	</select>
 	

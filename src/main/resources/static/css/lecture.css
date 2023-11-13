@@ -322,6 +322,10 @@ td {
 	border-radius: 5px;
 }
 
+.lectureItemInfoTop{
+	display: flex;
+}
+
 .lectureItemCategory {
 	position: absolute;
 	box-sizing: border-box;
@@ -336,6 +340,21 @@ td {
 	background-color: #FEE50090;
 	color: #666666;
 }
+
+
+.lectureItemReview {
+	position: absolute;
+	display: flex;
+	box-sizing: border-box;
+	top: 208px;
+	right: 8px;
+	align-items: center;
+}
+
+.lectureItemReview i{
+	color: #FEE500;
+}
+
 
 .lectureItemTitle {
 	position: absolute;

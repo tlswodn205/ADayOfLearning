@@ -22,14 +22,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Autowired
 	private AdminInterceptor amdinInterceptor;
 	
+	@Autowired
+	private BusinessInterceptor businessInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authInterceptor)
-		.addPathPatterns("/admins/**");
+		.addPathPatterns("/user/userMyPage")
+		.addPathPatterns("/user/requestBusiness")
+		.addPathPatterns("/payment/*");
 		
-		registry.addInterceptor(amdinInterceptor).addPathPatterns("/admins/**");
-	}
+		registry.addInterceptor(amdinInterceptor).addPathPatterns("/admins/*");
 
+		registry.addInterceptor(businessInterceptor).addPathPatterns("/business/*");
+	}	
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

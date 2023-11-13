@@ -16,6 +16,7 @@ public class PaymentResponseDto {
 	private String title;
 	private String img;
 	private String name;
+	private String businessName;
 }
 
 
