@@ -6,10 +6,10 @@ import lombok.Getter;
 
 @Getter
 public class CustomFetchRestfulException extends RuntimeException {
-	private HttpStatus staus;
+	private HttpStatus status;
 	
 	public CustomFetchRestfulException(String message, HttpStatus httpStatus) {
 		super(message);
-		this.staus = httpStatus;
+		this.status = httpStatus;
 	}
 }
