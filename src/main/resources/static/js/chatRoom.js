@@ -236,7 +236,8 @@ function chatRoomAppend(content) {
 		$('<input>', { type: 'hidden', id: 'chatRoomId', value: content.chatRoomId }),
 		$('<input>', { type: 'hidden', id: 'chatUserId', value: content.userId }),
 		$('<input>', { type: 'hidden', id: 'chatName', value: content.name }),
-		$('<div>', { class: 'chatRoom', click: function() { chatRoom(this); } }).append(
+		/*$('<div>', { class: 'chatRoom', click: function() { chatRoom(this); } }).append(*/
+		$('<div>', { class: 'chatRoom', click: function() { chatRoom(this); $('.clicked').removeClass('clicked');  $(this).addClass('clicked');} }).append(
 			$('<a>', { class: 'chatTitle', text: content.name }),
 			$('<span>', { class: 'newMessage', id: 'newMessage', text: content.viewCount
 						, style: content.viewCount > 0 ? '' : 'display:none'

@@ -109,6 +109,7 @@ let listInit = {
 			
 			location.href = '/chat/room?userId=' + userId;
 		}
+		
 }
 listInit.init();
 </script>
