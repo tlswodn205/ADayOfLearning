@@ -152,8 +152,5 @@
     let photoList = ${lecturePhotos};
     let reviewList = ${reviews};
     let options = ${lectureOptions};
-    console.log(options);
-    
-    console.log(reviewList);
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

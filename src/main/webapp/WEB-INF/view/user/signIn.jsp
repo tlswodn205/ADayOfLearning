@@ -40,13 +40,15 @@
 
 <script>
 
-
 let signInEvent = {
     version: 1,
     init: function() {
     	$(document).on("click", "#signInBtn", ()=>{
     		this.signIn();
     	});
+    	$(document).on("keypress", "#password", (key) => {
+			this.passwordKeyPress(key);
+		});
     },
 	signIn : function(){
 		let username = $("#username").val();
@@ -64,8 +66,12 @@ let signInEvent = {
 		}
 		
 		$("#signInForm").submit();
-	}
-	
+	},
+	passwordKeyPress: function(key) {
+		if (key.keyCode == 13) {
+			$("#signInBtn").click();
+		}
+	},
 };
 
 signInEvent.init();

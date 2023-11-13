@@ -1,6 +1,8 @@
 package com.tencoding.ADayOfLearning.handler;
 
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -38,10 +40,8 @@ public class MyRestfullExceptionHandler {
 	}
 	
 	@ExceptionHandler(CustomFetchRestfulException.class)
-	public String fetchException(CustomFetchRestfulException e) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("Function(){alert('"+e.getMessage()+"');");
-		return sb.toString();
+	public ResponseEntity<?> fetchException(CustomFetchRestfulException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
 	}
 	
 	//로그인을 하지 않았을 경우 예외 처리
