@@ -235,7 +235,7 @@
 	</select>
 	
 	<select id="findRequestBusinessList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminRequestBusinessResponseDto">
-		SELECT u.username, b.*
+		SELECT  IF(substr(username,length(username)-5)='_kakao', '카카오 로그인', username ) as username, b.*
 		FROM tb_business b 
 		LEFT JOIN tb_user u 
 	    ON b.user_id = u.user_id
@@ -280,14 +280,14 @@
 	</select>
 	
 	<select id="findBusinessList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminBusinessResponseDto">
-		SELECT u.username, b.*
+		SELECT  IF(substr(username,length(username)-5)='_kakao', '카카오 로그인', username ) as username, b.*
 		FROM tb_business b 
 		LEFT JOIN tb_user u 
 	    ON b.user_id = u.user_id
 		WHERE 1=1 AND u.identity = 'business'
-			<if test="type == 'businessName' and keyword != null">
-				and business_name like CONCAT('%',#{keyword},'%') 
-			</if>
+				<if test="type == 'businessName' and keyword != null">
+					and business_name like CONCAT('%',#{keyword},'%') 
+				</if>
 		ORDER BY created_at DESC
 		LIMIT #{startNum}, 10;
 	</select>

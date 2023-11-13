@@ -283,19 +283,19 @@ public class BusinessService {
 		return businessSalesResponseDto;
 	}
 	
-	public int getMonthlySalesTotal(int userId) {
+	public Integer getMonthlySalesTotal(int userId) {
 		return businessRepository.monthlySalesTotal(userId);
 	}
 	
-	public int getPastSevenDaysSalesTotal(int userId) {
+	public Integer getPastSevenDaysSalesTotal(int userId) {
 		return businessRepository.sevenDaysSalesTotal(userId);
 	}
 	
-	public int getLastMonthSalesTotal(int userId) {
+	public Integer getLastMonthSalesTotal(int userId) {
 		return businessRepository.lastMonthSalesTotal(userId);
 	}
 
-	public int getNextSevenDaysSalesTotal(int userId) {
+	public Integer getNextSevenDaysSalesTotal(int userId) {
 		return businessRepository.nextSevenDaysSalesTotal(userId);
 	}
 

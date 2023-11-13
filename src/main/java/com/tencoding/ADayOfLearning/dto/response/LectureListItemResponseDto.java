@@ -9,6 +9,8 @@ public class LectureListItemResponseDto {
 	private String categoryName;
 	private Integer price;
 	private String address;
-	private String username;
+	private Integer reviewCount;
+	private double reviewScore;
+	private String businessName;
 	private String img;
 }

@@ -244,20 +244,19 @@ public class BusinessController {
 	}
 	
 	@GetMapping("/salesStatus")
-	public String getPaymentStatus(Model model) {
+	public String getPaymentStatus(Model model, @RequestParam(required = false) String type, @RequestParam(required = false) String keyword,@RequestParam(defaultValue = "1") Integer page) {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			return "redirect:/user/signIn";
-		}
+		ListPagingResponseDto<BusinessLectureListResponseDto> listPagingResponseDto = businessService.findProgressLectureByUserId(type, keyword, page, user.getUserId());
 		
-		int monthlyTotal = businessService.getMonthlySalesTotal(user.getUserId());
-		int sevenDaysTotal = businessService.getPastSevenDaysSalesTotal(user.getUserId());
-		int lastMonthTotal = businessService.getLastMonthSalesTotal(user.getUserId());
-		int nextSevenDaysTotal = businessService.getNextSevenDaysSalesTotal(user.getUserId());
+		Integer monthlyTotal = businessService.getMonthlySalesTotal(user.getUserId());
+		Integer sevenDaysTotal = businessService.getPastSevenDaysSalesTotal(user.getUserId());
+		Integer lastMonthTotal = businessService.getLastMonthSalesTotal(user.getUserId());
+		Integer nextSevenDaysTotal = businessService.getNextSevenDaysSalesTotal(user.getUserId());
 		model.addAttribute("monthlyTotal", monthlyTotal);
 		model.addAttribute("sevenDaysTotal", sevenDaysTotal);
 		model.addAttribute("lastMonthTotal", lastMonthTotal);
 		model.addAttribute("nextSevenDaysTotal", nextSevenDaysTotal);
+		model.addAttribute("listPagingResponseDto", listPagingResponseDto);
 		
 		
 		return "business/payment/salesStatus";
