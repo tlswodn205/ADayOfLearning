@@ -13,4 +13,6 @@ public class ReserveListResponseDto {
 	private String title;            	// 클래스명
 	private int amount;              	// 가격
 	private Timestamp sessionDate;   	// 강의일
+	private int userId;				// 강사의 userId
+	private int lectureId;				// 강의번호
 }

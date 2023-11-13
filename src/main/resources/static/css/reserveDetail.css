@@ -1,5 +1,5 @@
 #reserveDetail {
-	width: 1200px;
+	width: 1080px;
 }
 
 #reserveDetail h2 {
@@ -45,10 +45,16 @@
 
 #reserveDetail .listBtn {
 	width: 49%;
-	border: 1px solid #d3d3d3;
 	border-radius: 7px;
 	padding: 7px 0;
-	margin-top: 10px;
+	margin: 10px 0 0;
+	background-color: #e7e7e7;
+}
+
+#reserveDetail .listBtn:hover {
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
 }
 
 #reserveDetail .row {
@@ -80,13 +86,21 @@
 }
 
 #reserveDetail .requestBtn {
-	background-color: #ffd3d5;
-	padding: 10px;
-	border-radius: 7px;
+	background-color: #f5d04295;
+	border-radius: 13px;
 	display: block;
 	text-align: center;
 	letter-spacing: 15px;
 	font-weight: 600;
+	font-size: 15px;
+	color: #fff;
+	padding: 15px;
+}
+
+#reserveDetail .requestBtn:hover {
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
 }
 #reserveDetail .imgContainer {
 	width: 120px;

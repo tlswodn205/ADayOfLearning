@@ -89,10 +89,9 @@ public class PaymentController {
 		}
 		String payMethod = (String)request.getParameter("PayMethod"); 	// 결제수단
 		String tid = (String)request.getParameter("TxTid"); 			// 거래 ID
-		log.info("payMethod 값이 뭘까 ========> {}", payMethod);
 		
 		int reserveId = reserveService.insertReserve(lectureSessionId, principal.getUserId());
-		paymentService.insertPayment(Amt, reserveId, payMethod, tid);
+		paymentService.insertPayment(Amt, reserveId, "카드", tid);
 		
 		return "payment/payResult";
 	}

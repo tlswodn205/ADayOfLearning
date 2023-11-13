@@ -4,12 +4,25 @@
 
 <style>
 #reserveDetail .requestBtn {
-	background-color: #ffd3d5;
+	background-color: #f5d04295;
 	border-radius: 7px;
-	display: block;
+	width: 70px;
 	text-align: center;
 	letter-spacing: 15px;
 	font-weight: 600;
+}
+#reserveDetail input[type="text"] {
+    border: none;
+    font-size: 16px;
+    padding: 0;
+}
+
+#reserveDetail input[type="text"]:focus {
+    outline: none;
+}
+
+#reserveDetail .amount input {
+	text-align: end;
 }
 </style>
 
@@ -76,28 +89,26 @@
 						</tr>
 						<form name="cancelForm" method="post" target="_self"
 							action="/business/cancelResult">
-							<input type="hidden" name="paymentId"
-								value="${reserve.paymentId}"> <input type="hidden"
-								name="reserveId" value="${reserve.reserveId}">
+							<input type="hidden" name="paymentId" value="${reserve.paymentId}">
+							<input type="hidden" name="reserveId" value="${reserve.reserveId}">
 							<tr>
 								<td>원거래 ID</td>
-								<td><input type="text" readonly name="TID"
-									value="${reserve.tid}" />${payment.tid}</td>
+								<td><input type="text" readonly name="TID" value="${reserve.tid}" />${payment.tid}</td>
 							</tr>
-							<tr>
+							<tr hidden>
 								<td>부분취소 여부</td>
-								<td><input type="radio" name="PartialCancelCode" value="0" checked="checked" /> 전체취소
+								<td>
+									<input type="radio" name="PartialCancelCode" value="0" checked="checked" /> 전체취소
 									<input type="radio"	name="PartialCancelCode" value="1" /> 부분취소
 								</td>
 							</tr>
 							<tr>
 								<td>취소 금액</td>
-								<td><input type="text" readonly name="CancelAmt"
-									value="${reserve.amount}" /></td>
+								<td><input type="text" readonly name="CancelAmt" value="${reserve.amount}" /></td>
 							</tr>
-							<tr>
-								<td colspan="2" style="border: none;"><a href="#"
-									class="requestBtn" onClick="reqCancel();">취소 승인</a></td>
+							<tr style="height: 60px;">
+								<td colspan="2" style="border: none; padding:10px 0;">
+								<a href="#"	class="inputBtn" onClick="reqCancel();">취소 승인</a></td>
 							</tr>
 						</form>
 					</c:if>
