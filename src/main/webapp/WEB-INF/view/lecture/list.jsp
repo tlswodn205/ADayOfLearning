@@ -81,6 +81,9 @@ file="/WEB-INF/view/layout/header.jsp"%>
             <button type="button" class="searchFormSubmit" id="searchFormSubmit"><i class="fa-solid fa-magnifying-glass"></i> 검색하기</button>
         </div>
     </form>
+        <div class="listArrow">
+        	<img src="/images/utilImage/DOWN.png" width="50">
+        </div>
 
     <hr class="dividerX" />
 

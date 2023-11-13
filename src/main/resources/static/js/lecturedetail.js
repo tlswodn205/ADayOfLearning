@@ -257,7 +257,7 @@ let detailInit = {
         })
             .then((response) => response.json())
             .then((result) => {
-                $('#enroll').hide();
+//                $('#enroll').hide();
                 $('.reserveList').empty();
                 if (result.length > 0) {
                     if (result.length > 2) {
@@ -395,18 +395,12 @@ let detailInit = {
     },
     // 리뷰 등록 기본 세팅
     reviewInputInit: function () {
-        /*
 		if(userId !== '' && $('.reviewUser[name="'+ userId + '"]').length === 0) {
 	        tinyInit('#reviewInput', 620, 100);
 	        insertTiny = tinymce.activeEditor;
 		} else {
-			$('#star-input').hide()
-			$('.reviewInputBody').hide();
+			$('.reviewInputContainer').hide();
 		}
-		*/
-        tinyInit('#reviewInput',620,100);
-        insertTiny = tinymce.activeEditor;
-        
     },
     // 리뷰 등록 버튼 ==========================
     reviewInput: async function () {
@@ -424,12 +418,20 @@ let detailInit = {
                 'Content-Type': 'application/json',
             },
         })
-            .then((response) => response.json())
-            .then((result) => {
-                reviewAppend(result);
-                insertTiny.setContent('');
-                classScore();
-            });
+            .then((res) => res.json())
+			.then((result) => {
+				if(result.status === 'BAD_REQUEST') {
+					alert(result.message);
+					return;
+				}
+				reviewAppend(result);
+				insertTiny.setContent('');
+				classScore();
+				$('.reviewInputContainer').hide()
+			})
+            .catch((error) => {
+				console.log(error);
+			});
     },
     // 문의하기
     inquiry: function () {
@@ -463,7 +465,7 @@ async function reviewUpdateProc(comp) {
 
     reviewChangeShow(reviewContainer);
 }
-// 리뷰 수정 핵심 기능
+// 리뷰 수정 기능
 async function reviewUpdate(reviewContainer) {
     let score = $('input[name="scoreUpdate"]:checked').val();
     const response = await fetch('/review/update', {
@@ -476,12 +478,25 @@ async function reviewUpdate(reviewContainer) {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => {
-        if (result.status == 200) {
+    })
+        .then((res) => {
+			if(res.status === 200){
+				return res.text();
+			} else {
+				return res.json();
+			}
+		})
+		.then((result) => {
+			if(result.status === 'BAD_REQUEST') {
+				alert(result.message);
+				return;
+			}
             reviewContainer.find('#reviewScoreFill').css('width', score * 20 + '%');
             classScore();
-        }
-    });
+		})
+        .catch((error) => {
+			console.log(error);
+		});
 }
 // 리뷰 수정 취소 버튼
 function reviewUpdateBack(comp) {
@@ -490,8 +505,8 @@ function reviewUpdateBack(comp) {
 }
 
 // 리뷰 삭제
-async function reviewDelete(comp) {
-    const response = await fetch('/review/delete', {
+function reviewDelete(comp) {
+    const response = fetch('/review/delete', {
         method: 'DELETE',
         body: JSON.stringify({
             reviewId: $(comp).val(),
@@ -499,48 +514,62 @@ async function reviewDelete(comp) {
         headers: {
             'Content-Type': 'application/json',
         },
-    }).then((result) => {
-        if (result.status == 200) {
+    })
+        .then((res) => {
+			if(res.status === 200){
+				return res.text();
+			} else {
+				return res.json();
+			}
+		})
+		.then((result) => {
+			if(result.status === 'BAD_REQUEST') {
+				alert(result.message);
+				return;
+			}
             $(comp).parents('div[class="reviewContainer"]').remove();
             if ($('#reviewContainer').length == 0) {
                 $('#reviewNone').show();
             }
             classScore();
-        }
-    });
+            $('.reviewInputContainer').show();
+		})
+        .catch((error) => {
+			console.log(error);
+		});
 }
 
 // 리뷰 append ===================
 function reviewAppend(review) {
-    $('#reviewNone').hide();
-    let reviewContainer = $('<div>', { class: 'reviewContainer' })
-        .val(review.reviewId)
-        .append(
-            $('<div>', { class: 'reviewHeader' }).append(
-                $('<div>', { class: 'reviewTitle', id: 'reviewTitle' }).append(
-                    $('<div>', { class: 'reviewUser', name: review.userId, text: review.username }),
-                    $('<div>', { class: 'reviewScoreContainer', id: 'reviewScoreContainer' }).append(
-                        $('<div>', { class: 'reviewScore', id: 'reviewScore' })
-                            .val(review.score)
-                            .append(
-                                $('<div>', { class: 'reviewScoreFill', id: 'reviewScoreFill', style: 'width: ' + review.score * 20 + '%', text: '★★★★★' }),
-                                $('<div>', { class: 'reviewScoreBase', text: '★★★★★' })
-                            )
-                    ),
-                    $('<div>', { class: 'reviewCreatedAt', text: review.createdAt })
-                ),
-                $('<div>', { class: 'reviewChange', id: 'reviewChange', style: review.userId === userId ? '' : 'display: none' }).append(
-                    $('<button>', { class: 'reviewUpdateBtn', text: '수정', onclick: 'reviewUpdateBtn(this)' }),
-                    $('<button>', { class: 'reviewDeleteBtn', text: '삭제', value: review.reviewId, onclick: 'reviewDelete(this)' })
-                ),
-                $('<div>', { class: 'reviewUpdate', id: 'reviewUpdate', style: 'display: none' }).append(
-                    $('<button>', { class: 'reviewUpdateProc', text: '수정 완료', value: review.reviewId, onclick: 'reviewUpdateProc(this)' }),
-                    $('<button>', { class: 'reviewUpdateBack', text: '취소', onclick: 'reviewUpdateBack(this)' })
-                )
-            ),
-            $('<div>', { class: 'reviewContent', id: 'reviewContent', html: review.content })
-        );
-    $('.detailInfo.review').append(reviewContainer);
+	$('#reviewNone').hide();
+	let reviewContainer =
+	$('<div>', { class: 'reviewContainer' }).val(review.reviewId).append(
+		$('<div>', { class: 'reviewHeader' }).append(
+			$('<div>', { class: 'reviewTitle', id: 'reviewTitle' }).append(
+				$('<div>', { class: 'reviewUser', name: review.userId, text: review.username }),
+				$('<div>', { class: 'reviewScoreContainer', id: 'reviewScoreContainer' }).append(
+					$('<div>', { class: 'reviewScore', id: 'reviewScore' }).val(review.score).append(
+						$('<div>', { class: 'reviewScoreFill', id: 'reviewScoreFill'
+									, style: 'width: ' + review.score * 20 + '%', text: '★★★★★' }),
+						$('<div>', { class: 'reviewScoreBase', text: '★★★★★' })
+					)
+				),
+				$('<div>', { class: 'reviewCreatedAt', text: review.createdAt })
+			),
+			$('<div>', { class: 'reviewChange', id: 'reviewChange'
+						, style: review.userId.toString() === userId ? '' : 'display: none' }).append(
+				$('<button>', { class: 'reviewUpdateBtn', text: '수정', onclick: 'reviewUpdateBtn(this)' }),
+				$('<button>', { class: 'reviewDeleteBtn', text: '삭제', value: review.reviewId, onclick: 'reviewDelete(this)' })
+			),
+			$('<div>', { class: 'reviewUpdate', id: 'reviewUpdate', style: 'display: none' }).append(
+				$('<button>', { class: 'reviewUpdateProc', text: '수정 완료', value: review.reviewId, onclick: 'reviewUpdateProc(this)' }),
+				$('<button>', { class: 'reviewUpdateBack', text: '취소', onclick: 'reviewUpdateBack(this)' })
+			)
+		),
+		$('<div>', { class: 'reviewContent', id: 'reviewContent', html: review.content })
+	);
+	
+	$('.detailInfo.review').append(reviewContainer);
 }
 
 // 수정 버튼 누름
@@ -557,7 +586,8 @@ function reviewUpdateShow(reviewContainer) {
 
     for (let i = 5; i >= 1; i--) {
         reviewScoreUpdate.append(
-            $('<input>', { type: 'radio', id: i + '-starsUpdate', name: 'scoreUpdate', val: i, checked: i === parseInt(reviewScore.val()) ? true : false }),
+            $('<input>', { type: 'radio', id: i + '-starsUpdate', name: 'scoreUpdate', val: i
+            				, checked: i === parseInt(reviewScore.val()) ? true : false }),
             $('<label>', { for: i + '-starsUpdate', class: 'star', text: '★' })
         );
     }

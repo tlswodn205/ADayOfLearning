@@ -40,14 +40,12 @@
 
 <script>
 
-
 let signInEvent = {
     version: 1,
     init: function() {
     	$(document).on("click", "#signInBtn", ()=>{
     		this.signIn();
     	});
-
         $(document).on("keypress", "#password", (key) => {
             this.passwordKeyPress(key);
         });

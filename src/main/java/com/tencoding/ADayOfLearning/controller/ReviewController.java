@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tencoding.ADayOfLearning.dto.request.ReviewRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.ReviewResponseDto;
+import com.tencoding.ADayOfLearning.handler.exception.CustomFetchRestfulException;
+import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.ReviewService;
+import com.tencoding.ADayOfLearning.util.Define;
 
 @Controller
 @RequestMapping("/review")
@@ -29,29 +33,39 @@ public class ReviewController {
 	HttpSession session;
 
 	@PostMapping("/insert")
-	public @ResponseBody ReviewResponseDto insert(@RequestBody ReviewRequestDto reviewRequestDto) {
-//		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		// 유저 null이면 실행 종료
-		reviewRequestDto.setUserId(1);
+	public @ResponseBody ResponseEntity<?> insert(@RequestBody ReviewRequestDto reviewRequestDto) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		if(user == null) {
+			throw new CustomFetchRestfulException("로그인을 먼저 해야 합니다.", HttpStatus.BAD_REQUEST);
+		}
+		
+		reviewRequestDto.setUserId(user.getUserId());
 		ReviewResponseDto reviewResponseDto = reviewService.insert(reviewRequestDto);
-		return reviewResponseDto;
+		
+		return ResponseEntity.ok().body(reviewResponseDto);
 	}
 	
 	@DeleteMapping("/delete")
 	public @ResponseBody ResponseEntity<?> delete(@RequestBody Map<String, Integer> reviewIdMap) {
-//		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		// 유저 인가 확인
-		reviewService.delete(reviewIdMap.get("reviewId"));
-		return ResponseEntity.ok().body("삭제 성공");
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		if(user == null) {
+			throw new CustomFetchRestfulException("로그인을 먼저 해야 합니다.", HttpStatus.BAD_REQUEST);
+		}
+		
+		reviewService.delete(reviewIdMap.get("reviewId"), user.getUserId());
+		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/update")
 	public @ResponseBody ResponseEntity<?> update(@RequestBody ReviewRequestDto reviewRequestDto) {
-//		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		// 유저 인가 확인
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		if(user == null) {
+			throw new CustomFetchRestfulException("로그인을 먼저 해야 합니다.", HttpStatus.BAD_REQUEST);
+		}
+
+		reviewRequestDto.setUserId(user.getUserId());
 		reviewService.update(reviewRequestDto);
-		System.out.println(reviewRequestDto);;
-		return ResponseEntity.ok().body("삭제 성공");
+		return ResponseEntity.ok().build();
 	}
 	
 }
