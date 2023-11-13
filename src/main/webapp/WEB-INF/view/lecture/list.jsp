@@ -87,7 +87,11 @@ file="/WEB-INF/view/layout/header.jsp"%>
 
     <hr class="dividerX" />
 
+	<div class="lectureListHead">
+		<div class="searchedLectureCount">${count}개의 클래스</div>
+	</div> 
     <div class="lectureListList"></div>
+    
     <div class="lectureListPaginationArea">
         <div class="lectureListPagination"></div>
     </div>

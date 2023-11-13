@@ -58,6 +58,7 @@
 }
 
 .lectureListRow {
+	padding-left: 60px;
 	width: 600px;
 }
 
@@ -131,6 +132,9 @@ td {
 	text-align: center;
 	margin: 20px auto;
 	height: 306px;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+	padding: 15px 10px;
 }
 
 .calendarList>thead>tr:first-child>td {
@@ -143,8 +147,8 @@ td {
 }
 
 .calendarList>tbody>tr>td>p {
-	height: 35px;
-	width: 35px;
+	height: 40px;
+	width: 45px;
 	border-radius: 35px;
 	transition-duration: 0.2s;
 	line-height: 35px;
@@ -188,7 +192,7 @@ td {
 
 .searchFormSubmitArea {
 	width: fit-content;
-	margin: 20px auto 20px auto;
+	margin: 40px auto 10px auto;
 }
 
 #lectureList .searchFormSubmitArea .searchFormReset {
@@ -253,6 +257,64 @@ td {
 /* =======================검색 버튼======================= */
 
 /* =======================강의======================= */
+.lectureListHead {
+	width: 1200px;
+	margin: 10px auto;
+	padding: 12px;
+}
+
+.searchedLectureCount {
+	font-size: 18px;
+	width: fit-content;
+}
+
+/* 강의 정렬 */
+/* Style the dropdown button */
+.lectureSortDropdownContainer {
+	display: flex;
+	text-align: right; /* 부모 요소를 오른쪽 정렬로 설정 */
+	width: fit-content;
+}
+
+.lectureSortDropbtn {
+	position: relative;
+	right: 0;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style the dropdown content (hidden by default) */
+.lectureSortDropdownContent {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Style the dropdown links */
+.lectureSortDropdownContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color on hover */
+.lectureSortDropdownContent a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown content when the dropdown button is hovered over */
+.lectureSortDropdown:hover .lectureSortDropdownContent {
+    display: block;
+}
+
 .lectureListList {
 	display: flex;
 	flex-direction: row;
@@ -270,8 +332,11 @@ td {
 	margin-left: 1%;
 	margin-right: 1%;
 	background-color: #fefefe;
-
 	border-radius: 6px;
+}
+
+.lectureItemA:hover {
+	color: #3f464d;
 }
 
 .lectureItem {
@@ -291,6 +356,7 @@ td {
 	border-radius: 5px;
 	width: 100%;
 	height: 200px;
+	overflow: hidden;
 }
 
 .lectureItemPicture {
@@ -304,6 +370,11 @@ td {
 	text-align: center;
 	vertical-align: middle;
 	z-index: 0;
+	transition: transform 0.3s ease;
+}
+
+.lectureItemPicture:hover {
+	transform: scale(1.05);
 }
 
 .lectureItemAddress {
@@ -322,7 +393,7 @@ td {
 	border-radius: 5px;
 }
 
-.lectureItemInfoTop{
+.lectureItemInfoTop {
 	display: flex;
 }
 
@@ -338,7 +409,7 @@ td {
 	padding: 2px 14px;
 	font-size: 14px;
 	background-color: #FEE50090;
-	color: #666666;
+	color: #000;
 }
 
 
@@ -351,7 +422,7 @@ td {
 	align-items: center;
 }
 
-.lectureItemReview i{
+.lectureItemReview i {
 	color: #FEE500;
 }
 
@@ -725,7 +796,7 @@ td {
 .reserveSession {
 	padding: 8px;
 	box-sizing: border-box;
-	min-width: 35%;
+	width: 35%;
 	height: 98%;
 	border: 1px solid #999999;
 	border-radius: 5px;
@@ -755,7 +826,7 @@ td {
 
 .reserveSessionState {
 	text-align: center;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 
 .reserveSessionDuration {

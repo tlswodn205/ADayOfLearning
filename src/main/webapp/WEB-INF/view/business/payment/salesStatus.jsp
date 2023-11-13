@@ -74,7 +74,7 @@
 							<td>${lectureList.price}</td>
 							<td>${lectureList.categoryName}</td>
 							<td>${lectureList.student}/${lectureList.maximum}</td>
-							<td>${lectureList.state}</td>
+							<td>${lectureList.state == 1 ? "판매중" : lectureList.state == 2 ? "승인대기" : "판매종료"}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${lectureList.createdAt}" /></td>
 						</tr>
 					</c:forEach>
