@@ -320,9 +320,11 @@ public class BusinessService {
 
 			} else if (item.getState().equals(Define.UPDATE)) {
 				try {
+					
 					String fileName = uploadLocal(item.getFile(), lectureId);
 					LecturePhoto lecturePhoto = lecturePhotoRepository.findByLecturePhotoId(item.getLecturePhotoId());
-					lecturePhoto.builder().img(fileName).build();
+					lecturePhoto.setImg(fileName);
+				 
 					lecturePhotoRepository.updateByLecturePhotoId(lecturePhoto);
 
 				} catch (IOException e) {
