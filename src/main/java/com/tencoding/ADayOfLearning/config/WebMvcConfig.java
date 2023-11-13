@@ -32,7 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		.addPathPatterns("/user/requestBusiness")
 		.addPathPatterns("/payment/*");
 		
-		registry.addInterceptor(amdinInterceptor).addPathPatterns("/admins/*");
+		//registry.addInterceptor(amdinInterceptor).addPathPatterns("/admins/*");
 
 		registry.addInterceptor(businessInterceptor).addPathPatterns("/business/*");
 	}	

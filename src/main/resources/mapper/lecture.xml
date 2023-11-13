@@ -99,11 +99,13 @@
 			ON l.category_id = c.category_id
 		  JOIN tb_user u
 			ON l.user_id = u.user_id
+		  LEFT JOIN tb_lecture_photo p 
+		    ON l.lecture_id= p.lecture_id 
 		  LEFT JOIN tb_business b 
 		    ON b.user_id= l.user_id 
 		  LEFT JOIN tb_review r 
 		    ON r.lecture_id= l.lecture_id 
-         WHERE l.state = 1
+         WHERE l.state = 1 and p.is_thumbnail = 1
            AND (l.latitude &gt; #{qa} AND l.latitude &lt; #{pa} )
            AND (l.longitude &gt; #{ha} AND l.longitude &lt; #{oa} )
 	</select>

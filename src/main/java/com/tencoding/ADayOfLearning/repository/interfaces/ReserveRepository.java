@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.tencoding.ADayOfLearning.dto.response.BusinessSalesResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto;
@@ -22,4 +23,10 @@ public interface ReserveRepository {
 	public ReserveResponseDto findAllByReserveId(int reserveId);
 	public PagingResponseDto findPaging(@Param("type")String type, @Param("keyword")String keyword, @Param("page")Integer page, @Param("status")String status, @Param("userId")int userId);
 	public int existReserveByUserId(@Param("userId") int userId, @Param("lectureSessionId") int lectureSessionId);
+	public List<BusinessSalesResponseDto> monthlySales();
+	public List<BusinessSalesResponseDto> sevenDaysSales();
+	public Integer monthlySalesTotal();
+	public Integer sevenDaysSalesTotal();
+	public Integer lastMonthSalesTotal();
+	public Integer nextSevenDaysSalesTotal();
 }

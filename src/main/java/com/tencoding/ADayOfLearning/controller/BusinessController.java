@@ -80,8 +80,17 @@ public class BusinessController {
 		BusinessMainUserDataResponseDto userData = businessService.findUserData(user.getUserId());
 		model.addAttribute("userData", userData);
 		// 예약 관련 메인
-		int countTodayLecture = businessService.countTodayLecture(1);
-		int countTodayUser = businessService.countTodayUser(1);
+		
+		Integer monthlyTotal = businessService.getMonthlySalesTotal(user.getUserId());
+		Integer sevenDaysTotal = businessService.getPastSevenDaysSalesTotal(user.getUserId());
+		Integer lastMonthTotal = businessService.getLastMonthSalesTotal(user.getUserId());
+		Integer nextSevenDaysTotal = businessService.getNextSevenDaysSalesTotal(user.getUserId());
+		int countTodayLecture = businessService.countTodayLecture(user.getUserId());
+		int countTodayUser = businessService.countTodayUser(user.getUserId());
+		model.addAttribute("monthlyTotal", monthlyTotal);
+		model.addAttribute("sevenDaysTotal", sevenDaysTotal);
+		model.addAttribute("lastMonthTotal", lastMonthTotal);
+		model.addAttribute("nextSevenDaysTotal", nextSevenDaysTotal);
 		model.addAttribute("countTodayLecture", countTodayLecture);
 		model.addAttribute("countTodayUser", countTodayUser);
 		return "/business/main";

@@ -15,7 +15,9 @@ import com.tencoding.ADayOfLearning.dto.response.AdminMainCustomerResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminRequestBusinessResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.BusinessSalesResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ChartResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
 import com.tencoding.ADayOfLearning.repository.interfaces.BusinessRepository;
@@ -194,7 +196,47 @@ public class AdminService {
 				new ListPagingResponseDto<AdminLectureListResponseDto>(pagingResponseDto, type, keyword, "", adminLectureListResponseDto);
 		return listPagingResponseDto;
 	}
+
+	public List<BusinessSalesResponseDto> getMonthlySales() {
+		List<BusinessSalesResponseDto> businessSalesResponseDto = reserveRepository.monthlySales();
+		return businessSalesResponseDto;
+	}
+
+	public List<BusinessSalesResponseDto> getPastSevenDaysSales() {
+		List<BusinessSalesResponseDto> businessSalesResponseDto = reserveRepository.sevenDaysSales();
+		return businessSalesResponseDto;
+	}
+
+	public Integer getMonthlySalesTotal() {
+		return reserveRepository.monthlySalesTotal();
+	}
 	
+	public Integer getPastSevenDaysSalesTotal() {
+		return reserveRepository.sevenDaysSalesTotal();
+	}
+	
+	public Integer getLastMonthSalesTotal() {
+		return reserveRepository.lastMonthSalesTotal();
+	}
+
+	public Integer getNextSevenDaysSalesTotal() {
+		return reserveRepository.nextSevenDaysSalesTotal();
+	}
+
+	public List<ChartResponseDto> getCustomerChartData() {
+		List<ChartResponseDto> userChartData = userRepository.customerChartData();
+		return userChartData;
+	}
+
+	public List<ChartResponseDto> getBusinessChartData() {
+		List<ChartResponseDto> userChartData = userRepository.businessChartData();
+		return userChartData;
+	}
+
+	public List<ChartResponseDto> getRequestBusinessChartData() {
+		List<ChartResponseDto> userChartData = userRepository.requestBusinessChartData();
+		return userChartData;
+	}
 	//business end
 
 

@@ -5,23 +5,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="/js/business/salesStatus.js"></script>
 
-<style>
-.chart {
-	display: flex;
-	justify-content: space-around;
-	margin-bottom: 30px;
-}
-.chart div {
-	border: 1px solid #d3d3d3;
-	border-radius: 13px;
-	text-align: center;
-	width: 24%;
-}
-.chartItem {
-	cursor: pointer;
-}
-</style>
-
 <%@ include file="/WEB-INF/view/business/layout/header.jsp"%>
 
 <main>

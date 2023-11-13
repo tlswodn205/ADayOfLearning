@@ -376,7 +376,7 @@
 		  JOIN tb_reserve r ON p.reserve_id = r.reserve_id
 		  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
 		  JOIN tb_lecture l ON ls.lecture_id = l.lecture_id
-		 WHERE l.user_id = 1
+		 WHERE l.user_id = #{userId}
 		   AND DATE(ls.session_date) BETWEEN CURDATE()+1 AND CURDATE()+7
 		   AND p.state = "결제 완료";
 	</select>
