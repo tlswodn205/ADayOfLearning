@@ -230,7 +230,10 @@
                 ON b.user_id = u.user_id
 				WHERE 1=1 AND b.state = '등록요청'
 				<if test="type == 'businessName' and keyword != null">
-					and business_name like CONCAT('%',#{keyword},'%') 
+					and b.business_name like CONCAT('%',#{keyword},'%') 
+				</if>
+				<if test="type == 'CEOname' and keyword != null">
+					and b.CEO_name like CONCAT('%',#{keyword},'%') 
 				</if>
 			) ost;
 	</select>
@@ -241,9 +244,12 @@
 		LEFT JOIN tb_user u 
 	    ON b.user_id = u.user_id
 		WHERE 1=1 AND b.state = '등록요청'
-			<if test="type == 'businessName' and keyword != null">
-				and business_name like CONCAT('%',#{keyword},'%') 
-			</if>
+				<if test="type == 'businessName' and keyword != null">
+					and b.business_name like CONCAT('%',#{keyword},'%') 
+				</if>
+				<if test="type == 'CEOname' and keyword != null">
+					and b.CEO_name like CONCAT('%',#{keyword},'%') 
+				</if>
 		ORDER BY created_at DESC
 		LIMIT #{startNum}, 10;
 	</select>
@@ -275,7 +281,10 @@
                 ON b.user_id = u.user_id
 				WHERE 1=1 AND u.identity = 'business'
 				<if test="type == 'businessName' and keyword != null">
-					and business_name like CONCAT('%',#{keyword},'%') 
+					and b.business_name like CONCAT('%',#{keyword},'%') 
+				</if>
+				<if test="type == 'CEOname' and keyword != null">
+					and b.CEO_name like CONCAT('%',#{keyword},'%') 
 				</if>
 			) ost;
 	</select>
@@ -287,7 +296,10 @@
 	    ON b.user_id = u.user_id
 		WHERE 1=1 AND u.identity = 'business'
 				<if test="type == 'businessName' and keyword != null">
-					and business_name like CONCAT('%',#{keyword},'%') 
+					and b.business_name like CONCAT('%',#{keyword},'%') 
+				</if>
+				<if test="type == 'CEOname' and keyword != null">
+					and b.CEO_name like CONCAT('%',#{keyword},'%') 
 				</if>
 		ORDER BY created_at DESC
 		LIMIT #{startNum}, 10;

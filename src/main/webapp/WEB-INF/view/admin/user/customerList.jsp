@@ -13,8 +13,8 @@
 					<input type="hidden" id="status"
 						value="${listPagingResponseDto.status}"> <select id="type"
 						name="type">
-						<option value="businessName"
-							${listPagingResponseDto.type eq "businessName" ? "selected":""}>상호명</option>
+						<option value="name"
+							${listPagingResponseDto.type eq "name" ? "selected":""}>이름</option>
 					</select> <input type="text" id="keyword" placeholder="검색"
 						value="${listPagingResponseDto.keyword}"> <input
 						type="button" id="search-btn" value="검색하기">
@@ -81,7 +81,5 @@
 	</div>
 </main>
 
-<script type="text/javascript">
-
-</script>
+  <script src="/js/business/search.js"></script>
 <%@ include file="/WEB-INF/view/admin/layout/footer.jsp"%>

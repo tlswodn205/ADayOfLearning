@@ -103,8 +103,8 @@
 				LEFT JOIN tb_user u 
 			    ON p.user_id = u.user_id
 				WHERE 1=1 AND u.identity = 'customer'
-				<if test="type == 'personName' and keyword != null">
-					and p.person_name like CONCAT('%',#{keyword},'%') 
+				<if test="type == 'name' and keyword != null">
+					and p.name like CONCAT('%',#{keyword},'%') 
 				</if>
 			) ost;
 	</select>
@@ -115,9 +115,9 @@
 		LEFT JOIN tb_user u 
 	    ON p.user_id = u.user_id
 		WHERE 1=1 AND u.identity = 'customer'
-			<if test="type == 'personName' and keyword != null">
-				and p.person_name like CONCAT('%',#{keyword},'%') 
-			</if>
+				<if test="type == 'name' and keyword != null">
+					and p.name like CONCAT('%',#{keyword},'%') 
+				</if>
 		ORDER BY created_at DESC
 		LIMIT #{startNum}, 10;
 	</select>
