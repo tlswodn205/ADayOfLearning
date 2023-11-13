@@ -21,11 +21,19 @@
 <div id= "adminPage">
 	<sideBar>
 		<div class="sideBar">
-			<img src="/images/logo/logoWhite.png" class="logo">admin
+			<a href="/admin/"><img src="/images/logo/logoAdmin.png" class="logo"></a>
 			<ul>
 				<li>
-					<a href="/admin/userList"><i class="fa-solid fa-user"></i>내 정보보기</a>
-					<a href="/admin/chatRoom"><i class="fa-solid fa-comments"></i></i>채팅</a>
+					<a href="/admin/customerList"><i class="fa-solid fa-user"></i>구매자 리스트</a>
+				</li>
+				<li>
+					<a href="/admin/businessList"><i class="fa-solid fa-user-tie"></i>판매자 리스트</a>
+				</li>
+				<li>
+					<a href="/admin/requestBusinessList"><i class="fa-solid fa-address-card"></i>판매자 요청</a>
+				</li>
+				<li>
+					<a href="/admin/lectureList"><i class="fa-solid fa-chalkboard-user"></i>수업 리스트</a>
 				</li>
 			</ul>
 		</div>

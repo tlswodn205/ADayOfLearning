@@ -78,7 +78,12 @@ let listInit = {
                 let pictureDiv = $('<div>').addClass('lectureItemPictureArea');
                 let pictureImg = $('<img>').addClass('lectureItemPicture').attr('src', list[i].img);
                 let addressDiv = $('<div>').addClass('lectureItemAddress').text(list[i].address);
+                let addInfoTop = $('<div>').addClass('lectureItemInfoTop');
                 let categoryDiv = $('<div>').addClass('lectureItemCategory').text(list[i].categoryName);
+                let reviewInfo = $('<div>').addClass('lectureItemReview');
+                let yellowStar = $('<i>').addClass('fa-solid fa-star');
+                let reviewScore = $('<div>').addClass('lectureItemReviewScore').text(list[i].reviewScore);
+                let reviewCount = $('<div>').addClass('lectureItemReviewCount').text("("+list[i].reviewCount+")");
                 let providerDiv = $('<div>').addClass('lectureItemProvider').text(list[i].username);
                 let titleDiv = $('<div>').addClass('lectureItemTitle').text(list[i].title);
                 let priceDiv = $('<div>')
@@ -86,8 +91,10 @@ let listInit = {
                     .text(list[i].price.toLocaleString('ko-KR') + '원');
 
                 pictureDiv.append(pictureImg, addressDiv);
-                lectureItem.append(pictureDiv, categoryDiv, providerDiv, titleDiv, priceDiv);
-
+                lectureItem.append(pictureDiv, addInfoTop, providerDiv, titleDiv, priceDiv);
+                addInfoTop.append(categoryDiv, reviewInfo);
+                reviewInfo.append(yellowStar, reviewScore, reviewCount);
+			
                 lectureItemA.append(lectureItem);
                 lectureList.append(lectureItemA);
             } else {
