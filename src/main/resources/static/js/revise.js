@@ -166,6 +166,7 @@ let reviseInit = {
         let reader = new FileReader();
 
         reader.onload = function (event) {
+			let inputHidden1 = $('<input>');
             let inputHidden2 = $('<input>');
             let imgDiv = $('<div>');
             let img = $('<img>');
@@ -174,10 +175,15 @@ let reviseInit = {
             // 이미지 태그 옵션
             img.attr('src', event.target.result).attr('width', '100').attr('height', '60');
 
+			inputHidden1
+                    .attr('type', 'hidden')
+                    .attr('value', photoList[0].lecturePhotoId)
+                    .attr('name', 'revisePhotoList[0].lecturePhotoId');
             inputHidden2.attr('type', 'hidden').attr('name', 'revisePhotoList[0].state').attr('class', 'state').val('update');
             imgDiv.addClass('imagePanel 0');
             overlay.addClass('reviseLectureImgOverlay');
 
+			imgDiv.append(inputHidden1);
             imgDiv.append(inputHidden2);
             imgDiv.append(img);
             imgDiv.append(overlay);

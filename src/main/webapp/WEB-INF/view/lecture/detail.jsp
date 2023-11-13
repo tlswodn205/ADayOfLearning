@@ -138,7 +138,7 @@
                     <div class="lectureDetatilRight price"></div>
                     <div class="paymentButtonSet">
                         <button id="inquiryBtn">문의하기</button>
-                        <button id="enroll" style="display: none">클래스 신청</button>
+                        <button id="enroll">클래스 신청</button>
                     </div>
                 </div>
             </div>

@@ -44,8 +44,10 @@
 						</div>
 					</div>
 					<div class="listBtnBox">
+						<input type="hidden" id="lectureId" value="${reserve.lectureId}">
+						<input type="hidden" id="userId" value="${reserve.userId}">
 						<button type="button" class="listBtn" id="reviewBtn">후기 작성하기</button>
-						<button type="button" class="listBtn" id="chatBtn">문의하기</button>
+						<button type="button" class="listBtn" id="inquiryBtn">문의하기</button>
 					</div>
 				</div>
 
@@ -99,4 +101,26 @@
 		</div>
 	</div>
 </main>
+
+<script>
+let detailInit = {
+		version: 1,
+		init: function() {
+			$(document).ready(() => {
+				$('#reviewBtn').on('click', () => this.review());
+				$('#inquiryBtn').on('click', () => this.inquiry());
+			});
+		},
+		review: function() {
+			let lectureId = $('#lectureId').val();
+			location.href = '/lecture/detail?id=' + lectureId + '#detailReview';
+		},
+		inquiry: function() {
+			let userId = $('#userId').val();
+			location.href = '/chat/room?userId=' + userId;
+		}
+}
+detailInit.init();
+</script>
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp" %>

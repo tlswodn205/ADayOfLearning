@@ -8,8 +8,8 @@
         <form action="/business/revise" method="post" id="reviseForm" enctype="multipart/form-data">
             <input type="hidden" name="lectureId" value="${id}" />
             <div class="DetailColumn">
-            <input type="hidden" id="reviseFormLongitude" name="longitude" />
-        	<input type="hidden" id="reviseFormLatitude" name="latitude" />
+            <input type="hidden" id="reviseFormLongitude" name="longitude" value="${lecture.longitude}"/>
+        	<input type="hidden" id="reviseFormLatitude" name="latitude" value="${lecture.latitude}"/>
         	<input type="hidden" name="state" value="${lecture.state}"/>
                 <table>
                     <tr>
@@ -113,7 +113,7 @@
                     <tr>
                         <td>강의 썸네일 이미지</td>
                         <td>
-                            <input type="file" id="reviseFormThumbnail" name="file" accept="image/*" multiple /> ※썸네일 이미지
+                            <input type="file" id="reviseFormThumbnail" name="revisePhotoList[0].file" accept="image/*" multiple /> ※썸네일 이미지
                             <div id="thumbnailImageContainer"></div>
                         </td>
                     </tr>

@@ -16,6 +16,7 @@ import com.tencoding.ADayOfLearning.util.Define;
 
 @Component
 public class AdminInterceptor implements HandlerInterceptor{
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {

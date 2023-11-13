@@ -28,6 +28,10 @@ spring:
           timeout: 5000 # 6
           starttls:
             enable: true # 7
+            
+  servlet:
+    multipart:
+      maxFileSize: 50MB
     
 mybatis:
   mapper-locations:

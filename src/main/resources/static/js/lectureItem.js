@@ -12,8 +12,16 @@ function lectureContainer(lecture) {
 					$('<img>', { class: 'lectureItemPicture', src: lecture.img }),
 					$('<div>', { class: 'lectureItemAddress', text: lecture.address })
 				),
-				$('<div>', { class: 'lectureItemCategory', text: lecture.categoryName}),
-				$('<div>', { class: 'lectureItemProvider', text: lecture.username}),
+				$('<div>', { class: 'lectureItemInfoTop'}).append(
+					$('<div>', { class: 'lectureItemCategory', text: lecture.categoryName}),
+					$('<div>', { class: 'lectureItemReview'}).append(
+						
+						$('<i>', { class: 'fa-solid fa-star'}),
+						$('<div>', { class: 'lectureItemReviewScore', text: lecture.reviewScore}),
+						$('<div>', { class: 'lectureItemReviewCount', text: "("+lecture.reviewCount+")"}),
+					),
+				),
+				$('<div>', { class: 'lectureItemProvider', text: lecture.businessname}),
 				$('<div>', { class: 'lectureItemTitle', text: lecture.title}),
 				$('<div>', { class: 'lectureItemPrice', text: priceToString(lecture.price) + '원'}),
 			)

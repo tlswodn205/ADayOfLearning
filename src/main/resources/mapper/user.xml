@@ -70,7 +70,7 @@
 	</update>
 	
 	<select id="findCustomer" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainCustomerResponseDto">
-		SELECT u.user_id, u.username, p.name, p.email, p.phone_number 
+		SELECT u.user_id, IF(substr(username,length(username)-5)='_kakao', '카카오 로그인', username ) as username, p.name, p.email, p.phone_number 
 		FROM tb_user u LEFT JOIN tb_person p on u.user_id = p.user_id 
 		WHERE identity = "customer"
 		ORDER BY u.created_at DESC
@@ -110,7 +110,7 @@
 	</select>
 	
 	<select id="findCustomerList" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminCustomerResponseDto">
-		SELECT u.username, p.*
+		SELECT IF(substr(username,length(username)-5)='_kakao', '카카오 로그인', username ) as username, p.*
 		FROM tb_person p
 		LEFT JOIN tb_user u 
 	    ON p.user_id = u.user_id

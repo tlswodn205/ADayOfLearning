@@ -257,7 +257,7 @@ let detailInit = {
         })
             .then((response) => response.json())
             .then((result) => {
-                $('#enroll').hide();
+//                $('#enroll').hide();
                 $('.reserveList').empty();
                 if (result.length > 0) {
                     if (result.length > 2) {

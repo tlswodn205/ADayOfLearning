@@ -80,12 +80,20 @@ input[type="number"]::-webkit-inner-spin-button {
 	border-top: 0.5px solid #888;
 }
 
+.sideBar ul li{
+	display: flex;
+	align-items: center;
+}
+
+
 .sideBar ul a{
-	display: block;
 	padding: 10px 20px;	
 	color: #eee;
 	font-style: normal;
 	font-weight: 700;
+	display: flex;
+	align-items: center;
+	width: 200px;
 }
 
 .sideBar ul a:hover{
@@ -95,6 +103,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .sideBar ul a i{
 	margin-right: 15px;
+	width: 20px;
+	height: 16px;
+	display: block;
+	text-align: center;
 }
 
 main {
@@ -193,11 +205,27 @@ main .ListColumn thead tr{
 main .ListColumn tbody tr{
     border-bottom: 1px solid #ccc;
 	line-height: 50px;  
+	text-align: center;
 }
 
 main .ListColumn tr{
 	font-size: 14px;
 	line-height: 50px;  
+}
+
+main .ListColumn .pagination{
+	margin-top:20px;
+	display: flex;
+	justify-content: center;
+}
+
+main .ListColumn .pagination li{
+	margin: 0px 5px;
+	font-size: 15px;
+}
+
+main .ListColumn .pagination label{
+	color: #ccf;
 }
 
 main .ListColumn .inputBtn{
@@ -224,7 +252,6 @@ main .DetailColumn table{
 }
 
 main .DetailColumn tr{
-	
 	font-size: 14px;
 	line-height: 50px;  
 }
@@ -259,7 +286,7 @@ main .DetailColumn .tel:focus{
 }
 
 main .DetailColumn img {
-	width: 700px;
+	max-width: 700px;
 }
 
 main .DetailColumn .detailColumnBottom{

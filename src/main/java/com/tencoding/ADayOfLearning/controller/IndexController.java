@@ -33,7 +33,6 @@ public class IndexController {
 	@GetMapping("/map")
 	public String map(Model model) throws JsonProcessingException {
 		LastLectureResponseDto lastLecture = lectureService.getLastLecture();
-		System.out.println(lastLecture);
 		model.addAttribute("lastLecture", objectMapper.writeValueAsString(lastLecture));
 		return "map";
 	}
