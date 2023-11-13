@@ -1,5 +1,5 @@
 #reserveList {
-	width: 1200px;
+	width: 1080px;
 }
 #reserveList .content {
 	/* display: flex; */
@@ -35,10 +35,15 @@
 }
 #reserveList .listBtn {
 	width: 49%;
-	border: 1px solid #d3d3d3;
 	border-radius: 7px;
 	padding: 7px 0;
-	margin-top: 10px;
+	margin: 10px 0 0;
+	background-color: #e7e7e7;
+}
+#reserveList .listBtn:hover {
+	animation-duration: 1s;
+	animation-name: slideYellow;
+	animation-fill-mode: forwards;
 }
 #reserveList .search {
 	width: 70%;
@@ -68,4 +73,23 @@
     height: 100%;
     object-fit: cover;
     border-radius: 7px;
+}
+#reserveList .pagination {
+	display: flex;
+	justify-content: center;
+	margin: 30px 0 50px 0;
+}
+#reserveList .page-item {
+	display: inline-flex;
+	justify-content: center;
+	/* 수평 가운데 정렬 */
+	align-items: center;
+	/* 수직 가운데 정렬 */
+	text-decoration: none;
+	color: #333333;
+	height: 36px;
+	width: 36px;
+	border-radius: 18px;
+	font-size: 15px;
+	margin: 3px;
 }

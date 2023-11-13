@@ -21,4 +21,5 @@ public class ReserveResponseDto {
 	private int lectureSessionId; 		// 클래스 상세번호
 	private String paymentKind;			// 결제수단
 	private int paymentId; 			// 결제 번호
+	private int userId;				// 강사의 userId
 }

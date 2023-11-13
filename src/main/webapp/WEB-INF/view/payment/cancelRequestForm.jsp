@@ -21,11 +21,11 @@
 			</div>
 			<div class="sectionBox line">
 				<div class="sectionBox-area">
-					<div>
-						<img alt="" src="https://picsum.photos/120/120">
+					<div class="imgContainer">
+						<img alt="썸네일" src="${payment.img}">
 					</div>
 					<div class="classItem">
-						<p>[스토어] 테스트의 스토어</p>
+						<p>${payment.businessName}</p>
 						<h4>${payment.title}</h4>
 						<p>
 							<fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${payment.sessionDate}" />

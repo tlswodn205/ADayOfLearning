@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="findByUserId" resultType = "com.tencoding.ADayOfLearning.dto.response.ReserveListResponseDto">
-		SELECT r.reserve_id, p.state, p.payment_date, p.amount, lp.img, l.title, ls.session_date
+		SELECT r.reserve_id, p.state, p.payment_date, p.amount, lp.img, l.title, ls.session_date, l.user_id, l.lecture_id
 		  FROM tb_reserve r
 		  JOIN tb_payment p
 		    ON r.reserve_id = p.reserve_id
@@ -81,7 +81,7 @@
 	</select>
 	
 	<select id="findAllByReserveId" resultType = "com.tencoding.ADayOfLearning.dto.response.ReserveResponseDto">
-		SELECT l.lecture_id, l.title, l.phone_number, l.address, l.address_detail, p.name
+		SELECT l.lecture_id, l.title, l.phone_number, l.address, l.address_detail, l.user_id, p.name
 			 , ls.lecture_session_id, ls.session_date, r.reserve_id, r.created_at, pa.state
 		     , pa.amount, lp.img, pa.payment_kind, pa.payment_id
 		  FROM tb_reserve r
@@ -96,17 +96,6 @@
 		  LEFT JOIN tb_payment pa
 		    ON r.reserve_id = pa.reserve_id
 		 WHERE r.reserve_id = #{reserveId}
-	</select>
-	
-	<!-- 예약한 내역이 있는지 확인 -->
-	<select id="existReserveByUserId" resultType = "java.lang.Integer">
-		SELECT COUNT(r.reserve_id)
-		  FROM tb_reserve r
-		  JOIN tb_payment pm ON r.reserve_id = pm.reserve_id
-		  JOIN tb_lecture_session ls ON r.lecture_session_id = ls.lecture_session_id
-		 WHERE r.user_id = #{userId}
-		   AND ls.lecture_session_id = #{lectureSessionId}
-		   AND pm.state = '결제 완료';
 	</select>
 	
 </mapper>
