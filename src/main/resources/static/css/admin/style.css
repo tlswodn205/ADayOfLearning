@@ -138,11 +138,22 @@ main .mainColumn{
 
 main .mainColumn .mainRow{
 	display: flex;	
+	margin:10px;
 }
 
 main .mainColumn .mainRow .mainNarrowComponent{
-	margin: 20px 10px 10px 20px;
+	margin: 10px 10px 10px 10px;
+	font-size: 12px;
 	width:530px;
+	padding: 20px;
+	background-color: #fff;
+}
+
+
+main .mainColumn .mainRow .mainWideComponent{
+	margin: 10px 10px 10px 10px;
+	font-size: 12px;
+	width:1160px;
 	padding: 20px;
 	background-color: #fff;
 }
@@ -160,6 +171,16 @@ main .mainRow .mainComponentTop .showMore{
 	float:right;
 	color: #aaa;
 	margin-bottom: 10px;
+}
+
+main .mainColumn .mainRow .smallChartComponent{
+	display: flex;
+	height: 300px;
+}
+
+main .mainColumn .mainRow .smallChartComponent .smallChart{
+	width: 530px;
+	height: 300px;
 }
 
 main .mainColumn .mainRow table{
@@ -313,4 +334,19 @@ main .DetailColumn .detailColumnBottom input[type=button]:last-child{
 	border-radius: 13px;
 	padding: 10px;
 	background-color: #353535;
+}
+
+.chart {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 30px;
+}
+.chart div {
+	border: 1px solid #d3d3d3;
+	border-radius: 13px;
+	text-align: center;
+	width: 24%;
+}
+.chartItem {
+	cursor: pointer;
 }

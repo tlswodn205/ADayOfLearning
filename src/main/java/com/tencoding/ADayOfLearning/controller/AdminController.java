@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,7 +42,16 @@ public class AdminController {
 	@GetMapping("")
 	public String getMain(Model model) {
 		AdminMainResponseDto adminMainResponseDto =  adminService.getMainData();
+
+		Integer monthlyTotal = adminService.getMonthlySalesTotal();
+		Integer sevenDaysTotal = adminService.getPastSevenDaysSalesTotal();
+		Integer lastMonthTotal = adminService.getLastMonthSalesTotal();
+		Integer nextSevenDaysTotal = adminService.getNextSevenDaysSalesTotal();
 		model.addAttribute("adminMainResponseDto", adminMainResponseDto);
+		model.addAttribute("monthlyTotal", monthlyTotal);
+		model.addAttribute("sevenDaysTotal", sevenDaysTotal);
+		model.addAttribute("lastMonthTotal", lastMonthTotal);
+		model.addAttribute("nextSevenDaysTotal", nextSevenDaysTotal);
 		return "admin/main";
 	}
 	
@@ -146,4 +156,30 @@ public class AdminController {
 	}
 	//lecture end
 	
+
+	@GetMapping("/monthly-data")
+    public ResponseEntity<?> getMonthlySales() {
+		return ResponseEntity.ok(adminService.getMonthlySales());
+    }
+	
+	@GetMapping("/daily-data")
+	public ResponseEntity<?> getPastSevenDaysSales() {
+		return ResponseEntity.ok(adminService.getPastSevenDaysSales());
+	}
+	
+	@GetMapping("/customerChartData")
+	public ResponseEntity<?> getCustomerChartData() {
+		return ResponseEntity.ok(adminService.getCustomerChartData());
+	}
+
+	@GetMapping("/businessChartData")
+	public ResponseEntity<?> getBusinessChartData() {
+		return ResponseEntity.ok(adminService.getBusinessChartData());
+	}
+	
+
+	@GetMapping("/requestBusinessChartData")
+	public ResponseEntity<?> getRequestBusinessChartData() {
+		return ResponseEntity.ok(adminService.getRequestBusinessChartData());
+	}
 }

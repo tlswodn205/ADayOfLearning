@@ -136,15 +136,26 @@ main .mainColumn{
 
 main .mainColumn .mainRow{
 	display: flex;	
+	margin:10px;
 }
 
 main .mainColumn .mainRow .mainNarrowComponent{
-	margin: 20px 10px 10px 20px;
+	margin: 10px 10px 10px 10px;
 	font-size: 12px;
 	width:530px;
 	padding: 20px;
 	background-color: #fff;
 }
+
+
+main .mainColumn .mainRow .mainWideComponent{
+	margin: 10px 10px 10px 10px;
+	font-size: 12px;
+	width:1160px;
+	padding: 20px;
+	background-color: #fff;
+}
+
 
 main .mainRow .mainComponentTop{
 	margin-bottom: 15px;
@@ -313,3 +324,17 @@ main .DetailColumn .inputBtn{
 	background-color: #ccc;
 }
 
+.chart {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 30px;
+}
+.chart div {
+	border: 1px solid #d3d3d3;
+	border-radius: 13px;
+	text-align: center;
+	width: 24%;
+}
+.chartItem {
+	cursor: pointer;
+}

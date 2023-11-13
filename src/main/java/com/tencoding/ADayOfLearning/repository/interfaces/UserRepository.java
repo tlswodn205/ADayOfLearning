@@ -11,6 +11,7 @@ import com.tencoding.ADayOfLearning.dto.response.AdminMainBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainCustomerResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
+import com.tencoding.ADayOfLearning.dto.response.ChartResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.PagingResponseDto;
 import com.tencoding.ADayOfLearning.repository.model.User;
 
@@ -36,4 +37,7 @@ public interface UserRepository {
 	public PagingResponseDto findCustomerPaging(@Param("type") String type, @Param("keyword") String keyword, @Param("page") Integer page);
 	public List<AdminCustomerResponseDto> findCustomerList(@Param("type") String type, @Param("keyword") String keyword, @Param("startNum") int startNum);
 	public AdminCustomerResponseDto findCustomerByUserId(Integer userId);
+	public List<ChartResponseDto> customerChartData();
+	public List<ChartResponseDto> businessChartData();
+	public List<ChartResponseDto> requestBusinessChartData();
 }

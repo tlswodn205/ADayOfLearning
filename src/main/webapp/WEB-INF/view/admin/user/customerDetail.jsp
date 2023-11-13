@@ -201,7 +201,7 @@ let adminCustomerDetail = {
 		}
 		if(str.length >= mLength && i < 3) {
 			$('#tel'+ (i + 1)).focus();
-		} else if (i === 3) {
+		} else if (str.length >= mLength && i === 3) {
 			$('#birthday').focus();
 		}
 	}
