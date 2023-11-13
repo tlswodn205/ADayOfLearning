@@ -295,6 +295,10 @@ public class BusinessService {
 		return businessRepository.lastMonthSalesTotal(userId);
 	}
 
+	public int getNextSevenDaysSalesTotal(int userId) {
+		return businessRepository.nextSevenDaysSalesTotal(userId);
+	}
+
 	@Transactional
 	public int updateLecture(LectureRegistarionRequestDto dto, revisePhotoListRequestDto revisePhotoListRequestDto,
 			Integer lectureId) {

@@ -253,9 +253,11 @@ public class BusinessController {
 		int monthlyTotal = businessService.getMonthlySalesTotal(user.getUserId());
 		int sevenDaysTotal = businessService.getPastSevenDaysSalesTotal(user.getUserId());
 		int lastMonthTotal = businessService.getLastMonthSalesTotal(user.getUserId());
+		int nextSevenDaysTotal = businessService.getNextSevenDaysSalesTotal(user.getUserId());
 		model.addAttribute("monthlyTotal", monthlyTotal);
 		model.addAttribute("sevenDaysTotal", sevenDaysTotal);
 		model.addAttribute("lastMonthTotal", lastMonthTotal);
+		model.addAttribute("nextSevenDaysTotal", nextSevenDaysTotal);
 		
 		
 		return "business/payment/salesStatus";
