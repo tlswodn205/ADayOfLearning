@@ -108,6 +108,7 @@
          WHERE l.state = 1 and p.is_thumbnail = 1
            AND (l.latitude &gt; #{qa} AND l.latitude &lt; #{pa} )
            AND (l.longitude &gt; #{ha} AND l.longitude &lt; #{oa} )
+         GROUP BY l.lecture_id
 	</select>
 	<!-- 마지막에 올라온 lecture 조회 -->
 	<select id="findLastLecture" resultType = "com.tencoding.ADayOfLearning.dto.response.LastLectureResponseDto">

@@ -36,6 +36,10 @@
 					<li>
 						<a href="/chat/room">채팅</a>
 					</li>
+					
+					<li>
+						<a href="/reserve/list">구매내역</a>
+					</li>
 					<li>
 						<a href="/user/businessRequest">판매자 신청</a>
 					</li>

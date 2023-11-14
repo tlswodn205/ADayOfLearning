@@ -13,10 +13,19 @@
 				<div class="swiper bannerSwiper">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide">
-							<img class="mainBanner" src="/images/bannerImages/banner-1018815_1280.jpg">
+							<img class="mainBanner" src="/images/banner/main1.jpg">
 						</div>
 						<div class="swiper-slide">
-							<img class="mainBanner" src="/images/bannerImages/banner-1018816_1280.jpg">
+							<img class="mainBanner" src="/images/banner/main2.jpg">
+						</div>
+						<div class="swiper-slide">
+							<img class="mainBanner" src="/images/banner/main3.jpg">
+						</div>
+						<div class="swiper-slide">
+							<img class="mainBanner" src="/images/banner/main4.jpg">
+						</div>
+						<div class="swiper-slide">
+							<img class="mainBanner" src="/images/banner/main5.jpg">
 						</div>
 					</div>
 					<div class="swiper-pagination"></div>	

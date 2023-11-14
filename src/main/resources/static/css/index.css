@@ -28,6 +28,8 @@
 
 #index .mainBanner{
 	width: 1200px;
+	height: 600px;
+	object-fit: cover;
 }
 
 #index .bannerSwiper .swiper-slide{
@@ -44,6 +46,7 @@
 }
 
 .lectureListContainer .lectureListTitle{
+	margin-top: 50px;
 	font-size: 32px;
 	font-weight: bold;
 }
