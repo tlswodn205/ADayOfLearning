@@ -21,9 +21,9 @@
 			<div class="chatContentContainer">
 				<input type="hidden" id="nowChatRoomId" value="${newChat.chatRoomId}">
 				<input type="hidden" id="nowUserId" value="${newChat.userId}">
-				<input type="hidden" id="nowUsername" value="${newChat.username}">
+				<input type="hidden" id="nowUsername">
 				
-				<div class="chatPerson" id="chatPerson">${newChat.username}</div>
+				<div class="chatPerson" id="chatPerson"></div>
 				<hr>
 				<div class="chatContent" id="chatContent"></div>
 				<hr>

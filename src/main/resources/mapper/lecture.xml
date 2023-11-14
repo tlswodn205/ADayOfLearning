@@ -92,9 +92,11 @@
 	
 	<!-- 위도 경도 범위 내 조회 -->
 	<select id="findByMapBounds" resultType = "com.tencoding.ADayOfLearning.dto.response.LectureListItemResponseDto">
-		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, b.business_name
-			, RANK() OVER (ORDER BY l.created_at DESC) AS order_number, p.img,count(r.score) as reviewCount,round(avg(CASE WHEN r.score IS NULL THEN 0 END),1) as reviewScore
-			FROM tb_lecture l
+		SELECT l.lecture_id, l.title, c.category_name, l.price, l.address, b.business_name, p.img
+			 , RANK() OVER (ORDER BY l.created_at DESC) AS order_number
+			 , count(r.score) as reviewCount
+			 , round(avg(CASE WHEN r.score IS NULL THEN 0 END),1) as reviewScore
+		  FROM tb_lecture l
 		  JOIN tb_category c
 			ON l.category_id = c.category_id
 		  JOIN tb_user u

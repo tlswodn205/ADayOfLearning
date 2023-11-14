@@ -45,6 +45,9 @@ let lectureMapInit = {
 		})
 		.then((response) => response.json())
 		.then((response) => {
+			markers.forEach(function (marker, index) {
+				marker.setMap(null);
+			})
 			markers = [];
 			response.forEach(function(lecture, index) {
 				
@@ -62,13 +65,12 @@ function addressSearch(lecture) {
 			console.log('주소 조회 완료');
 			let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-			console.log(coords);
 			// 결과값으로 받은 위치를 마커로 표시합니다
 			let marker = new kakao.maps.Marker({
 				map: map,
 				position: coords,
 			});
-			console.log(marker);
+			markers.push(marker);
 			
 			// 인포윈도우로 장소에 대한 설명을 표시합니다
 			let infowindow = new kakao.maps.InfoWindow({
@@ -96,4 +98,5 @@ function addressSearch(lecture) {
 
 let map;
 let infowindows = [];
+let markers = [];
 lectureMapInit.init();

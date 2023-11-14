@@ -30,11 +30,6 @@ import com.tencoding.ADayOfLearning.dto.response.BusinessLectureListResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessLectureResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessMainUserDataResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessReserveResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.BusinessSalesResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
-import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
-import com.tencoding.ADayOfLearning.dto.request.BusinessUserRequestDto;
-import com.tencoding.ADayOfLearning.dto.request.CancelRequestDto;
 import com.tencoding.ADayOfLearning.dto.response.BusinessUserDetailResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ChatRoomResponseDto;
 import com.tencoding.ADayOfLearning.dto.response.ListPagingResponseDto;
@@ -42,12 +37,14 @@ import com.tencoding.ADayOfLearning.handler.exception.UnMatchingException;
 import com.tencoding.ADayOfLearning.repository.model.Lecture;
 import com.tencoding.ADayOfLearning.repository.model.LectureOption;
 import com.tencoding.ADayOfLearning.repository.model.LecturePhoto;
+import com.tencoding.ADayOfLearning.repository.model.Person;
 import com.tencoding.ADayOfLearning.repository.model.User;
 import com.tencoding.ADayOfLearning.service.BusinessService;
 import com.tencoding.ADayOfLearning.service.ChatRoomService;
 import com.tencoding.ADayOfLearning.service.LectureOptionService;
 import com.tencoding.ADayOfLearning.service.LecturePhotoService;
 import com.tencoding.ADayOfLearning.service.LectureService;
+import com.tencoding.ADayOfLearning.service.PersonService;
 import com.tencoding.ADayOfLearning.service.UserService;
 import com.tencoding.ADayOfLearning.util.Define;
 
@@ -59,6 +56,8 @@ public class BusinessController {
 	BusinessService businessService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	PersonService personService;
 	@Autowired
 	ChatRoomService chatRoomService;
 	@Autowired
@@ -99,7 +98,7 @@ public class BusinessController {
 
 	// chat start
 	@GetMapping("/chatRoom")
-	public String businessChatRoom(NewChatRequestDto newChatRequestDto, Model model) {
+	public String businessChatRoom(NewChatRequestDto newChatRequestDto, Model model) throws JsonProcessingException {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		if (principal == null) {
 			return "redirect:/user/signIn";
@@ -116,7 +115,10 @@ public class BusinessController {
 		}
 
 		List<ChatRoomResponseDto> chatRoomList = chatRoomService.findByUserId(principal.getUserId());
-		model.addAttribute("chatRoomList", chatRoomList);
+		model.addAttribute("chatRoomList", objectMapper.writeValueAsString(chatRoomList));
+		
+		Person person = personService.findPersonByUserId(principal.getUserId());
+		model.addAttribute("person", person);
 		return "business/chat/chatRoom";
 	}
 	// chat end
