@@ -58,7 +58,7 @@ public class UserController {
 	
 	@GetMapping("/signIn")
 	public String getSignIn() {
-		return "/";
+		return "/user/signIn";
 	}
 	
 	@PostMapping("/signIn")
@@ -75,7 +75,7 @@ public class UserController {
 		User principal = userService.signIn(signInRequestDto);
 		session.setAttribute(Define.PRINCIPAL, principal);
 		
-		return "/user/signIn";
+		return "/";
 	}
 	
 	@GetMapping("/signUp")
