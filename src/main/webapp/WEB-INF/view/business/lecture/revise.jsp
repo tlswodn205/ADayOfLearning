@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/css/business/lectureRevise.css" />
 <main>
     <div class="mainTop">
-        <div class="title">클래스 수정</div>
+        <div class="title">강의 수정</div>
     </div>
     <div id="businessDetail" class="mainColumn">
         <form action="/business/revise" method="post" id="reviseForm" enctype="multipart/form-data">

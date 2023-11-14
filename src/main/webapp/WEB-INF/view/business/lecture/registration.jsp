@@ -2,7 +2,7 @@
 file="/WEB-INF/view/business/layout/header.jsp"%>
 <main>
 	<div class="mainTop">
-		<div class="title">내 정보보기</div>
+		<div class="title">강의 등록</div>
 	</div>
 	<div id="businessDetail" class="mainColumn">
     <form action="registration" method="post" id="registrationForm" enctype="multipart/form-data">

@@ -74,6 +74,10 @@
 	box-sizing: border-box;
 }
 
+.lectureListContainer .lectureList .lectureItem:hover {
+	color: #3f464d;
+}
+
 .lectureListContainer .lectureList .lectureItemPictureArea {
 	position: absolute;
 	top: 0;
