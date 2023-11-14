@@ -5,7 +5,7 @@ file="/WEB-INF/view/layout/header.jsp"%>
     <form action="list" method="get" id="listSearchForm">       
     <input type="hidden" name="page" value="1" />
         <div class="lectureListSearchArea">
-            <div class="lectureListRow">
+            <div class="lectureListRow first">
                 <div class="inputDiv">
 	                <div class="inputTitle">제목</div>
 					<div class="textDiv">
