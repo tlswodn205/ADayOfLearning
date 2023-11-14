@@ -15,6 +15,8 @@
 						name="type">
 						<option value="businessName"
 							${listPagingResponseDto.type eq "businessName" ? "selected":""}>상호명</option>
+						<option value="CEOname"
+							${listPagingResponseDto.type eq "CEOname" ? "selected":""}>대표자명</option>
 					</select> <input type="text" id="keyword" placeholder="검색"
 						value="${listPagingResponseDto.keyword}"> <input
 						type="button" id="search-btn" value="검색하기">
@@ -81,6 +83,7 @@
 	</div>
 </main>
 
+  <script src="/js/business/search.js"></script>
 <script type="text/javascript">
 	
 </script>

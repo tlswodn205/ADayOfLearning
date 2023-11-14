@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/admin/layout/header.jsp" %>
 <main>
 	<div class="mainTop">
-		<div class="title">내 정보보기</div>
+		<div class="title">판매자 상세보기</div>
 	</div>
 	<div id="businessDetail" class="mainColumn">
 		<form action="/admin/updateBusiness" id="businessDetailForm" method="post">
@@ -76,6 +76,10 @@ let businessDetail = {
     	$(document).on("click", "#businessDeleteBtn", ()=>{
     		this.update();
     	});
+    	
+    	$(document).on("click", "#openZipSearch", ()=>{
+    		this.findAddress();
+    	});
 		$(document).ready( ()=>{
 			this.ready();
 		});
@@ -88,6 +92,22 @@ let businessDetail = {
 		$(document).on("input", "#tel3", ()=>{
 			this.telChange(3,4);
 		});
+    },
+    
+    findAddress: function() {
+   		new daum.Postcode({
+   			oncomplete : function(data) {
+   				var addr = '';
+   				if (data.userSelectedType === 'R') {
+   					addr = data.roadAddress;
+   				} else {
+   					addr = data.jibunAddress;
+   				}
+
+   				$("#businessAddress").val(addr);
+   				$("#businessAddressDetail").focus();
+   			}
+   		}).open();
     },
 	ready:function(){
 		let phoneNumber = $('#businessNumber').val();
