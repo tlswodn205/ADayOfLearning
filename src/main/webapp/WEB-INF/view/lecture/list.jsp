@@ -84,9 +84,6 @@ file="/WEB-INF/view/layout/header.jsp"%>
         <div class="listArrow">
         	<img src="/images/utilImage/DOWN.png" width="50">
         </div>
-
-    <hr class="dividerX" />
-
     <div class="lectureListList"></div>
     <div class="lectureListPaginationArea">
         <div class="lectureListPagination"></div>
