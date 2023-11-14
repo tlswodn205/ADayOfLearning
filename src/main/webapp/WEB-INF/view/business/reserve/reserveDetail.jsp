@@ -15,6 +15,7 @@
     border: none;
     font-size: 16px;
     padding: 0;
+    width: 500px;
 }
 
 #reserveDetail input[type="text"]:focus {
