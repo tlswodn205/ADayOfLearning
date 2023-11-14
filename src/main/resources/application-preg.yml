@@ -11,10 +11,10 @@ spring:
       prefix: /WEB-INF/view/
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://localhost:3306/ADayOfLearning?serverTimeZone=Asia/Seoul&allowMultiQueries=true
+    url: jdbc:mysql://192.168.0.139:3306/ADayOfLearning?serverTimeZone=Asia/Seoul&allowMultiQueries=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: asd1234!
+    password: asd1234
     
   mail:
     host: smtp.gmail.com # 1
@@ -28,6 +28,10 @@ spring:
           timeout: 5000 # 6
           starttls:
             enable: true # 7
+            
+  servlet:
+    multipart:
+      maxFileSize: 50MB
     
 mybatis:
   mapper-locations:
