@@ -47,6 +47,7 @@ let lectureMapInit = {
 		.then((response) => {
 			markers = [];
 			response.forEach(function(lecture, index) {
+				
 				addressSearch(lecture);
 			});
 		});
