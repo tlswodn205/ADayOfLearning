@@ -59,7 +59,7 @@
 							<c:forEach var ="num" begin = "${reserveList.startPageNum}" end="${reserveList.lastPageNum}">
 									<c:choose>
 										<c:when test="${num==reserveList.currentPage}">
-											<li class='page-item'><label>${num}</label></li>
+											<li class='page-item clicked'><label>${num}</label></li>
 										</c:when>
 										<c:otherwise>	
 											<li class='page-item'><a class='page-link' href="?page=${num}${empty reserveList.keyword ? "": "&keyword="+= reserveList.keyword}${empty reserveList.type ? "": "&type="+= reserveList.type}${empty reserveList.status ? "": "&status="+= reserveList.status}">${num}</a></li>
@@ -108,8 +108,7 @@ let listInit = {
 			let userId = listBtnBox.find("#userId").val();
 			
 			location.href = '/chat/room?userId=' + userId;
-		}
-		
+		},
 }
 listInit.init();
 </script>

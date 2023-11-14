@@ -1,6 +1,9 @@
 #reserveList {
 	width: 1080px;
 }
+#reserveList a:hover {
+	color: black;
+}
 #reserveList .content {
 	/* display: flex; */
 	/* justify-content: space-between; */
@@ -92,4 +95,7 @@
 	border-radius: 18px;
 	font-size: 15px;
 	margin: 3px;
+}
+#reserveList .clicked {
+	background-color: #f5d042;
 }

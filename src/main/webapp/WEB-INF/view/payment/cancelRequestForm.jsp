@@ -55,7 +55,7 @@
 				<input type="hidden" id="reserveId" name="reserveId" value="${payment.reserveId}">
 				<input type="hidden" id="paymentId" name="paymentId" value="${payment.paymentId}">
 				<input type="text" id="refundInfo" class="refundInfo" name="refundInfo" placeholder="상세 사유를 입력해주세요.">
-				<button type="button" id="refundBtn" class="refundBtn">취소 요청</button>
+				<button type="button" id="refundBtn" class="refundBtn">취 소  요 청</button>
 			</form>
 		</div>
 	</div>
