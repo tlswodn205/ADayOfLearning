@@ -140,6 +140,7 @@ form {
 /*======================= 결제하기 버튼 end =======================*/
 
 #payRequest input[type="text"] {
+	width: 500px;
     border: none;
     font-size: 16px;
     padding: 0;

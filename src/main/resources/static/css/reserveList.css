@@ -8,6 +8,7 @@
 	/* display: flex; */
 	/* justify-content: space-between; */
 	margin-top: 50px;
+	/*height: 700px;*/
 }
 #reserveList .listBox {
 	border: 1px solid #d3d3d3;

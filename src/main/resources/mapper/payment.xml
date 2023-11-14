@@ -43,7 +43,8 @@
 			ON l.user_id = ps.user_id
 		  LEFT JOIN tb_business b
 		    ON l.user_id = b.user_id
-		 WHERE p.payment_id = #{paymentId};
+		 WHERE p.payment_id = #{paymentId}
+		   AND lp.is_thumbnail = 1;
 	</select>
 	
 	<update id="updateRefundByPaymentId">

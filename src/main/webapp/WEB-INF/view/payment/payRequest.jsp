@@ -91,7 +91,7 @@
 									<input type="hidden" name="MID" value="${payRequest.merchantID}">
 									<!-- 클래스명(결제 상품명) -->
 									<input type="hidden" name="lectureSessionId" value="${session.lectureSessionId}">
-									<input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lecture.title}">
+									<input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lecture.title}" width="100px;">
 									<p>${lecture.address} ${lecture.addressDetail}</p>
 									<p><fmt:formatDate pattern="yyyy년 MM월 dd일 (E요일), HH시 mm분" value="${session.sessionDate}"/></p>
 									<%-- <input type="text" readonly id="payRequsetTitle" class="payRequsetTitle" name="GoodsName" value="${lectureData.title}"> --%>
@@ -146,13 +146,15 @@
 							<div class="amount classAmount">
 								<!-- 결제금액 -->
 								<p>클래스 금액</p>
-								<p>${lecture.price}</p>
+								
+								<p><fmt:formatNumber value="${lecture.price}" groupingUsed="true"/>원</p>
 								<%-- <input type="text" readonly name="Amt" value="${lecture.price}"> --%>
 								<!-- <p id="payRequsetPrice"></p> -->
 							</div>
 							<div class="amount sum">
 								<p>최종 결제 금액</p>
-								<input type="text" readonly name="Amt" value="${lecture.price}">
+								<input type="hidden" readonly name="Amt" value="${lecture.price}">
+								<p><fmt:formatNumber value="${lecture.price}" groupingUsed="true"/>원</p>
 								<%-- <input type="text" readonly name="Amt" value="${lectureData.price}"> --%>
 							</div>
 							<div class="submitBtn">

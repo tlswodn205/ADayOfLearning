@@ -45,7 +45,7 @@
 				</div>
 				<div class="row">
 					<p>결제 금액</p>
-					<p>${payment.amount}</p>
+					<p><fmt:formatNumber value="${payment.amount}" groupingUsed="true"/>원</p>
 				</div>
 			</div>
 			<div class="refundTitle">

@@ -40,6 +40,7 @@
 		  LEFT JOIN tb_lecture_photo lp
 		    ON ls.lecture_id = lp.lecture_id
 		 WHERE r.user_id = #{userId}
+		   AND lp.is_thumbnail = 1
 				<if test="type == 'title' and keyword != null">
 					and l.title like CONCAT('%',#{keyword},'%')
 				</if>
@@ -96,6 +97,7 @@
 		  LEFT JOIN tb_payment pa
 		    ON r.reserve_id = pa.reserve_id
 		 WHERE r.reserve_id = #{reserveId}
+		   AND lp.is_thumbnail = 1;
 	</select>
 	
 	
