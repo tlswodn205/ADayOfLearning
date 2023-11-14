@@ -16,4 +16,5 @@ public class ListSearchRequestDto {
 	private String title;
 	private String location;
 	private Integer startNum;
+	private String date;
 }

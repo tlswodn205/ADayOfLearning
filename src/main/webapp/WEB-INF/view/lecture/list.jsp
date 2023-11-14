@@ -56,11 +56,11 @@ file="/WEB-INF/view/layout/header.jsp"%>
                 <table class="calendarList">
                     <thead>
                         <tr>
-                            <td onClick="prevCalendar();" style="cursor: pointer">&#60;</td>
+                            <td id="prevCalendar" style="cursor: pointer">&#60;</td>
                             <td colspan="5">
                                 <span class="calYearList"></span>년 <span class="calMonthList"></span>월
                             </td>
-                            <td onClick="nextCalendar();" style="cursor: pointer">&#62;</td>
+                            <td id="nextCalendar" style="cursor: pointer">&#62;</td>
                         </tr>
                         <tr>
                             <td>일</td>
