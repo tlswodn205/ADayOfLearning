@@ -58,7 +58,7 @@ public class UserController {
 	
 	@GetMapping("/signIn")
 	public String getSignIn() {
-		return "/user/signIn";
+		return "/";
 	}
 	
 	@PostMapping("/signIn")
