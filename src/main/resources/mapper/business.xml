@@ -200,6 +200,7 @@
 		  JOIN tb_payment pm ON r.reserve_id = pm.reserve_id
 		 WHERE r.reserve_id = #{reserveId};
 	</select>
+
 	
 	<select id="findRequestBusiness" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainRequestBusinessResponseDto">
 		SELECT user_id, Business_name, Business_number, business_registration_number
