@@ -55,6 +55,7 @@ public class UserController {
 	public String test1() {
 		return "example";
 	}
+
 	
 	@GetMapping("/signIn")
 	public String getSignIn() {
@@ -75,7 +76,7 @@ public class UserController {
 		User principal = userService.signIn(signInRequestDto);
 		session.setAttribute(Define.PRINCIPAL, principal);
 		
-		return "/";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/signUp")
