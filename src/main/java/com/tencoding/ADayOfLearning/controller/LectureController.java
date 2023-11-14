@@ -83,7 +83,7 @@ public class LectureController {
 		}
 
 		ListSearchRequestDto listSearchRequestDto = new ListSearchRequestDto().builder().minPrice(min_price)
-				.maxPrice(max_price).categoryName(category).title(title).location(location).startNum((page - 1) * 12)
+				.maxPrice(max_price).categoryName(category).title(title).location(location).startNum((page - 1) * 12).date(date)
 				.build();
 
 		int LectureAllCount = lectureService.getCount(listSearchRequestDto);

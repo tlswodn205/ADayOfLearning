@@ -51,7 +51,8 @@
 		LEFT JOIN tb_user u ON l.user_id = u.user_id 
 		LEFT JOIN tb_lecture_photo p ON p.lecture_id= l.lecture_id 
 		LEFT JOIN tb_business b ON b.user_id= l.user_id 
-		LEFT JOIN tb_review r ON r.lecture_id= l.lecture_id 
+		LEFT JOIN tb_review r ON r.lecture_id= l.lecture_id
+		LEFT JOIN tb_lecture_session s ON l.lecture_id = s.lecture_id
 		WHERE p.is_thumbnail=1
         <if test="title != null">
 			AND REPLACE(l.title, ' ', '') LIKE '%${title}%'
@@ -67,6 +68,9 @@
 		</if>	
          <if test="location != null">
 			AND address LIKE '${location}%'
+		</if>	
+		<if test="date != null">
+			AND s.session_date BETWEEN #{date} AND DATE_ADD(#{date}, INTERVAL 1 DAY)
 		</if>	
        	GROUP BY l.lecture_id
 		ORDER BY l.created_at DESC

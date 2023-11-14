@@ -309,6 +309,18 @@ let listInit = {
 
 	// 달력 생성
 	buildCalendar: function() {
+		var queryString = window.location.search;
+		let params = new URLSearchParams(queryString);
+		let paramDate = params.get('date');
+		let paramYear;
+		let paramMonth;
+		let paramDay;
+		if(paramDate != null) {
+			paramYear = parseInt(paramDate.slice(0, 4));
+			paramMonth = parseInt(paramDate.slice(5, 7));
+			paramDay = parseInt(paramDate.slice(8, 10));
+		}
+		
 		let today = new Date();
 		today.setHours(0, 0, 0, 0);
 
@@ -322,7 +334,7 @@ let listInit = {
 		$tbodyCalendar.empty();
 
 		let $nowRow = $('<tr>');
-
+		
 		for (let j = 0; j < firstDate.getDay(); j++) {
 			$nowRow.append($('<td>'));
 		}
@@ -336,16 +348,22 @@ let listInit = {
 				$newDiv.addClass('pastDay');
 			} else if (nowDay.getTime() === today.getTime()) {
 				$newDiv.addClass('today');
+				
 				$newDiv.click(function() {
 					listInit.choiceDate(this);
 				});
 			} else {
 				$newDiv.addClass('futureDay');
+				
 				$newDiv.click(function() {
 					listInit.choiceDate(this);
 				});
 			}
-
+			
+			if(date != null && paramYear === nowMonth.getFullYear() 
+					&& paramMonth === (nowMonth.getMonth() + 1) && paramDay === nowDay.getDate()) {
+				$newDiv.addClass('choiceDay');
+			}
 			$nowRow.append($nowColumn);
 
 			if (nowDay.getDay() === 6 || nowDay.getTime() === lastDate.getTime()) {
@@ -425,6 +443,7 @@ let listInit = {
 		var minPrice = params.get('min_price');
 		var maxPrice = params.get('max_price');
 		var title = params.get('title');
+		var date = params.get('date');
 
 		if (location !== null || category !== null || minPrice !== null || maxPrice !== null || title !== null) {
 			$('#listSearchForm').css('display', 'block');
@@ -432,10 +451,11 @@ let listInit = {
 		}
 
 		if (location != null) $('.formLocation').val(location);
-		if (location != null) $('.formCategory').val(category);
-		if (location != null) $('.formMinPrice').val(minPrice);
-		if (location != null) $('.formMaxPrice').val(maxPrice);
-		if (location != null) $('.formTitle').val(title);
+		if (category != null) $('.formCategory').val(category);
+		if (minPrice != null) $('.formMinPrice').val(minPrice);
+		if (maxPrice != null) $('.formMaxPrice').val(maxPrice);
+		if (title != null) $('.formTitle').val(title);
+		if (date != null) $('.selectedDate').val(date);
 		
 	}
 
