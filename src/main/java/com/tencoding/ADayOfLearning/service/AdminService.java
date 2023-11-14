@@ -165,7 +165,7 @@ public class AdminService {
 		businessRepository.agreeBusiness(userId);
 		userRepository.agreeBusiness(userId);
 		Business business = businessRepository.findByUserId(userId);
-		return business.getUserId();
+		return business.getBusinessId();
 	}
 	
 	public void disagreeBusiness(Integer userId) {
@@ -234,7 +234,9 @@ public class AdminService {
 	}
 
 	public List<ChartResponseDto> getRequestBusinessChartData() {
+		
 		List<ChartResponseDto> userChartData = userRepository.requestBusinessChartData();
+		System.out.println(userChartData);
 		return userChartData;
 	}
 	//business end

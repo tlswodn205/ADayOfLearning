@@ -161,7 +161,7 @@ let BusinessRequest = {
 			return false;
 		}
 		
-		
+		alert("판매자 등록 요청이 완료 되었습니다.");
 		$("#businessRequest").submit();
     },	
     telChange: function(i, mLength) {

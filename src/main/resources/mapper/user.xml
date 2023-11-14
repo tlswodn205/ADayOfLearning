@@ -80,7 +80,7 @@
 	<select id="findBusiness" resultType = "com.tencoding.ADayOfLearning.dto.response.AdminMainBusinessResponseDto">
 		SELECT b.user_id, b.Business_name, b.Business_number, b.business_registration_number 
 		FROM tb_user u LEFT JOIN tb_business b on u.user_id = b.user_id
-		WHERE identity = "business"
+		WHERE identity = "business" and state = "등록완료"
 		ORDER BY u.created_at DESC
         limit 0,5;
 	</select>	
@@ -159,7 +159,7 @@
 		  LEFT JOIN (SELECT u.created_at, u.username
 					  FROM tb_user u
 					  LEFT JOIN tb_business b ON b.user_id = u.user_id
-					  WHERE u.identity = 'business' AND b.state ="승인대기") AS pm ON DATE_FORMAT(pm.created_at, "%Y-%m-%d") = a.day
+					  WHERE u.identity = 'business' AND b.state ="등록완료") AS pm ON DATE_FORMAT(pm.created_at, "%Y-%m-%d") = a.day
 		 GROUP BY a.period
 		 ORDER BY a.period;
 	</select>
@@ -176,7 +176,7 @@
 		  LEFT JOIN (SELECT u.created_at, u.username
 					  FROM tb_user u
 					  LEFT JOIN tb_business b ON b.user_id = u.user_id
-					  WHERE u.identity = 'business' AND b.state ="등록완료") AS pm ON DATE_FORMAT(pm.created_at, "%Y-%m-%d") = a.day
+					  WHERE u.identity = 'customer' AND b.state ="등록요청") AS pm ON DATE_FORMAT(pm.created_at, "%Y-%m-%d") = a.day
 		 GROUP BY a.period
 		 ORDER BY a.period;
 	</select>

@@ -52,7 +52,7 @@ let salesInit = {
 			type: "get",
 			dataType: 'json',
 			success: function(res) {
-				lineChartInit(res, '주간 유저 가입 현황', 'requestBusinessChart');
+				lineChartInit(res, '주간 판매자 신청 현황', 'requestBusinessChart');
 				res.map(item => parseInt(item.periodTotal, 10))
 			},
 			error: function() {
@@ -97,6 +97,7 @@ let salesInit = {
 // chart 생성
 function chartInit(res,title, chartname) {
 
+	$('#'+chartname).remove();
 	$('#'+chartname+'Area').append('<canvas id="'+chartname+'"></canvas>');
 	
 	const ctx = document.getElementById(chartname);
@@ -133,10 +134,6 @@ function lineChartInit(res,title, chartname) {
 	$('#'+chartname+'Area').append('<canvas id="'+chartname+'"></canvas>');
 	
 	const ctx = document.getElementById(chartname);
-	
-	console.log($('#'+chartname+'Area'));
-	console.log(chartname+"Area");
-	
 	
 	new Chart(ctx, {
 		type: 'line',
