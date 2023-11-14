@@ -88,13 +88,13 @@
 						<p><fmt:formatNumber value="${reserve.amount}" groupingUsed="true"/>원</p>
 					</div>
 					<c:if test="${reserve.state == '결제 완료'}">
-						<a href="/payment/cancelRequest/${reserve.paymentId}" class="btn_blue requestBtn">결제 취소</a>
+						<a href="/payment/cancelRequest/${reserve.paymentId}" class="btn_blue state requestBtn">결제 취소</a>
 					</c:if>
 					<c:if test="${reserve.state == '취소 요청'}">
-						<p class="btn_blue requestBtn">취소 대기</p>
+						<p class="btn_blue state">취소 대기</p>
 					</c:if>
 					<c:if test="${reserve.state == '취소 완료'}">
-						<p class="btn_blue requestBtn">취소 완료</p>
+						<p class="btn_blue state">취소 완료</p>
 					</c:if>
 				</div>
 			</div>
