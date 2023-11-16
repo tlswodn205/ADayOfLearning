@@ -64,19 +64,61 @@
 ### 로그인
 - 일반 로그인
 - 아이디/비밀번호 찾기
+- 카카오 로그인
 
+### 판매자 등록 요청
 
-사진 추가하기
+</br>
+
+|회원가입|로그인|
+|---|---|
+|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/5ea78427-2bd4-42fb-ab34-0ab35657edf3" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/4e1d3020-da7d-4e44-8f5c-8d3571a5afcf" width="475" height="300"/>|
+
+|카카오로그인|판매자 등록 요청|
+|---|---|
+|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/bb45798d-49de-46b8-83f5-ffd96b98f234" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/58e1f113-3e88-4503-8db1-fec66c4faa3e" width="475" height="300"/>|
+
+</br>
+</br>
+
+### 강의 리스트 검색
+- 제목, 지역, 가격, 카테고리, 강의 일정으로 검색
+
+### 강의 상세 정보 확인
+- 강의 정보 확인
+- KAKAO 지도 API
+  
+</br>
+
+|강의 리스트, 검색| 강의 상세 정보 확인|
+|---|---|
+|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/4b3cca07-5e82-473f-9bb3-106780bf51e2" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/92591ab9-2b05-4c30-84b8-c6674b1e7848" width="475" height="300"/>|
+
+</br>
+  
 
 ## 6️⃣ 주요 기능 - 판매자
-### 강의
+
+### 강의 등록
+- 강의 정보 입력
+- 강의 소개 (TinyEditor API)
+- 주소 찾기 (DAUM 우편번호 찾기 API)
+- 썸네일 사진과 일반 사진 등록
+
+### 강의 수정
+- 강의 정보 수정
+
+### 강의 일정 등록
+- 시간 지정
+
+
 
 ### 채팅
 
 사진 추가하기
 
 ## 7️⃣ 주요 기능 - 관리자
-- 대시보드 조회
+- 대시보드 조회  
 - 그래프를 통한 동향 파악
 - 판매자 권한 부여
 
