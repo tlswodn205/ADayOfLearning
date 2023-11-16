@@ -50,7 +50,9 @@
 ## 🗺 SiteMap
 |사용자|판매자|관리자|
 |---|---|---|
-|사진|사진|사진|
+|![image](https://github.com/tlswodn205/ADayOfLearning/assets/113487440/b121cddf-27ab-487e-afbd-0605b8c9994a)|![image](https://github.com/tlswodn205/ADayOfLearning/assets/113487440/a26a7561-57fa-497e-a2bb-c1aede97e1c5)|![image](https://github.com/tlswodn205/ADayOfLearning/assets/113487440/ed819c3f-e8c1-4dc9-a0f4-e8cfaeebfd89)
+
+
 
 
 ## 🙋‍♂️ 주요 기능 - 사용자
