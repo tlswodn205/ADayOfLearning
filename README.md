@@ -72,11 +72,11 @@
 
 |회원가입|로그인|
 |---|---|
-|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/5ea78427-2bd4-42fb-ab34-0ab35657edf3" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/4e1d3020-da7d-4e44-8f5c-8d3571a5afcf" width="475" height="300"/>|
+|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/5ea78427-2bd4-42fb-ab34-0ab35657edf3" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/4e1d3020-da7d-4e44-8f5c-8d3571a5afcf" width="475" height="300"/>
 
 |카카오로그인|판매자 등록 요청|
 |---|---|
-|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/bb45798d-49de-46b8-83f5-ffd96b98f234" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/58e1f113-3e88-4503-8db1-fec66c4faa3e" width="475" height="300"/>|
+|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/bb45798d-49de-46b8-83f5-ffd96b98f234" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/58e1f113-3e88-4503-8db1-fec66c4faa3e" width="475" height="300"/>
 
 </br>
 </br>
@@ -92,10 +92,46 @@
 
 |강의 리스트, 검색| 강의 상세 정보 확인|
 |---|---|
-|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/4b3cca07-5e82-473f-9bb3-106780bf51e2" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/92591ab9-2b05-4c30-84b8-c6674b1e7848" width="475" height="300"/>|
+|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/4b3cca07-5e82-473f-9bb3-106780bf51e2" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/92591ab9-2b05-4c30-84b8-c6674b1e7848" width="475" height="300"/>
 
 </br>
-  
+</br>
+
+
+### 선택한 강의 예약
+- 예약 정보 확인
+- 나이스 페이 API를 이용한 결제
+
+### 예약 내역
+- 예약 내용 조회 및 검색
+- 예약 내용 상세보기
+- 환불 요청
+
+|강의 예약|환불 요청|
+|---|---|
+|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/ee06750c-0f48-43e7-9606-5829c89ac141" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/19010fc2-ca95-4eaa-a8d2-b2d434d137e7" width="475" height="300"/>|
+
+
+</br>
+</br>
+
+### 채팅
+- 신규 채팅방 생성
+- 실시간 채팅
+
+### 우리지역 조회
+- 지도에서 강의 조회
+- 마커로 강의 상세보기 이동
+
+</br>
+
+|채팅|우리지역 조회|
+|---|---|
+|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/4d733036-7724-44d0-9ed4-0ebea98b3498" width="475" height="300"/>|<img src="https://github.com/tlswodn205/ADayOfLearning/assets/80434390/997ca4c5-496d-4af7-8b9d-539ede06d904" width="475" height="300"/>|
+
+
+
+
 
 ## 6️⃣ 주요 기능 - 판매자
 
